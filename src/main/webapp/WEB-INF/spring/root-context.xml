@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- dataSource for SqlSessionFactoryBean.setDataSource -->
+	<bean id="dataSourceSpied" class="oracle.jdbc.pool.OracleDataSource">
+		<property name="uRL" value="jdbc:oracle:thin:@db202008071908_high?TNS_ADMIN=C:\\Wallet_DB202008071908"/>
+		<property name="connectionProperties">
+			<props>
+				<prop key="user">ADMIN</prop>
+				<prop key="password">Passw0rd1234</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- proxy for query log -->
+	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="dataSourceSpied" />
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE" />
+				<property name="sqlPrefix" value="SQL :::" />
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- sqlSessionFactoryBean -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	  <property name="dataSource" ref="dataSource" />
+	  <property name="configLocation" value="classpath:mybatis/config.xml" />
+	  <property name="mapperLocations" value="classpath:mybatis/mapper/*.xml" />
+	</bean>
+	
+	<!-- sqlSessionTemplate -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+	
+	<!-- JavaMailSenderImpl -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.naver.com" />
+		<property name="port" value="465" />
+		<property name="username" value="final_dht@naver.com" />
+		<property name="password" value="dht@@2020" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.ssl.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>		
+	
+	<!-- for multipart data -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="100000000" />
+		<property name="maxInMemorySize" value="100000000" />
+	</bean>
+	
+</beans>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<settings>
+		<!-- Snake case를 Camel case로 자동 매핑 -->
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+	
+	<!-- 예시 -->
+<!-- 	<typeAliases> -->
+<!-- 		<typeAlias type="com.dht.www.board.model.vo.Board" alias="Board" /> -->
+<!-- 	</typeAliases> -->
+
+<!-- 	<mappers> -->
+<!-- 		<mapper resource="/mybatis/mapper/boardMapper.xml" /> -->
+<!-- 	</mappers> -->
+
+</configuration>
