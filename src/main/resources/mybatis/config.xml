@@ -10,13 +10,20 @@
 		<setting name="mapUnderscoreToCamelCase" value="true" />
 	</settings>
 	
-	<!-- 예시 -->
-<!-- 	<typeAliases> -->
-<!-- 		<typeAlias type="com.dht.www.board.model.vo.Board" alias="Board" /> -->
-<!-- 	</typeAliases> -->
+	<typeAliases>
+		<typeAlias type="com.dht.www.event.model.vo.Event" alias="Event" />
+		<typeAlias type="com.dht.www.event.model.vo.Initial" alias="Initial" />
+		
+		<typeAlias type="com.dht.www.exercise.model.vo.Exercise" alias="Exercise" />
+		<typeAlias type="com.dht.www.exercise.model.vo.Grade" alias="Grade" />
+		<typeAlias type="com.dht.www.exercise.model.vo.Record" alias="Record" />
+		<typeAlias type="com.dht.www.exercise.model.vo.Compensation" alias="Compensation" />
+	</typeAliases>
 
-<!-- 	<mappers> -->
-<!-- 		<mapper resource="/mybatis/mapper/boardMapper.xml" /> -->
-<!-- 	</mappers> -->
+	<mappers>
+		<mapper resource="/mybatis/mapper/eventMapper.xml" />
+		<mapper resource="/mybatis/mapper/exerciseMapper.xml" />
+		<mapper resource="/mybatis/mapper/shoppingMapper.xml" />
+	</mappers>
 
 </configuration>

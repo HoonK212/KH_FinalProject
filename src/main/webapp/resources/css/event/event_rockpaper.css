@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+#cam{
+	
+    height: 300px;
+    width: 500px;
+    /* text-align: center; */
+    display: flex;
+    margin: 0 auto;
+    border: 1px solid #CCC;
+}

@@ -1,0 +1,306 @@
+@charset "UTF-8";
+
+#wrap {
+	margin: 0 auto;
+	width: 90%;
+}
+
+#left {
+	float: left;
+	width: 20%;
+	height: auto;
+}
+#right {
+	float: right;
+	width: 80%;
+	height: auto;
+}
+
+
+.exer-type {
+	position: absolute;
+    top: -100px;
+    left: 10px;
+}
+.exer-name {
+	position: absolute;
+    top: 100px;
+    left: 70px;
+}
+
+.layout-overflow {
+    height: 755px;
+    overflow-y : scroll;
+}
+
+.layout-cam {
+	height:480px;
+	background:white;
+}
+
+
+/* 선택박스 CSS 시작 */
+/* CONTAINERS */
+.container_checkbox {
+	max-width: 850px;
+	width: 100%;
+	margin: 0 auto;
+}
+
+.level-title {
+	text-align: center;
+	padding-bottom: 10px;
+	border-bottom: 2px solid #2fcc71;
+	max-width: 40%;
+	margin: 40px auto;
+	font-size: 1.5em;
+}
+
+.four {
+	width: 32.26%;
+	max-width: 32.26%;
+}
+
+.four-level {
+	width: 18.72%;
+	max-width: 32.26%;
+}
+
+/* COLUMNS */
+.col {
+	display: block;
+	float: left;
+	margin: 1% 0 1% 1.6%;
+}
+
+.col:first-of-type {
+	margin-left: 0;
+}
+
+/* CLEARFIX */
+.cf:before, .cf:after {
+	content: " ";
+	display: table;
+}
+
+.cf:after {
+	clear: both;
+}
+
+.cf {
+	justify-content: center;
+}
+
+/* FORM */
+.form .plan input, .form .payment-plan input, .form .payment-type input
+	{
+	display: none;
+}
+
+.form label {
+	position: relative;
+	color: black;
+	background-color: #aaa;
+	font-size: 26px;
+	text-align: center;
+	height: 300px;
+	line-height: 300px;
+	display: block;
+	cursor: pointer;
+	border: 3px solid #ccc;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.form label:hover {
+	cursor: pointer;
+    background-color: white;
+    border: 3px solid #2fcc71;
+}
+
+.form .plan input:checked+label, .form .payment-plan input:checked+label,
+	.form .payment-type input:checked+label {
+	border: 3px solid #2fcc71;
+	background-color: white;
+}
+
+.form .plan input:checked+label:after, form .payment-plan input:checked+label:after,
+	.form .payment-type input:checked+label:after {
+	color: white;
+	content: "\2713";
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	border-radius: 100%;
+	border: 2px solid #2fcc71;
+	background-color: #2fcc71;
+	z-index: 10;
+	position: absolute;
+	top: -10px;
+	right: -10px;
+}
+
+/* SELECT-FORM */
+.levelForm .plan input, .levelForm .payment-plan input, .levelForm .payment-type input
+	{
+	display: none;
+}
+
+.levelForm label {
+	position: relative;
+	color: black;
+	background-color: #aaa;
+	font-size: 26px;
+	text-align: center;
+	height: 150px;
+	line-height: 150px;
+	display: block;
+	cursor: pointer;
+	border: 3px solid #ccc;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.levelForm label:hover {
+	cursor: pointer;
+    background-color: white;
+    border: 3px solid #2fcc71;
+}
+
+.levelForm .plan input:checked+label, .levelForm .payment-plan input:checked+label,
+	.levelForm .payment-type input:checked+label {
+	border: 3px solid #2fcc71;
+	background-color: white;
+}
+
+.levelForm .plan input:checked+label:after, form .payment-plan input:checked+label:after,
+	.levelForm .payment-type input:checked+label:after {
+	color: white;
+	content: "\2713";
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	border-radius: 100%;
+	border: 2px solid #2fcc71;
+	background-color: #2fcc71;
+	z-index: 10;
+	position: absolute;
+	top: -10px;
+	right: -10px;
+}
+
+/* EXERCISE-FORM */
+.form-exercies .plan input, .form-exercies .payment-plan input, .form-exercies .payment-type input
+	{
+	display: none;
+}
+
+.form-exercies label {
+	position: relative;
+	color: #fff;
+	background-color: #aaa;
+	font-size: 26px;
+	text-align: center;
+	height: 250px;
+	line-height: 250px;
+	display: block;
+	cursor: pointer;
+	border: 3px solid #ccc;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.form-exercies label:hover {
+	cursor: pointer;
+    background-color: white;
+    border: 3px solid #2fcc71;
+}
+
+.form-exercies .plan input:checked+label, .form-exercies .payment-plan input:checked+label,
+	.form-exercies .payment-type input:checked+label {
+	border: 3px solid #2fcc71;
+	background-color: #2fcc71;
+}
+
+.form-exercies .plan input:checked+label:after, form .payment-plan input:checked+label:after,
+	.form-exercies .payment-type input:checked+label:after {
+	content: "\2713";
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	border-radius: 100%;
+	border: 2px solid #2fcc71;
+	background-color: #2fcc71;
+	z-index: 10;
+	position: absolute;
+	top: -10px;
+	right: -10px;
+}
+
+/* 버튼 CSS */
+.nav-button {
+	justify-content: center;
+}
+
+.margin-topbottom {
+	margin: 40px 0px;
+}
+/* 버튼 CSS */
+
+/* 선택박스 CSS 끝 */
+
+/* 프로그래스바 CSS 시작 */
+.row {
+  padding-left: 10px;
+}
+
+.textbox {
+  height: 700px;
+}
+
+.progress {
+	margin-bottom: 10px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	overflow: hidden;
+	font-size: .75rem;
+	line-height: 1rem;
+	text-align: center;
+	background-color: #eceeef;
+	border-radius: .25rem;
+}
+
+.progress-bar-count {
+	width: 0;
+	height: 1rem;
+	color: #fff;
+	background-color: #0275d8;
+}
+
+.progress-bar {
+	width: 0;
+	height: 1rem;
+	color: #fff;
+	background-color: #0275d8;
+}
+
+.progressbar-title {
+	margin-top: 25px;
+    margin-bottom: 10px;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+	font-weight: bold;
+    font-size: 20px;
+}
+
+.progressbar-content {
+	margin-bottom: 0px;
+}
+
+
+/* 프로그래스바 CSS 끝 */

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Exercise">
+
+<!-- 	<resultMap type="map" id="Exercise"> -->
+<!-- 		<id column="no" property="no" /> -->
+<!-- 		<result column="type" property="type" /> -->
+<!-- 		<result column="name" property="name" /> -->
+<!-- 		<result column="cal" property="cal" /> -->
+<!-- 		<result column="decs" property="decs" /> -->
+<!-- 		<result column="count" property="count" /> -->
+<!-- 	</resultMap> -->
+	
+<!-- 	<resultMap type="map" id="Grade"> -->
+<!-- 		<id column="grade" property="grade" /> -->
+<!-- 		<result column="var" property="var" /> -->
+<!-- 	</resultMap> -->
+	
+<!-- 	<resultMap type="map" id="Record"> -->
+<!-- 		<id column="id" property="id" /> -->
+<!-- 		<result column="date" property="date" /> -->
+<!-- 		<result column="record" property="record" /> -->
+<!-- 		<result column="ex_no" property="exNo" /> -->
+<!-- 	</resultMap> -->
+	
+<!-- 	<resultMap type="map" id="Compensation"> -->
+<!-- 		<id column="id" property="id" /> -->
+<!-- 		<result column="date" property="date" /> -->
+<!-- 		<result column="type" property="type" /> -->
+<!-- 		<result column="event" property="event" /> -->
+<!-- 		<result column="inc" property="inc" /> -->
+<!-- 		<result column="dec" property="dec" /> -->
+<!-- 	</resultMap> -->
+	
+
+<!-- 	<insert id="insertMatch"> -->
+<!-- 		INSERT INTO TB_SCORE -->
+<!-- 		VALUES (#{rank}, #{teamName}, #{match}, #{win}, #{loose}, #{tie}, #{rate}, sysdate) -->
+<!-- 	</insert> -->
+
+</mapper>
