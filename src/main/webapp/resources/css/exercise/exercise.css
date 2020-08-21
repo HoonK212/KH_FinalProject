@@ -282,6 +282,13 @@
 	background-color: #0275d8;
 }
 
+.progress-bar-set {
+	width: 0;
+	height: 1rem;
+	color: #fff;
+	background-color: #0275d8;
+}
+
 .progress-bar {
 	width: 0;
 	height: 1rem;
@@ -304,3 +311,9 @@
 
 
 /* 프로그래스바 CSS 끝 */
+
+/* 버튼 비활성화 */
+.complete{
+	pointer-events: none;
+	cursor: default;
+}

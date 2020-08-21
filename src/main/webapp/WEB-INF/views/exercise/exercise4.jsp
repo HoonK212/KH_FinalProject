@@ -14,6 +14,7 @@
 
 $(document).ready(function() {
 
+	
 	init();
 	
 	var delay = 1000;
@@ -31,7 +32,22 @@ $(document).ready(function() {
 				$(this).text(Math.ceil(now) + '%');
 			}
 		});
-	});
+	})
+	$(".progress-bar-set").each(function() {
+		$(this).animate({
+			width : $(this).attr('aria-valuenow') + '%'
+		}, delay);
+
+		$(this).prop('Counter', 0).animate({
+			Counter : $(this).text()
+		}, {
+			duration : delay,
+			easing : 'swing',
+			step : function(now) {
+				$(this).text(Math.ceil(now) + '개');
+			}
+		});
+	});;
 	$(".progress-bar-count").each(function() {
 		$(this).animate({
 			width : $(this).attr('aria-valuenow') + '%'
@@ -63,7 +79,23 @@ $(document).ready(function() {
 		});
 	});
 	
-	
+	function countUpdate() {
+		$(".progress-bar-count").each(function() {
+			$(this).animate({
+				width : $(this).attr('aria-valuenow') + '%'
+			}, delay);
+
+			$(this).prop('Counter', 0).animate({
+				Counter : $(this).text()
+			}, {
+				duration : delay,
+				easing : 'swing',
+				step : function(now) {
+					$(this).text(Math.ceil(now) + '개');
+				}
+			});
+		});
+	}
 	
 })
 /* 프로그래스바 jQuery 끝 */
@@ -389,6 +421,7 @@ $(document).ready(function() {
 									
 								    var status = "stand"
 								    var count = 0
+								    var set = 0
 								    async function predict() {
 								        // Prediction #1: run input through posenet
 								        // estimatePose can take in an image, video or canvas html element
@@ -404,6 +437,41 @@ $(document).ready(function() {
 								        		var audio = new Audio('<%=request.getContextPath() %>/resources/audio/'+count+'.mp3');
 								        		audio.play()
 								        		console.log(count)
+								        		
+								        		// 목표값 이상으로 가면
+								        		if( $(".progress-bar-count")[0].ariaValueMax > count-1) {
+									        		$(".progress-bar-count").width( (count / $(".progress-bar-count")[0].ariaValueMax) * 100 +  "%")
+									        		$(".progress-bar-count").html(count + "개")
+									        		
+									        		if($(".progress-bar-count")[0].ariaValueMax == count) {
+										        		count = 0;
+									        			$(".progress-bar-count").width( (count / $(".progress-bar-count")[0].ariaValueMax) * 100 +  "%")
+										        		$(".progress-bar-count").html(count + "개")
+										        		
+										        		set++
+										        		console.log("dnldp" + set)
+										        		
+														// 목표값 달성 시
+										        		if($(".progress-bar-set")[0].ariaValueMax == set) {
+										        			set = 0;
+										        			$(".complete").prop("disabled", true);
+										        			$(".progress-bar-set").width( (set / $(".progress-bar-set")[0].ariaValueMax) * 100 +  "%")
+											        		$(".progress-bar-set").html(set + "세트")
+											        		$(".complete").css({'pointer-events':'all'})
+										        			$(".complete").css({'cursor':'pointer'})
+										        		}
+									        			
+										        		
+										        		console.log("set : " + set)
+										        		$(".progress-bar-set").width( (set / $(".progress-bar-set")[0].ariaValueMax) * 100 +  "%")
+										        		$(".progress-bar-set").html(set + "세트")
+										        		
+										        		
+									        		}
+								        		}
+								        		
+								        		
+								        		
 								        	}
 								        	status = "stand"
 							        		console.log(status)
@@ -445,7 +513,9 @@ $(document).ready(function() {
 								        }
 								    }
 								</script>
-							
+								<script type="text/javascript">
+																		
+								</script>
 							
 							
 							</div>
@@ -456,21 +526,21 @@ $(document).ready(function() {
 									<div class="" style="width: 100%;">
 										<h5>세트</h5>
 										<div class="progress">
-											<div class="progress-bar" role="progressbar"
-												aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0</div>
+											<div class="progress-bar-set" role="progressbar"
+												aria-valuenow="0" aria-valuemin="0" aria-valuemax="2">0</div>
 										</div>
 										<h5>횟수</h5>
-										<div class="progress">
+										<div class="progress" >
 											<div class="progress-bar-count" role="progressbar"
-												aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0</div>
+												aria-valuenow="0" aria-valuemin="0" aria-valuemax="2">0</div>
 										</div>
 									</div>
 								</div>
 								<!-- 프로그래스바 템플릿 끝 -->
 								
 							</div>
-							<a class="block flex items-center justify-center bg-blue-800 hover:bg-blue-700 p-4 text-md font-semibold text-gray-300 uppercase mt-8"
-								href="#"> <span>운동 보상 받기</span> <span class="font-medium text-gray-300 ml-2">➔</span>
+							<a class="block flex items-center justify-center bg-blue-800 hover:bg-blue-700 p-4 text-md font-semibold text-gray-300 uppercase mt-8 complete"
+								href="#" > <span>운동 보상 받기</span> <span class="font-medium text-gray-300 ml-2">➔</span>
 							</a>
 						</div>
 					</div>
