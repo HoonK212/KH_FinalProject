@@ -14,6 +14,8 @@
 
 $(document).ready(function() {
 
+	init();
+	
 	var delay = 1000;
 	$(".progress-bar").each(function() {
 		$(this).animate({
@@ -327,13 +329,16 @@ $(document).ready(function() {
 					<div class="w-full md:w-1/2 relative z-0">
 						<div
 							class="bg-blue-900 text-white rounded-b md:rounded-b-none md:rounded-r shadow-lg overflow-hidden">
-							<div class="text-lg font-medium text-white-500 uppercase p-8 text-center border-b border-gray-200 tracking-wide">운동 촬영 영상</div>
+							<div class="text-lg font-medium text-white-500 uppercase p-8 text-center border-b border-gray-200 tracking-wide">
+<!-- 									<button type="button" onclick="init()">운동 Start</button> -->
+								운동 촬영 영상
+							</div>
 							<div class="text-center text-sm sm:text-md max-w-lg mx-auto text-gray-900 mt-8 px-8 lg:px-0 layout-cam">
 							
 							
 							
 							
-								<button type="button" onclick="init()">Start</button>
+<!-- 								<button type="button" onclick="init()">Start</button> -->
 								<div><canvas id="canvas" style="display: inline;"></canvas></div>
 								<div id="label-container"></div>
 								<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
@@ -359,16 +364,16 @@ $(document).ready(function() {
 								        maxPredictions = model.getTotalClasses();
 								
 								        // Convenience function to setup a webcam
-								        const size = 500;
+// 								        const size = 500;
 								        const flip = true; // whether to flip the webcam
-								        webcam = new tmPose.Webcam(size, size, flip); // width, height, flip
+								        webcam = new tmPose.Webcam(512, 480, flip); // width, height, flip
 								        await webcam.setup(); // request access to the webcam
 								        await webcam.play();
 								        window.requestAnimationFrame(loop);
 								
 								        // append/get elements to the DOM
 								        const canvas = document.getElementById("canvas");
-								        canvas.width = size; canvas.height = size;
+								        canvas.width = 512; canvas.height = 480;
 								        ctx = canvas.getContext("2d");
 								        labelContainer = document.getElementById("label-container");
 								        for (let i = 0; i < maxPredictions; i++) { // and class labels
@@ -381,7 +386,9 @@ $(document).ready(function() {
 								        await predict();
 								        window.requestAnimationFrame(loop);
 								    }
-								
+									
+								    var status = "stand"
+								    var count = 0
 								    async function predict() {
 								        // Prediction #1: run input through posenet
 								        // estimatePose can take in an image, video or canvas html element
@@ -389,10 +396,37 @@ $(document).ready(function() {
 								        // Prediction 2: run input through teachable machine classification model
 								        const prediction = await model.predict(posenetOutput);
 								
+								        if(prediction[0].probability.toFixed(2) == 1.00) {
+								        	
+								        	if(status == "squat") { // 스쿼트에서 일어나면 개수 증가
+								        		count++
+								        		console.log("카운터 증가" + count)
+								        		var audio = new Audio('<%=request.getContextPath() %>/resources/audio/'+count+'.mp3');
+								        		audio.play()
+								        		console.log(count)
+								        	}
+								        	status = "stand"
+							        		console.log(status)
+								        } else if(prediction[1].probability.toFixed(2) == 1.00) {
+								        	status = "squat"
+								        	console.log(status)
+								        } else if(prediction[2].probability.toFixed(2) == 1.00) {
+								        	if(status == "squat" || status == "stand") {
+								        		var audio = new Audio('<%=request.getContextPath() %>/resources/audio/wrong.mp3');
+								        		audio.play()
+								        	}
+								        	status = "bent"
+								        	console.log(status)
+								        } else if(prediction[3].probability.toFixed(2) == 1.00) {
+								        	
+								        	console.log("wrong")
+								        } 
+								        	
+								        	
 								        for (let i = 0; i < maxPredictions; i++) {
 								            const classPrediction =
 								                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-								            labelContainer.childNodes[i].innerHTML = classPrediction;
+								            labelContainer.childNodes[i].innerHTML = classPrediction; //여기가 값나오는 부분!
 								        }
 								
 								        // finally draw the poses
@@ -423,12 +457,12 @@ $(document).ready(function() {
 										<h5>세트</h5>
 										<div class="progress">
 											<div class="progress-bar" role="progressbar"
-												aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25</div>
+												aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0</div>
 										</div>
 										<h5>횟수</h5>
 										<div class="progress">
 											<div class="progress-bar-count" role="progressbar"
-												aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">60</div>
+												aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0</div>
 										</div>
 									</div>
 								</div>

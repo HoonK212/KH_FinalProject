@@ -6,7 +6,7 @@ public class OrderProduct {
 	private int amount;
 	private int point;
 	private String code;
-	private int orderNo;
+	private int ordersNo;
 	
 	public int getNo() {
 		return no;
@@ -32,16 +32,16 @@ public class OrderProduct {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public int getOrderNo() {
-		return orderNo;
+	public int getOrdersNo() {
+		return ordersNo;
 	}
-	public void setOrderNo(int orderNo) {
-		this.orderNo = orderNo;
+	public void setOrdersNo(int ordersNo) {
+		this.ordersNo = ordersNo;
 	}
 	
 	@Override
 	public String toString() {
-		return "OrderProduct [amount=" + amount + ", code=" + code + ", no=" + no + ", orderNo=" + orderNo + ", point="
+		return "OrderProduct [amount=" + amount + ", code=" + code + ", no=" + no + ", ordersNo=" + ordersNo + ", point="
 				+ point + "]";
 	}
 	

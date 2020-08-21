@@ -14,7 +14,7 @@ public class Users {
 	private String tel;
 	private String addr;
 	private String post;
-	private Date date;
+	private Date dates;
 	private Date report;
 	private int leave;
 	
@@ -78,11 +78,11 @@ public class Users {
 	public void setPost(String post) {
 		this.post = post;
 	}
-	public Date getDate() {
-		return date;
+	public Date getDates() {
+		return dates;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDates(Date dates) {
+		this.dates = dates;
 	}
 	public Date getReport() {
 		return report;
@@ -100,7 +100,7 @@ public class Users {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", pw=" + pw + ", name=" + name + ", nick=" + nick + ", birth=" + birth + ", gender="
-				+ gender + ", mail=" + mail + ", tel=" + tel + ", addr=" + addr + ", post=" + post + ", date=" + date
+				+ gender + ", mail=" + mail + ", tel=" + tel + ", addr=" + addr + ", post=" + post + ", dates=" + dates
 				+ ", report=" + report + ", leave=" + leave + "]";
 	}
 	

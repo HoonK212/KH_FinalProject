@@ -7,7 +7,7 @@ public class Basket {
 	private String id;
 	private String code;
 	private int amount;
-	private Date date;
+	private Date dates;
 	
 	public String getId() {
 		return id;
@@ -27,16 +27,16 @@ public class Basket {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-	public Date getDate() {
-		return date;
+	public Date getDates() {
+		return dates;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDates(Date dates) {
+		this.dates = dates;
 	}
 	
 	@Override
 	public String toString() {
-		return "Basket [id=" + id + ", code=" + code + ", amount=" + amount + ", date=" + date + "]";
+		return "Basket [id=" + id + ", code=" + code + ", amount=" + amount + ", dates=" + dates + "]";
 	}
 	
 }

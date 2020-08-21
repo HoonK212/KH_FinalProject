@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Event {
 	private int id;
-	private Date date;
+	private Date dates;
 	private int type; // 1: 출석 / 2: 초성
 
 	public int getId() {
@@ -13,11 +13,11 @@ public class Event {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Date getDate() {
-		return date;
+	public Date getDates() {
+		return dates;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDates(Date dates) {
+		this.dates = dates;
 	}
 	public int getType() {
 		return type;
@@ -28,6 +28,6 @@ public class Event {
 
 	@Override
 	public String toString() {
-		return "Event [id=" + id + ", date=" + date + ", type=" + type + "]";
+		return "Event [id=" + id + ", dates=" + dates + ", type=" + type + "]";
 	}
 }

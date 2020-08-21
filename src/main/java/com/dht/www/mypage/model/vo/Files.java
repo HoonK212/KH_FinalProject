@@ -1,15 +1,15 @@
 package com.dht.www.mypage.model.vo;
 
-public class File {
+public class Files {
 	
 	private int no;
 	private int type;
 	private String ref;
 	private String path;
 	private String origin;
-	private String rename;
+	private String renamed;
 	private String ext;
-	private int size;
+	private int sizes;
 	private int thumbnail;
 	
 	public int getNo() {
@@ -42,11 +42,11 @@ public class File {
 	public void setOrigin(String origin) {
 		this.origin = origin;
 	}
-	public String getRename() {
-		return rename;
+	public String getRenamed() {
+		return renamed;
 	}
-	public void setRename(String rename) {
-		this.rename = rename;
+	public void setRenamed(String renamed) {
+		this.renamed = renamed;
 	}
 	public String getExt() {
 		return ext;
@@ -54,11 +54,11 @@ public class File {
 	public void setExt(String ext) {
 		this.ext = ext;
 	}
-	public int getSize() {
-		return size;
+	public int getSizes() {
+		return sizes;
 	}
-	public void setSize(int size) {
-		this.size = size;
+	public void setSizes(int sizes) {
+		this.sizes = sizes;
 	}
 	public int getThumbnail() {
 		return thumbnail;
@@ -69,8 +69,8 @@ public class File {
 	
 	@Override
 	public String toString() {
-		return "File [no=" + no + ", type=" + type + ", ref=" + ref + ", path=" + path + ", origin=" + origin
-				+ ", rename=" + rename + ", ext=" + ext + ", size=" + size + ", thumbnail=" + thumbnail + "]";
+		return "Files [no=" + no + ", type=" + type + ", ref=" + ref + ", path=" + path + ", origin=" + origin
+				+ ", renamed=" + renamed + ", ext=" + ext + ", sizes=" + sizes + ", thumbnail=" + thumbnail + "]";
 	}
 	
 }

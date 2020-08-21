@@ -21,6 +21,10 @@ $(document).ready(function() {
 		}
 		$(this).submit()
 	})
+	
+	if( <%= session.getAttribute("exercise") %> != null) {
+		$("input:radio[id='<%= session.getAttribute("exercise") %>']").prop("checked", true)
+	}
 });
 </script>
 

@@ -7,7 +7,7 @@ public class Review {
 	private int no;
 	private int score;
 	private String review;
-	private Date date;
+	private Date dates;
 	
 	public int getNo() {
 		return no;
@@ -27,16 +27,16 @@ public class Review {
 	public void setReview(String review) {
 		this.review = review;
 	}
-	public Date getDate() {
-		return date;
+	public Date getDates() {
+		return dates;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDates(Date dates) {
+		this.dates = dates;
 	}
 	
 	@Override
 	public String toString() {
-		return "Review [no=" + no + ", score=" + score + ", review=" + review + ", date=" + date + "]";
+		return "Review [no=" + no + ", score=" + score + ", review=" + review + ", dates=" + dates + "]";
 	}
 	
 }

@@ -9,7 +9,7 @@ public class Product {
 	private String company;
 	private int price;
 	private String desc;
-	private Date date;
+	private Date dates;
 	private int stock;
 	private int sell;
 	
@@ -43,11 +43,11 @@ public class Product {
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
-	public Date getDate() {
-		return date;
+	public Date getDates() {
+		return dates;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDates(Date dates) {
+		this.dates = dates;
 	}
 	public int getStock() {
 		return stock;
@@ -65,7 +65,7 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Product [code=" + code + ", name=" + name + ", company=" + company + ", price=" + price + ", desc="
-				+ desc + ", date=" + date + ", stock=" + stock + ", sell=" + sell + "]";
+				+ desc + ", dates=" + dates + ", stock=" + stock + ", sell=" + sell + "]";
 	}
 	
 }

@@ -17,22 +17,22 @@
                 <div class="flex flex-col flex-1 justify-center mb-8">
                     <h1 class="text-3xl text-center font-extrabold text-gray-800">WELCOME</h1>
                     <div class="w-full mt-4">
-                        <form class="form-horizontal w-3/4 mx-auto" method="POST" action="#">
+                        <form class="form-horizontal w-3/4 mx-auto" method="POST" action="<%=request.getContextPath()%>/user/loginimple">
                             <div class="flex flex-col mt-4">
-                                <input id="id" type="text" class="flex-grow h-8 px-2 border rounded border-grey-400" name="id" value="" placeholder="ID">
+                                <input id="id" type="text" class="flex-grow h-8 px-2 border rounded border-grey-400" name="id" value="" required placeholder="ID">
                             </div>
                             <div class="flex flex-col mt-4">
-                                <input id="password" type="password" class="flex-grow h-8 px-2 rounded border border-grey-400" name="password" required placeholder="Password">
+                                <input id="password" type="password" class="flex-grow h-8 px-2 rounded border border-grey-400" name="pw" required placeholder="Password">
                             </div>
                             <div class="flex items-center mt-4">
                                 <input type="checkbox" name="remember" id="remember" class="mr-2"> <label for="remember" class="text-sm text-grey-dark">로그인 상태 유지</label>
                             </div>
                             <div class="flex flex-col mt-8">
-                                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-semibold py-2 px-4 rounded">
+                                <button id="btnLogin" type="submit" class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-semibold py-2 px-4 rounded">
                                     로그인
                                 </button>
                                 <br>
-                                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-semibold py-2 px-4 rounded">
+                                <button class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-semibold py-2 px-4 rounded">
                                     회원가입
                                 </button>
                                 <br>

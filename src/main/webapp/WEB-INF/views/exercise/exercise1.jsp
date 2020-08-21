@@ -22,13 +22,17 @@ $(document).ready(function() {
 		}
 		$(this).submit()
 	})
+	
+	if( <%= session.getAttribute("exerType") %> != null) {
+		console.log("들어왔다~")
+		$("input:radio[id='<%= session.getAttribute("exerType") %>']").prop("checked", true)
+	}
 });
 </script>
 
 
 <!-- section 시작 -->
 <section>
-
 	<!-- div wrap 시작 -->
 	<div id="wrap">
 	

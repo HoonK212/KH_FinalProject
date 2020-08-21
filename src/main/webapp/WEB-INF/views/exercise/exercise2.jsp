@@ -21,6 +21,10 @@ $(document).ready(function() {
 		}
 		$(this).submit()
 	})
+	
+	if( <%= session.getAttribute("level") %> != null) {
+		$("input:radio[id='<%= session.getAttribute("level") %>']").prop("checked", true)
+	}
 });
 </script>
 

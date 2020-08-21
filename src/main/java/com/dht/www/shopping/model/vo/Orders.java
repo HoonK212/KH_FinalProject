@@ -2,12 +2,12 @@ package com.dht.www.shopping.model.vo;
 
 import java.sql.Date;
 
-public class Order {
+public class Orders {
 	
 	private int no;
 	private int type;
 	private int status;
-	private Date date;
+	private Date dates;
 	private String mUid;
 	private String id;
 	private String toName;
@@ -33,11 +33,11 @@ public class Order {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	public Date getDate() {
-		return date;
+	public Date getDates() {
+		return dates;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDates(Date dates) {
+		this.dates = dates;
 	}
 	public String getmUid() {
 		return mUid;
@@ -78,7 +78,7 @@ public class Order {
 	
 	@Override
 	public String toString() {
-		return "Order [no=" + no + ", type=" + type + ", status=" + status + ", date=" + date + ", mUid=" + mUid
+		return "Orders [no=" + no + ", type=" + type + ", status=" + status + ", dates=" + dates + ", mUid=" + mUid
 				+ ", id=" + id + ", toName=" + toName + ", toTel=" + toTel + ", toAddr=" + toAddr + ", toPost=" + toPost
 				+ "]";
 	}
