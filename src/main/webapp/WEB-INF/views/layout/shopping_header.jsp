@@ -93,7 +93,7 @@
 		        </div>
             </nav>
 <script type="text/javascript">
-$(document).ready(function() {
+/* $(document).ready(function() {
 	$("a").click(function() {
 		console.log("a클릭됨")
 		
@@ -105,7 +105,7 @@ $(document).ready(function() {
 		
 		// ** 이벤트 리스너에서 return false;를 실행하면 이벤트의 기본 동작(동작 처리) 수행을 막는다
 	})
-})
+}) */
 	
 </script>
 <!--             <nav class="bg-white"> -->

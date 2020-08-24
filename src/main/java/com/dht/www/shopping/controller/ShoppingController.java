@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dht.www.shopping.model.service.ShoppingService;
@@ -29,9 +30,11 @@ public class ShoppingController {
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	@ResponseBody
-	public void shoppingList(Model model) {
-		
-		//model.addAttribute("list", shoppingService.selectList());
+	public void shoppingList(Model model, @RequestParam(required = false, defaultValue = "1")int curPage
+								,@RequestParam(required = false, defaultValue = "0") int listno) {
+		int cntPerPage = 16;
+		System.out.println(listno);
+		model.addAttribute("list", shoppingService.selectList(listno, curPage, cntPerPage));
 	}
 	
 	@RequestMapping(value="/detail", method=RequestMethod.GET)

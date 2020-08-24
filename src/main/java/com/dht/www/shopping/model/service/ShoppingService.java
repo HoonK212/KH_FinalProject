@@ -8,5 +8,6 @@ import common.util.Paging;
 public interface ShoppingService {
 	
 	public List<Map<String, Object>> selectHome(String cate);
-
+	
+	public List<Map<String, Object>> selectList(int listno, int curPage, int cntPerPage);
 }

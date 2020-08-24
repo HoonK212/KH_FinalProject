@@ -25,4 +25,30 @@
     		order by substr(p.code,2) desc
 		) b order by rnum ) t where rnum between 1 and 4
 	</select>
+	
+	<select id="selectCnt" parameterType="int" resultType="int">
+	
+    		select count(*) from product 
+    		where sell = 1 and stock > 0
+    		<if test="listno == 1">
+    			and code like 'A%'
+    		</if>
+    		<if test="listno == 2">
+    			and p.code like 'A%'
+    		</if>
+    		<if test="listno == 3">
+    			and p.code like 'A%'
+    		</if>
+    		<if test="listno == 4">
+    			and code like 'A%'
+    		</if>
+    		<if test="listno == 5">
+    			and code like 'B%'
+    		</if>
+    		<if test="listno == 6">
+    			and code like 'C%'
+    		</if>
+    		
+	</select>
+	
 </mapper>
