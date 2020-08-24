@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BOARD">
+
+	<resultMap type="map" id="Board">
+		<id column="no" property="no" />
+		<result column="type" property="type" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="count" property="count" />
+		<result column="dates" property="dates" />
+		<result column="id" property="id" />
+		<result column="renamed" property="renamed" />
+		<result column="nick" property="nick" />
+		<result column="goodbad" property="goodbad" />
+	</resultMap>
+	
+	<select id="selectBoardList" resultMap="Board">
+		select Y.* from
+			(select rownum rnum, X.* from
+				(select B.*, F.renamed, U.nick, decode(goodbad, null, 0, goodbad) as goodbad
+				from board B, (select * from files where type=1) F, users U,
+    				(select ref, sum(decode(good_bad, 1, 1, 0))-sum(decode(good_bad, 2, 1, 0)) as goodbad
+    				from recommend
+    				where type=1
+    				group by ref) R
+				where B.id = F.ref and B.id = U.id and B.no = R.ref(+)
+				order by B.no desc) X) Y
+		where Y.rnum between #{start} and #{end}
+	</select>
+
+	<select id="selectContentCnt" resultType="int">
+		select count(*)
+		from board
+	</select>
+
+</mapper>
