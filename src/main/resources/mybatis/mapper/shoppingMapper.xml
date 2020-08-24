@@ -12,6 +12,7 @@
 		<result column="price" property="price"/>
 		<result column="path" property="path"/>
 		<result column="renames" property="renames"/>
+		<result column="ext" property="ext"/>
 	</resultMap>
 
 	<select id="selectHome" parameterType="string" resultMap="homeItem">

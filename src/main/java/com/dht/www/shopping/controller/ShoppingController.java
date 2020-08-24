@@ -28,6 +28,7 @@ public class ShoppingController {
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public void shoppingList(Model model) {
 		
+		//model.addAttribute("list", shoppingService.selectList());
 	}
 	
 	@RequestMapping(value="/detail", method=RequestMethod.GET)
