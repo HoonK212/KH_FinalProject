@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<!-- jstl -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!-- tailwind css -->
 <link href="https://tailwindcomponents.com/css/component.ecommerce-home.css" rel="stylesheet">    
 
 <%@include file="../layout/shopping_header.jsp" %>
-<%-- <%@include file="../layout/shopping_cart.jsp" %> --%>
+<%@include file="../layout/shopping_cart.jsp" %>
 
     <main class="my-5">
         <div class="container mx-auto px-6">
