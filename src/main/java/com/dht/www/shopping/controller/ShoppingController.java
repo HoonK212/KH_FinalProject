@@ -16,9 +16,23 @@ public class ShoppingController {
 	private ShoppingService shoppingService;
 	
 	@RequestMapping(value="/home", method=RequestMethod.GET)
-	public String shoppingHome(Model model) {
+	public void shoppingHome(Model model) {
 		
-		return null;
+		model.addAttribute("list1", shoppingService.selectHome("A"));
+		model.addAttribute("list2", shoppingService.selectHome("B"));
+		model.addAttribute("list3", shoppingService.selectHome("C"));
+		
+		System.out.println(shoppingService.selectHome("A"));
+	}
+	
+	@RequestMapping(value="/list", method=RequestMethod.GET)
+	public void shoppingList(Model model) {
+		
+	}
+	
+	@RequestMapping(value="/detail", method=RequestMethod.GET)
+	public void shoppingDetail(Model model) {
+		
 	}
 	
 	

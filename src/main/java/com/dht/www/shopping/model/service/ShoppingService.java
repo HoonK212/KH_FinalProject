@@ -1,5 +1,9 @@
 package com.dht.www.shopping.model.service;
 
-public interface ShoppingService {
+import java.util.List;
+import java.util.Map;
 
+public interface ShoppingService {
+	
+	public List<Map<String, Object>> selectHome(String cate);
 }
