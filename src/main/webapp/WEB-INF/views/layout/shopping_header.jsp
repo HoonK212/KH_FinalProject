@@ -66,7 +66,7 @@
 
                 <input class="w-full border rounded-md pl-10 pr-4 py-2 focus:border-blue-500 focus:outline-none focus:shadow-outline" type="text" placeholder="Search">
             </div>
-    <nav :class="isOpen ? '' : 'hidden'" class="sm:flex sm:justify-center sm:items-center mt-4">
+   		 <nav class="sm:flex sm:justify-center sm:items-center mt-4">
                 <div class="md:flex items-center justify-center py-2 px-8 md:px-12">
 		            <div class="flex justify-between items-center">
 		               <div class="text-2xl font-bold text-gray-800 md:text-3xl">
@@ -82,17 +82,32 @@
 		                </div>
 		            </div>
 		            <div class="flex flex-col md:flex-row hidden md:block -mx-2">
-		                <a href="#" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">전체 보기</a>
-		                <a href="#" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">이벤트 상품</a>
-		                <a href="#" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">인기 상품</a>
-		                <a href="#" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">신규 상품</a>
-		                <a href="#" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">운동 보조제</a>
-		                <a href="#" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">운동 기구</a>
-		                <a href="#" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">다이어트 식품</a>
+		                <a href="/shopping/list?listno=0" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">전체 보기</a>
+		                <a href="/shopping/list?listno=1" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">이벤트 상품</a>
+		                <a href="/shopping/list?listno=2" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">인기 상품</a>
+		                <a href="/shopping/list?listno=3" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">신규 상품</a>
+		                <a href="/shopping/list?listno=4" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">운동 보조제</a>
+		                <a href="/shopping/list?listno=5" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">운동 기구</a>
+		                <a href="/shopping/list?listno=6" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">다이어트 식품</a>
 		            </div>
 		        </div>
             </nav>
-     <!-- 쇼핑 상세 nav -->
+<script type="text/javascript">
+$(document).ready(function() {
+	$("a").click(function() {
+		console.log("a클릭됨")
+		
+		//클릭 이벤트가 발생한 <a>태그의 href 속성을 .load() 함수의 url로 사용
+		$("main").load( $(this).attr("href") );
+		
+		//<a>태그의 기본동작 막는다
+		return false;
+		
+		// ** 이벤트 리스너에서 return false;를 실행하면 이벤트의 기본 동작(동작 처리) 수행을 막는다
+	})
+})
+	
+</script>
 <!--             <nav class="bg-white"> -->
 <!-- 		        <div class="md:flex items-center justify-center py-2 px-8 md:px-12"> -->
 <!-- 		            <div class="flex justify-between items-center"> -->

@@ -3,8 +3,10 @@ package com.dht.www.shopping.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dht.www.shopping.model.service.ShoppingService;
 
@@ -26,6 +28,7 @@ public class ShoppingController {
 	}
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
+	@ResponseBody
 	public void shoppingList(Model model) {
 		
 		//model.addAttribute("list", shoppingService.selectList());
