@@ -24,15 +24,13 @@ public class ShoppingServiceImpl implements ShoppingService {
 
 	@Override
 	public List<Map<String, Object>> selectList(int listno, int curPage, int cntPerPage) {
-		
-		
 	
 			int total = shoppingDao.selectCntList(listno);
-			
-			System.out.println("total" + total);
 			Paging paging = new Paging(total, curPage, cntPerPage);
 			paging.setListno(listno);
-			return null;//shoppingDao.selectList(paging);
+			
+			System.out.println("total" + total);
+			return shoppingDao.selectList(paging);
 		
 				
 	}

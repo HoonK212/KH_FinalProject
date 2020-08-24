@@ -18,13 +18,14 @@ public class ShoppingDao {
 	public List<Map<String, Object>> selectHome(String cate) {
 		return sqlSession.selectList("Shopping.selectHome", cate);
 	}
+
+	public int selectCntList(int listno) {
+		return sqlSession.selectOne("Shopping.selectCnt",listno);
+	}
 	
 	public List<Map<String, Object>> selectList(Paging paging){
 		return sqlSession.selectList("Shopping.selectList", paging);
 		
 	}
 	
-	public int selectCntList(int listno) {
-		return sqlSession.selectOne("Shopping.selectCnt",listno);
-	}
 }
