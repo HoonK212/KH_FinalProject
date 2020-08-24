@@ -3,4 +3,5 @@ footer {
 	background: #2d3748;
 	clear: both;
 	color: white;
+	min-height: 8vh;
 }

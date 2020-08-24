@@ -20,6 +20,11 @@
 		<typeAlias type="com.dht.www.exercise.model.vo.Compensation" alias="Compensation" />
 		
 		<typeAlias type="com.dht.www.user.model.vo.Users" alias="Users" />
+		
+		<typeAlias type="com.dht.www.board.model.vo.Board" alias="Board" />
+		<typeAlias type="com.dht.www.board.model.vo.Comments" alias="Comments" />
+		<typeAlias type="com.dht.www.board.model.vo.Recommend" alias="Recommend" />
+		<typeAlias type="com.dht.www.board.model.vo.Report" alias="Report" />
 	</typeAliases>
 
 </configuration>

@@ -1,4 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%
+	Date today = new Date();
+	SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+	SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
+	request.setAttribute("today", sdf1.format(today));
+%>
 
 <!-- CSS -->
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/layout/header.css">
@@ -103,21 +114,42 @@
                             </tr>
                         </thead>
                         <tbody>
+                        	<c:forEach items="${boardData.blist }" var="board">
                             <tr>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                    <div class="flex items-center ml-3">
 	                                   <p class="text-gray-900 whitespace-no-wrap text-left">
-	                                       여기는 제목입니다. 1
+	                                       ${board.title }
 	                                   </p>
                                    </div>
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <span
-                                        class="relative inline-block px-3 py-1 font-semibold text-green-	00 leading-tight">
-                                        <span aria-hidden
-                                            class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
-                                        <span class="relative text-left">자유</span>
-                                    </span>
+                                	<c:choose>
+                                		<c:when test="${board.title eq 1 }">
+		                                    <span
+		                                        class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+		                                        <span aria-hidden
+		                                            class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+		                                        <span class="relative text-left">자유</span>
+		                                    </span>
+	                                    </c:when>
+                                		<c:when test="${board.title eq 2 }">
+		                                    <span
+		                                        class="relative inline-block px-3 py-1 font-semibold text-orange-900 leading-tight">
+		                                        <span aria-hidden
+		                                            class="absolute inset-0 bg-orange-200 opacity-50 rounded-full"></span>
+		                                        <span class="relative text-left">광고</span>
+		                                    </span>
+	                                    </c:when>
+                                		<c:when test="${board.title eq 3 }">
+		                                    <span
+		                                        class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
+		                                        <span aria-hidden
+		                                            class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
+		                                        <span class="relative text-left">공지</span>
+		                                    </span>
+	                                    </c:when>
+                                    </c:choose>
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 	                            	<div class="flex items-center">
@@ -127,182 +159,31 @@
                                                 alt="" />
                                         </div>
                                         <div class="ml-3">
-                                            <p class="text-gray-900 whitespace-no-wrap text-left">사람1</p>
+                                            <p class="text-gray-900 whitespace-no-wrap text-left">${board.nick }</p>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                     <p class="text-gray-900 whitespace-no-wrap text-left">
-                                        Jan 21, 2020
+                                        <fmt:formatDate var="date" value="${board.dates }" pattern="yyyy-MM-dd" />
+                                        <c:choose>
+                                        	<c:when test="${today eq date }">
+                                        		<%= sdf2.format(today) %>
+                                        	</c:when>
+                                        	<c:otherwise>
+                                        		${date }
+                                        	</c:otherwise>
+                                        </c:choose>
                                     </p>
                                 </td>
 								<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-	                            	<p class="text-gray-900 whitespace-no-wrap text-center">1</p>
+	                            	<p class="text-gray-900 whitespace-no-wrap text-center">${board.count }</p>
                                 </td>
 								<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 	                            	<p class="text-gray-900 whitespace-no-wrap text-center font-bold text-blue-600">1</p>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                   <div class="flex items-center ml-3">
-	                                   <p class="text-gray-900 whitespace-no-wrap text-left">
-	                                       여기는 제목입니다. 1
-	                                   </p>
-                                   </div>
-                                </td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <span
-                                        class="relative inline-block px-3 py-1 font-semibold text-green-	00 leading-tight">
-                                        <span aria-hidden
-                                            class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
-                                        <span class="relative text-left">자유</span>
-                                    </span>
-                                </td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-	                            	<div class="flex items-center">
-                                        <div class="flex-shrink-0 w-10 h-10">
-                                            <img class="w-full h-full rounded-full"
-                                                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-                                                alt="" />
-                                        </div>
-                                        <div class="ml-3">
-                                            <p class="text-gray-900 whitespace-no-wrap text-left">사람1</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <p class="text-gray-900 whitespace-no-wrap text-left">
-                                        Jan 21, 2020
-                                    </p>
-                                </td>
-								<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-	                            	<p class="text-gray-900 whitespace-no-wrap text-center">1</p>
-                                </td>
-								<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-	                            	<p class="text-gray-900 whitespace-no-wrap text-center font-bold text-blue-600">1</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                   <div class="flex items-center ml-3">
-	                                   <p class="text-gray-900 whitespace-no-wrap text-left">
-	                                       여기는 제목입니다. 1
-	                                   </p>
-                                   </div>
-                                </td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <span
-                                        class="relative inline-block px-3 py-1 font-semibold text-green-	00 leading-tight">
-                                        <span aria-hidden
-                                            class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
-                                        <span class="relative text-left">자유</span>
-                                    </span>
-                                </td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-	                            	<div class="flex items-center">
-                                        <div class="flex-shrink-0 w-10 h-10">
-                                            <img class="w-full h-full rounded-full"
-                                                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-                                                alt="" />
-                                        </div>
-                                        <div class="ml-3">
-                                            <p class="text-gray-900 whitespace-no-wrap text-left">사람1</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <p class="text-gray-900 whitespace-no-wrap text-left">
-                                        Jan 21, 2020
-                                    </p>
-                                </td>
-								<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-	                            	<p class="text-gray-900 whitespace-no-wrap text-center">1</p>
-                                </td>
-								<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-	                            	<p class="text-gray-900 whitespace-no-wrap text-center font-bold text-blue-600">1</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                   <div class="flex items-center ml-3">
-	                                   <p class="text-gray-900 whitespace-no-wrap text-left">
-	                                       여기는 제목입니다. 1
-	                                   </p>
-                                   </div>
-                                </td>
-								<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-									<span
-										class="relative inline-block px-3 py-1 font-semibold text-orange-900 leading-tight">
-										<span aria-hidden
-											class="absolute inset-0 bg-orange-200 opacity-50 rounded-full"></span>
-										<span class="relative">광고</span>
-									</span>
-								</td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-	                            	<div class="flex items-center">
-                                        <div class="flex-shrink-0 w-10 h-10">
-                                            <img class="w-full h-full rounded-full"
-                                                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-                                                alt="" />
-                                        </div>
-                                        <div class="ml-3">
-                                            <p class="text-gray-900 whitespace-no-wrap text-left">사람1</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <p class="text-gray-900 whitespace-no-wrap text-left">
-                                        Jan 21, 2020
-                                    </p>
-                                </td>
-								<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-	                            	<p class="text-gray-900 whitespace-no-wrap text-center">1</p>
-                                </td>
-								<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-	                            	<p class="text-gray-900 whitespace-no-wrap text-center font-bold text-blue-600">1</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                   <div class="flex items-center ml-3">
-	                                   <p class="text-gray-900 whitespace-no-wrap text-left">
-	                                       여기는 제목입니다. 1
-	                                   </p>
-                                   </div>
-                                </td>
-								<td class="px-5 py-5 bg-white text-sm">
-									<span
-										class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
-										<span aria-hidden
-											class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
-										<span class="relative">공지</span>
-									</span>
-								</td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-	                            	<div class="flex items-center">
-                                        <div class="flex-shrink-0 w-10 h-10">
-                                            <img class="w-full h-full rounded-full"
-                                                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-                                                alt="" />
-                                        </div>
-                                        <div class="ml-3">
-                                            <p class="text-gray-900 whitespace-no-wrap text-left">사람1</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <p class="text-gray-900 whitespace-no-wrap text-left">
-                                        Jan 21, 2020
-                                    </p>
-                                </td>
-								<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-	                            	<p class="text-gray-900 whitespace-no-wrap text-center">1</p>
-                                </td>
-								<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-	                            	<p class="text-gray-900 whitespace-no-wrap text-center font-bold text-blue-600">1</p>
-                                </td>
-                            </tr>
+                            </c:forEach>
                         </tbody>
                     </table>
                     <div
@@ -316,12 +197,18 @@
 							            </svg>
 							        </div>
 							        <div class="flex h-8 font-medium ">
-							            <div class="w-8 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  border-t-2 border-transparent">1</div>
-							            <div class="w-8 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  border-t-2 border-orange-600">2</div>
-							            <div class="w-8 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  border-t-2 border-transparent">3</div>
-							            <div class="w-8 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  border-t-2 border-transparent">4</div>
-							            <div class="w-8 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  border-t-2 border-transparent">5</div>
-							            <!-- <div class="w-8 h-8 md:hidden flex justify-center items-center cursor-pointer leading-5 transition duration-150 ease-in border-t-2 border-orange-600">2</div> -->
+							            <c:forEach begin="${boardData.paging.blockStart}" end="${boardData.paging.blockEnd}" var="page">
+								         <a href="<%= request.getContextPath() %>/board/list?cPage=${page}">
+								       	  <c:choose>
+								       	   <c:when test="${boardData.paging.currentPage eq page }">
+								       	    <div class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in border-t-2 border-orange-600">${page}</div>
+								       	   </c:when>
+								       	   <c:otherwise>
+								       	    <div class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in border-t-2 border-transparent">${page}</div>
+								       	   </c:otherwise>
+								       	  </c:choose>
+								       	 </a>
+								        </c:forEach> 
 							        </div>
 							        <div class="h-8 w-8 ml-1 flex justify-center items-center  cursor-pointer">
 							            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right w-4 h-4">
@@ -330,7 +217,7 @@
 							        </div>
 							    </div>
 								<span class="text-xs xs:text-sm text-gray-900">
-		                            Showing 1 to 5 of 12 Entries
+		                            Showing ${boardData.paging.start } to ${boardData.paging.end } of ${boardData.paging.total }
 		                        </span>
 							</div>
 	                	</div>
