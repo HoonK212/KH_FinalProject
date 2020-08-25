@@ -11,22 +11,33 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 public class AuthInterceptor implements HandlerInterceptor{
 
-	// board 구현 중 주석 처리
-//	@Override
-//	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws ServletException, IOException {
-//		
-//		if(req.getRequestURI().contains("board/detail") && req.getSession().getAttribute("logInInfo") == null) {
-//			
-//			req.setAttribute("alertMsg", "비회원은 접근할 권한이 없습니다.");
-//			req.setAttribute("url", req.getContextPath()+"/main");
-//			RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/common/result.jsp");
-//			rd.forward(req, resp);
-//			
-//			return false;
-//		} else {
-//			
-//			return true;
-//		}
-//	}
+	@Override
+	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws ServletException, IOException {
+		
+		if(req.getRequestURI().contains("board/write") && req.getSession().getAttribute("logInInfo") == null) {
+			auth(req, resp);
+			return false;
+		} else if(req.getRequestURI().contains("comments/write") && req.getSession().getAttribute("logInInfo") == null) {
+			auth(req, resp);
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	public void auth(HttpServletRequest req, HttpServletResponse resp) {
+		
+		req.setAttribute("alertMsg", "비회원은 권한이 없습니다.");
+		req.setAttribute("url", req.getContextPath()+"/user/login");
+		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/common/result.jsp");
+		
+		try {
+			rd.forward(req, resp);
+		} catch (ServletException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 }

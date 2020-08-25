@@ -7,7 +7,40 @@
 <!-- HEADER -->
 <%@include file="../layout/header.jsp" %>
 
+<!-- 네이버 스마트 에디터 -->
+<script type="text/javascript" src="<%=request.getContextPath() %>/resources/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	// 작성버튼 동작
+	$("#btnWrite").click(function() {
+		
+		//스마트에디터의 내용을 <textarea>에 적용하는 함수를 호출한다
+		submitContents( $("#btnWrite") );
+		
+		// 실제 <form>의 submit 수행
+		$("form").submit();
+	});
+	
+	function submitContents(elClickedObj) {
+		
+		// 에디터의 내용을 #content에 반영한다
+		oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
+		
+		try {
+			
+		//<form>태그의 submit을 수행한다
+		elClickedObj.form.submit();
+		} catch(e) {
+		}
+	}
+	
+})
+</script>
+
 <section class="antialiased font-sans bg-gray-200" style="min-height: 73vh;">
+<form action="/board/write" method="post">
 
     <div class="container mx-auto px-4 sm:px-8">
         <div class="py-8">
@@ -51,22 +84,21 @@
                                    </div>
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <select class="text-gray-900 font-bold">
-                                    	<option class="text-gray-500 font-bold">선택</option>
-                                    	<option value="1" class="text-gray-700 font-bold">자유</option>
-                                    	<option value="2" class="text-gray-700 font-bold">광고</option>
-                                    	<option value="3" class="text-gray-700 font-bold">공지</option>
+                                    <select class="text-gray-800 font-bold" name="type">
+                                    	<option value="1" class="text-gray-800 font-bold">자유</option>
+                                    	<option value="2" class="text-gray-800 font-bold">광고</option>
+                                    	<option value="3" class="text-gray-800 font-bold">공지</option>
                                     </select>
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 	                            	<div class="flex items-center">
                                         <div class="flex-shrink-0 w-10 h-10">
                                             <img class="w-full h-full rounded-full"
-                                                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
+                                                src="<%=request.getContextPath() %>/resources/upload_user/logo.png"
                                                 alt="" />
                                         </div>
                                         <div class="ml-3">
-                                            <p class="text-gray-900 whitespace-no-wrap text-left">사람1</p>
+                                            <p class="text-gray-900 whitespace-no-wrap text-left">${logInInfo.nick }</p>
                                         </div>
                                     </div>
                                 </td>
@@ -90,10 +122,19 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                <td class="border-b border-gray-200 bg-white text-sm">
                                     <div class="flex items-center">
-                                        <div class="ml-3">
-                                            <textarea placeholder="본문 입력란"></textarea>
+                                        <div class="w-full">
+	                                        <textarea id="content" name="content" style="width: 1200px;" required="required"></textarea>
+                                            <script type="text/javascript">
+												var oEditors = [];
+												nhn.husky.EZCreator.createInIFrame({
+												oAppRef: oEditors
+												, elPlaceHolder: "content" //에디터가 적용될 <textarea>의 id
+												, sSkinURI: "/resources/se2/SmartEditor2Skin.html" //에디터 스킨
+												, fCreator: "createSEditor2"
+												})
+											</script>
                                         </div>
                                     </div>
                                 </td>
@@ -104,46 +145,15 @@
                 </div>
 
 	            <button class="mt-3 text-sm font-extrabold float-right w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
-				>등록</button>
+				id="btnWrite">등록</button>
 
             </div>
             <!-- 본문 내용 끝 -->
             
         </div>
     </div>
-
-	<!-- Modal -->
-	<dialog id="myModal" class="fixed h-auto w-11/12 md:w-1/2 p-5  bg-white rounded-md ">
-		<div class="flex flex-col w-full h-auto justify-center items-center">
-			<!-- Header -->
-			<div class="w-full h-auto">
-				<div onclick="document.getElementById('myModal').close();" class="float-right w-1/12 h-auto justify-center cursor-pointer">
-					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-				</div>
-				<div class="clear-both"></div>
-				<div class="flex h-auto justify-center items-center text-2xl font-bold">
-					댓글 작성
-				</div>
-			</div>
-			<!--Header End-->
-			<!-- Content-->
-			<form class="w-full max-w-xl rounded-lg px-4 pt-2">
-				<div class="flex flex-wrap -mx-4 mb-2">
-					<div class="w-full md:w-full my-2">
-						<textarea class="bg-gray-300 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none" name="body" placeholder='좋은 게시글인군요!' required></textarea>
-					</div>
-					<div class="w-full md:w-full flex items-start md:w-full">
-						<div class="flex items-start w-1/2 text-gray-700 px-2 mr-auto"></div>
-						<div class="-mr-1">
-							<input type='submit' class="bg-white text-gray-700 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100" value='등록'>
-						</div>
-					</div>
-				</div>
-			</form>
-			<!-- Content End -->
-		</div>
-	</dialog>
-
+    
+</form>
 </section>
 
 <%@include file="../layout/footer.jsp" %>

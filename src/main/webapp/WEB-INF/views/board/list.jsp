@@ -25,19 +25,19 @@
         
             <div class="pb-2">
                 <h2 class="text-2xl font-semibold leading-tight text-gray-700">게시판</h2>
-                <button class="text-sm font-extrabold float-right w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
+                <button onclick="location.href='<%=request.getContextPath() %>/board/write'" class="text-sm font-extrabold float-right w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
 				>글쓰기</button>
             </div>
             
             <div class="my-2 flex sm:flex-row flex-col">
                 <div class="flex flex-row mb-1 sm:mb-0">
                     <div class="relative">
-                        <select
+                        <select id="cntPerPage" name="cntPerPage"
                             class="appearance-none h-full rounded-l border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                            <option>5</option>
-                            <option>10</option>
-                            <option>15</option>
-                            <option>20</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
                         </select>
                         <div
                             class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -119,13 +119,15 @@
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                    <div class="flex items-center ml-3">
 	                                   <p class="text-gray-900 whitespace-no-wrap text-left">
-	                                       ${board.title }
+	                                       <a href="<%=request.getContextPath() %>/board/detail?no=${board.no }">
+	                                       		${board.title }
+	                                       </a>
 	                                   </p>
                                    </div>
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                 	<c:choose>
-                                		<c:when test="${board.title eq 1 }">
+                                		<c:when test="${board.type eq 1 }">
 		                                    <span
 		                                        class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
 		                                        <span aria-hidden
@@ -133,7 +135,7 @@
 		                                        <span class="relative text-left">자유</span>
 		                                    </span>
 	                                    </c:when>
-                                		<c:when test="${board.title eq 2 }">
+                                		<c:when test="${board.type eq 2 }">
 		                                    <span
 		                                        class="relative inline-block px-3 py-1 font-semibold text-orange-900 leading-tight">
 		                                        <span aria-hidden
@@ -141,7 +143,7 @@
 		                                        <span class="relative text-left">광고</span>
 		                                    </span>
 	                                    </c:when>
-                                		<c:when test="${board.title eq 3 }">
+                                		<c:when test="${board.type eq 3 }">
 		                                    <span
 		                                        class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
 		                                        <span aria-hidden
@@ -155,7 +157,7 @@
 	                            	<div class="flex items-center">
                                         <div class="flex-shrink-0 w-10 h-10">
                                             <img class="w-full h-full rounded-full"
-                                                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
+                                                src="<%=request.getContextPath() %>/resources/upload_user/${board.renamed }.${board.ext }"
                                                 alt="" />
                                         </div>
                                         <div class="ml-3">
@@ -180,7 +182,14 @@
 	                            	<p class="text-gray-900 whitespace-no-wrap text-center">${board.count }</p>
                                 </td>
 								<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-	                            	<p class="text-gray-900 whitespace-no-wrap text-center font-bold text-blue-600">1</p>
+									<c:choose>
+										<c:when test="${board.goodbad le 0}">
+	                            			<p class="text-gray-900 whitespace-no-wrap text-center font-bold text-blue-600">${board.goodbad }</p>
+                                		</c:when>
+                                		<c:otherwise>
+	                            			<p class="text-gray-900 whitespace-no-wrap text-center font-bold text-red-600">${board.goodbad }</p>
+                                		</c:otherwise>
+                                	</c:choose>
                                 </td>
                             </tr>
                             </c:forEach>
@@ -191,14 +200,31 @@
                         <div class="inline-flex mt-2 xs:mt-0">
 							<div class="flex flex-col items-center">
 							    <div class="flex text-gray-700 pb-3">
-							        <div class="h-8 w-8 mr-1 flex justify-center items-center  cursor-pointer">
-							            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left w-4 h-4">
-							                <polyline points="15 18 9 12 15 6"></polyline>
-							            </svg>
-							        </div>
+
+							        <c:choose>
+							        	<c:when test="${boardData.paging.blockStart > 1 }">
+							         		<a href="<%= request.getContextPath() %>/board/list?cPage=${boardData.paging.blockStart-1}" class="nav prev">
+												<div class="h-8 w-8 mr-1 flex justify-center items-center  cursor-pointer">
+										            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left w-4 h-4">
+										                <polyline points="15 18 9 12 15 6"></polyline>
+										            </svg>
+										        </div>
+											</a>
+							        	</c:when>
+							        	<c:otherwise>
+							        		<a href="<%= request.getContextPath() %>/board/list?cPage=${boardData.paging.blockStart}" class="nav prev">
+												<div class="h-8 w-8 mr-1 flex justify-center items-center  cursor-pointer">
+										            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left w-4 h-4">
+										                <polyline points="15 18 9 12 15 6"></polyline>
+										            </svg>
+										        </div>
+											</a>
+							        	</c:otherwise>
+							        </c:choose>
+							        
 							        <div class="flex h-8 font-medium ">
 							            <c:forEach begin="${boardData.paging.blockStart}" end="${boardData.paging.blockEnd}" var="page">
-								         <a href="<%= request.getContextPath() %>/board/list?cPage=${page}">
+								         <a href="<%= request.getContextPath() %>/board/list?cPage=${page }">
 								       	  <c:choose>
 								       	   <c:when test="${boardData.paging.currentPage eq page }">
 								       	    <div class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in border-t-2 border-orange-600">${page}</div>
@@ -208,16 +234,33 @@
 								       	   </c:otherwise>
 								       	  </c:choose>
 								       	 </a>
-								        </c:forEach> 
+								        </c:forEach>
 							        </div>
-							        <div class="h-8 w-8 ml-1 flex justify-center items-center  cursor-pointer">
-							            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right w-4 h-4">
-							                <polyline points="9 18 15 12 9 6"></polyline>
-							            </svg>
-							        </div>
+							        
+									<c:choose>
+							        	<c:when test="${boardData.paging.blockEnd+1 > boardData.paging.lastPage }">
+							         		<a href="<%= request.getContextPath() %>/board/list?cPage=${boardData.paging.blockEnd}">
+										        <div class="h-8 w-8 ml-1 flex justify-center items-center  cursor-pointer">
+										            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right w-4 h-4">
+										                <polyline points="9 18 15 12 9 6"></polyline>
+										            </svg>
+										        </div>
+							         		</a>
+							        	</c:when>
+							        	<c:otherwise>
+							         		<a href="<%= request.getContextPath() %>/board/list?cPage=${boardData.paging.blockEnd+1}">
+										        <div class="h-8 w-8 ml-1 flex justify-center items-center  cursor-pointer">
+										            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right w-4 h-4">
+										                <polyline points="9 18 15 12 9 6"></polyline>
+										            </svg>
+										        </div>
+										    </a>
+							        	</c:otherwise>
+							   	   	</c:choose>
+							   	   	
 							    </div>
 								<span class="text-xs xs:text-sm text-gray-900">
-		                            Showing ${boardData.paging.start } to ${boardData.paging.end } of ${boardData.paging.total }
+		                            Showing ${boardData.paging.blockStart } to ${boardData.paging.blockEnd } of ${boardData.paging.total }
 		                        </span>
 							</div>
 	                	</div>

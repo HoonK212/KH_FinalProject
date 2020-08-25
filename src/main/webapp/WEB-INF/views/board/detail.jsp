@@ -1,4 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%
+	Date today = new Date();
+	SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+	SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
+	request.setAttribute("today", sdf1.format(today));
+%>
 
 <!-- CSS -->
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/layout/header.css">
@@ -64,40 +75,75 @@
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                    <div class="flex items-center ml-3">
 	                                   <p class="text-gray-900 whitespace-no-wrap text-left">
-	                                       여기는 제목입니다. 1
+	                                       ${board.title }
 	                                   </p>
                                    </div>
                                 </td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <span
-                                        class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                                        <span aria-hidden
-                                            class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
-                                        <span class="relative text-left">자유</span>
-                                    </span>
+								<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                	<c:choose>
+                                		<c:when test="${board.type eq 1 }">
+		                                    <span
+		                                        class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+		                                        <span aria-hidden
+		                                            class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+		                                        <span class="relative text-left">자유</span>
+		                                    </span>
+	                                    </c:when>
+                                		<c:when test="${board.type eq 2 }">
+		                                    <span
+		                                        class="relative inline-block px-3 py-1 font-semibold text-orange-900 leading-tight">
+		                                        <span aria-hidden
+		                                            class="absolute inset-0 bg-orange-200 opacity-50 rounded-full"></span>
+		                                        <span class="relative text-left">광고</span>
+		                                    </span>
+	                                    </c:when>
+                                		<c:when test="${board.type eq 3 }">
+		                                    <span
+		                                        class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
+		                                        <span aria-hidden
+		                                            class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
+		                                        <span class="relative text-left">공지</span>
+		                                    </span>
+	                                    </c:when>
+                                    </c:choose>
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 	                            	<div class="flex items-center">
                                         <div class="flex-shrink-0 w-10 h-10">
                                             <img class="w-full h-full rounded-full"
-                                                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
+                                                src="<%=request.getContextPath() %>/resources/upload_user/${board.renamed }.${board.ext }"
                                                 alt="" />
                                         </div>
                                         <div class="ml-3">
-                                            <p class="text-gray-900 whitespace-no-wrap text-left">사람1</p>
+                                            <p class="text-gray-900 whitespace-no-wrap text-left">${board.nick }</p>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                     <p class="text-gray-900 whitespace-no-wrap text-left">
-                                        Jan 21, 2020
+                                        <fmt:formatDate var="date" value="${board.dates }" pattern="yyyy-MM-dd" />
+                                        <c:choose>
+                                        	<c:when test="${today eq date }">
+                                        		<%= sdf2.format(today) %>
+                                        	</c:when>
+                                        	<c:otherwise>
+                                        		${date }
+                                        	</c:otherwise>
+                                        </c:choose>
                                     </p>
                                 </td>
 								<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-	                            	<p class="text-gray-900 whitespace-no-wrap text-center">1</p>
+	                            	<p class="text-gray-900 whitespace-no-wrap text-center">${board.count }</p>
                                 </td>
 								<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-	                            	<p class="text-gray-900 whitespace-no-wrap text-center font-bold text-blue-600">1</p>
+									<c:choose>
+										<c:when test="${board.goodbad ge 0}">
+	                            			<p class="text-gray-900 whitespace-no-wrap text-center font-bold text-blue-600">${board.goodbad }</p>
+                                		</c:when>
+                                		<c:otherwise>
+	                            			<p class="text-gray-900 whitespace-no-wrap text-center font-bold text-red-600">${board.goodbad }</p>
+                                		</c:otherwise>
+                                	</c:choose>
                                 </td>
                             </tr>
                         </tbody>
@@ -114,9 +160,9 @@
                                 <th
                                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     <p class="float-left inline-block">본문</p>
-                                    <p class="float-right inline-block px-6 cursor-pointer font-bold text-red-600">1</p>
+                                    <p class="float-right inline-block px-6 cursor-pointer font-bold text-red-600">${board.bad }</p>
                                     <p class="float-right inline-block px-6">싫어요</p>
-                                    <p class="float-right inline-block px-6 cursor-pointer font-bold text-blue-600">2</p>
+                                    <p class="float-right inline-block px-6 cursor-pointer font-bold text-blue-600">${board.good }</p>
                                     <p class="float-right inline-block px-6">좋아요</p>
                                 </th>
                             </tr>
@@ -127,16 +173,7 @@
                                     <div class="flex items-center">
                                         <div class="ml-3">
                                             <p class="text-gray-900">
-                                                본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 
-                                                본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 
-                                                본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 
-                                                본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 
-                                                본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 
-                                                본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 
-                                                본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 
-                                                본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 
-                                                본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 
-                                                본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 본문입니다아아 !!!!! 
+                                            	${board.content }
                                             </p>
                                         </div>
                                     </div>
@@ -179,81 +216,33 @@
                             </tr>
                         </thead>
                         <tbody>
+                        	<c:forEach items="${commentsData.clist }" var="comments">
                             <tr>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 w-10 h-10">
                                             <img class="w-full h-full rounded-full"
-                                                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
+                                                src="<%=request.getContextPath() %>/resources/upload_user/${comments.renamed }.${comments.ext }"
                                                 alt="" />
                                         </div>
                                         <div class="ml-3">
                                             <p class="text-gray-900 whitespace-no-wrap">
-                                                댓글입니다아 !!!
+                                                ${comments.content }
                                             </p>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <p class="text-gray-900 whitespace-no-wrap">사람2</p>
+                                    <p class="text-gray-900 whitespace-no-wrap">${comments.nick }</p>
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <p class="text-blue-600 whitespace-no-wrap text-center font-bold cursor-pointer">2</p>
+                                    <p class="text-blue-600 whitespace-no-wrap text-center font-bold cursor-pointer">${comments.good }</p>
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <p class="text-red-600 whitespace-no-wrap text-center font-bold cursor-pointer">1</p>
+                                    <p class="text-red-600 whitespace-no-wrap text-center font-bold cursor-pointer">${comments.bad }</p>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <div class="flex items-center">
-                                        <div class="flex-shrink-0 w-10 h-10">
-                                            <img class="w-full h-full rounded-full"
-                                                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-                                                alt="" />
-                                        </div>
-                                        <div class="ml-3">
-                                            <p class="text-gray-900 whitespace-no-wrap">
-                                                댓글입니다아 !!!
-                                            </p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <p class="text-gray-900 whitespace-no-wrap">사람2</p>
-                                </td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <p class="text-blue-600 whitespace-no-wrap text-center font-bold cursor-pointer">2</p>
-                                </td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <p class="text-red-600 whitespace-no-wrap text-center font-bold cursor-pointer">1</p>
-                                </td>
-                            </tr>
-	                            <tr>
-	                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-	                                    <div class="flex items-center">
-	                                        <div class="flex-shrink-0 w-10 h-10">
-	                                            <img class="w-full h-full rounded-full"
-	                                                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-	                                                alt="" />
-	                                        </div>
-	                                        <div class="ml-3">
-	                                            <p class="text-gray-900 whitespace-no-wrap">
-	                                                댓글입니다아 !!!
-	                                            </p>
-	                                        </div>
-	                                    </div>
-	                                </td>
-	                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-	                                    <p class="text-gray-900 whitespace-no-wrap">사람2</p>
-	                                </td>
-	                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-	                                    <p class="text-blue-600 whitespace-no-wrap text-center font-bold cursor-pointer">2</p>
-	                                </td>
-	                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-	                                    <p class="text-red-600 whitespace-no-wrap text-center font-bold cursor-pointer">1</p>
-	                                </td>
-	                            </tr>
+                            </c:forEach>
                         </tbody>
                     </table>
                 </div>
@@ -278,10 +267,11 @@
 			</div>
 			<!--Header End-->
 			<!-- Content-->
-			<form class="w-full max-w-xl rounded-lg px-4 pt-2">
+			<form action="<%=request.getContextPath() %>/comments/write" method="post" class="w-full max-w-xl rounded-lg px-4 pt-2">
 				<div class="flex flex-wrap -mx-4 mb-2">
 					<div class="w-full md:w-full my-2">
-						<textarea class="bg-gray-300 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none" name="body" placeholder='좋은 게시글인군요!' required></textarea>
+						<input hidden="hidden" name="ref" value="${board.no }">
+						<textarea class="bg-gray-300 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none" name="content" placeholder='좋은 게시글인군요!' required></textarea>
 					</div>
 					<div class="w-full md:w-full flex items-start md:w-full">
 						<div class="flex items-start w-1/2 text-gray-700 px-2 mr-auto"></div>
