@@ -25,8 +25,6 @@ public class FileUtil {
 		
 		for (MultipartFile mf : files) {
 			
-			String path = root;
-			
 			// 사용자가 올린 파일 이름
 			String ofn = mf.getOriginalFilename();
 			int pos = ofn.lastIndexOf(".");
@@ -52,7 +50,7 @@ public class FileUtil {
 			fileData.add(map);
 			
 			// 저장 경로
-			path += renameFileName + "." + ext;
+			String path = root + "/" + renameFileName + "." + ext;
 
 			// 사용자가 등록한 파일을 설정한 경로에 저장
 			saveFile(mf, path);
@@ -76,6 +74,7 @@ public class FileUtil {
 		
 		// 사용자가 등록한 파일을 옮겨담을 파일 객체 생성
 		// savePath : 저장할 경로 + 변경된 파일명
+		System.out.println(savePath);
 		File fileData = new File(savePath);
 		
 		try {

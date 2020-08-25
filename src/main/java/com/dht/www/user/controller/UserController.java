@@ -221,13 +221,13 @@ public class UserController {
 	
 	//회원가입을 위한 이메일 발송
 	@RequestMapping(value ="/joinemailcheck", method = RequestMethod.POST)
-	public String joinEmailCheck(@RequestParam List<MultipartFile> file, Users users, HttpServletRequest request, Model model ) {
+	public String joinEmailCheck(@RequestParam List<MultipartFile> file, Users users, HttpSession session, HttpServletRequest request, Model model ) {
 		
 		System.out.println("프로필 이미지 안넣었을 떄 확인 : " + file);
 		
 		
 		// 프로필 이미지 저장 위치 꺼내기
-		String root = request.getServletContext().getRealPath("/upload_user");
+		String root = session.getServletContext().getRealPath("/resources/upload_user");
 		
 		// 프로필 이미지 업로드 및 DB에 저장
 		userService.insertUserProfile(file, users, root);
@@ -259,7 +259,33 @@ public class UserController {
 		
 		return "common/result";
 	}
-
+	
+	//아이디 중복 확인
+	@RequestMapping(value="/idcheck", method = RequestMethod.POST, produces = "application/text; charset=UTF-8")
+	@ResponseBody
+	public String idCheck(String id, HttpServletRequest request, Model model ){
+		  
+		  int res = userService.idCheck(id);
+		  if(res > 0) { // 아이디 중복
+			  return id;
+		  }else { // 아이디 중복 아님
+			  return "";
+		  }
+	}
+		
+	//닉네임 중복 확인
+	@RequestMapping(value="/nickcheck", method = RequestMethod.POST, produces = "application/text; charset=UTF-8")
+	@ResponseBody
+	public String nickCheck(String nick, HttpServletRequest request, Model model ){
+		
+		int res = userService.nickCheck(nick);
+		if(res > 0) { // 닉네임 중복
+			return nick;
+		}else { // 닉네임 중복 아님
+			return "";
+		}
+	}
+		
 	
 	
 	

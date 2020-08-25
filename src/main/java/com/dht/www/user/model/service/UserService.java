@@ -22,7 +22,7 @@ public interface UserService {
 	//토큰을 통해 회원정보를 가져오는 코드 
 	public <JsonNode> JsonNode getKakaoUserInfo(JsonNode access_token);
 
-	//회원 아이디 조회
+	//아이디 찾을때 사용하는 메소드 
 	public Users getUsersId(Map<String, Object> commandMap);
 	
 	//회원 메일로 아이디 발송
@@ -45,6 +45,12 @@ public interface UserService {
 	
 	//회원 프로필 이미지 파일 정보 
 	public Files selectUserProfile(Users user);
+	
+	//아이디 중복 확인
+	public int idCheck(String id);
+	
+	//닉네임 중복 확인
+	public int nickCheck(String nick);
 	
 	
 }

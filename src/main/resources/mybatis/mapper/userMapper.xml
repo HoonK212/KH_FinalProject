@@ -46,5 +46,14 @@
 		WHERE REF = #{id}
 	</select>
 	
+	<select id="idCheck" resultType="int">
+		SELECT COUNT(*) FROM USERS
+		WHERE ID = #{id}
+	</select>
+	
+	<select id="nickCheck" resultType="int">
+		SELECT COUNT(*) FROM USERS
+		WHERE NICK = #{nick}
+	</select>
 	
 </mapper>

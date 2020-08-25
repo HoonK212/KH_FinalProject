@@ -9,6 +9,47 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/user/join.css">
 <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css">
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
+
+<style type="text/css">
+/* 자동방지가입 CSS */
+.cpt-layout{
+	display: grid;
+	grid-template-columns: 250px 100px;
+	grid-template-rows: 100px 50px 50px;
+	
+	justify-content: left;
+	align-items: center;
+	
+	width: 600px;
+	height: 300px;
+	padding-top: 20px;
+	
+	border: 1px solid black;
+	
+}
+
+.cpt-layout:nth-child(1){
+ 	grid-column: 1/4; 
+ 	grid-row: 1/3; 
+}
+.cpt-layout:nth-child(2){
+	grid-column: 4/5; 
+ 	grid-row: 1/3; 
+}
+.cpt-layout:nth-child(3){
+	grid-column: 1/4; 
+ 	grid-row: 3/4; 
+}
+.cpt-layout:nth-child(4){
+	grid-column: 4/5; 
+ 	grid-row: 3/4; 
+}
+.cpt-layout:nth-child(5){
+	grid-column: 1/5; 
+ 	grid-row: 1/4; 
+}
+
+</style>
 </head>
 <body>
 
@@ -94,24 +135,26 @@
 						</div>
 						<label for="id" class="font-bold mb-1 text-gray-800 inline-block">아이디</label>
 						<p class="font-bold mb-1 text-gray-400 block text-xs inline-block">(2/3)</p>
+						<p class="font-bold mb-1 text-gray-400 block text-xs inline-block"><span id="idcheckResult" style="color: red; font-size: 0.8rem;"></span><br></p>
 						<div class="flex mb-5">
 							<input type="text" name="id" id="id"
 								class="w-9/12 px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium mr-6"
 								placeholder="사용하고자 하는 아이디 입력">
 							<label
 								class="flex justify-start items-center rounded-lg bg-white pl-4 pr-6 py-3 shadow-sm bg-gray-800">
-								<div class="select-none text-white font-extrabold">중복확인</div>
+								<div class="select-none text-white font-extrabold" onclick="XmlIdCheck()">중복확인</div>
 							</label>
 						</div>
 						<label for="nick" class="font-bold mb-1 text-gray-800 inline-block">닉네임</label>
 						<p class="font-bold mb-1 text-gray-400 block text-xs inline-block">(3/3)</p>
+						<p class="font-bold mb-1 text-gray-400 block text-xs inline-block"><span id="nickcheckResult" style="color: red; font-size: 0.8rem;"></span></p>
 						<div class="flex mb-5">
 							<input type="text" name="nick" id="nick"
 								class="w-9/12 px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium mr-6"
 								placeholder="사용하고자 하는 닉네임 입력">
 							<label
 								class="flex justify-start items-center rounded-lg bg-white pl-4 pr-6 py-3 shadow-sm bg-gray-800">
-								<div class="select-none text-white font-extrabold">중복확인</div>
+								<div class="select-none text-white font-extrabold" onclick="XmlNickCheck()">중복확인</div>
 							</label>
 						</div>
 					</div>
@@ -149,7 +192,20 @@
 								</div>
 								<div x-text="passwordStrengthText" class="text-gray-500 font-medium text-sm ml-3 leading-none"></div>
 							</div>
+							<!-- 자동방지 가입 -->
+							<label class="font-bold mb-1 text-gray-800 block">자동가입 방지</label>
+							<div class="flex items-center mt-4 h-3 cpt-layout">
+								<div id="cpt-img">1</div>
+								<div id="refresh"><img style="width: 50px; height: 50px;" src="<%=request.getContextPath()%>/resources/image/captcha/refreshicon.png" /></div>
+								<div><input id="input" type="text" class="px-4 py-3 rounded-lg shadow-sm 
+								focus:outline-none focus:shadow-outline text-gray-600 font-medium"/></div>
+								<div><button id="btnSubmit" class="focus:outline-none border border-transparent 
+								py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" >확인</button></div>
+								<div id="result">5</div>
+							</div>
 						</div>
+						
+						
 					</div>
 					<div x-show.transition.in="step === 3">
 						<div class="mb-5">
@@ -238,11 +294,14 @@
 							class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
 						>다음</button>
 
-						<button type="submit" 
-							@click="step = 'complete'"
-							x-show="step === 3"
-							class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
-						>완료</button>
+						<button type="submit" x-show="step === 3" class="w-32 focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center 
+						text-white bg-blue-500 hover:bg-blue-600 font-medium" >완료</button>
+						
+						<button hidden="hidden" id="stepOne" @click="step = 1"></button>
+						<button hidden="hidden" id="stepTwo" @click="step = 2"></button>
+						<button hidden="hidden" id="stepThree" @click="step = 3"></button>
+						<button hidden="hidden" id="stepComplete" @click="step = 'complete'"></button>
+						
 					</div>
 				</div>
 			</div>
@@ -254,7 +313,7 @@
 	<script type="text/javascript">
 	 var ajaxFlag_idcheck = false;
 	 var ajaxFlag_nickcheck = false;
-	 var ajaxFlag_captcha = false;
+	 var ajaxFlag_captcha = true;
 	   
 	 function required() {
 	
@@ -269,17 +328,23 @@
 	        var post = document.getElementById('post').value;
 	        var addr = document.getElementById('addr').value;
 	        
+	        var stepOne = document.getElementById('stepOne');
+	        var stepTwo = document.getElementById('stepTwo');
+	        var stepThree = document.getElementById('stepThree');
+	        var stepComplete = document.getElementById('stepComplete');
+	        
+	        if(name == ""){
+	        	alert("이름을 입력해 주세요.");
+	        	return false;
+	        }
 	        if(!ajaxFlag_idcheck){
 	           alert("아이디 중복검사를 해주세요");
+	           stepOne.click();
 	           return false;
 	        }
 	        if(!ajaxFlag_nickcheck){
 	           alert("닉네임 중복검사를 해주세요");
 	           return false;
-	        }
-	        if(name == ""){
-	        	alert("이름을 입력해 주세요.");
-	        	return false;
 	        }
 	        if(id == ""){
 	        	alert("아이디를 입력해 주세요.");
@@ -312,6 +377,51 @@
 		 
 	        return true;
 	  }
+	 
+	 	//아이디 중복 확인
+	 	function XmlIdCheck(){
+	 		
+	 		var id = document.getElementById('id').value;
+	 		
+			var xhr = new XMLHttpRequest();
+			xhr.open('POST', '<%=request.getContextPath()%>/user/idcheck');
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.send('id='+id);
+			xhr.addEventListener('load', function(){
+				var data = xhr.response; 
+				if( data != '' ){
+					document.querySelector('#idcheckResult').textContent = data + '는 이미 존재하는 아이디입니다.'
+					ajaxFlag_idcheck = false;
+				}else{
+					document.querySelector('#idcheckResult').textContent = '사용가능한 아이디입니다.'
+					ajaxFlag_idcheck = true;
+				}
+			})
+	 		
+	 	}
+	 	
+	 	// 닉네임 중복 확인
+	 	function XmlNickCheck(){
+	 		
+			var nick = document.getElementById('nick').value;
+	 		
+			var xhr = new XMLHttpRequest();
+			xhr.open('POST', '<%=request.getContextPath()%>/user/nickcheck');
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.send('nick='+nick);
+			xhr.addEventListener('load', function(){
+				var data = xhr.response; 
+				if( data != '' ){
+					document.querySelector('#nickcheckResult').textContent = data + '는 이미 존재하는 닉네임입니다.'
+					ajaxFlag_nickcheck = false;
+				}else{
+					document.querySelector('#nickcheckResult').textContent = '사용가능한 닉네임입니다.'
+					ajaxFlag_nickcheck = true;
+				}
+			})
+	 		
+	 	}
+	 
 	   
 		function app() {
 			return {
@@ -339,7 +449,66 @@
 				}
 			}
 		}
-
+	</script>
+	
+	<script type="text/javascript">
+	 window.onload = function(){
+		
+		var captchaKey = null;
+		var captchaResult = null;
+		var filename = null;
+		
+		document.getElementById('refresh').addEventListener('click', function() {
+			
+				var xhr = new XMLHttpRequest(); 
+				xhr.open('GET', '<%=request.getContextPath()%>/captchaKey/getKey');
+				xhr.setRequestHeader('Content-Type', 'application/json');
+				xhr.send();
+				xhr.addEventListener('load', function(){
+					var data =  JSON.parse(xhr.response);
+					
+					//캡차키 전달받음
+					captchaKey = data.key
+					//자동함수
+					captchaImage(captchaKey);
+				}); 
+				
+		});
+		
+		function captchaImage(captchaKey){
+	
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', '<%=request.getContextPath()%>/captchaImage/getImg');
+				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				xhr.send("captchaKey="+captchaKey);
+				xhr.addEventListener('load', function(){
+	
+					filename = xhr.response;
+				    document.getElementById('cpt-img').innerHTML = 
+				    	"<img src=<%=request.getContextPath()%>/resources/image/captcha/"+filename+".jpg>";
+				    
+				});
+		}
+		
+		document.getElementById('btnSubmit').addEventListener('click', function(){
+				
+				var input = document.getElementById('input');
+				var xhr = new XMLHttpRequest();
+				var param = 'input='+input.value+'&mycaptchakey='+captchaKey;
+				console.log(param);
+				xhr.open('GET', '<%=request.getContextPath()%>/captchaResult/getResult?' + param);
+				xhr.setRequestHeader('Content-Type', 'application/json');
+				xhr.send();
+				xhr.addEventListener('load', function(){
+					var result = JSON.parse(xhr.response); //괄호가 없다. 속성이다.
+					
+					captchaResult = result.result;
+					
+					document.getElementById('result').textContent = captchaResult;
+				})		
+		})
+			document.getElementById('refresh').click();
+		}
 	</script>
 
 </body>

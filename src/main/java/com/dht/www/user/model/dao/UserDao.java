@@ -63,6 +63,18 @@ public class UserDao {
 		return session.selectOne("USERS.selectUserProfile", user);
 	}
 	
+	//아이디 중복 확인
+	public int idCheck(String id) {
+
+		return session.selectOne("USERS.idCheck", id);
+	}
+
+	//닉네임 중복 확인
+	public int nickCheck(String nick) {
+
+		return session.selectOne("USERS.nickCheck", nick);
+	}
+	
 
 
 }

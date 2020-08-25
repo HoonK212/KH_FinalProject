@@ -24,7 +24,7 @@
                             <div class="flex flex-col mt-4">
                                 <input id="pw" type="password" class="flex-grow h-8 px-2 rounded border border-grey-400" name="pw" required placeholder="Password">
                             </div>
-                            <span id="error" style="color: red; font-size: 0.7rem;"></span>
+                            <span id="error" style="color: red; font-size: 0.8rem; min-height: 1rem; display:inline-block"></span>
                             <div class="flex items-center mt-4">
                                 <input type="checkbox" name="remember" id="remember" class="mr-2"> <label for="remember" class="text-sm text-grey-dark">로그인 상태 유지</label>
                             </div>

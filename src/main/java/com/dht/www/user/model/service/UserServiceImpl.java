@@ -411,5 +411,19 @@ public class UserServiceImpl implements UserService{
 
 		return userDao.selectUserProfile(user);
 	}
+	
+	//아이디 중복 확인
+	@Override
+	public int idCheck(String id) {
+		
+		return userDao.idCheck(id);
+	}
+
+	//닉네임 중복 확인
+	@Override
+	public int nickCheck(String nick) {
+
+		return userDao.nickCheck(nick);
+	}
 		
 }
