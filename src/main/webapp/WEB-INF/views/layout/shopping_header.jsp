@@ -83,40 +83,44 @@
 		                </div>
 		            </div>
 		            <div class="flex flex-col md:flex-row hidden md:block -mx-2">
-		                <a href="/shopping/list?listno=0" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">전체 보기</a>
-		                <a href="/shopping/list?listno=1" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">이벤트 상품</a>
-		                <a href="/shopping/list?listno=2" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">인기 상품</a>
-		                <a href="/shopping/list?listno=3" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">신규 상품</a>
-		                <a href="/shopping/list?listno=4" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">운동 보조제</a>
-		                <a href="/shopping/list?listno=5" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">운동 기구</a>
-		                <a href="/shopping/list?listno=6" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">다이어트 식품</a>
+		                <a href="#" onclick="loadList(0);" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">전체 보기</a>
+		                <a href="#" onclick="loadList(1);" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">이벤트 상품</a>
+		                <a href="#" onclick="loadList(2);" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">인기 상품</a>
+		                <a href="#" onclick="loadList(3);" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">신규 상품</a>
+		                <a href="#" onclick="loadList(4);" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">운동 보조제</a>
+		                <a href="#" onclick="loadList(5);" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">운동 기구</a>
+		                <a href="#" onclick="loadList(6);" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">다이어트 식품</a>
 		            </div>
 		        </div>
             </nav>
 <script type="text/javascript">
- $(document).ready(function() {
-	$("a").click(function() {
-		console.log("a클릭됨")
-		
-		sendRequest("Get", $(this).attr("href"), callback);
-		
-		//클릭 이벤트가 발생한 <a>태그의 href 속성을 .load() 함수의 url로 사용
-		/* $("main").load( $(this).attr("href"),
-				function(String responseTest
-				,String textStatus
-				,jqXHR jqXHR){
-			jqXHR.open()
-			
-			
-		} ); */
-		
-		//<a>태그의 기본동작 막는다
-		return false;
-		
-		// ** 이벤트 리스너에서 return false;를 실행하면 이벤트의 기본 동작(동작 처리) 수행을 막는다
-	})
-}) 
+
+function loadList(num) {
 	
+	var xhr = new XMLHttpRequest();
+	
+	// 통신을 위한 시작줄 작성
+	xhr.open('GET', '<%=request.getContextPath()%>/shopping/list?listno='+num);
+	
+	// http request header 설정
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	
+	// http request body 설정
+	//	xhr.send() : 원하는 데이터를 파라미터에 넣어 데이터 전송
+	xhr.send();
+	
+	// ajax 통신이 끝난 뒤 실행할 콜백함수 등록
+	xhr.addEventListener('load', function() {
+		
+		var data = xhr.response;
+		//console.dir(data)
+		
+		document.querySelector('main').innerHTML = data;
+		
+	})
+	
+}
+
 </script> 
 
 

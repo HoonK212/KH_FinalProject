@@ -1,5 +1,8 @@
 package com.dht.www.shopping.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -33,21 +36,21 @@ public class ShoppingController {
 	}
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
-	@ResponseBody
-	public void shoppingList(Model model, @RequestParam(required = false, defaultValue = "1") int curPage
-								,@RequestParam(required = false, defaultValue = "0") int listno
-								) {
+	public String shoppingList(Model model, @RequestParam(required=false, defaultValue="1") int curPage
+								, @RequestParam(required=false, defaultValue="0") int listno) {
 		
 		int cntPerPage = 16;
 		System.out.println(listno);
 		
-		//System.out.println(shoppingService.selectList(listno, curPage, cntPerPage));
-		
 		model.addAttribute("list", shoppingService.selectList(listno, curPage, cntPerPage));
 		
+		return "/shopping/content";
 		
 	}
 	
+	@RequestMapping("/content")
+	@ResponseBody
+	public void loadContent() {}
 	
 	@RequestMapping(value="/detail", method=RequestMethod.GET)
 	public void shoppingDetail(Model model) {
