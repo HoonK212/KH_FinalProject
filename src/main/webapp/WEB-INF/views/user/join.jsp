@@ -128,7 +128,7 @@
 								</ul>	
 							</div>
 							<div class="relative">
-								<input name="pw"
+								<input name="pw" id="pw"
 									:type="togglePassword ? 'text' : 'password'"
 									@keydown="checkPasswordStrength()"
 									x-model="password"
@@ -155,7 +155,7 @@
 						<div class="mb-5">
 							<label for="birth" class="font-bold mb-1 text-gray-800 inline-block">생년월일</label>
 							<p class="font-bold mb-1 text-gray-400 block text-xs inline-block">(1/5)</p>
-							<input type="date" name="birth"
+							<input type="date" name="birth" id="birth"
 								class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium">
 						</div>
 						<div class="mb-5">
@@ -165,7 +165,7 @@
 								<label
 									class="flex justify-start items-center rounded-lg bg-white pl-4 pr-6 py-3 shadow-sm mr-4">
 									<div class="text-teal-600 mr-3">
-										<input type="radio" name="gender" x-model="gender" value="Male" class="form-radio focus:outline-none focus:shadow-outline" />
+										<input id="gender" type="radio" name="gender" x-model="gender" value="Male" class="form-radio focus:outline-none focus:shadow-outline" />
 									</div>
 									<div class="select-none text-gray-800">Male</div>
 								</label>
@@ -181,14 +181,14 @@
 						<div class="mb-5">
 							<label for="mail" class="font-bold mb-1 text-gray-800 inline-block">이메일</label>
 							<p class="font-bold mb-1 text-gray-400 block text-xs inline-block">(3/5)</p>
-							<input type="email" name="mail"
+							<input type="email" name="mail" id="mail"
 								class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
 								placeholder="example@mail.com">
 						</div>
 						<div class="mb-5">
 							<label for="tel" class="font-bold mb-1 text-gray-800 inline-block">전화번호</label>
 							<p class="font-bold mb-1 text-gray-400 block text-xs inline-block">(4/5)</p>
-							<input type="tel" name="tel"
+							<input type="tel" name="tel" id="tel"
 								class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
 								placeholder="010-0000-1111">
 						</div>
@@ -197,7 +197,7 @@
 							<p class="font-bold mb-1 text-gray-600 block text-sm inline-block">(우편번호 / 주소 / 상세주소)</p>
 							<p class="font-bold mb-1 text-gray-400 block text-xs inline-block">(5/5)</p>
 							<div class="flex mb-2"">
-								<input type="text" name="post"
+								<input type="text" name="post" id="post"
 									class="w-9/12 px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium mr-6"
 									placeholder="우편 번호">
 								<label
@@ -205,7 +205,7 @@
 									<div class="select-none text-white font-extrabold">우편번호검색</div>
 								</label>
 							</div>
-							<input type="text" name="addr"
+							<input type="text" name="addr" id="addr"
 								class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium mb-2"
 								placeholder="기본 주소">
 							<input type="text" name="addr_detail"
@@ -257,6 +257,7 @@
 	 var ajaxFlag_captcha = false;
 	   
 	 function required() {
+	
 	        var name = document.getElementById('name').value;
 	        var id = document.getElementById('id').value;
 	        var nick = document.getElementById('nick').value;
@@ -264,7 +265,7 @@
 	        var birth = document.getElementById('birth').value;
 	        var gender = document.getElementById('gender').value;
 	        var mail = document.getElementById('mail').value;
-	        var tel = document.getElementById('tell').value;
+	        var tel = document.getElementById('tel').value;
 	        var post = document.getElementById('post').value;
 	        var addr = document.getElementById('addr').value;
 	        
@@ -276,11 +277,15 @@
 	           alert("닉네임 중복검사를 해주세요");
 	           return false;
 	        }
-	        if(document.getElementById('name').value == ""){
+	        if(name == ""){
 	        	alert("이름을 입력해 주세요.");
 	        	return false;
 	        }
 	        if(id == ""){
+	        	alert("아이디를 입력해 주세요.");
+	        	return false;
+	        }
+	        if( pw == ""){
 	        	alert("비밀번호를 입력해 주세요.");
 	        	return false;
 	        }
@@ -304,7 +309,7 @@
 	        	alert("주소를 입력해 주세요.");
 	        	return false;
 	        }
-
+		 
 	        return true;
 	  }
 	   
@@ -334,7 +339,6 @@
 				}
 			}
 		}
-	
 
 	</script>
 

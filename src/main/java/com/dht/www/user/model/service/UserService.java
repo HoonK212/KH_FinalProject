@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.dht.www.mypage.model.vo.Files;
 import com.dht.www.user.model.vo.Users;
 
 public interface UserService {
@@ -25,16 +26,25 @@ public interface UserService {
 	public Users getUsersId(Map<String, Object> commandMap);
 	
 	//회원 메일로 아이디 발송
-	public void mailSending(Map<String, Object> commandMap, String urlPath, String searchId);
+	public void mailSendingToFindId(Map<String, Object> commandMap, String urlPath, String searchId);
 	
 	//회원인 경우 임시비밀번호 생성
 	public Users getUsersPw(Map<String, Object> commandMap);
 	
 	//회원 메일로 비밀번호 발송
-	public void mailSendingFindPw(Map<String, Object> commandMap, String urlPath, String randomPw);
+	public void mailSendingToFindPw(Map<String, Object> commandMap, String urlPath, String randomPw);
 	
-	//회원가입
-	public void insertUser(List<MultipartFile> files, Users user, String root);
+	//프로필 이미지 저장
+	public void insertUserProfile(List<MultipartFile> files, Users user, String root);
+	
+	//회원 가입을 위한 이메일 발송
+	public void mailSendingToJoin(Users users, String urlPath);
+	
+	//회원 정보 저장
+	public int insertUser(Users users);
+	
+	//회원 프로필 이미지 파일 정보 
+	public Files selectUserProfile(Users user);
 	
 	
 }

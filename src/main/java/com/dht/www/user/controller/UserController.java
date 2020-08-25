@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dht.www.mypage.model.vo.Files;
 import com.dht.www.user.model.service.UserService;
 import com.dht.www.user.model.vo.Users;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -45,8 +46,11 @@ public class UserController {
 
 		System.out.println(user.getId() + ", " + user.getPw());
 		
+		//회원 정보 꺼내옴
 		Users res = userService.selectUser(user);
-		 
+		//회원의 프로필 이미지 정보 꺼내옴
+		Files pic = userService.selectUserProfile(user);
+		
 		//루트 컨텍스트
 		String root = request.getContextPath();
 		
@@ -61,6 +65,8 @@ public class UserController {
 
 			//로그인 성공
 			session.setAttribute("logInInfo", res);
+			session.setAttribute("logInPic", pic);
+			System.out.println("프로필 저장 이미지 확인 : " + session.getAttribute("logInPic"));
 			return "";
 		
 		}else {//회원정보 없음
@@ -157,7 +163,7 @@ public class UserController {
 		  String root = request.getContextPath();
 		  
 		  //회원 메일로 아이디 발송
-		  userService.mailSending(commandMap, urlPath, searchId);
+		  userService.mailSendingToFindId(commandMap, urlPath, searchId);
 		  
 		  model.addAttribute("alertMsg", "메일을 발송하였습니다.");
 	      model.addAttribute("url", root + "/user/login");
@@ -198,7 +204,7 @@ public class UserController {
 		  }
 		
 		//회원 메일로 아이디 발송
-		userService.mailSendingFindPw(commandMap, urlPath, randomPw);
+		userService.mailSendingToFindPw(commandMap, urlPath, randomPw);
 		
 		model.addAttribute("alertMsg", "메일을 발송하였습니다.");
 		model.addAttribute("url", root + "/user/login");
@@ -213,20 +219,45 @@ public class UserController {
 		return "user/join";
 	}
 	
-	//회원가입
+	//회원가입을 위한 이메일 발송
 	@RequestMapping(value ="/joinemailcheck", method = RequestMethod.POST)
-	public String joinEmailCheck(@RequestParam List<MultipartFile> file, Users users, HttpServletRequest request ) {
+	public String joinEmailCheck(@RequestParam List<MultipartFile> file, Users users, HttpServletRequest request, Model model ) {
 		
-		 // 프로필 이미지 저장 위치 꺼내기
-		 String root = request.getServletContext().getRealPath("/upload_user");
-		 // 회원 정보와 파일 정보 보내기
-		 userService.insertUser(file, users, root);
-		 
-		 // 메일로 정보를 보내기
+		System.out.println("프로필 이미지 안넣었을 떄 확인 : " + file);
 		
+		
+		// 프로필 이미지 저장 위치 꺼내기
+		String root = request.getServletContext().getRealPath("/upload_user");
+		
+		// 프로필 이미지 업로드 및 DB에 저장
+		userService.insertUserProfile(file, users, root);
 		 
+		// http://localhost:8089/www 꺼내기
+		String urlPath = request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+		
+		// 회원가입을 위한 이메일 발송
+		userService.mailSendingToJoin(users, urlPath);
+		
+		model.addAttribute("alertMsg", "이메일로 확인 메일이 발송 되었습니다.");
+		model.addAttribute("url", "/login");
 		 
-		return "";
+		return "common/result";
+	}
+	
+	//메일을 받은 경우 회원정보 저장
+	@RequestMapping(value ="/joinimple", method = RequestMethod.POST)
+	public String joinimple(Users users, HttpServletRequest request, Model model) {
+		
+		int res = userService.insertUser(users);
+		if(res>0) {
+			model.addAttribute("alertMsg", "회원가입 축하드립니다!!!!!");
+			model.addAttribute("url", "/login");
+		}else {
+			model.addAttribute("alertMsg", "회원가입에 실패하였습니다.");
+			model.addAttribute("url", "/join");
+		}
+		
+		return "common/result";
 	}
 
 	

@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.dht.www.mypage.model.vo.Files;
 import com.dht.www.user.model.vo.Users;
 
 
@@ -54,6 +55,12 @@ public class UserDao {
 	public int insertBasicProfile(Users user) {
 
 		return session.insert("USERS.insertBasicProfile", user);
+	}
+	
+	//회원 프로필 이미지 정보
+	public Files selectUserProfile(Users user) {
+
+		return session.selectOne("USERS.selectUserProfile", user);
 	}
 	
 

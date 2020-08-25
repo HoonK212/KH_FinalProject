@@ -32,12 +32,19 @@
 	</insert>
 	
 	<insert id="insertUserProfile">
-		INSERT INTO FILES ( NO, TYPE, REF, PATH, ORIGIN, RENAME, EXT, SIZES, THUMBNAIL )
-		VALUES ( FILES_SEQ.NEXTVAL, 1, #{id}, "upload_user", #{origin}, #{rename}, #{ext}, #{sizes}, 0 )
+		INSERT INTO FILES ( NO, TYPE, REF, PATH, ORIGIN, RENAMED, EXT, SIZES, THUMBNAIL )
+		VALUES ( FILES_SEQ.NEXTVAL, 1, #{id}, 'upload_user', #{origin}, #{rename}, #{ext}, #{sizes}, 0 )
 	</insert>
 	
 	<insert id="insertBasicProfile">
-		INSERT INTO FILES ( NO, TYPE, REF, PATH, ORIGIN, RENAME, EXT, SIZES, THUMBNAIL )
-		VALUES ( FILES_SEQ.NEXTVAL, 1, #{id}, "upload_user", "logo", "logo", "png", 1234, 0 )
+		INSERT INTO FILES ( NO, TYPE, REF, PATH, ORIGIN, RENAMED, EXT, SIZES, THUMBNAIL )
+		VALUES ( FILES_SEQ.NEXTVAL, 1, #{id}, 'upload_user', 'logo', 'logo', 'png', 1234, 0 )
 	</insert>
+	
+	<select id="selectUserProfile" resultType="com.dht.www.mypage.model.vo.Files">
+		SELECT * FROM FILES
+		WHERE REF = #{id}
+	</select>
+	
+	
 </mapper>

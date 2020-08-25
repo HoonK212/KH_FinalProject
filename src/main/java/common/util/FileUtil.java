@@ -36,7 +36,7 @@ public class FileUtil {
 			String renameFileName = getRenameFileName(originFileName, idx);
 			
 			// 확장자
-			String ext = originFileName.substring(originFileName.lastIndexOf(".") + 1);
+			String ext = ofn.substring(ofn.lastIndexOf(".") + 1);
 			
 			// 파일 사이즈
 			int s = (int) mf.getSize();
@@ -46,7 +46,7 @@ public class FileUtil {
 			map.put("origin", originFileName);
 			map.put("rename", renameFileName);
 			map.put("ext", ext);
-			map.put("size", size);
+			map.put("sizes", size);
 			
 			// tb_file에 저장할 데이터를 list에 추가
 			fileData.add(map);
