@@ -9,5 +9,35 @@
 		SELECT * FROM USERS
 		WHERE ID = #{id} and PW = #{pw}
 	</select>
+	
+	<select id="getUsersId" resultType="Users">
+		SELECT * FROM USERS
+		WHERE NAME = #{name} and MAIL = #{mail}
+	</select>
 
+	<select id="getUsersPw" resultType="Users">
+		SELECT * FROM USERS
+		WHERE NAME = #{name} and MAIL = #{mail} and ID = #{id}
+	</select>
+	
+	<update id="updateUsersPw">
+		UPDATE USERS
+		SET PW = #{pw}
+		WHERE ID = #{id}
+	</update>
+	
+	<insert id="insertUser" >
+		INSERT INTO USERS ( ID, PW, NAME, NICK, BIRTH, GENDER, MAIL, TEL, ADDR, POST )
+		VALUES ( #{id}, #{pw}, #{name}, #{nick}, #{birth}, #{gender}, #{mail}, #{tel}, #{addr}, #{post} )
+	</insert>
+	
+	<insert id="insertUserProfile">
+		INSERT INTO FILES ( NO, TYPE, REF, PATH, ORIGIN, RENAME, EXT, SIZES, THUMBNAIL )
+		VALUES ( FILES_SEQ.NEXTVAL, 1, #{id}, #{path}, #{origin}, #{rename}, #{ext}, #{sizes}, 0 )
+	</insert>
+	
+	<insert id="insertUserProfile02">
+		INSERT INTO FILES ( NO, TYPE, REF, PATH, ORIGIN, RENAME, EXT, SIZES, THUMBNAIL )
+		VALUES ( FILES_SEQ.NEXTVAL, 1, #{id}, #{path}, #{origin}, #{rename}, #{ext}, #{sizes}, 0 )
+	</insert>
 </mapper>

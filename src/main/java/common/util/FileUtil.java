@@ -25,27 +25,35 @@ public class FileUtil {
 		
 		for (MultipartFile mf : files) {
 			
-			String savePath = root + "resources/upload/";
+			String path = root;
 			
 			// 사용자가 올린 파일 이름
-			String originFileName = mf.getOriginalFilename();
+			String ofn = mf.getOriginalFilename();
+			int pos = ofn.lastIndexOf(".");
+			String originFileName = ofn.substring(0, pos);
 			
 			// 서버에 저장될 파일 이름
 			String renameFileName = getRenameFileName(originFileName, idx);
 			
-			// 저장경로
-			savePath += renameFileName;
+			// 확장자
+			String ext = originFileName.substring(originFileName.lastIndexOf(".") + 1);
+			
+			// 파일 사이즈
+			int s = (int) mf.getSize();
+			String size = Integer.toString(s);
 			
 			Map<String, String> map = new HashMap<String, String>();
-			map.put("originFileName", originFileName);
-			map.put("renameFileName", renameFileName);
-			map.put("savePath", savePath);
+			map.put("origin", originFileName);
+			map.put("rename", renameFileName);
+			map.put("path", path);
+			map.put("ext", ext);
+			map.put("size", size);
 			
 			// tb_file에 저장할 데이터를 list에 추가
 			fileData.add(map);
 			
 			// 사용자가 등록한 파일을 설정한 경로에 저장
-			saveFile(mf, savePath);
+			saveFile(mf, path);
 			
 			idx++;
 		}
@@ -57,8 +65,7 @@ public class FileUtil {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String renameFileName = sdf.format(new Date(System.currentTimeMillis()))
-								+ idx
-								+ "." + originFileName.substring(originFileName.lastIndexOf(".") + 1);
+								+ idx;
 		
 		return renameFileName;
 	}
@@ -71,7 +78,7 @@ public class FileUtil {
 		
 		try {
 			// 에러 테스트 코드
-			int err = 10/0;
+		//	int err = 10/0;
 			mf.transferTo(fileData);
 //		} catch (IllegalStateException e) {
 //			e.printStackTrace();

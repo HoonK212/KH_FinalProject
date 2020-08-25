@@ -14,6 +14,7 @@
 
 <div class="h-screen">
 	<div x-data="app()" x-cloak>
+	<form action="<%=request.getContextPath() %>/user/findIdImpl" method="POST">
 		<div class="max-w-3xl mx-auto px-4 py-10">
 			<div x-show.transition="step === 'complete'">
 				<div class="bg-white rounded-lg p-10 flex items-center shadow justify-between">
@@ -42,6 +43,7 @@
 					</div>
 				</div>
 
+			
 				<div class="py-10">	
 					<div x-show.transition.in="step === 3">
 						<div class="mt-10 mb-10">
@@ -77,6 +79,7 @@
 				</div>
 			</div>
 		</div>
+	</form>	
 		
 	</div>
 

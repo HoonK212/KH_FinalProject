@@ -13,6 +13,7 @@
 <body>
 
 <div class="h-screen">
+	<form action="<%= request.getContextPath() %>/user/joinemailcheck" method="post" enctype="multipart/form-data" onsubmit="return required();">
 	<div x-data="app()" x-cloak>
 		<div class="max-w-3xl mx-auto px-4 py-10">
 			<div x-show.transition="step === 'complete'">
@@ -56,7 +57,8 @@
 					</div>
 				</div>
 				<!-- /Top Navigation -->
-
+		
+		
 				<!-- Step Content -->
 				<div class="py-10">	
 					<div x-show.transition.in="step === 1">
@@ -78,7 +80,7 @@
 								사진 검색
 							</label>
 							<div class="mx-auto w-56 text-gray-500 text-xs text-center mt-1">프로필 사진을 추가하려면 클릭하십시오.</div>
-							<input name="photo" id="fileInput" accept="image/*" class="hidden" type="file" @change="let file = document.getElementById('fileInput').files[0]; 
+							<input name="file" id="fileInput" accept="image/*" class="hidden" type="file" @change="let file = document.getElementById('fileInput').files[0]; 
 								var reader = new FileReader();
 								reader.onload = (e) => image = e.target.result;
 								reader.readAsDataURL(file);">
@@ -86,14 +88,14 @@
 						<div class="mb-5">
 							<label for="name" class="font-bold mb-1 text-gray-800 inline-block">이름</label>
 							<p class="font-bold mb-1 text-gray-400 block text-xs inline-block">(1/3)</p>
-							<input type="text" name="name"
+							<input type="text" name="name" id="name"
 								class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
 								placeholder="실명 입력">
 						</div>
 						<label for="id" class="font-bold mb-1 text-gray-800 inline-block">아이디</label>
 						<p class="font-bold mb-1 text-gray-400 block text-xs inline-block">(2/3)</p>
 						<div class="flex mb-5">
-							<input type="text" name="id"
+							<input type="text" name="id" id="id"
 								class="w-9/12 px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium mr-6"
 								placeholder="사용하고자 하는 아이디 입력">
 							<label
@@ -104,7 +106,7 @@
 						<label for="nick" class="font-bold mb-1 text-gray-800 inline-block">닉네임</label>
 						<p class="font-bold mb-1 text-gray-400 block text-xs inline-block">(3/3)</p>
 						<div class="flex mb-5">
-							<input type="text" name="nick"
+							<input type="text" name="nick" id="nick"
 								class="w-9/12 px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium mr-6"
 								placeholder="사용하고자 하는 닉네임 입력">
 							<label
@@ -126,7 +128,7 @@
 								</ul>	
 							</div>
 							<div class="relative">
-								<input
+								<input name="pw"
 									:type="togglePassword ? 'text' : 'password'"
 									@keydown="checkPasswordStrength()"
 									x-model="password"
@@ -213,7 +215,7 @@
 					</div>
 				</div>
 				<!-- / Step Content -->
-				
+			
 			</div>
 		</div>
 
@@ -222,7 +224,7 @@
 			<div class="max-w-3xl mx-auto px-4">
 				<div class="flex justify-between">
 					<div class="w-1/2">
-						<button
+						<button type="button"
 							x-show="step > 1"
 							@click="step--"
 							class="w-32 focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border" 
@@ -230,13 +232,13 @@
 					</div>
 
 					<div class="w-1/2 text-right">
-						<button
+						<button type="button"
 							x-show="step < 3"
 							@click="step++"
 							class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
 						>다음</button>
 
-						<button
+						<button type="submit" 
 							@click="step = 'complete'"
 							x-show="step === 3"
 							class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
@@ -246,10 +248,66 @@
 			</div>
 		</div>
 		<!-- / Bottom Navigation https://placehold.co/300x300/e2e8f0/cccccc -->	
-		
 	</div>
+</form>	
+</div>
+	<script type="text/javascript">
+	 var ajaxFlag_idcheck = false;
+	 var ajaxFlag_nickcheck = false;
+	 var ajaxFlag_captcha = false;
+	   
+	 function required() {
+	        var name = document.getElementById('name').value;
+	        var id = document.getElementById('id').value;
+	        var nick = document.getElementById('nick').value;
+	        var pw = document.getElementById('pw').value;
+	        var birth = document.getElementById('birth').value;
+	        var gender = document.getElementById('gender').value;
+	        var mail = document.getElementById('mail').value;
+	        var tel = document.getElementById('tell').value;
+	        var post = document.getElementById('post').value;
+	        var addr = document.getElementById('addr').value;
+	        
+	        if(!ajaxFlag_idcheck){
+	           alert("아이디 중복검사를 해주세요");
+	           return false;
+	        }
+	        if(!ajaxFlag_nickcheck){
+	           alert("닉네임 중복검사를 해주세요");
+	           return false;
+	        }
+	        if(document.getElementById('name').value == ""){
+	        	alert("이름을 입력해 주세요.");
+	        	return false;
+	        }
+	        if(id == ""){
+	        	alert("비밀번호를 입력해 주세요.");
+	        	return false;
+	        }
+	        if(!ajaxFlag_captcha){
+		           alert("자동가입방지를 완료해 주세요.");
+		           return false;
+		        }
+	        if(nick == ""){
+	        	alert("닉네임을 입력해 주세요.");
+	        	return false;
+	        }
+	        if(birth == ""){
+	        	alert("생년월일을 선택해 주세요.");
+	        	return false;
+	        }
+	        if(mail == ""){
+	        	alert("이메일을 체크해 주세요.");
+	        	return false;
+	        }
+	        if(post == "" || addr == ""){
+	        	alert("주소를 입력해 주세요.");
+	        	return false;
+	        }
 
-	<script>
+	        return true;
+	  }
+	   
 		function app() {
 			return {
 				step: 1, 
@@ -276,6 +334,8 @@
 				}
 			}
 		}
+	
+
 	</script>
 
 </body>
