@@ -43,6 +43,7 @@ public class ShoppingController {
 		System.out.println(listno);
 		
 		model.addAttribute("list", shoppingService.selectList(listno, curPage, cntPerPage));
+		model.addAttribute("listno", listno);
 		
 		return "/shopping/content";
 		
