@@ -14,4 +14,10 @@ public interface ShoppingService {
 	public List<Map<String, Object>> selectList(int listno, int curPage, int cntPerPage);
 	
 	public List<Map<String, Object>> selectBasket(Users user);
+	
+	/* public Users selectUserInfo(String id); */
+	
+	public List<Map<String, Object>> selectProuct(String code);
+	
+	public int selectPoint(String id);
 }

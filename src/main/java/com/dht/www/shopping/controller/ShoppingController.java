@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,7 @@ public class ShoppingController {
 	
 	@Autowired
 	private ShoppingService shoppingService;
+
 	
 	@RequestMapping(value="/home", method=RequestMethod.GET)
 	public void shoppingHome(Model model) {
@@ -73,6 +75,30 @@ public class ShoppingController {
 		}
 	}
 	
+	@RequestMapping(value="/payment", method=RequestMethod.GET)
+	public void shoppingPayment(Model model, HttpSession session) {
+		
+//		model.addAttribute("user",shoppingService.selectUserInfo(session.getId()));
+		
+		String code = "B203";
+		model.addAttribute("product", shoppingService.selectProuct(code));
+		
+//		Users user = (Users) session.getAttribute("logInInfo");
+		
+		System.out.println("이거 결과는 뭐야" + shoppingService.selectPoint("semin"));
+		
+		model.addAttribute("point", shoppingService.selectPoint("semin"));
+	}
 	
+	@RequestMapping(value="/delivery", method=RequestMethod.GET)
+	public String shoppingDelivery(@RequestParam int num) {
+		
+		if(num == 0) {
+			return "shopping/delivery_basic";
+		}else{
+			return "shopping/delivery_new";
+		}
+		
+	}
 	
 }

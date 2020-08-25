@@ -33,6 +33,17 @@ public class ShoppingDao {
 	public List<Map<String, Object>> selectBasket(Users user) {
 		return sqlSession.selectList("Shopping.selectBasket", user);
 	}
+	/*
+	 * public Users selectUserInfo(String id) { return
+	 * sqlSession.selectOne("Shopping.selectUserInfo", id); }
+	 */
 	
+	public List<Map<String, Object>> selectProduct(String code){
+		return sqlSession.selectList("Shopping.selectProduct", code);
+	}
+	
+	public int selectPoint(String id) {
+		return sqlSession.selectOne("Shopping.selectPoint", id);
+	}
 	
 }
