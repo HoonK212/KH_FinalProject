@@ -28,7 +28,7 @@
 		    from recommend
 		    where type=2
 		    group by ref) R
-		where C.ref=#{no} and C.id = F.ref and C.id = U.id and C.no = R.ref(+)
+		where C.ref = #{no} and C.id = F.ref and C.id = U.id and C.no = R.ref(+)
 		order by goodbad desc, C.no desc
 	</select>
 	

@@ -32,10 +32,14 @@ public class BoardDao {
 		return sqlSession.selectOne("BOARD.selectBoard", no);
 	}
 
+	// 게시글 조회수 +1
+	public void updateBoardCount(int no) {
+		sqlSession.update("BOARD.updateBoardCount", no);
+	}
+	
 	// 게시글 작성
 	public int insertBoard(Board board) {
 		return sqlSession.insert("BOARD.insertBoard", board);
 	}
 
-	
 }

@@ -36,6 +36,9 @@ public class BoardServiceImpl implements BoardService {
 	// 게시글 상세 조회
 	@Override
 	public Map<String, String> selectBoard(int no) {
+		
+		boardDao.updateBoardCount(no);
+		
 		return boardDao.selectBoard(no);
 	}
 

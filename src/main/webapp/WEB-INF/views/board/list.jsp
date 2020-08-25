@@ -179,11 +179,11 @@
                                     </p>
                                 </td>
 								<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-	                            	<p class="text-gray-900 whitespace-no-wrap text-center">${board.count }</p>
+	                            	<p class="text-gray-900 whitespace-no-wrap text-center font-bold">${board.count }</p>
                                 </td>
 								<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 									<c:choose>
-										<c:when test="${board.goodbad le 0}">
+										<c:when test="${board.goodbad ge 0}">
 	                            			<p class="text-gray-900 whitespace-no-wrap text-center font-bold text-blue-600">${board.goodbad }</p>
                                 		</c:when>
                                 		<c:otherwise>
@@ -260,7 +260,7 @@
 							   	   	
 							    </div>
 								<span class="text-xs xs:text-sm text-gray-900">
-		                            Showing ${boardData.paging.blockStart } to ${boardData.paging.blockEnd } of ${boardData.paging.total }
+		                            Showing ${boardData.paging.blockStart } to ${boardData.paging.blockEnd } of ${boardData.paging.lastPage }
 		                        </span>
 							</div>
 	                	</div>

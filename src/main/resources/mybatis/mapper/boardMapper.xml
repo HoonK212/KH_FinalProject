@@ -21,6 +21,11 @@
 		<result column="goodbad" property="goodbad" />
 	</resultMap>
 	
+	<select id="selectContentCnt" resultType="int">
+		select count(*)
+		from board
+	</select>
+	
 	<select id="selectBoardList" resultMap="Board">
 		select Y.* from
 			(select rownum rnum, X.* from
@@ -35,10 +40,10 @@
 		where Y.rnum between #{start} and #{end}
 	</select>
 
-	<select id="selectContentCnt" resultType="int">
-		select count(*)
-		from board
-	</select>
+	<update id="updateBoardCount">
+		update board set count=count+1
+		where no = #{no}
+	</update>
 	
 	<select id="selectBoard" resultMap="Board">
 		select rownum rnum, X.* from
