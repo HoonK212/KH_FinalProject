@@ -1,6 +1,10 @@
 package com.dht.www.shopping.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,16 +35,19 @@ public class ShoppingController {
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	@ResponseBody
 	public void shoppingList(Model model, @RequestParam(required = false, defaultValue = "1") int curPage
-								,@RequestParam(required = false, defaultValue = "0") int listno) {
+								,@RequestParam(required = false, defaultValue = "0") int listno
+								) {
 		
 		int cntPerPage = 16;
 		System.out.println(listno);
 		
-		System.out.println(shoppingService.selectList(listno, curPage, cntPerPage));
+		//System.out.println(shoppingService.selectList(listno, curPage, cntPerPage));
 		
 		model.addAttribute("list", shoppingService.selectList(listno, curPage, cntPerPage));
 		
+		
 	}
+	
 	
 	@RequestMapping(value="/detail", method=RequestMethod.GET)
 	public void shoppingDetail(Model model) {
