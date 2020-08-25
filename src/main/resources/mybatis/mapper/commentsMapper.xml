@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="COMMENTS">
+
+	<resultMap type="map" id="Comments">
+		<id column="no" property="no" />
+		<result column="type" property="type" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="count" property="count" />
+		<result column="dates" property="dates" />
+		<result column="id" property="id" />
+		<result column="renamed" property="renamed" />
+		<result column="ext" property="ext" />
+		<result column="nick" property="nick" />
+		<result column="good" property="good" />
+		<result column="bad" property="bad" />
+		<result column="goodbad" property="goodbad" />
+	</resultMap>
+	
+	<select id="selectCommentsList" parameterType="int" resultMap="Comments">
+		select C.*, F.renamed, F.ext, U.nick, decode(good, null, 0, good) as good, decode(bad, null, 0, bad) as bad, decode(goodbad, null, 0, goodbad) as goodbad
+		from comments C, (select * from files where type=1) F, users U,
+		    (select ref, sum(decode(good_bad, 1, 1, 0)) as good, sum(decode(good_bad, 2, 1, 0)) as bad, sum(decode(good_bad, 1, 1, 0))-sum(decode(good_bad, 2, 1, 0)) as goodbad
+		    from recommend
+		    where type=2
+		    group by ref) R
+		where C.ref=#{no} and C.id = F.ref and C.id = U.id and C.no = R.ref(+)
+		order by goodbad desc, C.no desc
+	</select>
+	
+	<insert id="insertComments" parameterType="Comments">
+		insert into comments
+		values (comments_seq.nextval, 1, #{ref}, #{content}, sysdate, #{id})
+	</insert>
+	
+</mapper>
