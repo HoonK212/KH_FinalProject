@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.dht.www.user.model.vo.Users;
+
 import common.util.Paging;
 
 @Repository
@@ -27,5 +29,10 @@ public class ShoppingDao {
 		return sqlSession.selectList("Shopping.selectList", paging);
 		
 	}
+	
+	public List<Map<String, Object>> selectBasket(Users user) {
+		return sqlSession.selectOne("Shopping.selectBasket",user);
+	}
+	
 	
 }

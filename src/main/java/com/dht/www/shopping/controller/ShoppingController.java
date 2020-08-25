@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dht.www.shopping.model.service.ShoppingService;
+import com.dht.www.user.model.vo.Users;
 
 @Controller
 @RequestMapping("/shopping")
@@ -57,6 +59,14 @@ public class ShoppingController {
 	public void shoppingDetail(Model model) {
 		
 	}
+	
+	@RequestMapping(value="/basket", method=RequestMethod.GET)
+	public void shoppingBasket(Model model, HttpSession session) {
+		
+		Users user = (Users)session.getAttribute("logInInfo");
+		model.addAttribute("basket",shoppingService.selectBasket(user));
+	}
+	
 	
 	
 }

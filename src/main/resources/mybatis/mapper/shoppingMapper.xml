@@ -79,4 +79,11 @@
 		) b order by rnum ) t where rnum between #{start} and #{end}		
 	</select>
 	
+	<select id="selectBasket" resultMap="item">
+	select * from product p, files f, basket b
+	where p.code = f.ref and p.sell = 1 and b.code = p.code and p.stock > 0 and b.id = #{id}
+	order by b.dates desc
+	
+	</select>
+	
 </mapper>
