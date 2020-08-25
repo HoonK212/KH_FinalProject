@@ -27,6 +27,7 @@ public class ShoppingController {
 	@Autowired
 	private ShoppingService shoppingService;
 	
+	//쇼핑 홈
 	@RequestMapping(value="/home", method=RequestMethod.GET)
 	public void shoppingHome(Model model) {
 		
@@ -37,6 +38,7 @@ public class ShoppingController {
 		System.out.println(shoppingService.selectHome("A"));
 	}
 	
+	//게시판 목록
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public String shoppingList(Model model, @RequestParam(required=false, defaultValue="1") int curPage
 								, @RequestParam(required=false, defaultValue="0") int listno) {
@@ -54,17 +56,17 @@ public class ShoppingController {
 	@ResponseBody
 	public void loadContent() {}
 	
+	//제품 상세페이지
 	@RequestMapping(value="/detail", method=RequestMethod.GET)
 	public void shoppingDetail(Model model) {
 		
 	}
 	
+	//장바구니 조회
 	@RequestMapping(value="/basket", method=RequestMethod.GET)
-	public void shoppingBasket(Model model, HttpSession session, 
-			@RequestParam(required=false, defaultValue="1") int curPage) {
+	public void shoppingBasket(Model model, HttpSession session) {
 		
 		Users user = (Users)session.getAttribute("logInInfo");
-		int cntPerPage = 10;
 		
 		if(user != null) {
 			model.addAttribute("basket", shoppingService.selectBasket(user));
@@ -73,6 +75,19 @@ public class ShoppingController {
 		}
 	}
 	
+	//장바구니 추가
+	@RequestMapping(value="/basket", method=RequestMethod.POST)
+	public void addBasket(Model model, HttpSession session) {
+		
+		Users user = (Users)session.getAttribute("logInInfo");
+		
+		if(user != null) {
+			
+		} else {
+			
+		}
+	}
 	
-	
+	@RequestMapping("/test")
+	public void test() { }
 }
