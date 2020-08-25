@@ -9,97 +9,75 @@
 <%@include file="../layout/header.jsp"%>
 
 
+
 <script type="text/javascript">
-/* 프로그래스바 jQuery 시작 */
-
 $(document).ready(function() {
-
-	
 	init();
-	
-	var delay = 1000;
-	$(".progress-bar").each(function() {
-		$(this).animate({
-			width : $(this).attr('aria-valuenow') + '%'
-		}, delay);
-
-		$(this).prop('Counter', 0).animate({
-			Counter : $(this).text()
-		}, {
-			duration : delay,
-			easing : 'swing',
-			step : function(now) {
-				$(this).text(Math.ceil(now) + '%');
-			}
-		});
-	})
-	$(".progress-bar-set").each(function() {
-		$(this).animate({
-			width : $(this).attr('aria-valuenow') + '%'
-		}, delay);
-
-		$(this).prop('Counter', 0).animate({
-			Counter : $(this).text()
-		}, {
-			duration : delay,
-			easing : 'swing',
-			step : function(now) {
-				$(this).text(Math.ceil(now) + '개');
-			}
-		});
-	});;
-	$(".progress-bar-count").each(function() {
-		$(this).animate({
-			width : $(this).attr('aria-valuenow') + '%'
-		}, delay);
-
-		$(this).prop('Counter', 0).animate({
-			Counter : $(this).text()
-		}, {
-			duration : delay,
-			easing : 'swing',
-			step : function(now) {
-				$(this).text(Math.ceil(now) + '개');
-			}
-		});
-	});
-	$(".progress-bar-time").each(function() {
-		$(this).animate({
-			width : $(this).attr('aria-valuenow') + '%'
-		}, delay);
-
-		$(this).prop('Counter', 0).animate({
-			Counter : $(this).text()
-		}, {
-			duration : delay,
-			easing : 'swing',
-			step : function(now) {
-				$(this).text(Math.ceil(now) + '개');
-			}
-		});
-	});
-	
-	function countUpdate() {
-		$(".progress-bar-count").each(function() {
-			$(this).animate({
-				width : $(this).attr('aria-valuenow') + '%'
-			}, delay);
-
-			$(this).prop('Counter', 0).animate({
-				Counter : $(this).text()
-			}, {
-				duration : delay,
-				easing : 'swing',
-				step : function(now) {
-					$(this).text(Math.ceil(now) + '개');
-				}
-			});
-		});
-	}
-	
 })
-/* 프로그래스바 jQuery 끝 */
+
+function countUpdate(count, set) {
+
+	var delay = 1000;
+	// count가 countMAX값 보다 같거나 클 때(운동 진행 중)
+	if($(".progress-bar-count")[0].ariaValueMax >= count){
+		
+		$(".progress-bar-count").animate( {
+			width: count / $(".progress-bar-count")[0].ariaValueMax * 100 + "%"
+		}, delay, 'swing' );
+		
+		$(".progress-bar-count").attr("aria-valuenow", count).html(count + "개")
+		
+		
+		// count가 countMAX값 같을 때(1세트 운동 끝)
+		if($(".progress-bar-count")[0].ariaValueMax == count) {
+			console.log("count가 MAX 달성 " + count)
+			window.count = 0;
+			count=0;
+			console.log("count 0으로 대입 후  " + count)
+			
+			// 마지막 세트 끝나면 카운트는 증가x
+			if($(".progress-bar-set")[0].ariaValueMax != set+1){
+				
+				$(".progress-bar-count").animate( {
+					width: count / $(".progress-bar-count")[0].ariaValueMax * 100 + "%"
+				}, delay, 'swing' );
+			
+				$(".progress-bar-count").attr("aria-valuenow", count).html(count + "개")
+			}
+			
+			window.set++;
+			set++;
+			
+			$('.progress-bar-set').animate( {
+				width: set / $(".progress-bar-set")[0].ariaValueMax * 100 + "%"
+			}, delay, 'swing' );
+			
+			$(".progress-bar-set").attr("aria-valuenow", set).html(set + "세트")
+			
+			
+			// 운동 끝
+			if($(".progress-bar-count")[0].ariaValueMax == set) {
+				$(".complete").css({'pointer-events':'all'})
+    			$(".complete").css({'cursor':'pointer'})
+    			
+//     			webcam.pause(); // 웹캠 중단
+			}
+		}
+		console.log("운동함 " + count)
+	}
+}
+
+
+function leftCountUpdate(progressCnt,exArr) {
+	var delay = 1000;
+	$("div[id='"+ exArr + "']").animate( {
+		width:  Math.floor(progressCnt / ( $(".progress-bar-set")[0].ariaValueMax * $(".progress-bar-count")[0].ariaValueMax )  * 100) + "%"
+	}, delay, 'swing' );
+	
+	$("div[id='"+ exArr + "']").html( Math.floor(progressCnt / ( $(".progress-bar-set")[0].ariaValueMax * $(".progress-bar-count")[0].ariaValueMax )  * 100) + "%")
+}
 </script>
+
 
 
 
@@ -250,18 +228,13 @@ $(document).ready(function() {
 					</div>
 					<p class="progressbar-content">운동8</p>
 					<div class="progress">
-						<div class="progress-bar" role="progressbar" aria-valuenow="80"
-							aria-valuemin="0" aria-valuemax="100">80</div>
+						<div class="progress-bar" role="progressbar" aria-valuenow="0"
+							aria-valuemin="0" aria-valuemax="100" id="squat">0</div>
 					</div>
 					<p class="progressbar-content">운동9</p>
 					<div class="progress">
 						<div class="progress-bar" role="progressbar" aria-valuenow="90"
 							aria-valuemin="0" aria-valuemax="100">90</div>
-					</div>
-					<p class="progressbar-content">운동10</p>
-					<div class="progress">
-						<div class="progress-bar" role="progressbar" aria-valuenow="100"
-							aria-valuemin="0" aria-valuemax="100">100</div>
 					</div>
 				</div>
 			</div>
@@ -417,62 +390,50 @@ $(document).ready(function() {
 								        webcam.update(); // update the webcam frame
 								        await predict();
 								        window.requestAnimationFrame(loop);
+								        
+								        if(ff == false){
+						        			webcam.pause();
+						        			
+						        		}
+								        
 								    }
 									
 								    var status = "stand"
 								    var count = 0
-								    var set = 0
+								    var set = 0;
+								    var progressCnt = 0
+								    var ff = null;
+								    
+								    var exArr = new Array(); 
+								    exArr =	"${exerciseName}".split(",");
+									for(var i=0; i<exArr.length; i++) {
+										console.log(exArr[i])
+									}
+								    
 								    async function predict() {
-								        // Prediction #1: run input through posenet
-								        // estimatePose can take in an image, video or canvas html element
 								        const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
-								        // Prediction 2: run input through teachable machine classification model
 								        const prediction = await model.predict(posenetOutput);
 								
 								        if(prediction[0].probability.toFixed(2) == 1.00) {
 								        	
 								        	if(status == "squat") { // 스쿼트에서 일어나면 개수 증가
-								        		count++
-								        		console.log("카운터 증가" + count)
-								        		var audio = new Audio('<%=request.getContextPath() %>/resources/audio/'+count+'.mp3');
+								        		count++;
+								        		progressCnt++;
+												
+								        		console.log("카운터 증가" + count);
+								        		var audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
 								        		audio.play()
 								        		console.log(count)
 								        		
-								        		// 목표값 이상으로 가면
-								        		if( $(".progress-bar-count")[0].ariaValueMax > count-1) {
-									        		$(".progress-bar-count").width( (count / $(".progress-bar-count")[0].ariaValueMax) * 100 +  "%")
-									        		$(".progress-bar-count").html(count + "개")
-									        		
-									        		if($(".progress-bar-count")[0].ariaValueMax == count) {
-										        		count = 0;
-									        			$(".progress-bar-count").width( (count / $(".progress-bar-count")[0].ariaValueMax) * 100 +  "%")
-										        		$(".progress-bar-count").html(count + "개")
-										        		
-										        		set++
-										        		console.log("dnldp" + set)
-										        		
-														// 목표값 달성 시
-										        		if($(".progress-bar-set")[0].ariaValueMax == set) {
-										        			set = 0;
-										        			$(".complete").prop("disabled", true);
-										        			$(".progress-bar-set").width( (set / $(".progress-bar-set")[0].ariaValueMax) * 100 +  "%")
-											        		$(".progress-bar-set").html(set + "세트")
-											        		$(".complete").css({'pointer-events':'all'})
-										        			$(".complete").css({'cursor':'pointer'})
-										        		}
-									        			
-										        		
-										        		console.log("set : " + set)
-										        		$(".progress-bar-set").width( (set / $(".progress-bar-set")[0].ariaValueMax) * 100 +  "%")
-										        		$(".progress-bar-set").html(set + "세트")
-										        		
-										        		
-									        		}
-								        		}
-								        		
+
+								        		//함수호출(오른쪽 프로그래스바)
+								        		ff = countUpdate(count, set);
+								        		//함수호출(왼쪽 프로그래스바)
+								        		leftCountUpdate(progressCnt ,exArr[0])
 								        		
 								        		
 								        	}
+								        	
 								        	status = "stand"
 							        		console.log(status)
 								        } else if(prediction[1].probability.toFixed(2) == 1.00) {
@@ -493,7 +454,7 @@ $(document).ready(function() {
 								        	
 								        for (let i = 0; i < maxPredictions; i++) {
 								            const classPrediction =
-								                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+							                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
 								            labelContainer.childNodes[i].innerHTML = classPrediction; //여기가 값나오는 부분!
 								        }
 								
