@@ -1,5 +1,6 @@
 package com.dht.www.shopping.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +33,6 @@ public class ShoppingServiceImpl implements ShoppingService {
 			
 			System.out.println("total" + total);
 			return shoppingDao.selectList(paging);
-		
 				
 	}
 

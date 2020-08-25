@@ -42,7 +42,6 @@ public class ShoppingController {
 								, @RequestParam(required=false, defaultValue="0") int listno) {
 		
 		int cntPerPage = 16;
-		System.out.println(listno);
 		
 		model.addAttribute("list", shoppingService.selectList(listno, curPage, cntPerPage));
 		model.addAttribute("listno", listno);
@@ -61,10 +60,17 @@ public class ShoppingController {
 	}
 	
 	@RequestMapping(value="/basket", method=RequestMethod.GET)
-	public void shoppingBasket(Model model, HttpSession session) {
+	public void shoppingBasket(Model model, HttpSession session, 
+			@RequestParam(required=false, defaultValue="1") int curPage) {
 		
 		Users user = (Users)session.getAttribute("logInInfo");
-		model.addAttribute("basket",shoppingService.selectBasket(user));
+		int cntPerPage = 10;
+		
+		if(user != null) {
+			model.addAttribute("basket", shoppingService.selectBasket(user));
+		} else {
+			model.addAttribute("basket", session.getAttribute("basket"));
+		}
 	}
 	
 	

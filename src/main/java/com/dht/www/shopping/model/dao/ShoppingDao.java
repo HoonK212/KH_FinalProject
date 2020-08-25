@@ -22,7 +22,7 @@ public class ShoppingDao {
 	}
 
 	public int selectCntList(int listno) {
-		return sqlSession.selectOne("Shopping.selectCnt",listno);
+		return sqlSession.selectOne("Shopping.selectCnt", listno);
 	}
 	
 	public List<Map<String, Object>> selectList(Paging paging){
@@ -31,7 +31,7 @@ public class ShoppingDao {
 	}
 	
 	public List<Map<String, Object>> selectBasket(Users user) {
-		return sqlSession.selectOne("Shopping.selectBasket",user);
+		return sqlSession.selectList("Shopping.selectBasket", user);
 	}
 	
 	
