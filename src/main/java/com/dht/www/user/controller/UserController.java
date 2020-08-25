@@ -1,6 +1,7 @@
 package com.dht.www.user.controller;
 
 import java.util.List;
+
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.dht.www.user.model.service.UserService;
 import com.dht.www.user.model.vo.Users;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.kh.welcome.board.model.vo.Notice;
-import com.kh.welcome.member.model.vo.Member;
 
 import common.exception.FileException;
 import common.util.FileUtil;
@@ -218,33 +217,17 @@ public class UserController {
 	@RequestMapping(value ="/joinemailcheck", method = RequestMethod.POST)
 	public String joinEmailCheck(@RequestParam List<MultipartFile> file, Users users, HttpServletRequest request ) {
 		
-		 //파일 업로드
-		 System.out.println(file);
-		 
-		 //파일 업로드하기
-		 //저장 위치 루트
+		 // 프로필 이미지 저장 위치 꺼내기
 		 String root = request.getServletContext().getRealPath("/upload_user");
-		 userService.insertUsers(users, file, root);
+		 // 회원 정보와 파일 정보 보내기
+		 userService.insertUser(file, users, root);
 		 
-		 //메일로 정보를 보내기
+		 // 메일로 정보를 보내기
 		
 		 
 		 
 		return "";
 	}
-		//회원가입
-	   @RequestMapping(value = "/joinemailcheck", method = RequestMethod.POST)
-	   public String noticeupload(@RequestParam List <MultipartFile> files , Users user,  HttpSession session) {
-	      
-	      String root = session.getServletContext().getRealPath("/resources/upload_user");
-	      
-	      System.out.println("root:" + root);
-	      
-	      //회원정보 저장
-	      userService.insertUser(files, user, root);
-	      
-	      return "";
-	   }
 
 	
 	

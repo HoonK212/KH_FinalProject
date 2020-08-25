@@ -51,9 +51,9 @@ public class UserDao {
 		return session.insert("USERS.insertUserProfile", f);
 	}
 
-	public int insertFile02(Users user) {
+	public int insertBasicProfile(Users user) {
 
-		return session.insert("USERS.insertUserProfile02", user);
+		return session.insert("USERS.insertBasicProfile", user);
 	}
 	
 

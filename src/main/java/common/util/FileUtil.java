@@ -45,13 +45,15 @@ public class FileUtil {
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("origin", originFileName);
 			map.put("rename", renameFileName);
-			map.put("path", path);
 			map.put("ext", ext);
 			map.put("size", size);
 			
 			// tb_file에 저장할 데이터를 list에 추가
 			fileData.add(map);
 			
+			// 저장 경로
+			path += renameFileName + "." + ext;
+
 			// 사용자가 등록한 파일을 설정한 경로에 저장
 			saveFile(mf, path);
 			

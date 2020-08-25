@@ -33,11 +33,11 @@
 	
 	<insert id="insertUserProfile">
 		INSERT INTO FILES ( NO, TYPE, REF, PATH, ORIGIN, RENAME, EXT, SIZES, THUMBNAIL )
-		VALUES ( FILES_SEQ.NEXTVAL, 1, #{id}, #{path}, #{origin}, #{rename}, #{ext}, #{sizes}, 0 )
+		VALUES ( FILES_SEQ.NEXTVAL, 1, #{id}, "upload_user", #{origin}, #{rename}, #{ext}, #{sizes}, 0 )
 	</insert>
 	
-	<insert id="insertUserProfile02">
+	<insert id="insertBasicProfile">
 		INSERT INTO FILES ( NO, TYPE, REF, PATH, ORIGIN, RENAME, EXT, SIZES, THUMBNAIL )
-		VALUES ( FILES_SEQ.NEXTVAL, 1, #{id}, #{path}, #{origin}, #{rename}, #{ext}, #{sizes}, 0 )
+		VALUES ( FILES_SEQ.NEXTVAL, 1, #{id}, "upload_user", "logo", "logo", "png", 1234, 0 )
 	</insert>
 </mapper>

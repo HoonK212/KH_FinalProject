@@ -305,13 +305,15 @@ public class UserServiceImpl implements UserService{
 		//회원정보 입력
 		userDao.insertUser(user);
 	      
-	      //사용자가 게시판에 파일을 올린경우
+	      //사용자가 프로필 이미지를 업로드한 경우
 	      if(!(files.size()==0 && files.get(0).equals(""))) {
 	         
 		    List<Map<String, String>> fileData = null;
 			
 		    try {
-				fileData = new FileUtil().fileUpload(files, root);
+				//실제로 파일 이미지 업로드하기
+		    	fileData = new FileUtil().fileUpload(files, root);
+				
 				//db에 파일 저장
 				for(Map<String, String> f : fileData) {
 					//참조하는 사용자 아이디 넣어주기
@@ -321,12 +323,9 @@ public class UserServiceImpl implements UserService{
 			} catch (FileException e) {
 				e.printStackTrace();
 			}
-	      }else {
-	    	  userDao.insertFile02(user);
+	      }else { //사용자가 프로필 이미지를 업로드 하지 않을 때 기본 프로필이미지 업로드
+	    	  userDao.insertBasicProfile(user);
 	      }
-		
-		
-		
 	}
 	
 
