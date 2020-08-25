@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<link href="https://tailwindcomponents.com/css/component.ecommerce-products-list.css" rel="stylesheet">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 	 <div class="container mx-auto px-6">
             <h3 class="text-gray-700 text-2xl font-medium">Wrist Watch</h3>
             <span class="mt-3 text-sm text-gray-500">200+ Products</span>
@@ -15,7 +15,7 @@
                     </div>
                     <div class="px-5 py-3">
                         <h3 class="text-gray-700 uppercase">${list.name}</h3>
-                        <span class="text-gray-500 mt-2">${list.price }</span>
+                        <span class="text-gray-500 mt-2">${list.price}</span>
                     </div>
                 </div>
 			</c:forEach>            
