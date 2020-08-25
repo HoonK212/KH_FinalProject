@@ -23,6 +23,16 @@ public class Paging {
 	//sql에서 사용할 끝 값
 	private int end;
 	
+	private int listno;
+	
+	public int getListno() {
+		return listno;
+	}
+
+	public void setListno(int listno) {
+		this.listno = listno;
+	}
+
 	public Paging() {
 		
 	}

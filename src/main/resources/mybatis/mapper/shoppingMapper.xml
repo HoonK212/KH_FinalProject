@@ -4,6 +4,79 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Shopping">
+	
+	<!-- 쇼핑 홈 출력 아이템 정보 -->
+	<resultMap type="map" id="item">
+		<result column="name" property="name"/>
+		<result column="company" property="company"/>
+		<result column="price" property="price"/>
+		<result column="path" property="path"/>
+		<result column="renamed" property="renamed"/>
+		<result column="ext" property="ext"/>
+	</resultMap>
 
-
+	<select id="selectHome" parameterType="string" resultMap="item">
+		select * from ( select rownum rnum, b.* from (
+    		select * from product p, files f
+    		where p.code = f.ref and p.sell = 1 and p.stock > 0
+    		
+    		and p.code like #{cate} || '%'
+    		
+    		order by substr(p.code,2) desc
+		) b order by rnum ) t where rnum between 1 and 4
+	</select>
+	
+	<select id="selectCnt" parameterType="int" resultType="int">
+	
+    		select count(*) from product 
+    		where sell = 1 and stock > 0
+    		<if test="value == 1">
+    			
+    		</if>
+    		<if test="value == 4">
+    			and code like 'A%'
+    		</if>
+    		<if test="value == 5">
+    			and code like 'B%'
+    		</if>
+    		<if test="value == 6">
+    			and code like 'C%'
+    		</if>
+    		
+	</select>
+	
+	<select id="selectList" resultMap="item">
+		select * from ( select rownum rnum, b.* from (
+    		select name, company, price, path, renamed, ext from product p, files f
+    		
+    		<if test="listno == 2">
+    			, (select o.code, sum(amount) as tcnt 
+    			from order_product o group by o.code order by tcnt desc) s
+    		</if>
+    		
+    		where p.code = f.ref and p.sell = 1 and p.stock > 0
+    		
+    		<if test="listno == 1">
+    			and p.code = (select code from product_initial)
+    		</if>
+    		<if test="listno == 2">
+    			and p.code = s.code(+)
+    		</if>
+    		<if test="listno == 4">
+    			and p.code like 'A%'
+    		</if>
+    		<if test="listno == 5">
+    			and p.code like 'B%'
+    		</if>
+    		<if test="listno == 6">
+    			and p.code like 'C%'
+    		</if>
+    		
+    		<if test="listno != 2">
+	    		order by substr(p.code,2) desc
+    		</if>
+    		
+		) b order by rnum ) t where rnum between #{start} and #{end}		
+	</select>
+	
 </mapper>
