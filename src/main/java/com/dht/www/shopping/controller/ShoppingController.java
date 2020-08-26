@@ -90,7 +90,22 @@ public class ShoppingController {
 		System.out.println("이거 결과는 뭐야" + shoppingService.selectPoint("semin"));
 		
 		model.addAttribute("point", shoppingService.selectPoint("semin"));
+		//model.addAttribute(attributeValue)
 	}
+	
+	
+	@RequestMapping(value="/paymentComplete", method = RequestMethod.POST)
+	@ResponseBody
+	public void shoppingPaymentComplete(@RequestParam String imp_uid) {
+		
+		System.out.println("결제" + imp_uid);
+	}
+	
+	@RequestMapping(value="/paymentComplete", method = RequestMethod.GET)
+	public void shoppingPaymentCompleteGET(@RequestParam String imp_uid) {
+		System.out.println("결제GET" + imp_uid);
+	}
+	
 	
 	@RequestMapping(value="/delivery", method=RequestMethod.GET)
 	public String shoppingDelivery(@RequestParam int num) {

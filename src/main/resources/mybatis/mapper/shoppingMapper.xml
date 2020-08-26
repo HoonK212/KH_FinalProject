@@ -114,8 +114,8 @@
 	<!-- <select id="select "></select> -->
 	
 	<select id="selectProduct" parameterType="String" resultMap="homeItem">
-		select p.code, name, company, price, path, renamed, ext from product
-		where code = #{code} and stock > 0 and sell = 1
+		select p.code, name, company, price, path, renamed, ext from product p, files f
+		where p.code = f.ref and p.code = #{code} and stock > 0 and sell = 1
 	</select>
 	
 	<select id="selectPoint" parameterType="String" resultType="int">
