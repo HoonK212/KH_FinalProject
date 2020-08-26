@@ -221,10 +221,13 @@ public class UserController {
 	
 	//회원가입을 위한 이메일 발송
 	@RequestMapping(value ="/joinemailcheck", method = RequestMethod.POST)
-	public String joinEmailCheck(@RequestParam List<MultipartFile> file, Users users, HttpSession session, HttpServletRequest request, Model model ) {
+	public String joinEmailCheck(@RequestParam List<MultipartFile> file, Users users, String addr_detail,
+			HttpSession session, HttpServletRequest request, Model model ) {
 		
-		System.out.println("프로필 이미지 안넣었을 떄 확인 : " + file);
-		
+		//상세주소(addr_detail)를 기본주소(addr)에 합치기
+		String addr = users.getAddr() + " " + addr_detail;
+		users.setAddr(addr);
+		System.out.println("합친주소: " + addr);
 		
 		// 프로필 이미지 저장 위치 꺼내기
 		String root = session.getServletContext().getRealPath("/resources/upload_user");

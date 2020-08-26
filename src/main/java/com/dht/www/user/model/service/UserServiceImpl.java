@@ -50,10 +50,34 @@ public class UserServiceImpl implements UserService{
 	JavaMailSender mailSender;
 	
 	
+	// 로그인
 	@Override
 	public Users selectUser(Users user) {
 		
-		return userDao.selectUser(user);
+		//사용자가 입력한 비밀번호
+		String password = (String) user.getPw();
+		System.out.println("user:"+user);
+		System.out.println("password:"+password);
+		
+		//DB에 저장된 사용자 정보
+		Users res = userDao.selectUser(user);
+		System.out.println("res:"+ res);
+	//	System.out.println("사용자가 입력한 비밀번호 : " + password);
+	//	System.out.println("DB에 입력된 비밀번호 : " + res.getPw());
+		
+		if(res!=null) { //회원정보가 있는 경우
+			//사용자가 입력한 비밀번호와 DB에 암호화돼 저장된 비밀번호가 같은지 확인
+			if(passwordEncoder.matches(password, res.getPw())) { //비밀번호 일치
+				System.out.println("일치");
+				return userDao.selectUser(user);
+			}else { // 비밀번호 불일치
+				System.out.println("불일치");
+				return null;
+			}
+		}else { //회원정보가 없는 경우
+			System.out.println("회원정보 없음");
+			return null;
+		}
 	}
 
 	@Override
@@ -401,7 +425,17 @@ public class UserServiceImpl implements UserService{
 	// 회원 정보 저장
 	@Override
 	public int insertUser(Users users) {
-
+		
+		//사용자가 입력한 password
+		String password = users.getPw();
+		
+		//password 암호화, 매번 다른 방식으로 암호화가 진행
+		password = passwordEncoder.encode(password);
+		System.out.println("암호화된 비밀번호 : " + password);
+		
+		//암호화된 비밀번호로 변경
+		users.setPw(password);
+		
 		return userDao.insertUser(users);
 	}
 	

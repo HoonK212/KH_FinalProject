@@ -7,7 +7,7 @@
 	
 	<select id="selectUser" resultType="Users">
 		SELECT * FROM USERS
-		WHERE ID = #{id} and PW = #{pw}
+		WHERE ID = #{id}
 	</select>
 	
 	<select id="getUsersId" resultType="Users">

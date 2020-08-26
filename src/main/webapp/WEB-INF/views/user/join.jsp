@@ -9,13 +9,15 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/user/join.css">
 <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css">
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
+<!-- 주소를 가져오기 위한 라이브러리 -->
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <style type="text/css">
 /* 자동방지가입 CSS */
 .cpt-layout{
 	display: grid;
-	grid-template-columns: 250px 100px;
-	grid-template-rows: 100px 50px 50px;
+	grid-template-columns: 230px 80px;
+	grid-template-rows: 100px 50px 25px;
 	
 	justify-content: left;
 	align-items: center;
@@ -23,8 +25,6 @@
 	width: 600px;
 	height: 300px;
 	padding-top: 20px;
-	
-	border: 1px solid black;
 	
 }
 
@@ -193,15 +193,21 @@
 								<div x-text="passwordStrengthText" class="text-gray-500 font-medium text-sm ml-3 leading-none"></div>
 							</div>
 							<!-- 자동방지 가입 -->
+							<div class="py-10">
 							<label class="font-bold mb-1 text-gray-800 block">자동가입 방지</label>
+							<div class="text-gray-600 mt-2 mb-4">
+								아래 이미지에 보이는 숫자와 문자를 입력하세요.
+							</div>
 							<div class="flex items-center mt-4 h-3 cpt-layout">
-								<div id="cpt-img">1</div>
-								<div id="refresh"><img style="width: 50px; height: 50px;" src="<%=request.getContextPath()%>/resources/image/captcha/refreshicon.png" /></div>
+								<div id="cpt-img"></div>
+								<div id="refresh"><img style="width: 50px; height: 50px; margin: 0 auto;" src="<%=request.getContextPath()%>/resources/image/captcha/refreshicon.png" /></div>
 								<div><input id="input" type="text" class="px-4 py-3 rounded-lg shadow-sm 
 								focus:outline-none focus:shadow-outline text-gray-600 font-medium"/></div>
-								<div><button id="btnSubmit" class="focus:outline-none border border-transparent 
-								py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" >확인</button></div>
-								<div id="result">5</div>
+								<label class="flex justify-center items-center rounded-lg bg-white pl-3 pr-3 py-3 shadow-sm bg-gray-800">
+								<div class="select-none text-white font-extrabold" id="btnSubmit">확인</div>
+								</label>
+								<span id="result" style="color: red; font-size: 0.8rem; min-height: 1rem; display:inline-block"></span>
+							</div>
 							</div>
 						</div>
 						
@@ -250,23 +256,27 @@
 						</div>
 						<div class="mb-5">
 							<label for="post" class="font-bold mb-1 text-gray-800 inline-block">주소</label>
-							<p class="font-bold mb-1 text-gray-600 block text-sm inline-block">(우편번호 / 주소 / 상세주소)</p>
-							<p class="font-bold mb-1 text-gray-400 block text-xs inline-block">(5/5)</p>
-							<div class="flex mb-2"">
-								<input type="text" name="post" id="post"
-									class="w-9/12 px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium mr-6"
-									placeholder="우편 번호">
-								<label
-									class="flex justify-start items-center rounded-lg bg-white pl-4 pr-6 py-3 shadow-sm bg-gray-800">
-									<div class="select-none text-white font-extrabold">우편번호검색</div>
-								</label>
-							</div>
-							<input type="text" name="addr" id="addr"
-								class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium mb-2"
-								placeholder="기본 주소">
-							<input type="text" name="addr_detail"
-								class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium mb-2"
-								placeholder="상세 주소">
+			                     <p class="font-bold mb-1 text-gray-600 block text-sm inline-block">(우편번호 / 주소 / 상세주소)</p>
+			                     <p class="font-bold mb-1 text-gray-400 block text-xs inline-block">(5/5)</p>
+			                     <div class="flex mb-2">
+			                        <input type="text" name="post"
+			                           class="w-9/12 px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium mr-6"
+			                           placeholder="우편 번호"  id="sample4_postcode">
+			                        <label
+			                           class="flex justify-start items-center rounded-lg bg-white pl-4 pr-6 py-3 shadow-sm bg-gray-800"  onclick="sample4_execDaumPostcode()">
+			                           
+			                            <div class="select-none text-white font-extrabold" >우편번호검색</div> 
+			                        </label>
+			                     </div>
+			                     <input type="text" name="addr"
+			                        class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium mb-2"
+			                        placeholder="도로명 주소" id="sample4_roadAddress">
+			                     <input type="text"
+			                        class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium mb-2"
+			                        placeholder="지번 주소" id="sample4_jibunAddress">
+			                     <input type="text" name="addr_detail"
+			                        class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium mb-2"
+			                        placeholder="상세 주소" id="sample4_detailAddress">
 						</div>
 					</div>
 				</div>
@@ -313,7 +323,7 @@
 	<script type="text/javascript">
 	 var ajaxFlag_idcheck = false;
 	 var ajaxFlag_nickcheck = false;
-	 var ajaxFlag_captcha = true;
+	 var ajaxFlag_captcha = false;
 	   
 	 function required() {
 	
@@ -455,7 +465,6 @@
 	 window.onload = function(){
 		
 		var captchaKey = null;
-		var captchaResult = null;
 		var filename = null;
 		
 		document.getElementById('refresh').addEventListener('click', function() {
@@ -469,7 +478,7 @@
 					
 					//캡차키 전달받음
 					captchaKey = data.key
-					//자동함수
+					//캡차키를 던져 이미지를 받는 함수
 					captchaImage(captchaKey);
 				}); 
 				
@@ -495,20 +504,90 @@
 				var input = document.getElementById('input');
 				var xhr = new XMLHttpRequest();
 				var param = 'input='+input.value+'&mycaptchakey='+captchaKey;
-				console.log(param);
+				
 				xhr.open('GET', '<%=request.getContextPath()%>/captchaResult/getResult?' + param);
 				xhr.setRequestHeader('Content-Type', 'application/json');
 				xhr.send();
 				xhr.addEventListener('load', function(){
 					var result = JSON.parse(xhr.response); //괄호가 없다. 속성이다.
 					
-					captchaResult = result.result;
+					ajaxFlag_captcha = result.result;
 					
-					document.getElementById('result').textContent = captchaResult;
+					if(result.result){
+						document.getElementById('result').textContent = '성공했습니다';
+					}else{
+						document.getElementById('result').textContent = '다시 시도해주세요';
+					}
 				})		
 		})
+		
+			//페이지가 로드되면 자동으로 캡차 이미지가 나오게 한다
 			document.getElementById('refresh').click();
 		}
+	 
+	 
+     //주소 가져오는 코드
+     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+     function sample4_execDaumPostcode() {
+         new daum.Postcode({
+             oncomplete: function(data) {
+                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                 // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                 // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                 var roadAddr = data.roadAddress; // 도로명 주소 변수
+                 var extraRoadAddr = ''; // 참고 항목 변수
+
+                 // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                 // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                 if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                     extraRoadAddr += data.bname;
+                 }
+                 // 건물명이 있고, 공동주택일 경우 추가한다.
+                 if(data.buildingName !== '' && data.apartment === 'Y'){
+                    extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                 }
+                 // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                 if(extraRoadAddr !== ''){
+                     extraRoadAddr = ' (' + extraRoadAddr + ')';
+                 }
+
+                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                 document.getElementById('sample4_postcode').value = data.zonecode;
+                 document.getElementById("sample4_roadAddress").value = roadAddr;
+                 document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+                 
+                 // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                 if(roadAddr !== ''){
+                     document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                 } else {
+                     document.getElementById("sample4_extraAddress").value = '';
+                 }
+
+                 var guideTextBox = document.getElementById("guide");
+                 // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                 if(data.autoRoadAddress) {
+                     var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                     guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                     guideTextBox.style.display = 'block';
+
+                 } else if(data.autoJibunAddress) {
+                     var expJibunAddr = data.autoJibunAddress;
+                     guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                     guideTextBox.style.display = 'block';
+                 } else {
+                     guideTextBox.innerHTML = '';
+                     guideTextBox.style.display = 'none';
+                 }
+             }
+         }).open();
+     }//end
+     
+     document.addEventListener('keydown', function(event) {
+    	  if (event.keyCode === 13) {
+    	    event.preventDefault();
+    	  };
+    	}, true);
 	</script>
 
 </body>
