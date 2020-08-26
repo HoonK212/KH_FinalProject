@@ -29,6 +29,7 @@ public class ShoppingController {
 	private ShoppingService shoppingService;
 
 	
+	//쇼핑 홈
 	@RequestMapping(value="/home", method=RequestMethod.GET)
 	public void shoppingHome(Model model) {
 		
@@ -39,6 +40,7 @@ public class ShoppingController {
 		System.out.println(shoppingService.selectHome("A"));
 	}
 	
+	//게시판 목록
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public String shoppingList(Model model, @RequestParam(required=false, defaultValue="1") int curPage
 								, @RequestParam(required=false, defaultValue="0") int listno) {
@@ -56,17 +58,17 @@ public class ShoppingController {
 	@ResponseBody
 	public void loadContent() {}
 	
+	//제품 상세페이지
 	@RequestMapping(value="/detail", method=RequestMethod.GET)
 	public void shoppingDetail(Model model) {
 		
 	}
 	
+	//장바구니 조회
 	@RequestMapping(value="/basket", method=RequestMethod.GET)
-	public void shoppingBasket(Model model, HttpSession session, 
-			@RequestParam(required=false, defaultValue="1") int curPage) {
+	public void shoppingBasket(Model model, HttpSession session) {
 		
 		Users user = (Users)session.getAttribute("logInInfo");
-		int cntPerPage = 10;
 		
 		if(user != null) {
 			model.addAttribute("basket", shoppingService.selectBasket(user));
@@ -74,31 +76,5 @@ public class ShoppingController {
 			model.addAttribute("basket", session.getAttribute("basket"));
 		}
 	}
-	
-	@RequestMapping(value="/payment", method=RequestMethod.GET)
-	public void shoppingPayment(Model model, HttpSession session) {
-		
-//		model.addAttribute("user",shoppingService.selectUserInfo(session.getId()));
-		
-		String code = "B203";
-		model.addAttribute("product", shoppingService.selectProuct(code));
-		
-//		Users user = (Users) session.getAttribute("logInInfo");
-		
-		System.out.println("이거 결과는 뭐야" + shoppingService.selectPoint("semin"));
-		
-		model.addAttribute("point", shoppingService.selectPoint("semin"));
-	}
-	
-	@RequestMapping(value="/delivery", method=RequestMethod.GET)
-	public String shoppingDelivery(@RequestParam int num) {
-		
-		if(num == 0) {
-			return "shopping/delivery_basic";
-		}else{
-			return "shopping/delivery_new";
-		}
-		
-	}
-	
+
 }
