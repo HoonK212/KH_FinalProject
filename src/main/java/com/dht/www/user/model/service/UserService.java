@@ -55,5 +55,8 @@ public interface UserService {
 	//이메일 중복 확인
 	public int mailCheck(String mail);
 	
+	//카카오 또는 구글로 회원가입한 회원 조회
+	public Users selectUserByApiId(String apiId);
+	
 	
 }

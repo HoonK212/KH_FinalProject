@@ -466,5 +466,12 @@ public class UserServiceImpl implements UserService{
 
 		return userDao.mailCheck(mail);
 	}
+	
+	//카카오 또는 구글로 회원가입한 회원 조회
+	@Override
+	public Users selectUserByApiId(String apiId) {
+
+		return userDao.selectUserByApiId(apiId);
+	}
 		
 }

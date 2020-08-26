@@ -80,6 +80,12 @@ public class UserDao {
 
 		return session.selectOne("USERS.mailCheck", mail);
 	}
+
+	//카카오 또는 구글로 회원가입한 회원 조회
+	public Users selectUserByApiId(String apiId) {
+
+		return session.selectOne("USERS.selectUserByApiId", apiId);
+	}
 	
 
 

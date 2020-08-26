@@ -51,6 +51,10 @@
                             <a class="no-underline hover:underline text-blue-dark text-xs" href="<%=request.getContextPath()%>/user/findPw">
                             	비밀번호 찾기
                             </a>
+                            /
+                            <button type="button" class="kakaoLogout no-underline hover:underline text-blue-dark text-xs">
+                            	카카오 로그아웃(임시)
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -100,6 +104,13 @@
 
  	}
 	
+	   var btn = document.querySelector('.kakaoLogout');
+	   
+	   btn.onclick=function(){
+	      
+	      location.href="https://kauth.kakao.com/oauth/logout?client_id=f601dfea61fb3ccf05acb9ddb277a697&logout_redirect_uri=http://localhost:8089/www/user/kakaoLogout";
+	      
+	   }
 	</script>
 	
 

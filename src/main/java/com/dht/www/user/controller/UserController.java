@@ -82,6 +82,10 @@ public class UserController {
 		//세션에 저장한 회원정보 삭제
 		session.removeAttribute("logInInfo");
 		
+		System.out.println("여기로 왔냐? 일반 로그아웃");
+		
+		
+		//슬래시가 없으면 상대경로가 된다.
 		return "redirect:login";
 	}
 	
@@ -89,34 +93,47 @@ public class UserController {
 	@RequestMapping(value="/kakaoLogin", produces = "application/json" , method= {RequestMethod.GET,RequestMethod.POST})
 	public String kakaoLogin(@RequestParam("code")String code, Model model , HttpSession session) {
 		
-		 //code를 받아 오지 못하면 로그인 하지 못하도록 함
-		
-		 //카카오 로그인으로 받아온 아이디 값을 db에 어떤식으로 저장하나?!
-		
-		 //계정중지중인 회원이라면 카카오 아이디만으로 어떻게 해결하나?!
-		
-		
-		 //code를 보내고 token을 받아오는 코드 
-		 JsonNode jsonToken= userService.getAccessToken(code);
-		 
-		 //access_token을 받는 코드 
-		 JsonNode access_token = jsonToken.get("access_token");
-		 
-		 //userInfo에 대한 정보를 가져오는 코드 
-		 JsonNode userInfo = userService.getKakaoUserInfo(access_token);
-
-		 //userInfo로 id가져오기
-	     String id = userInfo.path("id").asText();
-	     
-	     //카카오에서 받은 고유 인증번호 재조합
-	     String kakaoId = "kakao_" + id;
-	     
-	     //회원가입 페이지로 카카오id 보내기 
-	     model.addAttribute("kakaoId", kakaoId);
-	     
-	     //회원가입 페이지로 이동
-	     return "user/join";
-		
+			//code를 보내고 token을 받아오는 코드 
+			JsonNode jsonToken= userService.getAccessToken(code);
+			
+			//access_token을 받는 코드 
+			JsonNode access_token = jsonToken.get("access_token");
+			
+			System.out.println("access_token : " + access_token);
+			
+			//userInfo에 대한 정보를 가져오는 코드 
+			JsonNode userInfo = userService.getKakaoUserInfo(access_token);
+			
+			//userInfo로 id가져오기
+			String id = userInfo.path("id").asText();
+			
+			//카카오에서 받은 고유 인증번호 재조합
+			String kakaoId = "kakao_" + id;
+			
+			//카카오 인증코드로 회원정보 조회
+			Users res = userService.selectUserByApiId(kakaoId);
+			
+			if( res != null ) { //회원인 경우
+				
+				//회원 프로필사진 정보 조회
+				Files pic = userService.selectUserProfile(res);
+				
+				//세션에 저장
+				session.setAttribute("logInInfo", res);
+				session.setAttribute("logInPic", pic);
+				
+				//슬래시를 붙이면 컨텍스트 루트(www)로 시작되는 절대경로가 된다.
+				return "redirect:/main";
+				
+			}else { //회원이 아닌 경우
+				
+				//카카오 아이디 저장 
+				model.addAttribute("kakaoId", kakaoId);
+				
+				//회원가입 페이지로 이동
+				return "user/join_api";
+				
+			}
 	}//kakaoLogin end
 	
 	//카카오 로그아웃

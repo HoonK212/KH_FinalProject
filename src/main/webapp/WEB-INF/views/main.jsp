@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,6 +38,29 @@
                     <a href="#" class="py-2 px-6 flex">
                         FAQ
                     </a>
+                    <c:if test="${logInInfo == null}">
+                    <a href="<%=request.getContextPath() %>/user/login" class="py-2 px-6 flex">
+                        Login
+                    </a>
+                    </c:if>
+                    <c:if test="${logInInfo != null}">
+                    
+                    	<c:set var="TextValue" value="${logInInfo.id}"/>
+                    	<c:set var="kakaoid" value="${fn:substring(TextValue,0,5)}" scope="session"/>
+                    
+						<c:if test="${kakaoid eq 'kakao'}">
+	                    <a href="https://kauth.kakao.com/oauth/logout?client_id=f601dfea61fb3ccf05acb9ddb277a697&logout_redirect_uri=http://localhost:8089/www/user/kakaoLogout" class="py-2 px-6 flex">
+	                        Logout-kakao
+	                    </a>
+	                    </c:if>
+	                    
+	                    <c:if test="${kakaoid ne 'kakao'}">
+	                    <a href="<%=request.getContextPath() %>/user/logout" class="py-2 px-6 flex">
+	                        Logout-normal
+	                    </a>
+	                    </c:if> 
+	                    
+                    </c:if>
                 </nav>
                 <button class="lg:hidden flex flex-col ml-4">
                     <span class="w-6 h-1 bg-white mb-1"></span>

@@ -60,4 +60,9 @@
 		SELECT COUNT(*) FROM USERS
 		WHERE MAIL = #{mail}
 	</select>
+	
+	<select id="selectUserByApiId" resultType="Users">
+		SELECT * FROM USERS
+		WHERE ID = #{apiId}
+	</select>
 </mapper>
