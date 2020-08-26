@@ -12,16 +12,16 @@ import common.exception.ErrorCode;
 @Controller
 public class ExceptionController {
 	
-	@ExceptionHandler(Exception.class)
-	public ModelAndView ex(Exception e) {
-		
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("alertMsg", "에러가 발생했습니다.");
-		mav.addObject("url", "/main");
-		mav.setViewName("/common/result");
-		
-		return mav;
-	}
+//	@ExceptionHandler(Exception.class)
+//	public ModelAndView ex(Exception e) {
+//		
+//		ModelAndView mav = new ModelAndView();
+//		mav.addObject("alertMsg", "에러가 발생했습니다.");
+//		mav.addObject("url", "/main");
+//		mav.setViewName("/common/result");
+//		
+//		return mav;
+//	}
 
 	@ExceptionHandler(CustomException.class)
 	public ModelAndView ex(CustomException e) {
