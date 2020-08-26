@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,9 +84,16 @@
 							<div x-show="step === 1" class="mt-2">
 								<div class="text-2xl font-extrabold text-gray-800 leading-tight text-gray-800">기본 정보</div>
 							</div>
+							<c:if test="${kakaoId == null}">
 							<div x-show="step === 2" class="mt-2">
 								<div class="text-2xl font-extrabold text-gray-800 leading-tight text-gray-800">비밀 번호</div>
 							</div>
+							</c:if>
+							<c:if test="${kakaoId != null}">
+							<div x-show="step === 2" class="mt-2">
+								<div class="text-2xl font-extrabold text-gray-800 leading-tight text-gray-800">자동 가입 방지</div>
+							</div>
+							</c:if>
 							<div x-show="step === 3" class="mt-2">
 								<div class="text-2xl font-extrabold text-gray-800 leading-tight text-gray-800">상세 정보</div>
 							</div>
@@ -136,6 +145,8 @@
 						<label for="id" class="font-bold mb-1 text-gray-800 inline-block">아이디</label>
 						<p class="font-bold mb-1 text-gray-400 block text-xs inline-block">(2/3)</p>
 						<p class="font-bold mb-1 text-gray-400 block text-xs inline-block"><span id="idcheckResult" style="color: red; font-size: 0.8rem;"></span><br></p>
+						<!-- 일반회원가입 아이디 입력 -->
+						<c:if test="${kakaoId == null}">
 						<div class="flex mb-5">
 							<input type="text" name="id" id="id" onblur="XmlIdCheck()"
 								class="w-9/12 px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium mr-6"
@@ -145,6 +156,20 @@
 								<div class="select-none text-white font-extrabold" onclick="XmlIdCheck()">중복확인</div>
 							</label>
 						</div>
+						</c:if>
+						<!-- 카카오회원가입 아이디 출력 -->
+						<c:if test="${kakaoId != null}">
+							<div class="flex mb-5" >
+							<input type="text" name="id" value='${kakaoId}' readonly
+								class="w-9/12 px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium mr-6"
+							>
+							<label
+								class="flex justify-start items-center rounded-lg bg-white pl-4 pr-6 py-3 shadow-sm bg-gray-800">
+								<div class="select-none text-white font-extrabold" onclick="XmlIdCheck()">중복확인</div>
+							</label>
+							</div>
+						</c:if>
+						
 						<label for="nick" class="font-bold mb-1 text-gray-800 inline-block">닉네임</label>
 						<p class="font-bold mb-1 text-gray-400 block text-xs inline-block">(3/3)</p>
 						<p class="font-bold mb-1 text-gray-400 block text-xs inline-block"><span id="nickcheckResult" style="color: red; font-size: 0.8rem;"></span></p>
@@ -159,6 +184,7 @@
 						</div>
 					</div>
 					<div x-show.transition.in="step === 2">
+						<c:if test="${kakaoId == null}">
 						<div class="mb-5">
 							<label for="password" class="font-bold mb-1 text-gray-800 block">비밀번호 설정</label>
 							<div class="text-gray-600 mt-2 mb-4">
@@ -210,7 +236,27 @@
 							</div>
 							</div>
 						</div>
-						
+						</c:if>
+						<c:if test="${kakaoId != null}">
+							<!-- 카카오회원가입 비밀번호 입력  -->
+							<!-- 자동방지 가입 -->
+							<div class="py-10">
+							<label class="font-bold mb-1 text-gray-800 block">자동가입 방지</label>
+							<div class="text-gray-600 mt-2 mb-4">
+								아래 이미지에 보이는 숫자와 문자를 입력하세요.
+							</div>
+							<div class="flex items-center mt-4 h-3 cpt-layout">
+								<div id="cpt-img"></div>
+								<div id="refresh"><img style="width: 50px; height: 50px; margin: 0 auto;" src="<%=request.getContextPath()%>/resources/image/captcha/refreshicon.png" /></div>
+								<div><input id="input" type="text" class="px-4 py-3 rounded-lg shadow-sm 
+								focus:outline-none focus:shadow-outline text-gray-600 font-medium"/></div>
+								<label class="flex justify-center items-center rounded-lg bg-white pl-3 pr-3 py-3 shadow-sm bg-gray-800">
+								<div class="select-none text-white font-extrabold" id="btnSubmit">확인</div>
+								</label>
+								<span id="result" style="color: red; font-size: 0.8rem; min-height: 1rem; display:inline-block"></span>
+							</div>
+							</div>
+						</c:if>
 						
 					</div>
 					<div x-show.transition.in="step === 3">
@@ -244,12 +290,12 @@
 							<label for="mail" class="font-bold mb-1 text-gray-800 inline-block">이메일</label>
 							<p class="font-bold mb-1 text-gray-400 block text-xs inline-block">(3/5)<span id="mailcheckResult" style="color: red; font-size: 0.8rem;"></span><br></p>
 							<div class="mb-5 flex">
-							<input type="email" name="mail" id="mail" onblur="XmlMailCheck()"
+							<input type="email" name="mail" id="mail" 
 								class="w-9/12 px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium mr-6"
 								placeholder="example@mail.com">
 							<label
 								class="flex justify-start items-center rounded-lg bg-white pl-4 pr-6 py-3 shadow-sm bg-gray-800">
-								<div class="select-none text-white font-extrabold" onclick="XmlMailCheck()">중복확인</div>
+<!-- 								<div class="select-none text-white font-extrabold" onclick="XmlMailCheck()">중복확인</div> -->
 							</label>
 							</div>
 						</div>
@@ -331,7 +377,7 @@
     var ajaxFlag_idcheck = false;
     var ajaxFlag_nickcheck = false;
     var ajaxFlag_captcha = false;
-    var ajaxFlag_mailcheck = false;
+    var ajaxFlag_mailcheck = true;
       
     function required() {
 
@@ -400,7 +446,7 @@
               return false;
            }
            if(!ajaxFlag_mailcheck){
-              alert("이메일을 중복검사를 해주세요.");
+              alert("이메일 중복검사를 해주세요.");
               stepThree.click();
               return false;
            }
@@ -457,10 +503,10 @@
                 var data = xhr.response; 
                 if( data != '' ){
                    document.querySelector('#nickcheckResult').textContent = data + '는 이미 존재하는 닉네임입니다.'
-                   ajaxFlag_mailcheck = false;
+                   ajaxFlag_nickcheck = false;
                 }else{
                    document.querySelector('#nickcheckResult').textContent = '사용가능한 닉네임입니다.'
-                   ajaxFlag_mailcheck = true;
+                   ajaxFlag_nickcheck = true;
                 }
              })
          }
@@ -480,10 +526,10 @@
                   var data = xhr.response; 
                   if( data != '' ){
                      document.querySelector('#mailcheckResult').textContent = ' ' + '이미 존재하는 이메일입니다.'
-                     ajaxFlag_nickcheck = false;
+                     ajaxFlag_mailcheck = false;
                   }else{
                      document.querySelector('#mailcheckResult').textContent = ' ' + '사용가능한 이메일입니다.'
-                     ajaxFlag_nickcheck = true;
+                     ajaxFlag_mailcheck = true;
                   }
                })
            }

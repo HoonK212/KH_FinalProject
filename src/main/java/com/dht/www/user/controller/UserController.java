@@ -107,12 +107,15 @@ public class UserController {
 
 		 //userInfo로 id가져오기
 	     String id = userInfo.path("id").asText();
-	        
-	     //id값 session에  저장하기 
-	     session.setAttribute("logInInfo", id);
 	     
-	     //성공시에 
-	     return "";
+	     //카카오에서 받은 고유 인증번호 재조합
+	     String kakaoId = "kakao_" + id;
+	     
+	     //회원가입 페이지로 카카오id 보내기 
+	     model.addAttribute("kakaoId", kakaoId);
+	     
+	     //회원가입 페이지로 이동
+	     return "user/join";
 		
 	}//kakaoLogin end
 	
