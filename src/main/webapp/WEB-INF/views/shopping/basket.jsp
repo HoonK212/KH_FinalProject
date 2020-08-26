@@ -23,7 +23,7 @@
 	          <tr class="h-12 uppercase">
 	          	<th class="text-left pl-5">
 		          	<label class="inline-flex items-center mt-3">
-	                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" checked>
+	                <input type="checkbox" id="checkAll" onclick="checkAll();" class="form-checkbox h-5 w-5 text-blue-600" checked="checked">
 		            </label>
 		            
 		            <input type="hidden" id="userId" value="${logInInfo.id }">
@@ -214,7 +214,7 @@ $(document).ready(function() {
 		// 전송 폼
 		var $form = $("<form>")
 			.attr("action", "/shopping/payment")
-			.attr("method", "post")
+			.attr("method", "get")
 			.append(
 				$("<input>")
 					.attr("type", "hidden")
@@ -231,7 +231,6 @@ $(document).ready(function() {
 		$form.submit();
 
 	});
-
 });
 
 //전체 체크/해제
@@ -254,5 +253,6 @@ function checkAll() {
 		});
 	}
 }
+
 </script>
 <%@include file="../layout/shopping_footer.jsp" %>
