@@ -23,7 +23,7 @@
 	          <tr class="h-12 uppercase">
 	          	<th class="text-left pl-5">
 		          	<label class="inline-flex items-center mt-3">
-	                <input type="checkbox" id="checkAll" onclick="checkAll();" class="form-checkbox h-5 w-5 text-blue-600" checked="checked">
+	                <input type="checkbox" id="checkAll" class="form-checkbox h-5 w-5 text-blue-600" checked="checked">
 		            </label>
 		            
 		            <input type="hidden" id="userId" value="${logInInfo.id }">
@@ -209,7 +209,7 @@ $(document).ready(function() {
 		var map = $checkboxes.map(function() {
 			return $(this).val();
 		});
-		var codes = map.get().join(",");
+		var codes = map.get().join("','");
 
 		// 전송 폼
 		var $form = $("<form>")
@@ -233,26 +233,43 @@ $(document).ready(function() {
 	});
 });
 
-//전체 체크/해제
-function checkAll() {
-	// checkbox들
-	var $checkboxes=$("input:checkbox[name='checkRow']");
+// //전체 체크/해제
+// function checkAll() {
+// 	// checkbox들
+// 	var $checkboxes=$("input:checkbox[name='checkRow']");
 
-	// checkAll 체크상태 (true:전체선택, false:전체해제)
-	var check_status = $("#checkAll").is(":checked");
+// 	// checkAll 체크상태 (true:전체선택, false:전체해제)
+// 	var check_status = $("#checkAll").is(":checked");
 	
-	if( check_status ) {
-		// 전체 체크박스를 checked로 바꾸기
-		$checkboxes.each(function() {
-			this.checked = true;	
-		});
-	} else {
-		// 전체 체크박스를 checked 해제하기
-		$checkboxes.each(function() {
-			this.checked = false;	
-		});
-	}
-}
+// 	if( check_status ) {
+// 		// 전체 체크박스를 checked로 바꾸기
+// 		$checkboxes.each(function() {
+// 			this.checked = true;	
+// 		});
+// 	} else {
+// 		// 전체 체크박스를 checked 해제하기
+// 		$checkboxes.each(function() {
+// 			this.checked = false;	
+// 		});
+// 	}
+// }
+
+var $checkAll = $('#checkAll');
+$checkAll.change(function () {
+    var $this = $(this);
+    var checked = $this.prop('checked');
+	
+    $('input[name="checkRow"]').prop('checked', checked);
+});
+
+var order = $('input[name="checkRow"]');
+order.change(function () {
+    var orderlength = order.length;
+    var checkedLength = $('input[name="checkRow"]:checked').length;
+    var selectAll = (orderlength == checkedLength);
+
+    $checkAll.prop('checked', selectAll);
+});
 
 </script>
 <%@include file="../layout/shopping_footer.jsp" %>
