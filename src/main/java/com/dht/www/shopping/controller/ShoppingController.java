@@ -76,5 +76,48 @@ public class ShoppingController {
 			model.addAttribute("basket", session.getAttribute("basket"));
 		}
 	}
+	
+	@RequestMapping(value="/payment", method=RequestMethod.GET)
+	public void shoppingPayment(Model model, HttpSession session) {
+		
+//		model.addAttribute("user",shoppingService.selectUserInfo(session.getId()));
+		
+		String code = "B203";
+		model.addAttribute("product", shoppingService.selectProuct(code));
+		
+//		Users user = (Users) session.getAttribute("logInInfo");
+		
+		System.out.println("이거 결과는 뭐야" + shoppingService.selectPoint("semin"));
+		
+		model.addAttribute("point", shoppingService.selectPoint("semin"));
+	}
+	
+	@RequestMapping(value="/delivery", method=RequestMethod.GET)
+	public String shoppingDelivery(@RequestParam int num) {
+		
+		if(num == 0) {
+			return "shopping/delivery_basic";
+		}else{
+			return "shopping/delivery_new";
+		}
+		
+	}
+	
+
+	//장바구니 추가
+	@RequestMapping(value="/basket", method=RequestMethod.POST)
+	public void addBasket(Model model, HttpSession session) {
+		
+		Users user = (Users)session.getAttribute("logInInfo");
+		
+		if(user != null) {
+			
+		} else {
+			
+		}
+	}
+	
+	@RequestMapping("/test")
+	public void test() { }
 
 }

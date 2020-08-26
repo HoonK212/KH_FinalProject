@@ -107,5 +107,25 @@
 		and p.stock > 0 and b.id = #{id}
 		order by b.dates desc
 	</select>
+	
+	<!-- <select id="select "></select> -->
+	
+	<select id="selectProduct" parameterType="String" resultMap="item">
+		select * from product
+		where code = #{code} and stock > 0 and sell = 1
+	</select>
+	
+	<select id="selectPoint" parameterType="String" resultType="int">
+		select point from point_coin
+		where id = #{id}
+	</select>
+	
+
+	<select id="selectItem">
+		select * from product p, files f
+		where p.code = f.ref and p.sell = 1 and p.stock > 0
+		and p.code = #{code}
+		order by substr(p.code,2) desc
+	</select>
 
 </mapper>
