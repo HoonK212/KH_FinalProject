@@ -6,7 +6,8 @@
 <mapper namespace="Shopping">
 	
 	<!-- 쇼핑 홈 출력 아이템 정보 -->
-	<resultMap type="map" id="item">
+	<resultMap type="map" id="homeItem">
+		<result column="code" property="code" />
 		<result column="name" property="name"/>
 		<result column="company" property="company"/>
 		<result column="price" property="price"/>
@@ -17,6 +18,7 @@
 	
 	<!-- 쇼핑 장바구니 출력 아이템 정보 -->
 	<resultMap type="map" id="basketItem">
+		<result column="code" property="code" />
 		<result column="name" property="name"/>
 		<result column="amount" property="amount"/>
 		<result column="price" property="price"/>
@@ -27,6 +29,7 @@
 
 	<!-- 쇼핑 상세페이지 출력 정보 -->
 	<resultMap type="map" id="detailItem">
+		<result column="code" property="code" />
 		<result column="name" property="name"/>
 		<result column="price" property="price"/>
 		<result column="path" property="path"/>
@@ -37,9 +40,9 @@
 		<result column="stock" property="stock"/>
 	</resultMap>
 	
-	<select id="selectHome" parameterType="string" resultMap="item">
+	<select id="selectHome" parameterType="string" resultMap="homeItem">
 		select * from ( select rownum rnum, b.* from (
-    		select * from product p, files f
+    		select p.code, name, company, price, path, renamed, ext from product p, files f
     		where p.code = f.ref and p.sell = 1 and p.stock > 0
     		
     		and p.code like #{cate} || '%'
@@ -67,9 +70,9 @@
     		
 	</select>
 	
-	<select id="selectList" resultMap="item">
+	<select id="selectList" resultMap="homeItem">
 		select * from ( select rownum rnum, b.* from (
-    		select name, company, price, path, renamed, ext from product p, files f
+    		select p.code, name, company, price, path, renamed, ext from product p, files f
     		
     		<if test="listno == 2">
     			, (select o.code, sum(amount) as tcnt 
@@ -102,7 +105,7 @@
 	</select>
 	
 	<select id="selectBasket" parameterType="map" resultMap="basketItem">
-		select name, amount, price, path, renamed, ext from product p, files f, basket b
+		select p.code, name, amount, price, path, renamed, ext from product p, files f, basket b
 		where p.code = f.ref and p.sell = 1 and b.code = p.code 
 		and p.stock > 0 and b.id = #{id}
 		order by b.dates desc
@@ -110,8 +113,8 @@
 	
 	<!-- <select id="select "></select> -->
 	
-	<select id="selectProduct" parameterType="String" resultMap="item">
-		select * from product
+	<select id="selectProduct" parameterType="String" resultMap="homeItem">
+		select p.code, name, company, price, path, renamed, ext from product
 		where code = #{code} and stock > 0 and sell = 1
 	</select>
 	
@@ -121,8 +124,8 @@
 	</select>
 	
 
-	<select id="selectItem">
-		select * from product p, files f
+	<select id="selectItem" resultMap="detailItem">
+		select p.code, name, price, path, renamed, ext, company, describe, stock from product p, files f
 		where p.code = f.ref and p.sell = 1 and p.stock > 0
 		and p.code = #{code}
 		order by substr(p.code,2) desc
