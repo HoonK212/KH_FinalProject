@@ -1,5 +1,6 @@
 package com.dht.www.shopping.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dht.www.shopping.model.dao.ShoppingDao;
+import com.dht.www.user.model.vo.Users;
 
 import common.util.Paging;
 
@@ -31,9 +33,28 @@ public class ShoppingServiceImpl implements ShoppingService {
 			
 			System.out.println("total" + total);
 			return shoppingDao.selectList(paging);
-		
 				
 	}
+
+	@Override
+	public List<Map<String, Object>> selectBasket(Users user) {
+		return shoppingDao.selectBasket(user);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectProuct(String code) {
+		return shoppingDao.selectProduct(code);
+	}
+
+	@Override
+	public int selectPoint(String id) {
+		return shoppingDao.selectPoint(id);
+	}
+
+	/*
+	 * @Override public Users selectUserInfo(String id) { return
+	 * shoppingDao.selectUserInfo(id); }
+	 */
 	
 	
 }

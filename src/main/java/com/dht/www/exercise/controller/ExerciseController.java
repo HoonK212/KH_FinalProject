@@ -64,10 +64,16 @@ public class ExerciseController {
 	}
 	
 	@RequestMapping(value="/trainning", method=RequestMethod.POST)
-	public String exerciseSelectToTrainning(@RequestParam String exercise, HttpSession session, Model model) {
+	public String exerciseSelectToTrainning(@RequestParam("exercise") String exerciseName, HttpSession session, Model model) {
 		System.out.println(session.getAttribute("exerType"));
 		System.out.println(session.getAttribute("level"));
-		System.out.println(exercise);
+		System.out.println(exerciseName);
+		
+		
+		
+		
+		model.addAttribute("exerciseName", exerciseName);
+		
 		
 		return "exercise/exercise4";
 	}
