@@ -83,6 +83,7 @@ public class ShoppingController {
 //		model.addAttribute("user",shoppingService.selectUserInfo(session.getId()));
 		
 		String code = "B203";
+		//basket 으로 가져오기
 		model.addAttribute("product", shoppingService.selectProuct(code));
 		
 //		Users user = (Users) session.getAttribute("logInInfo");
