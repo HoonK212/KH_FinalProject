@@ -52,5 +52,8 @@ public interface UserService {
 	//닉네임 중복 확인
 	public int nickCheck(String nick);
 	
+	//이메일 중복 확인
+	public int mailCheck(String mail);
+	
 	
 }

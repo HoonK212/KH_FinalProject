@@ -75,6 +75,12 @@ public class UserDao {
 		return session.selectOne("USERS.nickCheck", nick);
 	}
 	
+	//이메일 중복 확인
+	public int mailCheck(String mail) {
+
+		return session.selectOne("USERS.mailCheck", mail);
+	}
+	
 
 
 }

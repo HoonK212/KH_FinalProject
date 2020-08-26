@@ -459,5 +459,12 @@ public class UserServiceImpl implements UserService{
 
 		return userDao.nickCheck(nick);
 	}
+	
+	//이메일 중복 확인
+	@Override
+	public int mailCheck(String mail) {
+
+		return userDao.mailCheck(mail);
+	}
 		
 }

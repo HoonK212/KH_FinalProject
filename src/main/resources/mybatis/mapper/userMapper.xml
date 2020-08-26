@@ -56,4 +56,8 @@
 		WHERE NICK = #{nick}
 	</select>
 	
+	<select id="mailCheck" resultType="int">
+		SELECT COUNT(*) FROM USERS
+		WHERE MAIL = #{mail}
+	</select>
 </mapper>

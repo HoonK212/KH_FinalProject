@@ -289,6 +289,18 @@ public class UserController {
 		}
 	}
 		
+	//메일 중복 확인
+	@RequestMapping(value="/mailcheck", method = RequestMethod.POST, produces = "application/text; charset=UTF-8")
+	@ResponseBody
+	public String mailCheck(String mail, HttpServletRequest request, Model model ){
+		
+		int res = userService.mailCheck(mail);
+		if(res > 0) { // 이메일 중복
+			return mail;
+		}else { // 이메일 중복 아님
+			return "";
+		}
+	}
 	
 	
 	
