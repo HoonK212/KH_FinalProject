@@ -17,6 +17,7 @@ public class RecommendDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
+	// 게시글 추천/비추천
 	public int insertBoardRecommend(Recommend recommend) {
 		return sqlSession.insert("RECOMMEND.insertBoardRecommend", recommend);
 	}

@@ -22,6 +22,7 @@ public class RecommendServiceImpl implements RecommendService {
 	@Autowired
 	private RecommendDao recommendDao;
 
+	// 게시글 추천/비추천
 	@Override
 	public int insertBoardRecommend(Recommend recommend) {
 		return recommendDao.insertBoardRecommend(recommend);

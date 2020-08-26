@@ -10,7 +10,7 @@ import com.dht.www.board.model.vo.Recommend;
 
 public interface RecommendService {
 
-	// 게시글 좋아요 & 싫어요
+	// 게시글 추천/비추천
 	public int insertBoardRecommend(Recommend recommend);
 	
 }

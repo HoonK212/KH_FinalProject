@@ -22,21 +22,16 @@ public class RecommendController {
 	@Autowired
 	private RecommendService recommendService;
 	
-	// 게시글 좋아요 & 싫어요
-	@RequestMapping(value="/board", method=RequestMethod.GET, produces = "application/plain; charset=UTF-8")
+	// 게시글 추천/비추천
+	@RequestMapping(value="/board", method=RequestMethod.GET)
 	@ResponseBody
-	public String boardRecommend(Recommend recommend, HttpSession session) {
+	public int boardRecommend(Recommend recommend, HttpSession session) {
 		
 		String logInId = ((Users) session.getAttribute("logInInfo")).getId();
 		recommend.setId(logInId);
 		System.out.println(recommend);
-		int res = recommendService.insertBoardRecommend(recommend);
 		
-		if(res > 0) {
-			return "success";
-		} else {
-			return "fail";
-		}
+		return recommendService.insertBoardRecommend(recommend);
 	}
 	
 }

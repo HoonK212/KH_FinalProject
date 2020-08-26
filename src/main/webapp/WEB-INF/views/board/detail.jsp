@@ -312,7 +312,12 @@ function boardRecommend(ref, goodBad) {
 	xhr.addEventListener('load', function() {
 		
 		var data = xhr.response;
-		console.log(data);
+
+		if(data > 0) {
+			
+		} else {
+			alert("이미 추천/비추천 하셨습니다.");
+		}
 	});
 	
 }
