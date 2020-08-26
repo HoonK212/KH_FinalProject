@@ -25,6 +25,8 @@
 		          	<label class="inline-flex items-center mt-3">
 	                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" checked>
 		            </label>
+		            
+		            <input type="hidden" id="userId" value="${logInInfo.id }">
 		        </th>
 	            <th class="text-center" colspan="2">상품 정보</th>
 	            <th class="hidden text-right md:table-cell">상품 금액</th>
@@ -45,7 +47,7 @@
 	          	<tr>
 	          	<td class="text-left pl-5">
 		          	<label class="inline-flex items-center mt-3">
-	                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" checked="checked" id="check${stat.index }" value="${item.code }">
+	                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" checked="checked" name="checkRow" id="check${stat.index }" value="${item.code }">
 		            </label>
 		        </td>
 	            <td class="hidden pb-4 md:table-cell">
@@ -151,7 +153,7 @@
 		   			<button class="flex justify-center px-10 py-3 my-6 mx-2 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
 		               <span class="ml-2 mt-5px">쇼핑 홈 가기</span>
 		             </button>
-		             <button class="flex justify-center px-10 py-3 my-6 mx-2 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none" id="order" onclick="orderSubmit();">
+		             <button class="flex justify-center px-10 py-3 my-6 mx-2 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none" id="orderBtn">
 		               <span class="ml-2 mt-5px">선택 주문</span>
 		             </button>
 			      </div>
@@ -182,19 +184,75 @@ function calcPrice(num) {
 	})
 }
 
-function orderSubmit() {
+// function orderSubmit() {
 	
-	var orderForm = document.createElement("form");
-	orderForm.setAttribute("method", "post");
-	orderForm.setAttribute("action", "/shopping/payment");
+// 	var orderForm = document.createElement("form");
+// 	orderForm.setAttribute("method", "post");
+// 	orderForm.setAttribute("action", "/shopping/payment");
 	
-	var length = ${fn:length(basket)};
+// 	var length = ${fn:length(basket)};
 	
-	for(var i=0; i<length; i++) {
-		if(document.querySelector("#check"+i).checked) {
-					
-		}
+// 	for(var i=0; i<length; i++) {
+// 		if(document.querySelector("#check"+i).checked) {
+// 			var code = document.createElement("input");
+// 		}
+// 	}
+// }
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#orderBtn").click(function() {
+		// 선택된 체크박스
+		var $checkboxes = $("input:checkbox[name='checkRow']:checked");
+
+		// 체크된 대상들을 map으로 만들고 map을 문자열로 만들기
+		var map = $checkboxes.map(function() {
+			return $(this).val();
+		});
+		var codes = map.get().join(",");
+
+		// 전송 폼
+		var $form = $("<form>")
+			.attr("action", "/shopping/payment")
+			.attr("method", "post")
+			.append(
+				$("<input>")
+					.attr("type", "hidden")
+					.attr("name", "userId")
+					.attr("value", $("#userId").val())
+			)
+			.append(
+				$("<input>")
+					.attr("type", "hidden")
+					.attr("name", "codes")
+					.attr("value", codes)
+			);
+		$(document.body).append($form);
+		$form.submit();
+
+	});
+
+});
+
+//전체 체크/해제
+function checkAll() {
+	// checkbox들
+	var $checkboxes=$("input:checkbox[name='checkRow']");
+
+	// checkAll 체크상태 (true:전체선택, false:전체해제)
+	var check_status = $("#checkAll").is(":checked");
+	
+	if( check_status ) {
+		// 전체 체크박스를 checked로 바꾸기
+		$checkboxes.each(function() {
+			this.checked = true;	
+		});
+	} else {
+		// 전체 체크박스를 checked 해제하기
+		$checkboxes.each(function() {
+			this.checked = false;	
+		});
 	}
 }
-</script> 
+</script>
 <%@include file="../layout/shopping_footer.jsp" %>
