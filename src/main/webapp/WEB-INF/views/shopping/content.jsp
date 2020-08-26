@@ -1,8 +1,21 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 	 <div class="container mx-auto px-6">
-            <h3 class="text-gray-700 text-2xl font-medium">Wrist Watch</h3>
+            <h3 class="text-gray-700 text-2xl font-medium">
+            <c:choose>
+            	<c:when test="${listno eq 0}">전체 보기</c:when>
+            	<c:when test="${listno eq 1}">이벤트 상품</c:when>
+            	<c:when test="${listno eq 2}">인기 상품</c:when>
+            	<c:when test="${listno eq 3}">신규 상품</c:when>
+            	<c:when test="${listno eq 4}">운동 보조제</c:when>
+            	<c:when test="${listno eq 5}">운동 기구</c:when>
+            	<c:when test="${listno eq 6}">다이어트 식품</c:when>
+            </c:choose>
+            </h3>
             <span class="mt-3 text-sm text-gray-500">200+ Products</span>
             <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
 
