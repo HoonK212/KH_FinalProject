@@ -122,7 +122,6 @@
 		select point from point_coin
 		where id = #{id}
 	</select>
-	
 
 	<select id="selectItem" resultMap="detailItem">
 		select p.code, name, price, path, renamed, ext, company, describe, stock from product p, files f
@@ -130,5 +129,20 @@
 		and p.code = #{code}
 		order by substr(p.code,2) desc
 	</select>
+	
+	<select id="checkBasket">
+		select count(*) from basket
+		where #{id} and #{code}
+	</select>
+	
+	<insert id="insertBasket">
+		insert into basket 
+		values(#{id}, #{code}, #{amount}, sysdate)
+	</insert>
+	
+	<update id="updateAmount">
+		update basket set amount = #{amount}
+		where id = #{id} and code = #{code}
+	</update>
 
 </mapper>

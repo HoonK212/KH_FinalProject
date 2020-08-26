@@ -4,6 +4,7 @@
 <!-- jstl -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%@include file="../layout/shopping_header.jsp" %>
 <%@include file="../layout/shopping_cart.jsp" %>
@@ -24,6 +25,8 @@
 		          	<label class="inline-flex items-center mt-3">
 	                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" checked>
 		            </label>
+		            
+		            <input type="hidden" id="userId" value="${logInInfo.id }">
 		        </th>
 	            <th class="text-center" colspan="2">상품 정보</th>
 	            <th class="hidden text-right md:table-cell">상품 금액</th>
@@ -44,7 +47,7 @@
 	          	<tr>
 	          	<td class="text-left pl-5">
 		          	<label class="inline-flex items-center mt-3">
-	                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" checked>
+	                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" checked="checked" name="checkRow" id="check${stat.index }" value="${item.code }">
 		            </label>
 		        </td>
 	            <td class="hidden pb-4 md:table-cell">
@@ -55,11 +58,13 @@
 	            <td>
 	              <a href="#">
 	                <p class="mb-2 md:ml-4">${item.name }</p>
+	                
 	                <form action="/shopping/bdelete" method="POST">
 	                  <button type="submit" class="text-gray-700 md:ml-4">
 	                    <small>(삭제하기)</small>
 	                  </button>
 	                </form>
+	                
 	              </a>
 	            </td>
 	             <td class="hidden text-right md:table-cell">
@@ -148,7 +153,7 @@
 		   			<button class="flex justify-center px-10 py-3 my-6 mx-2 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
 		               <span class="ml-2 mt-5px">쇼핑 홈 가기</span>
 		             </button>
-		             <button class="flex justify-center px-10 py-3 my-6 mx-2 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
+		             <button class="flex justify-center px-10 py-3 my-6 mx-2 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none" id="orderBtn">
 		               <span class="ml-2 mt-5px">선택 주문</span>
 		             </button>
 			      </div>
@@ -162,8 +167,92 @@
     </main>
  
 <script type="text/javascript">
+
 function calcPrice(num) {
 	document.querySelector("#total"+num).innerText = document.querySelector("#amount"+num).value * document.querySelector("#price"+num).innerText
+	
+	var amount = document.querySelector("#amount"+num).value;
+	var code = document.querySelector("#check"+num).value;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', '<%=request.getContextPath()%>/shopping/amount?amount='+amount+"&code="+code);
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.send();
+	
+	xhr.addEventListener('load', function() {
+		console.dir("수량 업데이트 성공")
+	})
 }
-</script> 
+
+// function orderSubmit() {
+	
+// 	var orderForm = document.createElement("form");
+// 	orderForm.setAttribute("method", "post");
+// 	orderForm.setAttribute("action", "/shopping/payment");
+	
+// 	var length = ${fn:length(basket)};
+	
+// 	for(var i=0; i<length; i++) {
+// 		if(document.querySelector("#check"+i).checked) {
+// 			var code = document.createElement("input");
+// 		}
+// 	}
+// }
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#orderBtn").click(function() {
+		// 선택된 체크박스
+		var $checkboxes = $("input:checkbox[name='checkRow']:checked");
+
+		// 체크된 대상들을 map으로 만들고 map을 문자열로 만들기
+		var map = $checkboxes.map(function() {
+			return $(this).val();
+		});
+		var codes = map.get().join(",");
+
+		// 전송 폼
+		var $form = $("<form>")
+			.attr("action", "/shopping/payment")
+			.attr("method", "post")
+			.append(
+				$("<input>")
+					.attr("type", "hidden")
+					.attr("name", "userId")
+					.attr("value", $("#userId").val())
+			)
+			.append(
+				$("<input>")
+					.attr("type", "hidden")
+					.attr("name", "codes")
+					.attr("value", codes)
+			);
+		$(document.body).append($form);
+		$form.submit();
+
+	});
+
+});
+
+//전체 체크/해제
+function checkAll() {
+	// checkbox들
+	var $checkboxes=$("input:checkbox[name='checkRow']");
+
+	// checkAll 체크상태 (true:전체선택, false:전체해제)
+	var check_status = $("#checkAll").is(":checked");
+	
+	if( check_status ) {
+		// 전체 체크박스를 checked로 바꾸기
+		$checkboxes.each(function() {
+			this.checked = true;	
+		});
+	} else {
+		// 전체 체크박스를 checked 해제하기
+		$checkboxes.each(function() {
+			this.checked = false;	
+		});
+	}
+}
+</script>
 <%@include file="../layout/shopping_footer.jsp" %>

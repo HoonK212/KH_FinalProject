@@ -16,7 +16,7 @@
 </head>
 
 <body class="flex items-center justify-center" style="background: #edf2f7;">
-    <script src="https://premium-tailwindcomponents.netlify.app/assets/build/js/main.js?id=8c11b7cf78ebea1b5aed"></script>
+<script src="https://premium-tailwindcomponents.netlify.app/assets/build/js/main.js?id=8c11b7cf78ebea1b5aed"></script>
 
 <div x-data="{ cartOpen: false , isOpen: false }" class="bg-white" style="width: -webkit-fill-available;">
 
