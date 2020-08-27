@@ -57,8 +57,8 @@ public class ShoppingController {
 	
 	//제품 상세페이지
 	@RequestMapping(value="/detail", method=RequestMethod.GET)
-	public void shoppingDetail(Model model) {
-		
+	public void shoppingDetail(Model model, String code) {
+		System.out.println(code);
 	}
 	
 	//장바구니 조회
