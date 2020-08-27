@@ -209,7 +209,7 @@ $(document).ready(function() {
 		var map = $checkboxes.map(function() {
 			return $(this).val();
 		});
-		var codes = map.get().join("','");
+		var codes = map.get().join(",");
 
 		// 전송 폼
 		var $form = $("<form>")
