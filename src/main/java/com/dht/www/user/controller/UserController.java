@@ -82,9 +82,6 @@ public class UserController {
 		//세션에 저장한 회원정보 삭제
 		session.removeAttribute("logInInfo");
 		
-		System.out.println("여기로 왔냐? 일반 로그아웃");
-		
-		
 		//슬래시가 없으면 상대경로가 된다.
 		return "redirect:login";
 	}
@@ -144,8 +141,6 @@ public class UserController {
 	//removeAttribute를 하면 loginInfo에 담긴내용만 사라진다  
   	session.removeAttribute("logInInfo");
   			
-  	System.out.println("로그아웃되었습니다");
-  	
   	return "redirect:login";
 	  		
 	}//kakaoLogout end
@@ -250,10 +245,10 @@ public class UserController {
 		System.out.println("합친주소: " + addr);
 		
 		// 프로필 이미지 저장 위치 꺼내기
-		String root = session.getServletContext().getRealPath("/resources/upload_user");
+		String path = session.getServletContext().getRealPath("/resources/upload_user");
 		
 		// 프로필 이미지 업로드 및 DB에 저장
-		userService.insertUserProfile(file, users, root);
+		userService.insertUserProfile(file, users, path);
 		 
 		// http://localhost:8089/www 꺼내기
 		String urlPath = request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
@@ -261,8 +256,10 @@ public class UserController {
 		// 회원가입을 위한 이메일 발송
 		userService.mailSendingToJoin(users, urlPath);
 		
-		model.addAttribute("alertMsg", "이메일로 확인 메일이 발송 되었습니다.");
-		model.addAttribute("url", "/login");
+		//루트 컨텍스트
+		String root = request.getContextPath();
+		
+		model.addAttribute("url", root+"/user/login");
 		 
 		return "common/result";
 	}
@@ -271,13 +268,16 @@ public class UserController {
 	@RequestMapping(value ="/joinimple", method = RequestMethod.POST)
 	public String joinimple(Users users, HttpServletRequest request, Model model) {
 		
+		//루트 컨텍스트
+		String root = request.getContextPath();
+		
 		int res = userService.insertUser(users);
 		if(res>0) {
-			model.addAttribute("alertMsg", "회원가입 축하드립니다!!!!!");
-			model.addAttribute("url", "/login");
+			model.addAttribute("alertMsg", "회원가입 되셨습니다.");
+			model.addAttribute("url", root+"/user/login");
 		}else {
-			model.addAttribute("alertMsg", "회원가입에 실패하였습니다.");
-			model.addAttribute("url", "/join");
+		//	model.addAttribute("alertMsg", "회원가입에 실패하였습니다.");
+			model.addAttribute("url", root+"/user/join");
 		}
 		
 		return "common/result";

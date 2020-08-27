@@ -118,7 +118,7 @@ public class UserServiceImpl implements UserService{
 
 	    postParams.add(new BasicNameValuePair("client_id", "f601dfea61fb3ccf05acb9ddb277a697"));    // REST API KEY
 
-	    postParams.add(new BasicNameValuePair("redirect_uri","http://localhost:8089/www/user/kakaoLogin"));    // 리다이렉트 URI
+	    postParams.add(new BasicNameValuePair("redirect_uri","http://localhost:8088/user/kakaoLogin"));    // 리다이렉트 URI
 
 	    postParams.add(new BasicNameValuePair("code", code));    // 로그인 과정중 얻은 code 값
 
@@ -217,7 +217,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void mailSendingToFindId(Map<String, Object> commandMap, String urlPath, String searchId) {
 		
-		String setfrom = "kitty9302@naver.com";
+		String setfrom = "kh_finalproject@naver.com";
 		String tomail = (String) commandMap.get("mail");
 		String title = "아이디 조회결과";
 		String htmlBody01 = 
@@ -346,7 +346,6 @@ public class UserServiceImpl implements UserService{
 				e.printStackTrace();
 			}
 	      }else { //사용자가 프로필 이미지를 업로드 하지 않을 때 기본 프로필 이미지 정보 DB에 저장
-	    	  System.out.println("여기여기여기!!");
 	    	  userDao.insertBasicProfile(user);
 	      }
 	}

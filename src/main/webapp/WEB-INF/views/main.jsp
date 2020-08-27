@@ -49,7 +49,7 @@
                     	<c:set var="kakaoid" value="${fn:substring(TextValue,0,5)}" scope="session"/>
                     
 						<c:if test="${kakaoid eq 'kakao'}">
-	                    <a href="https://kauth.kakao.com/oauth/logout?client_id=f601dfea61fb3ccf05acb9ddb277a697&logout_redirect_uri=http://localhost:8089/www/user/kakaoLogout" class="py-2 px-6 flex">
+	                    <a href="https://kauth.kakao.com/oauth/logout?client_id=f601dfea61fb3ccf05acb9ddb277a697&logout_redirect_uri=http://<%=request.getServerName() %>:<%=request.getServerPort() %><%=request.getContextPath() %>/user/kakaoLogout" class="py-2 px-6 flex">
 	                        Logout
 	                    </a>
 	                    </c:if>

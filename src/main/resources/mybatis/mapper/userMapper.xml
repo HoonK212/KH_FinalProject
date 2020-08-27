@@ -42,8 +42,9 @@
 	</insert>
 	
 	<select id="selectUserProfile" resultType="com.dht.www.mypage.model.vo.Files">
-		SELECT * FROM FILES
-		WHERE REF = #{id}
+		SELECT R.* FROM
+		(SELECT ROWNUM AS RN, F.* FROM FILES F WHERE REF = #{id} ORDER BY NO DESC) R
+		where R.RN = 1
 	</select>
 	
 	<select id="idCheck" resultType="int">

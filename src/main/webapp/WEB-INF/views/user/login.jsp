@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>      
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,7 +54,7 @@
                             </a>
                             /
                             <button type="button" class="kakaoLogout no-underline hover:underline text-blue-dark text-xs">
-                            	카카오 로그아웃(임시)
+                            	카카오 로그아웃(임시) 
                             </button>
                         </div>
                     </div>
@@ -111,17 +112,16 @@
 	//카카오 버튼을 클릭했을 때 redirect_uri로 코드(code)를 보내라고 요청하는 코드 
 	kakaoBtn.onclick=function(){
 
-		location.href='https://kauth.kakao.com/oauth/authorize?client_id=f601dfea61fb3ccf05acb9ddb277a697&redirect_uri=http://localhost:8089/www/user/kakaoLogin&response_type=code';  
-
+		location.href='https://kauth.kakao.com/oauth/authorize?client_id=f601dfea61fb3ccf05acb9ddb277a697&redirect_uri=http://<%=request.getServerName() %>:<%=request.getServerPort() %><%=request.getContextPath() %>/user/kakaoLogin&response_type=code'; 
  	}
 	
-	   var btn = document.querySelector('.kakaoLogout');
-	   
-	   btn.onclick=function(){
-	      
-	      location.href="https://kauth.kakao.com/oauth/logout?client_id=f601dfea61fb3ccf05acb9ddb277a697&logout_redirect_uri=http://localhost:8089/www/user/kakaoLogout";
-	      
-	   }
+   var btn = document.querySelector('.kakaoLogout');
+   
+   btn.onclick=function(){
+      
+      location.href='https://kauth.kakao.com/oauth/logout?client_id=f601dfea61fb3ccf05acb9ddb277a697&logout_redirect_uri=http://<%=request.getServerName() %>:<%=request.getServerPort() %><%=request.getContextPath() %>/user/kakaoLogout';
+  
+   }
 	</script>
 	
 
