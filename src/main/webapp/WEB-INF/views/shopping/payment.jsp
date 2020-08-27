@@ -72,19 +72,31 @@
                             <h4 class="text-sm text-gray-500 font-medium">배송지 정보</h4>
                             <hr>
                             	<div id="deliveryResult">
+<%--                             	<c:if test="(${user.name empty && user.post empty && user.addr empty})"> --%>
+<%--                             	<c:if test="(${user.name empty})"> --%>
+                            		<div class="text-sm ml-6 text-gray-700 w-5/6 lex items-center 
+										justify-between bg-white rounded-md border-2 border-blue-500 p-2 focus:outline-none" >
+										신규 배송지를 입력해주세요 
+									</div>
+<%--                             	</c:if> --%>
+<%--                             	<c:if test="(${user.name not empty && user.post not empty && user.addr not empty})"> --%>
                                 	<div class="mt-6 flex text-sm ml-6">
-								    	KH 정보 교육원
+                                		console.log(${user.name})
+                                		${user.id }
+								    	${user.name}
 									</div>
 									<div class="mt-6 flex text-sm ml-6">
-										1544-9970
+										${user.post}
 									</div>
 									<div class="mt-6 flex text-sm ml-6">
-										(13155) 서울특별시 강남구 테헤란로 14길 6 남도빌딩
+										${user.addr}
 									</div>
 									<br>
 									<input type="text" class="text-sm ml-6 text-gray-700 w-5/6 lex items-center 
 										justify-between bg-white rounded-md border-2 border-blue-500 p-2 focus:outline-none" 
 										placeholder="요청사항을 직접 입력합니다.">
+<%-- 								</c:if> --%>
+										
                              	</div>
                         </div> 
 						<br><br><br>
@@ -133,9 +145,9 @@
                                     			ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80" 
                                     			alt="">
                                     <div class="mx-3">
-                                        <h3 class="text-sm text-gray-600">이름 : ${user.name}</h3>
-                                        <h3 class="text-sm text-gray-600">전화번호 : ${user.tel }</h3>
-                                        <h3 class="text-sm text-gray-600">이 메 일 :${user.mail }</h3>
+                                        <h3 class="text-sm text-gray-600">이름 : </h3><h3>${user.name}</h3>
+                                        <h3 class="text-sm text-gray-600">전화번호 :</h3><h3>${user.tel}</h3>
+                                        <h3 class="text-sm text-gray-600">이 메 일 :</h3><h3>${user.mail}</h3>
                                     </div>
                                 </div>
                             </div>  
@@ -148,10 +160,10 @@
                        <br><br>                    	
                     	
                     	
-					<!-- ---------------------------------------주문자 정보-------------------------------- -->
-
+					<!-- ---------------------------------------주문정보-------------------------------- -->
+						<c:set var="total" value="0"></c:set>
                         <c:forEach items="${product}" var="product">
-                       		<c:set var="price" value="${product.price * 2}"></c:set>
+                       		<c:set var="price" value="${product.price * product.amount }"></c:set>
                         		<div class="border rounded-md w-full px-4 py-10">
                             		<div class="flex items-center justify-between">
                                 		<h3 class="text-gray-700 font-medium">주문 정보</h3>
@@ -165,24 +177,24 @@
 		                                        <h3 class="text-sm text-gray-600">판매자 </h3>
 		                                        <h3 class="text-sm text-gray-600">수량 </h3>
 		                                        <h3 class="text-sm text-gray-600">할인 </h3>
-		                                        <h3 class="text-sm text-gray-600">배송비 </h3>
 		                                        <div class="flex items-center mt-2">
                                         		</div>
                                     		</div>
                                     		<div class="mx-3 float-right">
 		                                        <h3 class="text-sm text-gray-600 float-right">${product.name} </h3>
 		                                        <h3 class="text-sm text-gray-600">${product.company}</h3>
-		                                        <h3 class="text-sm text-gray-600">2</h3>
-		                                        <h3 class="text-sm text-gray-600">${product.price}</h3>
-		                                        <h3 class="text-sm text-gray-600">${price} </h3>
+		                                        <h3 class="text-sm text-gray-600">${product.amount}</h3>
+		                                        <h3 class="text-sm text-gray-600">${product.price}원</h3>
 		                                        <div class="flex items-center mt-2">
 		                                        </div>
                                     		</div>
                                    		</div>
                                 	</div>
                             	</div>
-                                <span class="text-gray-600 float-right">주문 금액 3800원</span>
+                                <span class="text-gray-600 float-right">주문 금액 ${price}원</span>
                         	</div>
+                        	
+                        	<c:set var="total" value="${total + price}"></c:set>
                       </c:forEach>
                     </div>
                 </div>  
@@ -190,7 +202,7 @@
         </div>
        <br><br><br>
        
-					<!-- ---------------------------------------주문자 정보-------------------------------- -->
+					<!-- ---------------------------------------결제 총액-------------------------------- -->
         
         <div class="container mx-auto px-6">
         	<div class="border rounded-md w-full px-4 py-10">
@@ -207,11 +219,11 @@
 				            <h3 class="text-sm text-gray-600">적립포인트 사용(-)</h3> 
 				        </div>
                         <div class="mx-3">
-                        	<h3 class="text-sm text-gray-600">279,000원</h3>
+                        	<h3 class="text-sm text-gray-600">${total - point - 3000}</h3>
                             <br>
-                            <h3 class="text-sm text-gray-600">10,000원</h3>
-                            <h3 class="text-sm text-gray-600">48,000원</h3>
+                            <h3 class="text-sm text-gray-600">3,000원</h3>
                             <h3 class="text-sm text-gray-600">0원</h3>
+                            <h3 class="text-sm text-gray-600">${point }포인트</h3>
                         </div>
 					</div>
 				</div>
@@ -244,7 +256,8 @@ $(document).ready(function(){
     $("#necessary").change(function(){
     	
     	console.log("체크")
-    	
+    	console.log('${logInInfo.id}')
+    	console.log('${logInInfo.name}')
 /*     	
     	console.log("버튼클릭")
     		if( !( $("#necessary").is(":checked") )){
@@ -273,7 +286,7 @@ function deliveryfunc(num){
 	 xmlHttp = new XMLHttpRequest();
 	
 	xmlHttp.onreadystatechange = callback;
-	xmlHttp.open("GET", "/shopping/delivery?num="+num);
+	xmlHttp.open("GET", "<%=request.getContextPath()%>/shopping/delivery?num="+num);
 	xmlHttp.send();
 }
 
@@ -393,7 +406,7 @@ function requestPayment() {
 	        // 결제 완료 처리 로직
 			//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
 		 jQuery.ajax({
-				url: "/shopping/paymentComplete", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
+				url: "<%=request.getContextPath()%>/shopping/paymentComplete", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
 				type: 'POST',
 				dataType: 'json',
 				data: {
@@ -431,7 +444,7 @@ function requestPayment() {
 
 function move(){
 	console.log("오긴 오니")
-	location.href="/shopping/paymentComplete"
+	location.href="<%=request.getContextPath()%>/shopping/paymentComplete"
 }
 
 </script>

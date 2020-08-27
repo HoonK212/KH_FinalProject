@@ -143,8 +143,9 @@ public class ShoppingController {
 		System.out.println("결과왜이래" + map.get("array").toString());
 		
 		
-		Users user = (Users) session.getAttribute("logInInfo");
-		model.addAttribute("user",user);
+//		Users user = (Users) session.getAttribute("logInInfo");
+//		model.addAttribute("user",user);
+//		System.out.println("사람 " + user);
 		
 		//basket 으로 가져오기
 		model.addAttribute("product", shoppingService.selectProuct(map));
@@ -181,7 +182,4 @@ public class ShoppingController {
 		}
 		
 	}
-
-	
-
 }
