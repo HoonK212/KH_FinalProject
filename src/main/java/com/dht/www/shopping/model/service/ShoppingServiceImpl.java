@@ -55,6 +55,10 @@ public class ShoppingServiceImpl implements ShoppingService {
 	public int updateAmount(Basket basket) {
 		return shoppingDao.updateAmount(basket);
 	}
+	
+	public int deleteBasket(Basket basket) {
+		return shoppingDao.deleteBasket(basket);
+	}
 
 	@Override
 	public List<Map<String, Object>> selectProuct(Map map) {
@@ -64,6 +68,12 @@ public class ShoppingServiceImpl implements ShoppingService {
 	@Override
 	public int selectPoint(String id) {
 		return shoppingDao.selectPoint(id);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectProuct(Basket basket) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
