@@ -46,6 +46,10 @@ public class ShoppingDao {
 	public int updateAmount(Basket basket) {
 		return sqlSession.update("Shopping.updateAmount", basket);
 	}
+	
+	public int deleteBasket(Basket basket) {
+		return sqlSession.delete("Shopping.deleteBasket", basket);
+	}
 
 	public List<Map<String, Object>> selectProduct(Basket basket){
 		System.out.println("왜 안되냐" + sqlSession.selectList("Shopping.selectProduct", basket));

@@ -121,8 +121,29 @@ public class ShoppingController {
 		}
 	}
 	
+	@RequestMapping(value="/deletebasket", method=RequestMethod.POST)
+	@ResponseBody
+	public String deleteBasket(int num, Basket basket) {
+		
+		int res = shoppingService.deleteBasket(basket);
+		if (res > 0) {
+			return "#b" + num;
+		} else {
+			return "fail";
+		}
+	}
+	
+	@RequestMapping(value="/deletelist", method=RequestMethod.POST)
+	@ResponseBody
+	public String deleteList(String userId, String codes) {
+		
+		
+		
+		return null;
+	}
+	
 	//결제페이지
-	@RequestMapping(value="/payment", method=RequestMethod.GET)
+	@RequestMapping(value="/payment", method=RequestMethod.GET, produces = "application/text; charset=UTF-8")
 	public void shoppingPayment(Model model, HttpSession session ,@RequestParam String userId, String codes) {
 		
 		System.out.println(userId);
@@ -174,9 +195,6 @@ public class ShoppingController {
 	}
 
 	@RequestMapping("/test")
-	public void test(String userId, @RequestParam Map map) { 
-		System.out.println(userId);
-		System.out.println(map.codes);
-	}
+	public void test() {}
 
 }

@@ -55,6 +55,10 @@ public class ShoppingServiceImpl implements ShoppingService {
 	public int updateAmount(Basket basket) {
 		return shoppingDao.updateAmount(basket);
 	}
+	
+	public int deleteBasket(Basket basket) {
+		return shoppingDao.deleteBasket(basket);
+	}
 
 	@Override
 	public List<Map<String, Object>> selectProuct(Basket basket) {

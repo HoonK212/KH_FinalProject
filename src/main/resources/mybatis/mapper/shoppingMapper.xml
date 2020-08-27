@@ -145,5 +145,10 @@
 		update basket set amount = #{amount}
 		where id = #{id} and code = #{code}
 	</update>
+	
+	<delete id="deleteBasket">
+		delete basket 
+		where code=#{code} and id=#{id}
+	</delete>
 
 </mapper>
