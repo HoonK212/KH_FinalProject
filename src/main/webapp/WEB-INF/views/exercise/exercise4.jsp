@@ -256,8 +256,8 @@ function leftCountUpdate(progressCnt,exArr) {
 		<div id="right">
 		
 		
-			<c:if test="${exerciseName eq 'legraise' }">
-				<%@include file="./legraise.jsp"%>
+			<c:if test="${exerciseName eq 'plank' }">
+				<%@include file="./plank.jsp"%>
 			</c:if>
 		
 		

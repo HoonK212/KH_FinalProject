@@ -17,14 +17,14 @@
 							</div>
 							<div
 								class="rounded-full w-12 h-12 text-xl text-teal-100 bg-teal-700 font-black flex justify-center items-center absolute top-0 right-0 mt-16 shadow-lg mr-2">1</div>
-							<img alt="step1" class="w-56 h-56 shadow my-5 object-scale-down" src="https://image.flaticon.com/icons/svg/1330/1330216.svg">
+							<img alt="step1" class="w-56 h-56 shadow my-5 object-scale-down" src="<%=request.getContextPath() %>/resources/image/exercise/Plank1-1.png">
 							<div class="w-56 h-12 hidden justify-center">
 								<div class="h-full border-r-4 border-teal-300 border-dashed"></div>
 							</div>
 						</div>
 						<div class="ml-5 p-10 flex flex-col justify-center max-w-2xl rounded bg-teal-200">
 							<div class="text-xs uppercase font-bold text-teal-500">Step 1</div>
-							<div class="text-xl font-bold text-teal-700">Find your best idea</div>
+							<div class="text-xl font-bold text-teal-700">견갑골(날개뼈)과 쇄골은 전체적으로 뒤로 밀리지 않도록 단단히 고정시켜준다. 어깨는 방향이 지면과 수직을 이루도록 한다. 허리는 일직선을 만들고 고개도 들지 않는다.</div>
 						</div>
 					</div>
 
@@ -34,50 +34,17 @@
 								<div class="h-full border-r-4 border-orange-300 border-dashed"></div>
 							</div>
 							<div class="rounded-full w-12 h-12 text-xl text-orange-100 bg-orange-700 font-black flex justify-center items-center absolute top-0 right-0 mt-16 shadow-lg mr-2">2</div>
-							<img alt="step2" class="w-56 h-56 shadow my-5 object-scale-down" src="https://image.flaticon.com/icons/svg/1330/1330216.svg">
+							<img alt="step2" class="w-56 h-56 shadow my-5 object-scale-down" src="<%=request.getContextPath() %>/resources/image/exercise/Plank1-2.png">
 							<div class="w-56 h-12 hidden justify-center">
 								<div class="h-full border-r-4 border-orange-300 border-dashed"></div>
 							</div>
 						</div>
 						<div class="ml-5 p-10 flex flex-col justify-center max-w-2xl rounded bg-orange-200">
 							<div class="text-xs uppercase font-bold text-orange-500">Step 2</div>
-							<div class="text-xl font-bold text-orange-700">Find your team and collaborate</div>
+							<div class="text-xl font-bold text-orange-700">엉덩이는 허리가 아래쪽으로 처지지 않도록 지속적으로 엉덩이 근육을 수축시키면서 긴장 상태를 유지해야 한다. 그래서 머리부터 발끝까지 일직선을 유지해야 한다.</div>
 						</div>
 					</div>
 
-					<div class="flex flex-col bg-indigo-200 justify-center text-center">
-						<div class="flex flex-col justify-center items-center relative">
-							<div class="w-56 h-12 hidden justify-center">
-								<div class="h-full border-r-4 border-indigo-300 border-dashed"></div>
-							</div>
-							<div class="rounded-full w-12 h-12 text-xl text-indigo-100 bg-indigo-700 font-black flex justify-center items-center absolute top-0 right-0 mt-16 shadow-lg mr-2">3</div>
-							<img alt="step3" class="w-56 h-56 shadow my-5 object-scale-down" src="https://image.flaticon.com/icons/svg/1330/1330216.svg">
-							<div class="w-56 h-12 hidden justify-center">
-								<div class="h-full border-r-4 border-indigo-300 border-dashed"></div>
-							</div>
-						</div>
-						<div class="ml-5 p-10 flex flex-col justify-center max-w-2xl rounded bg-indigo-200">
-							<div class="text-xs uppercase font-bold text-indigo-500">Step 3</div>
-							<div class="text-xl font-bold text-indigo-700">Make a good plan and prepare tasks</div>
-						</div>
-					</div>
-
-					<div class="flex flex-col bg-pink-200 justify-center text-center">
-						<div class="flex flex-col justify-center items-center relative">
-							<div class="w-56 h-12 md:flex hidden justify-center">
-								<div class="h-full border-r-4 border-pink-300 border-dashed"></div>
-							</div>
-							<div class="rounded-full w-12 h-12 text-xl text-pink-100 bg-pink-700 font-black flex justify-center items-center absolute top-0 right-0 mt-16 shadow-lg mr-2">4</div>
-							<img alt="step4" class="w-56 h-56 shadow my-5 object-scale-down" src="https://image.flaticon.com/icons/svg/1330/1330216.svg">
-							<div class="w-56 h-12 hidden justify-center">
-								<div class="h-full  border-pink-300 border-dashed"></div>
-							</div>
-						</div>
-						<div class="ml-5 p-10 flex flex-col justify-center max-w-2xl rounded bg-pink-200">
-							<div class="text-xs uppercase font-bold text-pink-500">Step 4</div>
-							<div class="text-xl font-bold text-pink-700">Execute, impletement your solution</div>
-						</div>
-					</div>
 				</div>
 				<!-- 단계별 설명 탬플릿 끝 -->
 

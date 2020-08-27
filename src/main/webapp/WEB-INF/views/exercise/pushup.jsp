@@ -17,14 +17,14 @@
 							</div>
 							<div
 								class="rounded-full w-12 h-12 text-xl text-teal-100 bg-teal-700 font-black flex justify-center items-center absolute top-0 right-0 mt-16 shadow-lg mr-2">1</div>
-							<img alt="step1" class="w-56 h-56 shadow my-5 object-scale-down" src="https://image.flaticon.com/icons/svg/1330/1330216.svg">
+							<img alt="step1" class="w-56 h-56 shadow my-5 object-scale-down" src="<%=request.getContextPath() %>/resources/image/exercise/Pushup1-1.png">
 							<div class="w-56 h-12 hidden justify-center">
 								<div class="h-full border-r-4 border-teal-300 border-dashed"></div>
 							</div>
 						</div>
 						<div class="ml-5 p-10 flex flex-col justify-center max-w-2xl rounded bg-teal-200">
 							<div class="text-xs uppercase font-bold text-teal-500">Step 1</div>
-							<div class="text-xl font-bold text-teal-700">Find your best idea</div>
+							<div class="text-xl font-bold text-teal-700">팔을 어깨보다 살짝 넓게 벌려 바닥을 짚는다.</div>
 						</div>
 					</div>
 
@@ -34,14 +34,14 @@
 								<div class="h-full border-r-4 border-orange-300 border-dashed"></div>
 							</div>
 							<div class="rounded-full w-12 h-12 text-xl text-orange-100 bg-orange-700 font-black flex justify-center items-center absolute top-0 right-0 mt-16 shadow-lg mr-2">2</div>
-							<img alt="step2" class="w-56 h-56 shadow my-5 object-scale-down" src="https://image.flaticon.com/icons/svg/1330/1330216.svg">
+							<img alt="step2" class="w-56 h-56 shadow my-5 object-scale-down" src="<%=request.getContextPath() %>/resources/image/exercise/Pushup1-2.png">
 							<div class="w-56 h-12 hidden justify-center">
 								<div class="h-full border-r-4 border-orange-300 border-dashed"></div>
 							</div>
 						</div>
 						<div class="ml-5 p-10 flex flex-col justify-center max-w-2xl rounded bg-orange-200">
 							<div class="text-xs uppercase font-bold text-orange-500">Step 2</div>
-							<div class="text-xl font-bold text-orange-700">Find your team and collaborate</div>
+							<div class="text-xl font-bold text-orange-700">머리부터 발끝까지 일자를 유지한 채 가슴에 바닥이 닿을 정도로 내려간다.</div>
 						</div>
 					</div>
 
@@ -51,33 +51,17 @@
 								<div class="h-full border-r-4 border-indigo-300 border-dashed"></div>
 							</div>
 							<div class="rounded-full w-12 h-12 text-xl text-indigo-100 bg-indigo-700 font-black flex justify-center items-center absolute top-0 right-0 mt-16 shadow-lg mr-2">3</div>
-							<img alt="step3" class="w-56 h-56 shadow my-5 object-scale-down" src="https://image.flaticon.com/icons/svg/1330/1330216.svg">
+							<img alt="step3" class="w-56 h-56 shadow my-5 object-scale-down" src="<%=request.getContextPath() %>/resources/image/exercise/Pushup1-1.png">
 							<div class="w-56 h-12 hidden justify-center">
 								<div class="h-full border-r-4 border-indigo-300 border-dashed"></div>
 							</div>
 						</div>
 						<div class="ml-5 p-10 flex flex-col justify-center max-w-2xl rounded bg-indigo-200">
 							<div class="text-xs uppercase font-bold text-indigo-500">Step 3</div>
-							<div class="text-xl font-bold text-indigo-700">Make a good plan and prepare tasks</div>
+							<div class="text-xl font-bold text-indigo-700">복근을 포함한 코어 의 긴장감을 유지하면서 올라온다.</div>
 						</div>
 					</div>
 
-					<div class="flex flex-col bg-pink-200 justify-center text-center">
-						<div class="flex flex-col justify-center items-center relative">
-							<div class="w-56 h-12 md:flex hidden justify-center">
-								<div class="h-full border-r-4 border-pink-300 border-dashed"></div>
-							</div>
-							<div class="rounded-full w-12 h-12 text-xl text-pink-100 bg-pink-700 font-black flex justify-center items-center absolute top-0 right-0 mt-16 shadow-lg mr-2">4</div>
-							<img alt="step4" class="w-56 h-56 shadow my-5 object-scale-down" src="https://image.flaticon.com/icons/svg/1330/1330216.svg">
-							<div class="w-56 h-12 hidden justify-center">
-								<div class="h-full  border-pink-300 border-dashed"></div>
-							</div>
-						</div>
-						<div class="ml-5 p-10 flex flex-col justify-center max-w-2xl rounded bg-pink-200">
-							<div class="text-xs uppercase font-bold text-pink-500">Step 4</div>
-							<div class="text-xl font-bold text-pink-700">Execute, impletement your solution</div>
-						</div>
-					</div>
 				</div>
 				<!-- 단계별 설명 탬플릿 끝 -->
 
