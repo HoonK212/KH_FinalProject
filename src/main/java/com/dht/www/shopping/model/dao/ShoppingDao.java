@@ -51,9 +51,8 @@ public class ShoppingDao {
 		return sqlSession.delete("Shopping.deleteBasket", basket);
 	}
 
-	public List<Map<String, Object>> selectProduct(Basket basket){
-		System.out.println("왜 안되냐" + sqlSession.selectList("Shopping.selectProduct", basket));
-		return sqlSession.selectList("Shopping.selectProduct", basket);
+	public List<Map<String, Object>> selectProduct(Map map){
+		return sqlSession.selectList("Shopping.selectProduct", map);
 	}
 	
 	public int selectPoint(String id) {
