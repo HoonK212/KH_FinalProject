@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -146,51 +147,44 @@ public class ShoppingController {
 	
 	//결제페이지
 	@RequestMapping(value="/payment", method=RequestMethod.GET, produces = "application/text; charset=UTF-8")
-	public void shoppingPayment(Model model, HttpSession session ,@RequestParam String userId, String codes) {
+	public String shoppingPayment(Model model, HttpSession session ,@RequestParam String userId, String codes) {
 		
-		System.out.println(userId);
-		System.out.println(codes);
-		
-		String[] array = codes.split(",");
-		
-		for(int i=0;i<array.length;i++) {
-			System.out.println(array[i]);
+		if(session.getAttribute("logInInfo") == null) {
+			return "user/login";
+		}else{
+			
+			System.out.println(userId);
+			System.out.println(codes);
+			
+			String[] array = codes.split(",");
+			
+			for(int i=0;i<array.length;i++) {
+				System.out.println(array[i]);
+			}
+			
+			Map<String,Object> map = new HashMap<String, Object>();
+			map.put("userId", userId);
+			map.put("array", array);
+			
+			model.addAttribute("product", shoppingService.selectProuct(map));
+			model.addAttribute("point", shoppingService.selectPoint(userId));
+			
+			return "shopping/payment";
 		}
-		
-		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("userId", userId);
-		map.put("array", array);
-		
-		System.out.println("결과왜이래" + map.get("array").toString());
-		
-		
-//		Users user = (Users) session.getAttribute("logInInfo");
-//		model.addAttribute("user",user);
-//		System.out.println("사람 " + user);
-		
-		//basket 으로 가져오기
-		model.addAttribute("product", shoppingService.selectProuct(map));
-		model.addAttribute("point", shoppingService.selectPoint(userId));
 	}
 
-	
-	
-	
-	
-	@RequestMapping(value="/paymentComplete", method = RequestMethod.POST)
+	//결제 완료
+	@RequestMapping(value="/paymentCheck", method = RequestMethod.POST)
 	@ResponseBody
-	public String shoppingPaymentComplete(@RequestParam String imp_uid) {
+	public void shoppingPaymentCheck(@RequestBody String uid) {
 		
-		System.out.println("결제" + imp_uid);
-		
-		return "/shopping/paymentComplete";
+		System.out.println("결제" + uid);
 	}
 	
 	@RequestMapping(value="/paymentComplete", method = RequestMethod.GET)
-	public void shoppingPaymentCompleteGET(@RequestParam String imp_uid) {
-		System.out.println("결제GET" + imp_uid);
+	public void shoppingPaymentComplete() {
+		
 	}
-	
 	
 	//배송지정보 ajax
 	@RequestMapping(value="/delivery", method=RequestMethod.GET)
@@ -201,6 +195,5 @@ public class ShoppingController {
 		}else{
 			return "shopping/delivery_new";
 		}
-		
 	}
 }

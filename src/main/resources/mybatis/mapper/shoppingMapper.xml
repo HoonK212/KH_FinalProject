@@ -128,7 +128,7 @@
 	</select>
 	
 	<select id="selectPoint" parameterType="String" resultType="int">
-		select point from point_coin
+		select NVL(point, 0) point from point_coin
 		where id = #{id}
 	</select>
 
