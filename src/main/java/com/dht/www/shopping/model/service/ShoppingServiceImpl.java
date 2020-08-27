@@ -57,8 +57,8 @@ public class ShoppingServiceImpl implements ShoppingService {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectProuct(String code) {
-		return shoppingDao.selectProduct(code);
+	public List<Map<String, Object>> selectProuct(Basket basket) {
+		return shoppingDao.selectProduct(basket);
 	}
 
 	@Override
@@ -66,13 +66,4 @@ public class ShoppingServiceImpl implements ShoppingService {
 		return shoppingDao.selectPoint(id);
 	}
 
-	
-
-
-	/*
-	 * @Override public Users selectUserInfo(String id) { return
-	 * shoppingDao.selectUserInfo(id); }
-	 */
-	
-	
 }

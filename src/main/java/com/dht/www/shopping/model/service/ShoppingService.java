@@ -22,9 +22,7 @@ public interface ShoppingService {
 	
 	public int updateAmount(Basket basket);
 	
-	/* public Users selectUserInfo(String id); */
-	
-	public List<Map<String, Object>> selectProuct(String code);
+	public List<Map<String, Object>> selectProuct(Basket basket);
 	
 	public int selectPoint(String id);
 }

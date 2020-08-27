@@ -122,29 +122,38 @@ public class ShoppingController {
 		}
 	}
 	
+	//결제페이지
 	@RequestMapping(value="/payment", method=RequestMethod.GET)
-	public void shoppingPayment(Model model, HttpSession session) {
+	public void shoppingPayment(Model model, HttpSession session ,@RequestParam String userId, String codes) {
 		
-//		model.addAttribute("user",shoppingService.selectUserInfo(session.getId()));
+		System.out.println(userId);
+		System.out.println(codes);
 		
-		String code = "B203";
+		Basket basket = new Basket();
+		basket.setId(userId);
+		basket.setCode(codes);
+		
+		Users user = (Users) session.getAttribute("logInInfo");
+		System.out.println("사람"+user);
+		model.addAttribute("user",user);
+		
 		//basket 으로 가져오기
-		model.addAttribute("product", shoppingService.selectProuct(code));
-		
-//		Users user = (Users) session.getAttribute("logInInfo");
+		model.addAttribute("product", shoppingService.selectProuct(basket));
 		
 		System.out.println("이거 결과는 뭐야" + shoppingService.selectPoint("semin"));
 		
 		model.addAttribute("point", shoppingService.selectPoint("semin"));
-		//model.addAttribute(attributeValue)
 	}
+
 	
 	
 	@RequestMapping(value="/paymentComplete", method = RequestMethod.POST)
 	@ResponseBody
-	public void shoppingPaymentComplete(@RequestParam String imp_uid) {
+	public String shoppingPaymentComplete(@RequestParam String imp_uid) {
 		
 		System.out.println("결제" + imp_uid);
+		
+		return "/shopping/paymentComplete";
 	}
 	
 	@RequestMapping(value="/paymentComplete", method = RequestMethod.GET)
@@ -153,6 +162,7 @@ public class ShoppingController {
 	}
 	
 	
+	//배송지정보 ajax
 	@RequestMapping(value="/delivery", method=RequestMethod.GET)
 	public String shoppingDelivery(@RequestParam int num) {
 		

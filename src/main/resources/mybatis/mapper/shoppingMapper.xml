@@ -20,6 +20,7 @@
 	<resultMap type="map" id="basketItem">
 		<result column="code" property="code" />
 		<result column="name" property="name"/>
+		<result column="company" property="company"/>
 		<result column="amount" property="amount"/>
 		<result column="price" property="price"/>
 		<result column="path" property="path"/>
@@ -110,12 +111,12 @@
 		and p.stock > 0 and b.id = #{id}
 		order by b.dates desc
 	</select>
+
 	
-	<!-- <select id="select "></select> -->
-	
-	<select id="selectProduct" parameterType="String" resultMap="homeItem">
-		select p.code, name, company, price, path, renamed, ext from product p, files f
-		where p.code = f.ref and p.code = #{code} and stock > 0 and sell = 1
+	<select id="selectProduct" resultMap="basketItem">
+		select p.name, p.company, b.amount, p.price, f.path, f.renamed, f.ext from product p, basket b, files f
+        where b.code = p.code and f.ref = p.code
+        and stock > 0 and sell = 1 and b.code in (#{code}) and b.id = #{id}
 	</select>
 	
 	<select id="selectPoint" parameterType="String" resultType="int">

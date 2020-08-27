@@ -46,14 +46,10 @@ public class ShoppingDao {
 	public int updateAmount(Basket basket) {
 		return sqlSession.update("Shopping.updateAmount", basket);
 	}
-	
-	/*
-	 * public Users selectUserInfo(String id) { return
-	 * sqlSession.selectOne("Shopping.selectUserInfo", id); }
-	 */
-	
-	public List<Map<String, Object>> selectProduct(String code){
-		return sqlSession.selectList("Shopping.selectProduct", code);
+
+	public List<Map<String, Object>> selectProduct(Basket basket){
+		System.out.println("왜 안되냐" + sqlSession.selectList("Shopping.selectProduct", basket));
+		return sqlSession.selectList("Shopping.selectProduct", basket);
 	}
 	
 	public int selectPoint(String id) {
