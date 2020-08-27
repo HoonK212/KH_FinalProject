@@ -111,6 +111,7 @@ $(document).ready(function() {
             <!-- 본문 내용 시작 -->
             <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                 <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                
                     <table class="min-w-full leading-normal">
                         <thead>
                             <tr>
@@ -125,6 +126,7 @@ $(document).ready(function() {
                                 <td class="border-b border-gray-200 bg-white text-sm">
                                     <div class="flex items-center">
                                         <div class="w-full">
+                                        	<input type="file" multiple="multiple">
 	                                        <textarea id="content" name="content" style="width: 1200px;" required="required"></textarea>
                                             <script type="text/javascript">
 												var oEditors = [];
@@ -141,7 +143,7 @@ $(document).ready(function() {
                             </tr>
                         </tbody>
                     </table>
-					
+                    
                 </div>
 
 	            <button class="mt-3 text-sm font-extrabold float-right w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
