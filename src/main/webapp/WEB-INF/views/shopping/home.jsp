@@ -114,7 +114,7 @@
 								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('https://images.unsplash.com/photo-1495856458515-0637185db551?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')"></div>
 							</a>
 							<div class="py-2" style="text-align: right;">
-								<button onclick="openModal();" class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+								<button onclick="openModal('${list.code}');" class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
 									<svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
 								</button>
 							</div>
@@ -138,7 +138,7 @@
 								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('https://images.unsplash.com/photo-1495856458515-0637185db551?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')"></div>
 							</a>
 							<div class="py-2" style="text-align: right;">
-								<button onclick="openModal();" class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+								<button onclick="openModal('${list.code}');" class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
 									<svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
 								</button>
 							</div>
@@ -162,7 +162,7 @@
 								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('https://images.unsplash.com/photo-1495856458515-0637185db551?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')"></div>
 							</a>
 							<div class="py-2" style="text-align: right;">
-								<button onclick="openModal();" class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+								<button onclick="openModal('${list.code}');" class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
 									<svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
 								</button>
 							</div>
@@ -182,6 +182,7 @@
 		<div style="max-width: 40rem;"
 			class="border border-teal-500 shadow-lg modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
 			<div class="modal-content py-4 text-left px-6">
+			
 				<!--Title-->
 				<div class="flex justify-between items-center pb-3">
 					<p class="text-2xl font-bold">장바구니 담기</p>
@@ -194,43 +195,14 @@
 						</svg>
 					</div>
 				</div>
+				
 				<!--Body-->
-				<div class="my-5">
-					<div class="md:flex md:items-center">
-                <div class="w-full h-64 md:w-1/2 lg:h-96">
-                    <img class="h-full w-full rounded-md object-cover max-w-lg mx-auto" src="https://images.unsplash.com/photo-1578262825743-a4e402caab76?ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80" alt="Nike Air">
-                </div>
-                <div class="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
-                    <h3 class="text-gray-700 uppercase text-lg">Nike Air</h3>
-                    <span class="text-gray-500 mt-3">$125</span>
-                    <hr class="my-3">
-                    <div class="mt-2">
-                        <div class="flex items-center mt-1">
-                        	<label class="text-gray-700 text-sm mr-3" for="count">Count:</label>
-                            <input type="number" min="1" value="1" name="amount"
-	                  		class="text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
-                        </div>
-                    </div>
-                    <div class="mt-3">
-                        <label class="text-gray-700 text-sm" for="count">Color:</label>
-                        <div class="flex items-center mt-1">
-                            <button class="h-5 w-5 rounded-full bg-blue-600 border-2 border-blue-200 mr-2 focus:outline-none"></button>
-                            <button class="h-5 w-5 rounded-full bg-teal-600 mr-2 focus:outline-none"></button>
-                            <button class="h-5 w-5 rounded-full bg-pink-600 mr-2 focus:outline-none"></button>
-                        </div>
-                    </div>
-                    <div class="flex items-center mt-6">
-                        <button class="px-8 py-2 bg-indigo-600 text-white text-sm font-medium rounded hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500">Order Now</button>
-                        <button class="mx-2 text-gray-600 border rounded-md p-2 hover:bg-gray-200 focus:outline-none">
-                            <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-				</div>
+				<div class="my-5" id="modalBody"></div><!-- 모달 body end -->
+				
 			</div>
 		</div>
-	</div>
+	</div><!-- 모달창 end -->
+	
     </main>
     
 <script>
@@ -245,23 +217,33 @@
 			}, 500);
 		}
 
-		const openModal = () => {
+		const openModal = (code) => {
 			modal.classList.remove('fadeOut');
 			modal.classList.add('fadeIn');
 			modal.style.display = 'flex';
+			
+			loadBody(code);
 		}
 
 		for (let i = 0; i < closeButton.length; i++) {
-
 			const elements = closeButton[i];
-
 			elements.onclick = (e) => modalClose();
-
 			modal.style.display = 'none';
-
 			window.onclick = function (event) {
 				if (event.target == modal) modalClose();
 			}
 		}
-	</script>
+		
+function loadBody(code) {
+	console.log(code);
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', '<%=request.getContextPath()%>/shopping/modalload?code='+code);
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.send();
+	xhr.addEventListener('load', function() {
+		var data = xhr.response;
+		document.querySelector('#modalBody').innerHTML = data;
+	});
+}
+</script>
 <%@include file="../layout/shopping_footer.jsp" %>

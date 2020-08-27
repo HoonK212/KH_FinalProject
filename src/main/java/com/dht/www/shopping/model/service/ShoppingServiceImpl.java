@@ -35,6 +35,11 @@ public class ShoppingServiceImpl implements ShoppingService {
 		return shoppingDao.selectList(paging);
 				
 	}
+	
+	@Override
+	public Map<String, Object> selectItem(String code) {
+		return shoppingDao.selectItem(code);
+	}
 
 	@Override
 	public List<Map<String, Object>> selectBasket(Users user) {
@@ -56,8 +61,14 @@ public class ShoppingServiceImpl implements ShoppingService {
 		return shoppingDao.updateAmount(basket);
 	}
 	
+	@Override
 	public int deleteBasket(Basket basket) {
 		return shoppingDao.deleteBasket(basket);
+	}
+	
+	@Override
+	public int deleteList(Map<String,Object> map) {
+		return shoppingDao.deleteList(map);
 	}
 
 	@Override

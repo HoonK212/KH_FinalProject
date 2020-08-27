@@ -31,6 +31,10 @@ public class ShoppingDao {
 		
 	}
 	
+	public Map<String, Object> selectItem(String code) {
+		return sqlSession.selectOne("Shopping.selectItem", code);
+	}
+	
 	public List<Map<String, Object>> selectBasket(Users user) {
 		return sqlSession.selectList("Shopping.selectBasket", user);
 	}
@@ -49,6 +53,10 @@ public class ShoppingDao {
 	
 	public int deleteBasket(Basket basket) {
 		return sqlSession.delete("Shopping.deleteBasket", basket);
+	}
+	
+	public int deleteList(Map<String,Object> map) {
+		return sqlSession.delete("Shopping.deleteList", map);
 	}
 
 	public List<Map<String, Object>> selectProduct(Map map){
