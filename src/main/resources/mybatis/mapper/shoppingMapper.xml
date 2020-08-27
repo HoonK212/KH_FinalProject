@@ -116,7 +116,15 @@
 	<select id="selectProduct" resultMap="basketItem">
 		select p.name, p.company, b.amount, p.price, f.path, f.renamed, f.ext from product p, basket b, files f
         where b.code = p.code and f.ref = p.code
-        and stock > 0 and sell = 1 and b.code in ('A205','B209','C213','C249') and b.id = #{id}
+        and stock > 0 and sell = 1 and b.code in
+        	<foreach collection="array" item="item" separator="," open="(" close=")">
+				#{item}
+            </foreach>
+		and b.id = #{userId}
+        
+        
+        
+        
 	</select>
 	
 	<select id="selectPoint" parameterType="String" resultType="int">

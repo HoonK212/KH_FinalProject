@@ -1,5 +1,7 @@
 package com.dht.www.shopping.controller;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -128,22 +130,29 @@ public class ShoppingController {
 		System.out.println(userId);
 		System.out.println(codes);
 		
-		Basket basket = new Basket();
-		basket.setId(userId);
-		basket.setCode(codes);
+		String[] array = codes.split(",");
+		
+		for(int i=0;i<array.length;i++) {
+			System.out.println(array[i]);
+		}
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("array", array);
+		
+		System.out.println("결과왜이래" + map.get("array").toString());
+		
 		
 		Users user = (Users) session.getAttribute("logInInfo");
-		System.out.println("사람"+user);
 		model.addAttribute("user",user);
 		
 		//basket 으로 가져오기
-		model.addAttribute("product", shoppingService.selectProuct(basket));
-		
-		System.out.println("이거 결과는 뭐야" + shoppingService.selectPoint("semin"));
-		
-		model.addAttribute("point", shoppingService.selectPoint("semin"));
+		model.addAttribute("product", shoppingService.selectProuct(map));
+		model.addAttribute("point", shoppingService.selectPoint(userId));
 	}
 
+	
+	
 	
 	
 	@RequestMapping(value="/paymentComplete", method = RequestMethod.POST)
@@ -173,10 +182,6 @@ public class ShoppingController {
 		
 	}
 
-	@RequestMapping("/test")
-	public void test(String userId, @RequestParam Map map) { 
-		System.out.println(userId);
-		System.out.println(map.codes);
-	}
+	
 
 }

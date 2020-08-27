@@ -57,8 +57,8 @@ public class ShoppingServiceImpl implements ShoppingService {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectProuct(Basket basket) {
-		return shoppingDao.selectProduct(basket);
+	public List<Map<String, Object>> selectProuct(Map map) {
+		return shoppingDao.selectProduct(map);
 	}
 
 	@Override
