@@ -92,11 +92,11 @@
 			console.log(data);
 
 			//로그인 실패
-			if (data == 2) {
+			if (data == '2') {
 				document.querySelector('#error').textContent = '로그인에 실패하셨습니다.';
-			} else if (data == 3) {
+			} else if (data == '3') {
 				document.querySelector('#error').textContent = '계정 중지되었습니다.';
-			} else if (data == 1) { //로그인 성공
+			} else if (data == '1') { //로그인 성공
 				location.href = '<%=request.getContextPath()%>/main';
 			} else {
 				document.querySelector('#error').textContent = '에러가 발생하였습니다.';
