@@ -22,4 +22,9 @@ public class RecommendDao {
 		return sqlSession.insert("RECOMMEND.insertBoardRecommend", recommend);
 	}
 
+	// 댓글 추천/비추천
+	public int insertCommentsRecommend(Recommend recommend) {
+		return sqlSession.insert("RECOMMEND.insertCommentsRecommend", recommend);
+	}
+
 }

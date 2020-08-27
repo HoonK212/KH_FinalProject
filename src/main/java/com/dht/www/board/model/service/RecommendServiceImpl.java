@@ -28,4 +28,10 @@ public class RecommendServiceImpl implements RecommendService {
 		return recommendDao.insertBoardRecommend(recommend);
 	}
 
+	// 댓글 추천/비추천
+	@Override
+	public int insertCommentsRecommend(Recommend recommend) {
+		return recommendDao.insertCommentsRecommend(recommend);
+	}
+
 }

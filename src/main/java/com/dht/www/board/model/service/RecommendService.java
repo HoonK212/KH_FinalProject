@@ -12,5 +12,8 @@ public interface RecommendService {
 
 	// 게시글 추천/비추천
 	public int insertBoardRecommend(Recommend recommend);
+
+	// 댓글 추천/비추천
+	public int insertCommentsRecommend(Recommend recommend);
 	
 }

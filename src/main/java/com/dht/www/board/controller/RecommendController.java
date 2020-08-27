@@ -29,9 +29,19 @@ public class RecommendController {
 		
 		String logInId = ((Users) session.getAttribute("logInInfo")).getId();
 		recommend.setId(logInId);
-		System.out.println(recommend);
 		
 		return recommendService.insertBoardRecommend(recommend);
+	}
+	
+	// 댓글 추천/비추천
+	@RequestMapping(value="/comments", method=RequestMethod.GET)
+	@ResponseBody
+	public int commentsRecommend(Recommend recommend, HttpSession session) {
+		
+		String logInId = ((Users) session.getAttribute("logInInfo")).getId();
+		recommend.setId(logInId);
+		
+		return recommendService.insertCommentsRecommend(recommend);
 	}
 	
 }
