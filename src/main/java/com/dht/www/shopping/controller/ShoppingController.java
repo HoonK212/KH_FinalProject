@@ -1,6 +1,5 @@
 package com.dht.www.shopping.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -175,6 +174,9 @@ public class ShoppingController {
 	}
 
 	@RequestMapping("/test")
-	public void test() { }
+	public void test(String userId, @RequestParam Map map) { 
+		System.out.println(userId);
+		System.out.println(map.codes);
+	}
 
 }
