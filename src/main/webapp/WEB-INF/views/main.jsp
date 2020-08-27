@@ -50,13 +50,13 @@
                     
 						<c:if test="${kakaoid eq 'kakao'}">
 	                    <a href="https://kauth.kakao.com/oauth/logout?client_id=f601dfea61fb3ccf05acb9ddb277a697&logout_redirect_uri=http://localhost:8089/www/user/kakaoLogout" class="py-2 px-6 flex">
-	                        Logout-kakao
+	                        Logout
 	                    </a>
 	                    </c:if>
 	                    
 	                    <c:if test="${kakaoid ne 'kakao'}">
 	                    <a href="<%=request.getContextPath() %>/user/logout" class="py-2 px-6 flex">
-	                        Logout-normal
+	                        Logout
 	                    </a>
 	                    </c:if> 
 	                    

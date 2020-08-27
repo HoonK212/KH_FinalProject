@@ -42,7 +42,7 @@ public class UserController {
 	// 로그인
 	@RequestMapping(value = "/loginimple", method = RequestMethod.POST, produces = "application/text; charset=UTF-8")
 	@ResponseBody
-	public String loginImpl(Users user, HttpSession session, Model model, HttpServletRequest request) {
+	public int loginImpl(Users user, HttpSession session, Model model, HttpServletRequest request) {
 
 		System.out.println(user.getId() + ", " + user.getPw());
 		
@@ -60,18 +60,18 @@ public class UserController {
 			//계정중지회원 확인
 			if(  userService.checkReportedAccount(res) ) {
 				System.out.println("계정중지 회원!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-				return "계정중지 회원입니다.";
+				return 3;
 			}
 
 			//로그인 성공
 			session.setAttribute("logInInfo", res);
 			session.setAttribute("logInPic", pic);
 			System.out.println("프로필 저장 이미지 확인 : " + session.getAttribute("logInPic"));
-			return "";
+			return 1;
 		
 		}else {//회원정보 없음
 			System.out.println("로그인 실패!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-			return "로그인 실패하였습니다.";
+			return 2;
 		}
 	}
 	
