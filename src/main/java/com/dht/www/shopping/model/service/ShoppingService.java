@@ -3,6 +3,7 @@ package com.dht.www.shopping.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.dht.www.shopping.model.vo.Basket;
 import com.dht.www.user.model.vo.Users;
 
 import common.util.Paging;
@@ -15,9 +16,17 @@ public interface ShoppingService {
 	
 	public List<Map<String, Object>> selectBasket(Users user);
 	
-	/* public Users selectUserInfo(String id); */
+	public int checkBasket(Basket basket);
 	
-	public List<Map<String, Object>> selectProuct(String code);
+	public int insertBasket(Basket basket);
+	
+	public int updateAmount(Basket basket);
+	
+	public int deleteBasket(Basket basket);
+	
+	public List<Map<String, Object>> selectProuct(Basket basket);
+	
+	public List<Map<String, Object>> selectProuct(Map map);
 	
 	public int selectPoint(String id);
 }

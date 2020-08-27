@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.dht.www.shopping.model.vo.Basket;
 import com.dht.www.user.model.vo.Users;
 
 import common.util.Paging;
@@ -33,13 +34,25 @@ public class ShoppingDao {
 	public List<Map<String, Object>> selectBasket(Users user) {
 		return sqlSession.selectList("Shopping.selectBasket", user);
 	}
-	/*
-	 * public Users selectUserInfo(String id) { return
-	 * sqlSession.selectOne("Shopping.selectUserInfo", id); }
-	 */
 	
-	public List<Map<String, Object>> selectProduct(String code){
-		return sqlSession.selectList("Shopping.selectProduct", code);
+	public int checkBasket(Basket basket) {
+		return sqlSession.selectOne("Shopping.checkBasket");
+	}
+	
+	public int insertBasket(Basket basket) {
+		return sqlSession.insert("Shopping.insertBasket");
+	}
+	
+	public int updateAmount(Basket basket) {
+		return sqlSession.update("Shopping.updateAmount", basket);
+	}
+	
+	public int deleteBasket(Basket basket) {
+		return sqlSession.delete("Shopping.deleteBasket", basket);
+	}
+
+	public List<Map<String, Object>> selectProduct(Map map){
+		return sqlSession.selectList("Shopping.selectProduct", map);
 	}
 	
 	public int selectPoint(String id) {

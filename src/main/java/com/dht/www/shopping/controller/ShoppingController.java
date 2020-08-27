@@ -1,24 +1,22 @@
 package com.dht.www.shopping.controller;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dht.www.shopping.model.service.ShoppingService;
+import com.dht.www.shopping.model.vo.Basket;
 import com.dht.www.user.model.vo.Users;
 
 @Controller
@@ -60,8 +58,8 @@ public class ShoppingController {
 	
 	//제품 상세페이지
 	@RequestMapping(value="/detail", method=RequestMethod.GET)
-	public void shoppingDetail(Model model) {
-		
+	public void shoppingDetail(Model model, String code) {
+		System.out.println(code);
 	}
 	
 	//장바구니 조회
@@ -76,22 +74,125 @@ public class ShoppingController {
 			model.addAttribute("basket", session.getAttribute("basket"));
 		}
 	}
-	
-	@RequestMapping(value="/payment", method=RequestMethod.GET)
-	public void shoppingPayment(Model model, HttpSession session) {
+
+	//장바구니 추가
+	@RequestMapping(value="/basket", method=RequestMethod.POST)
+	public void addBasket(Model model, HttpSession session) {
 		
-//		model.addAttribute("user",shoppingService.selectUserInfo(session.getId()));
+		Users user = (Users)session.getAttribute("logInInfo");
 		
-		String code = "B203";
-		model.addAttribute("product", shoppingService.selectProuct(code));
-		
-//		Users user = (Users) session.getAttribute("logInInfo");
-		
-		System.out.println("이거 결과는 뭐야" + shoppingService.selectPoint("semin"));
-		
-		model.addAttribute("point", shoppingService.selectPoint("semin"));
+		//로그인
+		if(user != null) {
+			
+		} else {
+			
+		}
 	}
 	
+	//장바구니 수량 업데이트
+	@RequestMapping(value="/amount", method=RequestMethod.GET)
+	@ResponseBody
+	public int updateAmount(int amount, String code, HttpSession session) {
+		
+		Users user = (Users) session.getAttribute("logInInfo");
+
+		//로그인
+		if (user != null) {
+			Basket basket = new Basket();
+			basket.setId(user.getId());
+			basket.setCode(code);
+			basket.setAmount(amount);
+			
+			return shoppingService.updateAmount(basket);
+			
+		} else {
+
+			List<Map<String, Object>> basket = (List<Map<String, Object>>) session.getAttribute("basket");
+			
+			if (basket.get(0).get("sessionId").equals(session.getId())) {
+				Map<String, Object> items = basket.get(1);
+				
+				Basket item = (Basket) items.get(code);
+				item.setAmount(amount);
+
+				return 0;
+
+			} else {
+				return -1;
+			}
+		}
+	}
+	
+	@RequestMapping(value="/deletebasket", method=RequestMethod.POST)
+	@ResponseBody
+	public String deleteBasket(int num, Basket basket) {
+		
+		int res = shoppingService.deleteBasket(basket);
+		if (res > 0) {
+			return "#b" + num;
+		} else {
+			return "fail";
+		}
+	}
+	
+	@RequestMapping(value="/deletelist", method=RequestMethod.POST)
+	@ResponseBody
+	public String deleteList(String userId, String codes) {
+		
+		
+		
+		return null;
+	}
+	
+	//결제페이지
+	@RequestMapping(value="/payment", method=RequestMethod.GET, produces = "application/text; charset=UTF-8")
+	public void shoppingPayment(Model model, HttpSession session ,@RequestParam String userId, String codes) {
+		
+		System.out.println(userId);
+		System.out.println(codes);
+		
+		String[] array = codes.split(",");
+		
+		for(int i=0;i<array.length;i++) {
+			System.out.println(array[i]);
+		}
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("array", array);
+		
+		System.out.println("결과왜이래" + map.get("array").toString());
+		
+		
+//		Users user = (Users) session.getAttribute("logInInfo");
+//		model.addAttribute("user",user);
+//		System.out.println("사람 " + user);
+		
+		//basket 으로 가져오기
+		model.addAttribute("product", shoppingService.selectProuct(map));
+		model.addAttribute("point", shoppingService.selectPoint(userId));
+	}
+
+	
+	
+	
+	
+	@RequestMapping(value="/paymentComplete", method = RequestMethod.POST)
+	@ResponseBody
+	public String shoppingPaymentComplete(@RequestParam String imp_uid) {
+		
+		System.out.println("결제" + imp_uid);
+		
+		return "/shopping/paymentComplete";
+	}
+	
+	@RequestMapping(value="/paymentComplete", method = RequestMethod.GET)
+	public void shoppingPaymentCompleteGET(@RequestParam String imp_uid) {
+		System.out.println("결제GET" + imp_uid);
+	}
+	
+	
+	//배송지정보 ajax
 	@RequestMapping(value="/delivery", method=RequestMethod.GET)
 	public String shoppingDelivery(@RequestParam int num) {
 		
@@ -102,22 +203,4 @@ public class ShoppingController {
 		}
 		
 	}
-	
-
-	//장바구니 추가
-	@RequestMapping(value="/basket", method=RequestMethod.POST)
-	public void addBasket(Model model, HttpSession session) {
-		
-		Users user = (Users)session.getAttribute("logInInfo");
-		
-		if(user != null) {
-			
-		} else {
-			
-		}
-	}
-	
-	@RequestMapping("/test")
-	public void test() { }
-
 }
