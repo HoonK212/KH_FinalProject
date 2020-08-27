@@ -74,6 +74,13 @@
 		var id = document.querySelector("#id").value;
 		var pw = document.querySelector("#pw").value;
 		
+		//입력하지 않았을때 막기
+		if( id == "" || pw == "" ){
+			document.querySelector('#error').textContent = '아이디/비밀번호 입력을 완성하세요.';
+			return false;
+		}
+		
+		
 		var xhr = new XMLHttpRequest();
 		xhr.open('POST', '<%=request.getContextPath()%>/user/loginimple');
 		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
