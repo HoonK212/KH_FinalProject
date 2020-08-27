@@ -117,42 +117,51 @@ public class ExerciseController {
 	@RequestMapping(value="/trainning", method=RequestMethod.POST)
 	public String exerciseSelectToTrainning(@RequestParam(required=false) String exerType , @RequestParam(value="exercise" , required=false) String exerciseName, HttpSession session, Model model) {
 		
-		System.out.println("========== = == = =  = = = = = = = = = =");
+		System.out.println("= = = = = = = = = = = = = = =  = = = = = = = = = =");
 		System.out.println(session.getAttribute("exerType"));
 		System.out.println(session.getAttribute("level"));
 		System.out.println(exerType);
 		System.out.println(exerciseName);
 		
+		String[] newExerArr = exerciseName.split(",");
+		model.addAttribute("newExerciseNumber", newExerArr);
 		
-		if(exerType =="myExer") {
-			
-		Users user = (Users)session.getAttribute("logInInfo");
-//		Users userpic = (Users)session.getAttribute("logInPic");
-		Map<String,Object> map = new HashMap();
+
 		
-		//설정한 운동종류번호가져오기
-		int exernum = exerciseService.selectExerciseMyRoutine(user);
-		System.out.println(exernum);
 		
-		int gradenum = exerciseService.selectExerciseMyGrade(user);
-		System.out.println("등급 : "+ gradenum);
 		
-		//NUMBER타입인거 int형 배열에 하나하나 넣기
-		String str = Integer.toString(exernum);
-		System.out.println(str);
-		int[] exArr = new int[str.length()];
-		for (int i = 0; i < str.length(); i++) {
-			exArr[i] = Integer.parseInt(String.valueOf(str.charAt(i)));
+		if(exerciseName == null) {
+			if(exerType.equals("myExer")) {
+				
+				Users user = (Users)session.getAttribute("logInInfo");
+		//		Users userpic = (Users)session.getAttribute("logInPic");
+				Map<String,Object> map = new HashMap();
+				
+				//설정한 운동종류번호가져오기
+				int exernum = exerciseService.selectExerciseMyRoutine(user);
+				System.out.println(exernum);
+				
+				int gradenum = exerciseService.selectExerciseMyGrade(user);
+				System.out.println("등급 : "+ gradenum);
+				
+				//NUMBER타입인거 int형 배열에 하나하나 넣기
+				String str = Integer.toString(exernum);
+				System.out.println(str);
+				int[] exArr = new int[str.length()];
+				for (int i = 0; i < str.length(); i++) {
+					exArr[i] = Integer.parseInt(String.valueOf(str.charAt(i)));
+				}
+				
+				for (int i = 0; i < exArr.length; i++) {
+					System.out.println("선택한 운동 : " +exArr[i]);
+				}	
+				model.addAttribute("myExerciseNumber", exArr);
+				
+				map.put("exernum", exArr);
+				map.put("exergrade", gradenum);
+				}
 		}
-	
-		map.put("exernum", exArr);
-		map.put("exergrade", gradenum);
-		}
 		
-		
-		
-		
-		model.addAttribute("exerciseName", exerciseName);
 		
 		
 		return "exercise/exercise4";

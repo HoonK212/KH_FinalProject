@@ -85,6 +85,7 @@ function leftCountUpdate(progressCnt,exArr) {
 	
 	$("div[id='"+ exArr + "']").html( Math.floor(progressCnt / ( $(".progress-bar-set")[0].ariaValueMax * $(".progress-bar-count")[0].ariaValueMax )  * 100) + "%")
 }
+
 </script>
 
 
@@ -255,13 +256,70 @@ function leftCountUpdate(progressCnt,exArr) {
 		<!-- right layout 시작 -->
 		<div id="right">
 		
+				<c:set var="newExerStatus" value="0" />
+				<c:choose>
+					<c:when test="${newExerciseNumber[newExerStatus] eq 'plank'}">
+						<%@include file="./plank.jsp"%>
+					</c:when>
+					<c:when test="${newExerciseNumber[newExerStatus] eq 'jumpingjack'}">
+						<%@include file="./jumpingjack.jsp"%>
+					</c:when>
+					<c:when test="${newExerciseNumber[newExerStatus] eq 'burpee'}">
+						<%@include file="./burpee.jsp"%>
+					</c:when>
+					<c:when test="${newExerciseNumber[newExerStatus] eq 'legraise'}">
+						<%@include file="./legraise.jsp"%>
+					</c:when>
+					<c:when test="${newExerciseNumber[newExerStatus] eq 'crunch'}">
+						<%@include file="./crunch.jsp"%>
+					</c:when>
+					<c:when test="${newExerciseNumber[newExerStatus] eq 'pushup'}">
+						<%@include file="./pushup.jsp"%>
+					</c:when>
+					<c:when test="${newExerciseNumber[newExerStatus] eq 'mountainclimb'}">
+						<%@include file="./mountainclimb.jsp"%>
+					</c:when>
+					<c:when test="${newExerciseNumber[newExerStatus] eq 'squat'}">
+						<%@include file="./squat.jsp"%>
+					</c:when>
+					<c:when test="${newExerciseNumber[newExerStatus] eq 'lunge'}">
+						<%@include file="./lunge.jsp"%>
+					</c:when>
+				</c:choose>
+				<c:set var="newExerStatus" value="${newExerStatus + 1} " />
 		
-			<c:if test="${exerciseName eq 'plank' }">
-				<%@include file="./plank.jsp"%>
-			</c:if>
 		
-		
-		
+			<c:set var="myExerStatus" value="0" />
+			<c:choose>
+				<c:when test="${myExerciseNumber[myExerStatus] eq 1}">
+					<%@include file="./plank.jsp"%>
+				</c:when>
+				<c:when test="${myExerciseNumber[myExerStatus] eq 2}">
+					<%@include file="./jumpingjack.jsp"%>
+				</c:when>
+				<c:when test="${myExerciseNumber[myExerStatus] eq 3}">
+					<%@include file="./burpee.jsp"%>
+				</c:when>
+				<c:when test="${myExerciseNumber[myExerStatus] eq 4}">
+					<%@include file="./legraise.jsp"%>
+				</c:when>
+				<c:when test="${myExerciseNumber[myExerStatus] eq 5}">
+					<%@include file="./crunch.jsp"%>
+				</c:when>
+				<c:when test="${myExerciseNumber[myExerStatus] eq 6}">
+					<%@include file="./pushup.jsp"%>
+				</c:when>
+				<c:when test="${myExerciseNumber[myExerStatus] eq 7}">
+					<%@include file="./mountainclimb.jsp"%>
+				</c:when>
+				<c:when test="${myExerciseNumber[myExerStatus] eq 8}">
+					<%@include file="./squat.jsp"%>
+				</c:when>
+				<c:when test="${myExerciseNumber[myExerStatus] eq 9}">
+					<%@include file="./lunge.jsp"%>
+				</c:when>
+			</c:choose>
+			<c:set var="myExerStatus" value="${myExerStatus + 1} " />
 			
 		</div>
 		<!-- right layout 끝 -->
@@ -271,6 +329,9 @@ function leftCountUpdate(progressCnt,exArr) {
 	
 </section>
 <!-- section 끝 -->
+<script type="text/javascript">
+
+</script>
 
 
 <!-- FOOTER -->
