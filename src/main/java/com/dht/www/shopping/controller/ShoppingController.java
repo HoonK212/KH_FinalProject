@@ -1,7 +1,6 @@
 package com.dht.www.shopping.controller;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -62,6 +61,17 @@ public class ShoppingController {
 		System.out.println(code);
 	}
 	
+	@RequestMapping(value="/modalload", method=RequestMethod.GET)
+	public String modalLoad(Model model, String code) {
+		//System.out.println("/modalload GET code : "+code);
+		model.addAttribute("detail", shoppingService.selectItem(code));
+		return "/shopping/modalcontent";
+	}
+	
+	@RequestMapping("/modalcontent")
+	@ResponseBody
+	public void modalContent() { }
+	
 	//장바구니 조회
 	@RequestMapping(value="/basket", method=RequestMethod.GET)
 	public void shoppingBasket(Model model, HttpSession session) {
@@ -69,8 +79,10 @@ public class ShoppingController {
 		Users user = (Users)session.getAttribute("logInInfo");
 		
 		if(user != null) {
+			//로그인
 			model.addAttribute("basket", shoppingService.selectBasket(user));
 		} else {
+			//비로그인
 			model.addAttribute("basket", session.getAttribute("basket"));
 		}
 	}
@@ -81,10 +93,11 @@ public class ShoppingController {
 		
 		Users user = (Users)session.getAttribute("logInInfo");
 		
-		//로그인
 		if(user != null) {
+			//로그인
 			
 		} else {
+			//비로그인
 			
 		}
 	}
@@ -96,8 +109,8 @@ public class ShoppingController {
 		
 		Users user = (Users) session.getAttribute("logInInfo");
 
-		//로그인
 		if (user != null) {
+			//로그인
 			Basket basket = new Basket();
 			basket.setId(user.getId());
 			basket.setCode(code);
@@ -106,7 +119,7 @@ public class ShoppingController {
 			return shoppingService.updateAmount(basket);
 			
 		} else {
-
+			//비로그인 - 장바구니 O
 			List<Map<String, Object>> basket = (List<Map<String, Object>>) session.getAttribute("basket");
 			
 			if (basket.get(0).get("sessionId").equals(session.getId())) {
@@ -118,30 +131,61 @@ public class ShoppingController {
 				return 0;
 
 			} else {
+				//비로그인 - 장바구니 X
 				return -1;
 			}
 		}
 	}
 	
+	//장바구니 삭제
 	@RequestMapping(value="/deletebasket", method=RequestMethod.POST)
 	@ResponseBody
-	public String deleteBasket(int num, Basket basket) {
+	public String deleteBasket(HttpSession session, int num, Basket basket) {
 		
-		int res = shoppingService.deleteBasket(basket);
-		if (res > 0) {
-			return "#b" + num;
+		Users user = (Users)session.getAttribute("logInInfo");
+		
+		if(user != null) {
+			//로그인
+			int res = shoppingService.deleteBasket(basket);
+			
+			if (res > 0) {
+				return "#b" + num;
+			} else {
+				return "fail";
+			}
 		} else {
-			return "fail";
+			//비로그인
+			
+			return null;
 		}
+		
 	}
 	
+	//장바구니 선택 삭제
 	@RequestMapping(value="/deletelist", method=RequestMethod.POST)
-	@ResponseBody
-	public String deleteList(String userId, String codes) {
+	public String deleteList(HttpSession session, String userId, String codes) {
 		
+		System.out.println(codes);
 		
+		Users user = (Users)session.getAttribute("logInInfo");
 		
-		return null;
+		String[] array = codes.split(",");
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("array", array);
+		
+		if(user != null) {
+			//로그인
+			int res = shoppingService.deleteList(map);
+			
+		} else {
+			//비로그인
+			
+		}
+		
+		return "redirect:/shopping/basket";
+		
 	}
 	
 	//결제페이지

@@ -14,6 +14,8 @@ public interface ShoppingService {
 	
 	public List<Map<String, Object>> selectList(int listno, int curPage, int cntPerPage);
 	
+	public Map<String, Object> selectItem(String code);
+	
 	public List<Map<String, Object>> selectBasket(Users user);
 	
 	public int checkBasket(Basket basket);
@@ -23,6 +25,8 @@ public interface ShoppingService {
 	public int updateAmount(Basket basket);
 	
 	public int deleteBasket(Basket basket);
+	
+	public int deleteList(Map<String,Object> map);
 	
 	public List<Map<String, Object>> selectProuct(Basket basket);
 	

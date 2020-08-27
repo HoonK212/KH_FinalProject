@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 
 	<!-- 장바구니 아이콘 클릭 -->
-    <div :class="cartOpen ? 'translate-x-0 ease-out' : 'translate-x-full ease-in'" class="fixed right-0 top-0 max-w-xs w-full h-full px-6 py-4 transition duration-300 transform overflow-y-auto bg-white border-l-2 border-gray-300">
+    <div @mouseleave="cartOpen = !cartOpen" :class="cartOpen ? 'translate-x-0 ease-out' : 'translate-x-full ease-in'" class="z-50 fixed right-0 top-0 max-w-xs w-full h-full px-6 py-4 transition duration-300 transform overflow-y-auto bg-white border-l-2 border-gray-300">
         <div class="flex items-center justify-between">
-            <h3 class="text-2xl font-medium text-gray-700">장바구니</h3>
+            <button onclick="location.href='<%=request.getContextPath()%>/shopping/basket'" class="text-2xl font-medium text-gray-700">장바구니</button>
             <button @click="cartOpen = !cartOpen" class="text-gray-600 focus:outline-none">
                 <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>

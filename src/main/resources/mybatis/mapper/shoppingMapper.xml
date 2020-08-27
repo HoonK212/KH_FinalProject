@@ -135,7 +135,7 @@
 	<select id="selectItem" resultMap="detailItem">
 		select p.code, name, price, path, renamed, ext, company, describe, stock from product p, files f
 		where p.code = f.ref and p.sell = 1 and p.stock > 0
-		and p.code = #{code}
+		and p.code = #{value}
 		order by substr(p.code,2) desc
 	</select>
 	
@@ -158,5 +158,12 @@
 		delete basket 
 		where code=#{code} and id=#{id}
 	</delete>
-
+	
+	<delete id="deleteList">
+		delete basket where id=#{userId} 
+		and code in
+		<foreach collection="array" item="item" separator="," open="(" close=")">
+			#{item}
+		</foreach>
+	</delete>
 </mapper>
