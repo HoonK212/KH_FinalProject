@@ -25,7 +25,9 @@ public class LogAop {
 		if(args.length > 0) {
 			logger.info("---------- 매개변수 ----------");
 			for (Object arg : args) {
-				logger.info(arg.toString());
+				if(arg !=null) {
+					logger.info(arg.toString());
+				}
 			}
 		}
 	}

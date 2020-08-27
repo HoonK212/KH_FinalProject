@@ -97,6 +97,7 @@
     					<!-- 진짜 웹캠 공간 -->
 
 							<div class="text-center text-sm sm:text-md max-w-lg mx-auto text-gray-900 mt-8 px-8 lg:px-0 layout-cam">
+							
 <!-- 								<button type="button" onclick="init()">Start</button> -->
 								<div><canvas id="canvas" style="display: inline;"></canvas></div>
 								<div id="label-container"></div>
@@ -107,7 +108,7 @@
 								    // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/pose
 								
 								    // the link to your model provided by Teachable Machine export panel
-								    const URL = "<%=request.getContextPath() %>/resources/motionmodel/pushup/";
+								    const URL = "<%=request.getContextPath() %>/resources/motionmodel/legraise/";
 								    let model, webcam, ctx, labelContainer, maxPredictions;
 									
 								    console.log("경로" + URL);
@@ -151,11 +152,14 @@
 								        
 								    }
 									
-								    var status = "pushup"
+								    var status = "legdown"
+								    
 								    var count = 0
 								    var set = 0;
 								    var progressCnt = 0
 								    var ff = null;
+								    
+									
 								    
 								    var exArr = new Array(); 
 								    exArr =	"${exerciseName}".split(",");
@@ -169,8 +173,13 @@
 								        const prediction = await model.predict(posenetOutput);
 								
 								        if(prediction[0].probability.toFixed(2) == 1.00) {
-								        	console.log(status)
-								        	if(status == "pushdown") { // 스쿼트에서 일어나면 개수 증가
+								        	console.log("레그다운들어옴"+status)
+								        		
+						        		
+								        	status = "legdown"
+							        		console.log(status)
+								        } else if(prediction[1].probability.toFixed(2) == 1.00) {
+								         	if(status == "legdown") { 
 								        		count++;
 								        		progressCnt++;
 												
@@ -178,23 +187,15 @@
 								        		var audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
 								        		audio.play()
 								        		console.log(count)
-								        		
 
-								        		//함수호출(오른쪽 프로그래스바)
 								        		ff = countUpdate(count, set);
-								        		//함수호출(왼쪽 프로그래스바)
 								        		leftCountUpdate(progressCnt ,exArr[0])
-								        		
-								        		
 								        	}
-								        	
-								        	status = "pushup"
-							        		console.log(status)
-								        } else if(prediction[1].probability.toFixed(2) == 1.00) {
-								        	status = "pushdown"
-								        	console.log(status)
-								        } 								        	
-								        	
+								        	status = "legup"
+								        	console.log("여기가 업"+status)
+								        }
+								        
+								        
 								        for (let i = 0; i < maxPredictions; i++) {
 								            const classPrediction =
 							                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
@@ -217,14 +218,11 @@
 								        }
 								    }
 								</script>
-								<script type="text/javascript">
-																		
-								</script>
 							
 							
 							</div>
+							
 							<!-- 진짜 웹캠 공간끝 -->
-		
 			
 			
 			
@@ -259,3 +257,4 @@
 	
 </div>
 <!-- 캠 레이아웃 끝 -->
+							

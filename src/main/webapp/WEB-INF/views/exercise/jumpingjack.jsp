@@ -95,8 +95,15 @@
 			
 			
     					<!-- 진짜 웹캠 공간 -->
+    
+
+
 
 							<div class="text-center text-sm sm:text-md max-w-lg mx-auto text-gray-900 mt-8 px-8 lg:px-0 layout-cam">
+							
+							
+							
+							
 <!-- 								<button type="button" onclick="init()">Start</button> -->
 								<div><canvas id="canvas" style="display: inline;"></canvas></div>
 								<div id="label-container"></div>
@@ -107,7 +114,7 @@
 								    // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/pose
 								
 								    // the link to your model provided by Teachable Machine export panel
-								    const URL = "<%=request.getContextPath() %>/resources/motionmodel/pushup/";
+								    const URL = "<%=request.getContextPath() %>/resources/motionmodel/jumpingjack/";
 								    let model, webcam, ctx, labelContainer, maxPredictions;
 									
 								    console.log("경로" + URL);
@@ -151,11 +158,15 @@
 								        
 								    }
 									
-								    var status = "pushup"
+								    var status = "stand"
+								    
 								    var count = 0
 								    var set = 0;
 								    var progressCnt = 0
 								    var ff = null;
+								    
+									var jumpingcnt = 0;
+									
 								    
 								    var exArr = new Array(); 
 								    exArr =	"${exerciseName}".split(",");
@@ -169,8 +180,13 @@
 								        const prediction = await model.predict(posenetOutput);
 								
 								        if(prediction[0].probability.toFixed(2) == 1.00) {
-								        	console.log(status)
-								        	if(status == "pushdown") { // 스쿼트에서 일어나면 개수 증가
+								        	
+								        	if(status == "jump1" && jumpingcnt==1){
+								        		jumpingcnt++; // cnt==2
+								        		console.log(jumpingcnt)
+								        	}
+								        	
+								        	if(jumpingcnt >= 4){
 								        		count++;
 								        		progressCnt++;
 												
@@ -178,23 +194,46 @@
 								        		var audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
 								        		audio.play()
 								        		console.log(count)
-								        		
 
-								        		//함수호출(오른쪽 프로그래스바)
 								        		ff = countUpdate(count, set);
-								        		//함수호출(왼쪽 프로그래스바)
 								        		leftCountUpdate(progressCnt ,exArr[0])
-								        		
-								        		
+								        		window.jumpingcnt = 0;
+								        		console.log("0으로 선언후"+jumpingcnt)
 								        	}
 								        	
-								        	status = "pushup"
+								        	status = "stand"
 							        		console.log(status)
 								        } else if(prediction[1].probability.toFixed(2) == 1.00) {
-								        	status = "pushdown"
-								        	console.log(status)
-								        } 								        	
+											if(status == "stand" && jumpingcnt == 0){
+												jumpingcnt++;//cnt==1
+												console.log(jumpingcnt)
+											}
+											if(status == "stand" && jumpingcnt == 2){
+												jumpingcnt++;//cnt==3
+												console.log(jumpingcnt)
+											}
+											
+											if(status == "jump2" && jumpingcnt == 4){
+												jumpingcnt++;//cnt==5
+												console.log(jumpingcnt)
+											}
+											
+								        	status = "jump1"
+								        	console.log("그냥 점프1"+status)
+								        }else if(prediction[2].probability.toFixed(2) == 1.00) {
 								        	
+								        	if(status == "jump1" && jumpingcnt == 3){
+												jumpingcnt++;//cnt==4
+												console.log(jumpingcnt)
+											}
+								        	
+								        	status = "jump2"
+								        	console.log("그냥 점프2"+status)
+								        }
+								      
+								        	
+								        
+								        
 								        for (let i = 0; i < maxPredictions; i++) {
 								            const classPrediction =
 							                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
@@ -217,15 +256,11 @@
 								        }
 								    }
 								</script>
-								<script type="text/javascript">
-																		
-								</script>
 							
 							
 							</div>
+							
 							<!-- 진짜 웹캠 공간끝 -->
-		
-			
 			
 			
 			
@@ -259,3 +294,4 @@
 	
 </div>
 <!-- 캠 레이아웃 끝 -->
+							

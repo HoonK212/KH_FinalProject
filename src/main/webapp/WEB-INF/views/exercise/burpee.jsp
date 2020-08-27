@@ -95,8 +95,15 @@
 			
 			
     					<!-- 진짜 웹캠 공간 -->
+    
+
+
 
 							<div class="text-center text-sm sm:text-md max-w-lg mx-auto text-gray-900 mt-8 px-8 lg:px-0 layout-cam">
+							
+							
+							
+							
 <!-- 								<button type="button" onclick="init()">Start</button> -->
 								<div><canvas id="canvas" style="display: inline;"></canvas></div>
 								<div id="label-container"></div>
@@ -107,7 +114,7 @@
 								    // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/pose
 								
 								    // the link to your model provided by Teachable Machine export panel
-								    const URL = "<%=request.getContextPath() %>/resources/motionmodel/pushup/";
+								    const URL = "<%=request.getContextPath() %>/resources/motionmodel/burpee/";
 								    let model, webcam, ctx, labelContainer, maxPredictions;
 									
 								    console.log("경로" + URL);
@@ -151,11 +158,13 @@
 								        
 								    }
 									
-								    var status = "pushup"
+								    var status = "stand"
 								    var count = 0
 								    var set = 0;
 								    var progressCnt = 0
 								    var ff = null;
+								    
+									var burpeeCnt = 0; //stand-> burpee1 ->burpee2
 								    
 								    var exArr = new Array(); 
 								    exArr =	"${exerciseName}".split(",");
@@ -169,8 +178,9 @@
 								        const prediction = await model.predict(posenetOutput);
 								
 								        if(prediction[0].probability.toFixed(2) == 1.00) {
-								        	console.log(status)
-								        	if(status == "pushdown") { // 스쿼트에서 일어나면 개수 증가
+
+						        		 	if(status == "burpee1" && burpeeCnt == 3) { 
+												        		
 								        		count++;
 								        		progressCnt++;
 												
@@ -178,30 +188,44 @@
 								        		var audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
 								        		audio.play()
 								        		console.log(count)
-								        		
-
-								        		//함수호출(오른쪽 프로그래스바)
+	
 								        		ff = countUpdate(count, set);
-								        		//함수호출(왼쪽 프로그래스바)
 								        		leftCountUpdate(progressCnt ,exArr[0])
-								        		
-								        		
-								        	}
+								        		window.burpeeCnt = 0;
+								        		console.log("0으로 선언후"+burpeeCnt)
+							        		
+							        		}
 								        	
-								        	status = "pushup"
+								        	status = "stand"
 							        		console.log(status)
 								        } else if(prediction[1].probability.toFixed(2) == 1.00) {
-								        	status = "pushdown"
-								        	console.log(status)
-								        } 								        	
+								        	if(status == "stand" && burpeeCnt == 0 ){
+								        		burpeeCnt++; // cnt1
+								        		console.log(burpeeCnt)
+								        	}
+								        	if(status == "burpee2" && burpeeCnt == 2 ){
+								        		burpeeCnt++; // cnt3
+								        		console.log(burpeeCnt)
+								        	}
 								        	
+								        	status = "burpee1"
+								        	console.log("여기가 기본"+status)
+								        } else if(prediction[2].probability.toFixed(2) == 1.00) {
+								        	if(status == "burpee1" && burpeeCnt == 1 ){
+								        		burpeeCnt++; // cnt2
+								        		console.log(burpeeCnt)
+								        	}
+								        	status = "burpee2"
+								        	console.log("여기가 기본"+status)
+								        }
+								        
+								        
 								        for (let i = 0; i < maxPredictions; i++) {
 								            const classPrediction =
 							                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
 								            labelContainer.childNodes[i].innerHTML = classPrediction; //여기가 값나오는 부분!
 								        }
 								
-								        // finally draw the poses
 								        drawPose(pose);
 								    }
 								
@@ -217,13 +241,18 @@
 								        }
 								    }
 								</script>
-								<script type="text/javascript">
-																		
-								</script>
 							
 							
 							</div>
-							<!-- 진짜 웹캠 공간끝 -->
+							
+						<!-- 진짜 웹캠 공간끝 -->
+			
+			
+			
+			
+			
+		
+		
 		
 			
 			
