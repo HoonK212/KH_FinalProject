@@ -27,6 +27,8 @@
 		<typeAlias type="com.dht.www.board.model.vo.Comments" alias="Comments" />
 		<typeAlias type="com.dht.www.board.model.vo.Recommend" alias="Recommend" />
 		<typeAlias type="com.dht.www.board.model.vo.Report" alias="Report" />
+		
+		<typeAlias type="com.dht.www.admin.model.vo.Admin" alias="Admin" />
 	</typeAliases>
 
 </configuration>
