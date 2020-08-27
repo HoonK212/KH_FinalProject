@@ -12,15 +12,17 @@ import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/captchaKey")
 public class ApiExamCaptchaNkey {
 	
-	@RequestMapping("/getKey")
+	@RequestMapping(value="/getKey", method=RequestMethod.GET)
 	@ResponseBody
 	public static String getCaptchaKey() {
+		
 		System.out.println("/getkey 요청");
 		
         String clientId = "fhac9coVsZlNcnAG8Vgp"; //애플리케이션 클라이언트 아이디값";
@@ -32,24 +34,36 @@ public class ApiExamCaptchaNkey {
         Map<String, String> requestHeaders = new HashMap<>();
         requestHeaders.put("X-Naver-Client-Id", clientId);
         requestHeaders.put("X-Naver-Client-Secret", clientSecret);
+        
+        //URL로 요청하여 키를 발급받는다. (애플리케이션 클라이언트 아이디와 시크릿값을 가지고)
         String responseBody = get(apiURL, requestHeaders);
 
         System.out.println(responseBody);
         
         return responseBody;
     }
-
+	
+	// 1.URL 연결 생성 2. 요청 정보 세팅 3. 이미지를 받기위한 키 반환
     private static String get(String apiUrl, Map<String, String> requestHeaders){
-        HttpURLConnection con = connect(apiUrl);
-        try {
+        
+    	//URL와 연결 생성하고 반환
+    	HttpURLConnection con = connect(apiUrl);
+        
+    	try {
+    		//요청 메소드 설정
             con.setRequestMethod("GET");
-            for(Map.Entry<String, String> header :requestHeaders.entrySet()) {
+            
+            //요청 속성 설정(네이버 클라이언트 아이디와 시크릿값 박기)
+            for(Map.Entry<String, String> header : requestHeaders.entrySet()) {
                 con.setRequestProperty(header.getKey(), header.getValue());
             }
 
             int responseCode = con.getResponseCode();
+            
             if (responseCode == HttpURLConnection.HTTP_OK) { // 정상 호출
-                return readBody(con.getInputStream());
+               
+            	//전달받은 키 반환
+            	return readBody(con.getInputStream());
             } else { // 에러 발생
                 return readBody(con.getErrorStream());
             }
@@ -59,7 +73,8 @@ public class ApiExamCaptchaNkey {
             con.disconnect();
         }
     }
-
+    
+    // URL 연결 생성
     private static HttpURLConnection connect(String apiUrl){
         try {
             URL url = new URL(apiUrl);
@@ -70,7 +85,8 @@ public class ApiExamCaptchaNkey {
             throw new RuntimeException("연결이 실패했습니다. : " + apiUrl, e);
         }
     }
-
+    
+    // 발급받은 키를 읽는 메소드
     private static String readBody(InputStream body){
         InputStreamReader streamReader = new InputStreamReader(body);
 

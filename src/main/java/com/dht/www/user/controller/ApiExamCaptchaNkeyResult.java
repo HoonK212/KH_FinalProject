@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/captchaResult")
 public class ApiExamCaptchaNkeyResult {
 	
-	@RequestMapping(value="/getResult")
+	@RequestMapping(value="/getResult", method=RequestMethod.GET)
 	@ResponseBody
 	public static String getResult(String mycaptchakey, String input) {
 		
@@ -37,6 +37,7 @@ public class ApiExamCaptchaNkeyResult {
         Map<String, String> requestHeaders = new HashMap<>();
         requestHeaders.put("X-Naver-Client-Id", clientId);
         requestHeaders.put("X-Naver-Client-Secret", clientSecret);
+        
         String responseBody = get(apiURL, requestHeaders);
 
         System.out.println(responseBody);
@@ -45,15 +46,24 @@ public class ApiExamCaptchaNkeyResult {
     }
 
     private static String get(String apiUrl, Map<String, String> requestHeaders){
-        HttpURLConnection con = connect(apiUrl);
-        try {
+        
+    	//URL와 연결 생성하고 반환
+    	HttpURLConnection con = connect(apiUrl);
+        
+    	try {
+    		//요청 메소드 설정
             con.setRequestMethod("GET");
+            
+          //요청 속성 설정(네이버 클라이언트 아이디와 시크릿값 박기)
             for(Map.Entry<String, String> header :requestHeaders.entrySet()) {
                 con.setRequestProperty(header.getKey(), header.getValue());
             }
 
             int responseCode = con.getResponseCode();
+            
             if (responseCode == HttpURLConnection.HTTP_OK) { // 정상 호출
+            	
+            	//인증결과 반환
                 return readBody(con.getInputStream());
             } else { // 에러 발생
                 return readBody(con.getErrorStream());
@@ -65,6 +75,7 @@ public class ApiExamCaptchaNkeyResult {
         }
     }
 
+    // URL 연결 생성
     private static HttpURLConnection connect(String apiUrl){
         try {
             URL url = new URL(apiUrl);
@@ -76,6 +87,7 @@ public class ApiExamCaptchaNkeyResult {
         }
     }
 
+    // 인증결과 반환
     private static String readBody(InputStream body){
         InputStreamReader streamReader = new InputStreamReader(body);
 

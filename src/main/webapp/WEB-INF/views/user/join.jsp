@@ -137,7 +137,7 @@
 						</div>
 						<label for="id" class="font-bold mb-1 text-gray-800 inline-block">아이디</label>
 						<p class="font-bold mb-1 text-gray-400 block text-xs inline-block">(2/3)</p>
-						<p class="font-bold mb-1 text-gray-400 block text-xs inline-block"><span id="idcheckResult" style="color: red; font-size: 0.8rem;"></span><br></p>
+						<p class="font-bold mb-1 text-gray-400 block text-xs inline-block"><span class="text-blue-600" id="idcheckResult" style="font-size: 0.8rem;"></span><br></p>
 						<div class="flex mb-5">
 							<input type="text" name="id" id="id" onblur="XmlIdCheck()"
 								class="w-9/12 px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium mr-6"
@@ -149,7 +149,7 @@
 						</div>
 						<label for="nick" class="font-bold mb-1 text-gray-800 inline-block">닉네임</label>
 						<p class="font-bold mb-1 text-gray-400 block text-xs inline-block">(3/3)</p>
-						<p class="font-bold mb-1 text-gray-400 block text-xs inline-block"><span id="nickcheckResult" style="color: red; font-size: 0.8rem;"></span></p>
+						<p class="font-bold mb-1 text-gray-400 block text-xs inline-block"><span class="text-blue-600" id="nickcheckResult" style="font-size: 0.8rem;"></span></p>
 						<div class="flex mb-5">
 							<input type="text" name="nick" id="nick" onblur="XmlNickCheck()"
 								class="w-9/12 px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium mr-6"
@@ -208,7 +208,7 @@
 								<label class="flex justify-center items-center rounded-lg bg-white pl-3 pr-3 py-3 shadow-sm bg-gray-800">
 								<div class="select-none text-white font-extrabold" id="btnSubmit">확인</div>
 								</label>
-								<span id="result" style="color: red; font-size: 0.8rem; min-height: 1rem; display:inline-block"></span>
+								<span class="text-blue-600 font-bold" id="result" style="font-size: 0.8rem; min-height: 1rem; display:inline-block"></span>
 							</div>
 							</div>
 						</div>
@@ -443,7 +443,7 @@
          }
        }
        
-       // 닉네임 중복 확인
+       //닉네임 중복 확인
        function XmlNickCheck(){
           
          var nick = document.getElementById('nick').value;
@@ -523,6 +523,7 @@
       var captchaKey = null;
       var filename = null;
       
+      //캡차 이미지를 받기 위해 키 받아오기
       document.getElementById('refresh').addEventListener('click', function() {
          
 	  	  	//입력값 없애기
@@ -539,14 +540,15 @@
             xhr.addEventListener('load', function(){
                var data =  JSON.parse(xhr.response);
                
-               //캡차키 전달받음
+               //캡차키
                captchaKey = data.key
-               //캡차키를 던져 이미지를 받는 함수
+               //캡차키를 던져 이미지를 받는 함수실행
                captchaImage(captchaKey);
             }); 
             
       });
       
+      //캡차키를 던져 이미지 받아오기
       function captchaImage(captchaKey){
    
             var xhr = new XMLHttpRequest();
@@ -555,16 +557,19 @@
             xhr.send("captchaKey="+captchaKey);
             xhr.addEventListener('load', function(){
    
-               filename = xhr.response;
+                filename = xhr.response;
                 document.getElementById('cpt-img').innerHTML = 
                    "<img src=<%=request.getContextPath()%>/resources/image/captcha/"+filename+".jpg>";
                 
             });
       }
       
+      //이미지를 보고 코드를 입력했을 때 맞는지 인증
       document.getElementById('btnSubmit').addEventListener('click', function(){
             
+			//사용자 입력값    	  
             var input = document.getElementById('input');
+            
             var xhr = new XMLHttpRequest();
             var param = 'input='+input.value+'&mycaptchakey='+captchaKey;
             
@@ -577,7 +582,7 @@
                ajaxFlag_captcha = result.result;
                
                if(result.result){
-                  document.getElementById('result').textContent = '성공했습니다';
+                  document.getElementById('result').textContent = '인증 확인!';
                }else{
                   document.getElementById('result').textContent = '다시 시도해주세요';
                }
