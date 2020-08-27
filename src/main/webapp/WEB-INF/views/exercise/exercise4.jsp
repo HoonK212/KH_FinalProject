@@ -201,7 +201,7 @@ function leftCountUpdate(progressCnt,exArr) {
 					<p class="progressbar-content">운동1</p>
 					<div class="progress">
 						<div class="progress-bar" role="progressbar" aria-valuenow="10"
-							aria-valuemin="0" aria-valuemax="100">10</div>
+							aria-valuemin="0" aria-valuemax="100" id="plank">10</div>
 					</div>
 					<p class="progressbar-content">운동2</p>
 					<div class="progress">
@@ -243,7 +243,7 @@ function leftCountUpdate(progressCnt,exArr) {
 					<p class="progressbar-content">운동9</p>
 					<div class="progress">
 						<div class="progress-bar" role="progressbar" aria-valuenow="90"
-							aria-valuemin="0" aria-valuemax="100">90</div>
+							aria-valuemin="0" aria-valuemax="100" id="lunge">90</div>
 					</div>
 				</div>
 			</div>
@@ -256,8 +256,8 @@ function leftCountUpdate(progressCnt,exArr) {
 		<div id="right">
 		
 		
-			<c:if test="${exerciseName eq 'lunge' }">
-				<%@include file="./lunge.jsp"%>
+			<c:if test="${exerciseName eq 'legraise' }">
+				<%@include file="./legraise.jsp"%>
 			</c:if>
 		
 		
