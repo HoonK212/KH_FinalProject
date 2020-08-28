@@ -4,7 +4,7 @@ import com.dht.www.user.model.vo.Users;
 
 public interface ExerciseService {
 
-	public int selectExerciseMyRoutine(Users user);
+	public String selectExerciseMyRoutine(Users user);
 
 	public int selectExerciseMyGrade(Users user);
 

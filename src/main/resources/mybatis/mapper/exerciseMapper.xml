@@ -43,7 +43,7 @@
 	</resultMap>
 	
 
-	<select id="selectRoutine" resultType="int" >
+	<select id="selectRoutine" resultType="String" >
 		select exercises from goal
 		where ID = #{id}
 	</select>

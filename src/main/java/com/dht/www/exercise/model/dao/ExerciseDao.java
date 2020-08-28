@@ -12,7 +12,7 @@ public class ExerciseDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public int selectExerciseMyRoutine(Users user) {
+	public String selectExerciseMyRoutine(Users user) {
 		return sqlSession.selectOne("Exercise.selectRoutine", user);
 	}
 

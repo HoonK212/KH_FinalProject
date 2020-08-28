@@ -13,7 +13,7 @@ public class ExerciseServiceImpl implements ExerciseService {
 	private ExerciseDao exerciseDao;
 
 	@Override
-	public int selectExerciseMyRoutine(Users user) {
+	public String selectExerciseMyRoutine(Users user) {
 		return exerciseDao.selectExerciseMyRoutine(user);
 	}
 

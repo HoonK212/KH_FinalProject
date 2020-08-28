@@ -1,8 +1,5 @@
 package com.dht.www.exercise.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -27,7 +24,6 @@ public class ExerciseController {
 	// 종류선택 VIEW
 	@RequestMapping(value="/type", method=RequestMethod.GET)
 	public String exerciseTypeForm( HttpSession session ,  Model model , HttpServletRequest req) {
-		
 		Users user = (Users)session.getAttribute("logInInfo");
 		
 		//설정한 목표있는지 찾기
@@ -35,7 +31,6 @@ public class ExerciseController {
 		//목표값
 		model.addAttribute("goal", goal);
 			
-		
 		return "exercise/exercise1";
 	}
 	
@@ -57,40 +52,6 @@ public class ExerciseController {
 		return "exercise/exercise4";
 	}
 
-	 
-	
-//	@RequestMapping(value="/myroutine", method=RequestMethod.POST)
-//	public String exerciseMyRoutine( HttpSession session) {
-//		
-//		Users user = (Users)session.getAttribute("logInInfo");
-//		Users userpic = (Users)session.getAttribute("logInPic");
-//		Map<String,Object> map = new HashMap();
-//		
-//		//설정한 운동종류번호가져오기
-//		int exernum = exerciseService.selectExerciseMyRoutine(user);
-//		System.out.println(exernum);
-//		
-//		int gradenum = exerciseService.selectExerciseMyGrade(user);
-//		System.out.println("등급 : "+ gradenum);
-//		
-//		//NUMBER타입인거 int형 배열에 하나하나 넣기
-//		String str = Integer.toString(exernum);
-//		System.out.println(str);
-//		int[] exArr = new int[str.length()];
-//		for (int i = 0; i < str.length(); i++) {
-//			exArr[i] = Integer.parseInt(String.valueOf(str.charAt(i)));
-//		}
-//		
-//		map.put("exernum", exArr);
-//		map.put("exergrade", gradenum);
-//		
-//		
-//		return "exercise/exercise4";
-//	}
-	
-	
-	
-	
 	
 	
 	@RequestMapping(value="/level", method=RequestMethod.POST)
@@ -113,56 +74,43 @@ public class ExerciseController {
 	}
 	
 	
-//	@RequestParam(required=false) String exerType ,
 	@RequestMapping(value="/trainning", method=RequestMethod.POST)
-	public String exerciseSelectToTrainning(@RequestParam(required=false) String exerType , @RequestParam(value="exercise" , required=false) String exerciseName, HttpSession session, Model model) {
-		
+	public String exerciseSelectToTrainning(@RequestParam(value="exerType", required=false) String exerType , @RequestParam(value="exercise", required=false) String exerciseName, HttpSession session, Model model) {
 		System.out.println("= = = = = = = = = = = = = = =  = = = = = = = = = =");
 		System.out.println(session.getAttribute("exerType"));
 		System.out.println(session.getAttribute("level"));
 		System.out.println(exerType);
 		System.out.println(exerciseName);
 		
-		String[] newExerArr = exerciseName.split(",");
-		model.addAttribute("newExerciseNumber", newExerArr);
 		
-
-		
-		
-		
-		if(exerciseName == null) {
-			if(exerType.equals("myExer")) {
-				
-				Users user = (Users)session.getAttribute("logInInfo");
-		//		Users userpic = (Users)session.getAttribute("logInPic");
-				Map<String,Object> map = new HashMap();
-				
-				//설정한 운동종류번호가져오기
-				int exernum = exerciseService.selectExerciseMyRoutine(user);
-				System.out.println(exernum);
-				
-				int gradenum = exerciseService.selectExerciseMyGrade(user);
-				System.out.println("등급 : "+ gradenum);
-				
-				//NUMBER타입인거 int형 배열에 하나하나 넣기
-				String str = Integer.toString(exernum);
-				System.out.println(str);
-				int[] exArr = new int[str.length()];
-				for (int i = 0; i < str.length(); i++) {
-					exArr[i] = Integer.parseInt(String.valueOf(str.charAt(i)));
-				}
-				
-				for (int i = 0; i < exArr.length; i++) {
-					System.out.println("선택한 운동 : " +exArr[i]);
-				}	
-				model.addAttribute("myExerciseNumber", exArr);
-				
-				map.put("exernum", exArr);
-				map.put("exergrade", gradenum);
-				}
+		// 새로운 목표 설정 시
+		if(exerType == null) {
+			String[] newExerArr = exerciseName.split(",");
+			model.addAttribute("ExerciseInfo", newExerArr);
 		}
 		
-		
+
+		// 설정한 목표 설정 시 
+		if (exerciseName == null) {
+			Users user = (Users) session.getAttribute("logInInfo");
+
+			// 설정한 운동 종류 가져오기
+			String exerInfo = exerciseService.selectExerciseMyRoutine(user);
+			System.out.println(exerInfo);
+			
+			String[] goalExerArr = exerInfo.split(",");
+			System.out.println("가져온 운동 정보" + goalExerArr);
+			
+			// 설정한 운동 종류 모델값 지정
+			model.addAttribute("ExerciseInfo", goalExerArr);
+
+			// 설정한 운동 등급 가져오기
+			int exerGrade = exerciseService.selectExerciseMyGrade(user);
+			System.out.println("등급 : " + exerGrade);
+			
+			// 설정한 운동 등급 모델값 지정
+			model.addAttribute("ExerciseGrade", exerGrade);
+		}
 		
 		return "exercise/exercise4";
 	}

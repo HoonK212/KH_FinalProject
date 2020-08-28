@@ -11,11 +11,6 @@
 <!-- HEADER -->
 <%@include file="../layout/header.jsp" %>
 
-<script type="text/javascript">
-
-
-
-</script>
 
 <script type="text/javascript">
 
@@ -37,7 +32,6 @@ $(document).ready(function() {
 	})
 	
 	if( <%= session.getAttribute("exerType") %> != null) {
-		console.log("들어왔다~")
 		$("input:radio[id='<%= session.getAttribute("exerType") %>']").prop("checked", true)
 	}
 });

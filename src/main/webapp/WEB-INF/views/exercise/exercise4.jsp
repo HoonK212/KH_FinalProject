@@ -29,11 +29,7 @@ function countUpdate(count, set) {
 	var delay = 1000;
 	// count가 countMAX값 보다 같거나 클 때(운동 진행 중)
 	if($(".progress-bar-count")[0].ariaValueMax >= count){
-		
-		$(".progress-bar-count").animate( {
-			width: count / $(".progress-bar-count")[0].ariaValueMax * 100 + "%"
-		}, delay, 'swing' );
-		
+		$(".progress-bar-count").animate( { width: count / $(".progress-bar-count")[0].ariaValueMax * 100 + "%"	}, delay, 'swing');
 		$(".progress-bar-count").attr("aria-valuenow", count).html(count + "개")
 		
 		
@@ -46,20 +42,14 @@ function countUpdate(count, set) {
 			
 			// 마지막 세트 끝나면 카운트는 증가x
 			if($(".progress-bar-set")[0].ariaValueMax != set+1){
-				
-				$(".progress-bar-count").animate( {
-					width: count / $(".progress-bar-count")[0].ariaValueMax * 100 + "%"
-				}, delay, 'swing' );
-			
+				$(".progress-bar-count").animate( { width: count / $(".progress-bar-count")[0].ariaValueMax * 100 + "%"	}, delay, 'swing');
 				$(".progress-bar-count").attr("aria-valuenow", count).html(count + "개")
 			}
 			
 			window.set++;
 			set++;
 			
-			$('.progress-bar-set').animate( {
-				width: set / $(".progress-bar-set")[0].ariaValueMax * 100 + "%"
-			}, delay, 'swing' );
+			$('.progress-bar-set').animate( { width: set / $(".progress-bar-set")[0].ariaValueMax * 100 + "%" }, delay, 'swing');
 			
 			$(".progress-bar-set").attr("aria-valuenow", set).html(set + "세트")
 			
@@ -86,6 +76,32 @@ function leftCountUpdate(progressCnt,exArr) {
 	$("div[id='"+ exArr + "']").html( Math.floor(progressCnt / ( $(".progress-bar-set")[0].ariaValueMax * $(".progress-bar-count")[0].ariaValueMax )  * 100) + "%")
 }
 
+// AJAX 통신 - 운동정보 변경
+function exerChange(num) {
+	
+	var xhr = new XMLHttpRequest();
+	
+	// 통신을 위한 시작줄 작성
+	xhr.open('GET', '<%=request.getContextPath()%>/shopping/list?listno='+num);
+	
+	// http request header 설정
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	
+	// http request body 설정
+	//	xhr.send() : 원하는 데이터를 파라미터에 넣어 데이터 전송
+	xhr.send();
+	
+	// ajax 통신이 끝난 뒤 실행할 콜백함수 등록
+	xhr.addEventListener('load', function() {
+		
+		var data = xhr.response;
+		//console.dir(data)
+		
+		document.querySelector('main').innerHTML = data;
+		
+	})
+	
+}
 </script>
 
 
@@ -183,7 +199,7 @@ function leftCountUpdate(progressCnt,exArr) {
 						<div class="md:w-2/3 w-full px-3 flex flex-row flex-wrap">
 							<div
 								class="w-full text-right text-gray-700 font-semibold relative pt-3">
-								<div class="text-2xl text-white leading-tight">홍길동</div>
+								<div class="text-2xl text-white leading-tight">${logInInfo.nick }</div>
 								<div class="text-normal text-gray-300">신장 172cm</div>
 								<div class="text-normal text-gray-300">체중 100kg</div>
 								<div class="text-normal text-gray-300">나이 30살</div>
@@ -256,70 +272,38 @@ function leftCountUpdate(progressCnt,exArr) {
 		<!-- right layout 시작 -->
 		<div id="right">
 		
-				<c:set var="newExerStatus" value="0" />
+				<c:set var="exerStatus" value="0" />
 				<c:choose>
-					<c:when test="${newExerciseNumber[newExerStatus] eq 'plank'}">
+					<c:when test="${ExerciseInfo[exerStatus] eq 'plank'}">
 						<%@include file="./plank.jsp"%>
 					</c:when>
-					<c:when test="${newExerciseNumber[newExerStatus] eq 'jumpingjack'}">
+					<c:when test="${ExerciseInfo[exerStatus] eq 'jumpingjack'}">
 						<%@include file="./jumpingjack.jsp"%>
 					</c:when>
-					<c:when test="${newExerciseNumber[newExerStatus] eq 'burpee'}">
+					<c:when test="${ExerciseInfo[exerStatus] eq 'burpee'}">
 						<%@include file="./burpee.jsp"%>
 					</c:when>
-					<c:when test="${newExerciseNumber[newExerStatus] eq 'legraise'}">
+					<c:when test="${ExerciseInfo[exerStatus] eq 'legraise'}">
 						<%@include file="./legraise.jsp"%>
 					</c:when>
-					<c:when test="${newExerciseNumber[newExerStatus] eq 'crunch'}">
+					<c:when test="${ExerciseInfo[exerStatus] eq 'crunch'}">
 						<%@include file="./crunch.jsp"%>
 					</c:when>
-					<c:when test="${newExerciseNumber[newExerStatus] eq 'pushup'}">
+					<c:when test="${ExerciseInfo[exerStatus] eq 'pushup'}">
 						<%@include file="./pushup.jsp"%>
 					</c:when>
-					<c:when test="${newExerciseNumber[newExerStatus] eq 'mountainclimb'}">
+					<c:when test="${ExerciseInfo[exerStatus] eq 'mountainclimb'}">
 						<%@include file="./mountainclimb.jsp"%>
 					</c:when>
-					<c:when test="${newExerciseNumber[newExerStatus] eq 'squat'}">
+					<c:when test="${ExerciseInfo[exerStatus] eq 'squat'}">
 						<%@include file="./squat.jsp"%>
 					</c:when>
-					<c:when test="${newExerciseNumber[newExerStatus] eq 'lunge'}">
+					<c:when test="${ExerciseInfo[exerStatus] eq 'lunge'}">
 						<%@include file="./lunge.jsp"%>
 					</c:when>
 				</c:choose>
-				<c:set var="newExerStatus" value="${newExerStatus + 1} " />
+				<c:set var="exerStatus" value="${exerStatus + 1} " />
 		
-		
-			<c:set var="myExerStatus" value="0" />
-			<c:choose>
-				<c:when test="${myExerciseNumber[myExerStatus] eq 1}">
-					<%@include file="./plank.jsp"%>
-				</c:when>
-				<c:when test="${myExerciseNumber[myExerStatus] eq 2}">
-					<%@include file="./jumpingjack.jsp"%>
-				</c:when>
-				<c:when test="${myExerciseNumber[myExerStatus] eq 3}">
-					<%@include file="./burpee.jsp"%>
-				</c:when>
-				<c:when test="${myExerciseNumber[myExerStatus] eq 4}">
-					<%@include file="./legraise.jsp"%>
-				</c:when>
-				<c:when test="${myExerciseNumber[myExerStatus] eq 5}">
-					<%@include file="./crunch.jsp"%>
-				</c:when>
-				<c:when test="${myExerciseNumber[myExerStatus] eq 6}">
-					<%@include file="./pushup.jsp"%>
-				</c:when>
-				<c:when test="${myExerciseNumber[myExerStatus] eq 7}">
-					<%@include file="./mountainclimb.jsp"%>
-				</c:when>
-				<c:when test="${myExerciseNumber[myExerStatus] eq 8}">
-					<%@include file="./squat.jsp"%>
-				</c:when>
-				<c:when test="${myExerciseNumber[myExerStatus] eq 9}">
-					<%@include file="./lunge.jsp"%>
-				</c:when>
-			</c:choose>
-			<c:set var="myExerStatus" value="${myExerStatus + 1} " />
 			
 		</div>
 		<!-- right layout 끝 -->
