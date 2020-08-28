@@ -22,16 +22,10 @@ public class RecommendServiceImpl implements RecommendService {
 	@Autowired
 	private RecommendDao recommendDao;
 
-	// 게시글 추천/비추천
+	// 추천/비추천
 	@Override
-	public int insertBoardRecommend(Recommend recommend) {
-		return recommendDao.insertBoardRecommend(recommend);
-	}
-
-	// 댓글 추천/비추천
-	@Override
-	public int insertCommentsRecommend(Recommend recommend) {
-		return recommendDao.insertCommentsRecommend(recommend);
+	public int insertRecommend(Recommend recommend) {
+		return recommendDao.insertRecommend(recommend);
 	}
 
 }

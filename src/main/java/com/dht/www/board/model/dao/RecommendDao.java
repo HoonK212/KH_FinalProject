@@ -17,14 +17,9 @@ public class RecommendDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	// 게시글 추천/비추천
-	public int insertBoardRecommend(Recommend recommend) {
-		return sqlSession.insert("RECOMMEND.insertBoardRecommend", recommend);
-	}
-
-	// 댓글 추천/비추천
-	public int insertCommentsRecommend(Recommend recommend) {
-		return sqlSession.insert("RECOMMEND.insertCommentsRecommend", recommend);
+	// 추천/비추천
+	public int insertRecommend(Recommend recommend) {
+		return sqlSession.insert("RECOMMEND.insertRecommend", recommend);
 	}
 
 }

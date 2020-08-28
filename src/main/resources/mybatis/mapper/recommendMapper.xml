@@ -5,14 +5,9 @@
 
 <mapper namespace="RECOMMEND">
 
-	<insert id="insertBoardRecommend" parameterType="Recommend">
+	<insert id="insertRecommend" parameterType="Recommend">
 		insert into recommend
-		values (#{id}, 1, #{ref}, #{goodBad})
-	</insert>
-	
-	<insert id="insertCommentsRecommend" parameterType="Recommend">
-		insert into recommend
-		values (#{id}, 2, #{ref}, #{goodBad})
+		values (#{id}, #{type}, #{ref}, #{goodBad})
 	</insert>
 	
 </mapper>

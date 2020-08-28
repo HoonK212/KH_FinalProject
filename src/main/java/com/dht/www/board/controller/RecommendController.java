@@ -22,26 +22,15 @@ public class RecommendController {
 	@Autowired
 	private RecommendService recommendService;
 	
-	// 게시글 추천/비추천
-	@RequestMapping(value="/board", method=RequestMethod.GET)
+	// 추천/비추천
+	@RequestMapping(value="/insert", method=RequestMethod.GET)
 	@ResponseBody
 	public int boardRecommend(Recommend recommend, HttpSession session) {
 		
 		String logInId = ((Users) session.getAttribute("logInInfo")).getId();
 		recommend.setId(logInId);
 		
-		return recommendService.insertBoardRecommend(recommend);
-	}
-	
-	// 댓글 추천/비추천
-	@RequestMapping(value="/comments", method=RequestMethod.GET)
-	@ResponseBody
-	public int commentsRecommend(Recommend recommend, HttpSession session) {
-		
-		String logInId = ((Users) session.getAttribute("logInInfo")).getId();
-		recommend.setId(logInId);
-		
-		return recommendService.insertCommentsRecommend(recommend);
+		return recommendService.insertRecommend(recommend);
 	}
 	
 }
