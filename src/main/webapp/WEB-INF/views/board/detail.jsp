@@ -161,12 +161,12 @@
                                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     <p class="float-left inline-block">본문</p>
                                     <p class="float-right inline-block px-6 font-bold text-red-600">
-                                    	<img onclick="boardRecommend(${board.no }, 2)" class="inline-block w-6 h-6 cursor-pointer" src="<%=request.getContextPath() %>/resources/image/board/bad.png">
+                                    	<img onclick="recommend(1, ${board.no }, 2)" class="inline-block w-6 h-6 cursor-pointer" src="<%=request.getContextPath() %>/resources/image/board/bad.png">
                                     	${board.bad }
                                     </p>
                                     <p class="float-right inline-block px-2">싫어요</p>
                                     <p class="float-right inline-block px-6 font-bold text-blue-600">
-                                    	<img onclick="boardRecommend(${board.no }, 1)" class="inline-block w-6 h-6 cursor-pointer" src="<%=request.getContextPath() %>/resources/image/board/good.png">
+                                    	<img onclick="recommend(1, ${board.no }, 1)" class="inline-block w-6 h-6 cursor-pointer" src="<%=request.getContextPath() %>/resources/image/board/good.png">
 										${board.good }
                                     </p>
                                     <p class="float-right inline-block px-2">좋아요</p>
@@ -244,13 +244,13 @@
                                 </td>
                                 <td class="px-2 py-2 border-b border-gray-200 bg-white text-sm">
                                     <p class="text-blue-600 whitespace-no-wrap text-center font-bold">
-                                    	<img onclick="commentsRecommend(${comments.no }, 1)" class="inline-block w-6 h-6 cursor-pointer" src="<%=request.getContextPath() %>/resources/image/board/good.png">
+                                    	<img onclick="recommend(2, ${comments.no }, 1)" class="inline-block w-6 h-6 cursor-pointer" src="<%=request.getContextPath() %>/resources/image/board/good.png">
                                     	${comments.good }
                                     </p>
                                 </td>
                                 <td class="px-2 py-2 border-b border-gray-200 bg-white text-sm">
                                     <p class="text-red-600 whitespace-no-wrap text-center font-bold">
-                                    	<img onclick="commentsRecommend(${comments.no }, 2)" class="inline-block w-6 h-6 cursor-pointer" src="<%=request.getContextPath() %>/resources/image/board/bad.png">
+                                    	<img onclick="recommend(2, ${comments.no }, 2)" class="inline-block w-6 h-6 cursor-pointer" src="<%=request.getContextPath() %>/resources/image/board/bad.png">
                                     	${comments.bad }
                                     </p>
                                 </td>
@@ -302,7 +302,7 @@
 </section>
 
 <script>
-function boardRecommend(ref, goodBad) {
+function recommend(type, ref, goodBad) {
 	
 	if(${logInInfo==null}) {
 		alert("로그인이 필요합니다.");
@@ -310,7 +310,7 @@ function boardRecommend(ref, goodBad) {
 	}
 	
 	var xhr = new XMLHttpRequest();
-	xhr.open('GET', '<%=request.getContextPath()%>/recommend/board?ref='+ref+'&goodBad='+goodBad);
+	xhr.open('GET', '<%=request.getContextPath()%>/recommend/insert?type='+type+'&ref='+ref+'&goodBad='+goodBad);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	xhr.send();
 	
@@ -318,31 +318,6 @@ function boardRecommend(ref, goodBad) {
 		
 		var data = xhr.response;
 
-		if(data > 0) {
-			location.reload();
-		} else {
-			alert("이미 추천/비추천 하셨습니다.");
-		}
-	});
-	
-}
-
-function commentsRecommend(ref, goodBad) {
-	
-	if(${logInInfo==null}) {
-		alert("로그인이 필요합니다.");
-		return;
-	}
-	
-	var xhr = new XMLHttpRequest();
-	xhr.open('GET', '<%=request.getContextPath()%>/recommend/comments?ref='+ref+'&goodBad='+goodBad);
-	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.send();
-	
-	xhr.addEventListener('load', function() {
-		
-		var data = xhr.response;
-		
 		if(data > 0) {
 			location.reload();
 		} else {

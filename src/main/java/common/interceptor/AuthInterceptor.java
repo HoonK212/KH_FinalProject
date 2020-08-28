@@ -20,9 +20,6 @@ public class AuthInterceptor implements HandlerInterceptor{
 		} else if(req.getRequestURI().contains("comments/write") && req.getSession().getAttribute("logInInfo") == null) {
 			auth(req, resp);
 			return false;
-		} else if(req.getRequestURI().contains("recommend/") && req.getSession().getAttribute("logInInfo") == null) {
-			auth(req, resp);
-			return false;
 		} else if(req.getRequestURI().contains("exercise/") && req.getSession().getAttribute("logInInfo") == null) {
 			auth(req, resp);
 			return false;

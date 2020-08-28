@@ -27,17 +27,17 @@ public class CommentsController {
 	
 	// 댓글 작성
 	@RequestMapping(value="/write", method=RequestMethod.POST)
-	public String write(@RequestParam int ref, Comments comments, Model model, HttpServletRequest req, HttpSession session) {
+	public String write(Comments comments, Model model, HttpServletRequest req, HttpSession session) {
 		
 		String logInId = ((Users) session.getAttribute("logInInfo")).getId();
 		comments.setId(logInId);
 		int res = commentsService.insertComments(comments);
 		
 		if(res > 0) {
-			model.addAttribute("url", req.getContextPath()+"/board/detail?no="+ref);
+			model.addAttribute("url", req.getContextPath()+"/board/detail?no="+comments.getRef());
 		} else {
 			model.addAttribute("alertMsg", "댓글 작성에 실패하였습니다.");
-			model.addAttribute("url", req.getContextPath()+"/board/detail?no="+ref);
+			model.addAttribute("url", req.getContextPath()+"/board/detail?no="+comments.getRef());
 		}
 		
 		return "/common/result";
