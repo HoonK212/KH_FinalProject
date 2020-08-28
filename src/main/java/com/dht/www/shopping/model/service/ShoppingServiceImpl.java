@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.dht.www.shopping.model.dao.ShoppingDao;
 import com.dht.www.shopping.model.vo.Basket;
+import com.dht.www.shopping.model.vo.Orders;
 import com.dht.www.user.model.vo.Users;
 
 import common.util.Paging;
@@ -35,10 +36,20 @@ public class ShoppingServiceImpl implements ShoppingService {
 		return shoppingDao.selectList(paging);
 				
 	}
+	
+	@Override
+	public Map<String, Object> selectItem(String code) {
+		return shoppingDao.selectItem(code);
+	}
 
 	@Override
 	public List<Map<String, Object>> selectBasket(Users user) {
 		return shoppingDao.selectBasket(user);
+	}
+	
+	@Override
+	public Map<String, Object> sessionBasket(String code) {
+		return shoppingDao.sessionBasket(code);
 	}
 
 	@Override
@@ -52,12 +63,23 @@ public class ShoppingServiceImpl implements ShoppingService {
 	}
 	
 	@Override
+	public int addAmount(Basket basket) {
+		return shoppingDao.addAmount(basket);
+	}
+	
+	@Override
 	public int updateAmount(Basket basket) {
 		return shoppingDao.updateAmount(basket);
 	}
 	
+	@Override
 	public int deleteBasket(Basket basket) {
 		return shoppingDao.deleteBasket(basket);
+	}
+	
+	@Override
+	public int deleteList(Map<String,Object> map) {
+		return shoppingDao.deleteList(map);
 	}
 
 	@Override
@@ -74,6 +96,12 @@ public class ShoppingServiceImpl implements ShoppingService {
 	public List<Map<String, Object>> selectProuct(Basket basket) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int insertOrders(Orders order) {
+		System.out.println("이거 되지?"+order);
+		return shoppingDao.insertOrders(order);
 	}
 
 }

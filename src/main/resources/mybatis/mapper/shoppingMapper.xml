@@ -111,7 +111,14 @@
 		and p.stock > 0 and b.id = #{id}
 		order by b.dates desc
 	</select>
-
+	
+	<!-- 세션 장바구니에 추가할 item 정보 추출 -->
+	<select id="sessionBasket" parameterType="string" resultMap="basketItem">
+		select p.code, name, price, path, renamed, ext from product p, files f, basket b
+		where p.code = f.ref and p.sell = 1 and b.code = p.code 
+		and p.stock > 0 and p.code = #{value}
+		order by b.dates desc
+	</select>
 	
 	<select id="selectProduct" resultMap="basketItem">
 		select p.name, p.company, b.amount, p.price, f.path, f.renamed, f.ext from product p, basket b, files f
@@ -128,22 +135,22 @@
 	</select>
 	
 	<select id="selectPoint" parameterType="String" resultType="int">
-		select point from point_coin
+		select NVL(point, 0) point from point_coin
 		where id = #{id}
 	</select>
 
 	<select id="selectItem" resultMap="detailItem">
 		select p.code, name, price, path, renamed, ext, company, describe, stock from product p, files f
 		where p.code = f.ref and p.sell = 1 and p.stock > 0
-		and p.code = #{code}
+		and p.code = #{value}
 		order by substr(p.code,2) desc
 	</select>
 	
-	<select id="checkBasket">
+	<select id="checkBasket" resultType="int">
 		select count(*) from basket
-		where #{id} and #{code}
+		where id = #{id} and code = #{code}
 	</select>
-	
+
 	<insert id="insertBasket">
 		insert into basket 
 		values(#{id}, #{code}, #{amount}, sysdate)
@@ -154,9 +161,26 @@
 		where id = #{id} and code = #{code}
 	</update>
 	
+	<update id="addAmount">
+		update basket set amount = amount + #{amount}
+		where id = #{id} and code = #{code}
+	</update>
+	
 	<delete id="deleteBasket">
 		delete basket 
 		where code=#{code} and id=#{id}
 	</delete>
-
+	
+	<delete id="deleteList">
+		delete basket where id=#{userId} 
+		and code in
+		<foreach collection="array" item="item" separator="," open="(" close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<insert id="insertOrders">
+		insert into orders
+		values (ORDERS_SEQ.nextval, 1, 1, sysdate, #{mUid}, 'semin', #{toName}, #{toTel}, #{toAddr}, #{toPost})
+	</insert>
 </mapper>

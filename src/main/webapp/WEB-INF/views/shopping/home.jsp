@@ -55,8 +55,8 @@
 		}
 </style>
 	
-	<main class="my-5">
-		<div class="container mx-auto px-6">
+<main class="my-5">
+	<div class="container mx-auto px-6">
         
 			<!-- 이벤트 상품 -->
 			<div class="h-64 rounded-md overflow-hidden bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1577655197620-704858b270ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1280&q=144')">
@@ -114,7 +114,7 @@
 								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('https://images.unsplash.com/photo-1495856458515-0637185db551?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')"></div>
 							</a>
 							<div class="py-2" style="text-align: right;">
-								<button onclick="openModal();" class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+								<button onclick="openModal('${list.code}');" class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
 									<svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
 								</button>
 							</div>
@@ -138,7 +138,7 @@
 								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('https://images.unsplash.com/photo-1495856458515-0637185db551?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')"></div>
 							</a>
 							<div class="py-2" style="text-align: right;">
-								<button onclick="openModal();" class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+								<button onclick="openModal('${list.code}');" class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
 									<svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
 								</button>
 							</div>
@@ -162,7 +162,7 @@
 								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('https://images.unsplash.com/photo-1495856458515-0637185db551?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')"></div>
 							</a>
 							<div class="py-2" style="text-align: right;">
-								<button onclick="openModal();" class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+								<button onclick="openModal('${list.code}');" class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
 									<svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
 								</button>
 							</div>
@@ -176,92 +176,146 @@
 			</div><!-- 다이어트 식품 end -->
         </div>
         
-        <!-- 모달창 -->
-        <div class="main-modal fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster"
-		style="background: rgba(0,0,0,.7);">
+	<!-- 모달창 -->
+	<div class="main-modal fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster"
+	style="background: rgba(0,0,0,.7);">
 		<div style="max-width: 40rem;"
-			class="border border-teal-500 shadow-lg modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+		class="border border-teal-500 shadow-lg modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
 			<div class="modal-content py-4 text-left px-6">
+
 				<!--Title-->
 				<div class="flex justify-between items-center pb-3">
 					<p class="text-2xl font-bold">장바구니 담기</p>
 					<div class="modal-close cursor-pointer z-50">
-						<svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-							viewBox="0 0 18 18">
-							<path
-								d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
-							</path>
+						<svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+						<path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
 						</svg>
 					</div>
 				</div>
+					
 				<!--Body-->
-				<div class="my-5">
-					<div class="md:flex md:items-center">
-                <div class="w-full h-64 md:w-1/2 lg:h-96">
-                    <img class="h-full w-full rounded-md object-cover max-w-lg mx-auto" src="https://images.unsplash.com/photo-1578262825743-a4e402caab76?ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80" alt="Nike Air">
-                </div>
-                <div class="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
-                    <h3 class="text-gray-700 uppercase text-lg">Nike Air</h3>
-                    <span class="text-gray-500 mt-3">$125</span>
-                    <hr class="my-3">
-                    <div class="mt-2">
-                        <div class="flex items-center mt-1">
-                        	<label class="text-gray-700 text-sm mr-3" for="count">Count:</label>
-                            <input type="number" min="1" value="1" name="amount"
-	                  		class="text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
-                        </div>
-                    </div>
-                    <div class="mt-3">
-                        <label class="text-gray-700 text-sm" for="count">Color:</label>
-                        <div class="flex items-center mt-1">
-                            <button class="h-5 w-5 rounded-full bg-blue-600 border-2 border-blue-200 mr-2 focus:outline-none"></button>
-                            <button class="h-5 w-5 rounded-full bg-teal-600 mr-2 focus:outline-none"></button>
-                            <button class="h-5 w-5 rounded-full bg-pink-600 mr-2 focus:outline-none"></button>
-                        </div>
-                    </div>
-                    <div class="flex items-center mt-6">
-                        <button class="px-8 py-2 bg-indigo-600 text-white text-sm font-medium rounded hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500">Order Now</button>
-                        <button class="mx-2 text-gray-600 border rounded-md p-2 hover:bg-gray-200 focus:outline-none">
-                            <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-				</div>
+				<div class="my-5" id="modalBody"></div><!-- 모달 body end -->
+				
 			</div>
 		</div>
-	</div>
-    </main>
+	</div><!-- 모달창 end -->
+	
+	<input type="hidden" id="userId" value="${logInInfo.id }"/>
+</main>
     
 <script>
-		const modal = document.querySelector('.main-modal');
-		const closeButton = document.querySelectorAll('.modal-close');
+const modal = document.querySelector('.main-modal');
+const closeButton = document.querySelectorAll('.modal-close');
 
-		const modalClose = () => {
-			modal.classList.remove('fadeIn');
-			modal.classList.add('fadeOut');
-			setTimeout(() => {
-				modal.style.display = 'none';
-			}, 500);
-		}
+const modalClose = () => {
+	modal.classList.remove('fadeIn');
+	modal.classList.add('fadeOut');
+	setTimeout(() => {
+		modal.style.display = 'none';
+	}, 500);
+}
 
-		const openModal = () => {
-			modal.classList.remove('fadeOut');
-			modal.classList.add('fadeIn');
-			modal.style.display = 'flex';
-		}
+const openModal = (code) => {
+	modal.classList.remove('fadeOut');
+	modal.classList.add('fadeIn');
+	modal.style.display = 'flex';
+	
+	loadBody(code);
+}
 
-		for (let i = 0; i < closeButton.length; i++) {
+for (let i = 0; i < closeButton.length; i++) {
+	const elements = closeButton[i];
+	elements.onclick = (e) => modalClose();
+	modal.style.display = 'none';
+	window.onclick = function (event) {
+		if (event.target == modal) modalClose();
+	}
+}
+		
+const loadBody = (code) => {
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', '<%=request.getContextPath()%>/shopping/modalload?code='+code);
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.send();
+	xhr.addEventListener('load', function() {
+		var data = xhr.response;
+		document.querySelector('#modalBody').innerHTML = data;
+	});
+}
 
-			const elements = closeButton[i];
+const sendOrder = () => {
+	var orderForm = document.createElement("form");
+	orderForm.setAttribute("method", "get");
+	orderForm.setAttribute("action", "<%=request.getContextPath()%>/shopping/payment");
+	
+	var code = document.createElement("input"); 
+	code.setAttribute("type", "hidden"); 
+	code.setAttribute("name", "codes"); 
+	code.setAttribute("value", document.querySelector("#code").value);
+	
+	var amount = document.createElement("input"); 
+	amount.setAttribute("type", "hidden"); 
+	amount.setAttribute("name", "amount"); 
+	amount.setAttribute("value", document.querySelector('#amount').value);
+	
+	var userId = document.createElement("input"); 
+	userId.setAttribute("type", "hidden"); 
+	userId.setAttribute("name", "userId"); 
+	userId.setAttribute("value", document.querySelector('#userId').value);
+	
+	orderForm.appendChild(code);
+	orderForm.appendChild(amount);
+	orderForm.appendChild(userId);
+	
+	document.body.appendChild(orderForm); 
+	orderForm.submit();
+}
 
-			elements.onclick = (e) => modalClose();
+//장바구니 추가
+const sendBasket = () => {
+	var basketForm = document.createElement("form");
+	basketForm.setAttribute("method", "post");
+	basketForm.setAttribute("action", "<%=request.getContextPath()%>/shopping/basket");
+	
+	var code = document.createElement("input"); 
+	code.setAttribute("type", "hidden"); 
+	code.setAttribute("name", "codes"); 
+	code.setAttribute("value", document.querySelector("#code").value);
+	
+	var amount = document.createElement("input"); 
+	amount.setAttribute("type", "hidden"); 
+	amount.setAttribute("name", "amount"); 
+	amount.setAttribute("value", document.querySelector('#amount').value);
+	
+	var userId = document.createElement("input"); 
+	userId.setAttribute("type", "hidden"); 
+	userId.setAttribute("name", "userId"); 
+	userId.setAttribute("value", document.querySelector('#userId').value);
+	
+	basketForm.appendChild(code);
+	basketForm.appendChild(amount);
+	basketForm.appendChild(userId);
+	
+	document.body.appendChild(basketForm);
+	
+	send(event, basketForm);
+}
 
-			modal.style.display = 'none';
-
-			window.onclick = function (event) {
-				if (event.target == modal) modalClose();
+const send = (e,form) => {
+	fetch(form.action,{method:'post', body: new FormData(form)})
+	.then(function(response) {
+		if(response.ok) {
+			var con_test = confirm("장바구니에 상품을 담았습니다. \n장바구니로 이동하시겠습니까?");
+			if(con_test == true){
+				location.href='<%=request.getContextPath()%>/shopping/basket';
+			}
+			else if(con_test == false){
+				modalClose();
 			}
 		}
-	</script>
+	});
+	e.preventDefault();
+}
+</script>
+
 <%@include file="../layout/shopping_footer.jsp" %>

@@ -13,150 +13,137 @@
 <link href="https://tailwindcomponents.com/css/component.checkboxes.css" rel="stylesheet">
     
 <main class="my-5">
-	<div class="container mx-auto px-6">
-		<div class="flex flex-col w-full p-8 text-gray-800 bg-white shadow-lg pin-r pin-y mx-auto">
-			<p class="text-2xl font-medium px-4">장바구니</p>
-			<hr class="pb-3 mt-4">
-			<div class="flex-1">
-				<table class="w-full text-sm lg:text-base" cellspacing="0">
-					<thead>
-						<tr class="h-12 uppercase">
-							<th class="text-left pl-5">
-								<label class="inline-flex items-center mt-3">
-								<input type="checkbox" id="checkAll" class="form-checkbox h-5 w-5 text-blue-600" checked="checked">
-								</label>
-								<input type="hidden" id="userId" value="${logInInfo.id }">
-							</th>
-							<th class="text-center" colspan="2">상품 정보</th>
-							<th class="hidden text-right md:table-cell">상품 금액</th>
-							<th class="lg:text-right text-left pl-5 lg:pl-0">
-								<span class="lg:hidden" title="Quantity">Qtd</span>
-								<span class="hidden lg:inline">수량</span>
-							</th>
-							<th class="text-right">합계</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:if test="${empty basket }">
-							<tr><td>장바구니가 비어있습니다</td></tr>
-						</c:if>
-
-						<c:forEach items="${basket }" var="item" varStatus="stat">
-						<tr id="b${stat.index }">
-							<td class="text-left pl-5">
-								<label class="inline-flex items-center mt-3">
-								<input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" checked="checked" name="checkRow" id="check${stat.index }" value="${item.code }">
-								</label>
-							</td>
-							<td class="hidden pb-4 md:table-cell">
-								<a href="#">
-								<img src="https://limg.app/i/Calm-Cormorant-Catholic-Pinball-Blaster-yM4oub.jpeg" class="w-20 rounded" alt="Thumbnail">
-								</a>
-							</td>
-							<td>
-								<a href="#"><p class="mb-2 md:ml-4">${item.name }</p></a>
-								<button onclick="deleteBasket(${stat.index});" type="button" class="text-gray-700 md:ml-4">
-								<small>(삭제하기)</small>
-								</button>
-							</td>
-							<td class="hidden text-right md:table-cell">
-								<span class="text-sm lg:text-base font-medium" id="price${stat.index }">
-								${item.price }
-								</span>
-							</td>
-							<td class="justify-center md:justify-end md:flex mt-6">
-								<div class="w-20 h-10">
-									<div class="relative flex flex-row w-full h-8">
-									<input type="number" id="amount${stat.index }" min="1" value="${item.amount }" onchange="calcPrice(${stat.index });"
-									class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
-									</div>
+<div class="container mx-auto px-6">
+	<div class="flex flex-col w-full p-8 text-gray-800 bg-white shadow-lg pin-r pin-y mx-auto">
+		<p class="text-2xl font-medium px-4">장바구니</p>
+		<hr class="pb-3 mt-4">
+		<div class="flex-1">
+			<table class="w-full text-sm lg:text-base" cellspacing="0">
+				<thead>
+					<tr class="h-12 uppercase">
+						<th class="text-left pl-5">
+							<label class="inline-flex items-center mt-3">
+							<input type="checkbox" id="checkAll" class="form-checkbox h-5 w-5 text-blue-600" checked="checked">
+							</label>
+							<input type="hidden" id="userId" value="${logInInfo.id }">
+						</th>
+						<th class="text-center" colspan="2">상품 정보</th>
+						<th class="hidden text-right md:table-cell">상품 금액</th>
+						<th class="lg:text-right text-left pl-5 lg:pl-0">
+							<span class="lg:hidden" title="Quantity">수량</span>
+							<span class="hidden lg:inline">수량</span>
+						</th>
+						<th class="text-right" width="15%">합계</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:if test="${empty basket }">
+					<tr><td colspan="6" class="py-2 text-center font-semibold text-blue-700">장바구니가 비어있습니다</td></tr>
+					</c:if>
+					<c:if test="${not empty basket }">
+					<c:set var="subTotal" />
+					<c:forEach items="${basket }" var="item" varStatus="stat">
+					<c:set var="subTotal" value="${subTotal + item.price * item.amount }" />
+					<tr id="b${stat.index }">
+						<td class="text-left pl-5">
+							<label class="inline-flex items-center mt-3">
+							<input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" checked="checked" name="checkRow" id="check${stat.index }" value="${item.code }">
+							</label>
+						</td>
+						<td class="hidden pb-4 md:table-cell">
+							<a href="#">
+							<img src="https://limg.app/i/Calm-Cormorant-Catholic-Pinball-Blaster-yM4oub.jpeg" class="w-20 rounded" alt="Thumbnail">
+							</a>
+						</td>
+						<td>
+							<a href="#"><p class="mb-2 md:ml-4">${item.name }</p></a>
+							<button onclick="deleteBasket(${stat.index});" type="button" class="text-gray-700 md:ml-4">
+							<small>(삭제하기)</small>
+							</button>
+						</td>
+						<td class="hidden text-right md:table-cell">
+							<span class="text-sm lg:text-base font-medium" id="price${stat.index }">
+							${item.price }
+							</span>
+						</td>
+						<td class="justify-center md:justify-end md:flex mt-6">
+							<div class="w-20 h-10">
+								<div class="relative flex flex-row w-full h-8">
+								<input type="number" id="amount${stat.index }" min="1" value="${item.amount }" onchange="calcPrice(${stat.index });"
+								class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
 								</div>
-							</td>
-							<td class="text-right">
-								<span class="text-sm lg:text-base font-medium" id="total${stat.index }">
-								${item.price * item.amount }
-								</span>
-							</td>
-						</tr>
-						<c:set var="totalPrice" value="${totalPrice + info.donationPrice }" />
-						</c:forEach>
-					</tbody>
-				</table>
-			<hr class="pb-6 mt-6">
-	      
-			<div class="flex mx-auto">
-				<button id="selectDel" class="flex justify-center px-10 py-3 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
-				<span class="ml-2 mt-5px">선택 삭제</span>
-				</button>
-			</div>
-	      
-			<div class="my-4 mt-6 -mx-2 lg:flex">
-				<div class="w-full">
-					<div class="p-4 bg-gray-100 rounded-full text-center">
+							</div>
+						</td>
+						<td class="text-right">
+							<span class="text-sm lg:text-base font-medium" id="total${stat.index }">
+							${item.price * item.amount }
+							</span>
+						</td>
+					</tr>
+					</c:forEach>
+					</c:if>
+				</tbody>
+			</table>
+		<hr class="pb-6 mt-6">
+		<div class="flex mx-auto">
+			<button id="selectDel" class="flex justify-center px-10 py-3 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
+			<span class="ml-2 mt-5px">선택 삭제</span>
+			</button>
+		</div>
+      
+		<div class="my-4 mt-6 -mx-2 lg:flex">
+			<div class="w-full">
+				<div class="p-4 bg-gray-100 rounded-full text-center">
 					<h1 class="ml-2 font-bold uppercase">주문 상세</h1>
+				</div>
+				<div class="p-4">
+					<div class="flex justify-between border-b">
+						<div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
+							총 상품금액
+						</div>
+						<div id="subTotal" class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
+							${subTotal } 원
+						</div>
 					</div>
-					<div class="p-4">
-						<div class="flex justify-between border-b">
-	                <div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
-	                  Subtotal
-	                </div>
-	                <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-	                  148,827.53€
-	                </div>
-	              </div>
-	                <div class="flex justify-between pt-4 border-b">
-	                  <div class="flex lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-gray-800">
-	                    <form action="" method="POST">
-	                      <button type="submit" class="mr-2 mt-1 lg:mt-2">
-	                        <svg aria-hidden="true" data-prefix="far" data-icon="trash-alt" class="w-4 text-red-600 hover:text-red-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M268 416h24a12 12 0 0012-12V188a12 12 0 00-12-12h-24a12 12 0 00-12 12v216a12 12 0 0012 12zM432 80h-82.41l-34-56.7A48 48 0 00274.41 0H173.59a48 48 0 00-41.16 23.3L98.41 80H16A16 16 0 000 96v16a16 16 0 0016 16h16v336a48 48 0 0048 48h288a48 48 0 0048-48V128h16a16 16 0 0016-16V96a16 16 0 00-16-16zM171.84 50.91A6 6 0 01177 48h94a6 6 0 015.15 2.91L293.61 80H154.39zM368 464H80V128h288zm-212-48h24a12 12 0 0012-12V188a12 12 0 00-12-12h-24a12 12 0 00-12 12v216a12 12 0 0012 12z"/></svg>
-	                      </button>
-	                    </form>
-	                    Coupon "90off"
-	                  </div>
-	                  <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-green-700">
-	                    -133,944.77€
-	                  </div>
-	                </div>
-	                <div class="flex justify-between pt-4 border-b">
-	                  <div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
-	                    New Subtotal
-	                  </div>
-	                  <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-	                    14,882.75€
-	                  </div>
-	                </div>
-	                <div class="flex justify-between pt-4 border-b">
-	                  <div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
-	                    Tax
-	                  </div>
-	                  <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-	                    2,976.55€
-	                  </div>
-	                </div>
-	                <div class="flex justify-between pt-4 border-b">
-	                  <div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
-	                    Total
-	                  </div>
-	                  <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-	                    17,859.3€
-	                  </div>
-	                </div>
-	              <div class="flex mx-auto justify-center">
-		   			<button class="flex justify-center px-10 py-3 my-6 mx-2 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
-		               <span class="ml-2 mt-5px">쇼핑 홈 가기</span>
-		             </button>
-		             <button class="flex justify-center px-10 py-3 my-6 mx-2 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none" id="orderBtn">
-		               <span class="ml-2 mt-5px">선택 주문</span>
-		             </button>
-			      </div>
-	          </div>
-	        </div>
-	      </div>
-	    </div>
-	  </div>
-	</div>		
-
-    </main>
+                	<div class="flex justify-between border-b">
+						<div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
+							배송비(+)
+						</div>
+						<div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
+							3000 원
+						</div>
+					</div>
+					<div class="flex justify-between pt-4 border-b">
+						<div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
+							할인금액(-)
+						</div>
+						<div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
+							0 원
+						</div>
+					</div>
+					<div class="flex justify-between pt-4 border-b">
+						<div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
+							총 주문금액
+						</div>
+						<div id="totalPrice" class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
+							${subTotal + 3000 } 원
+						</div>
+					</div>
+					<div class="flex mx-auto justify-center">
+						<button onclick="location.href='<%= request.getContextPath()%>/shopping/home'" class="flex justify-center px-10 py-3 my-6 mx-2 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
+							<span class="ml-2 mt-5px">쇼핑 홈 가기</span>
+						</button>
+						<button id="orderBtn" class="flex justify-center px-10 py-3 my-6 mx-2 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
+							<span class="ml-2 mt-5px">선택 주문</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>		
+</main>
  
 <script type="text/javascript">
 function deleteBasket(num){
@@ -186,7 +173,6 @@ function deleteBasket(num){
 }
 
 function calcPrice(num) {
-	document.querySelector("#total"+num).innerText = document.querySelector("#amount"+num).value * document.querySelector("#price"+num).innerText
 	
 	var amount = document.querySelector("#amount"+num).value;
 	var code = document.querySelector("#check"+num).value;
@@ -198,26 +184,31 @@ function calcPrice(num) {
 	
 	xhr.addEventListener('load', function() {
 		console.dir("수량 업데이트 성공")
+		
+		//수량 변경한 물품 총 가격 업데이트
+		document.querySelector("#total"+num).innerText = 
+			document.querySelector("#amount"+num).value * document.querySelector("#price"+num).innerText
+		
+		//전체 가격 총 합 업데이트
+		var length = ${fn:length(basket)};
+		var subTotal = 0;
+		for(var i=0; i<length; i++) {
+			var total = parseInt(document.querySelector("#total"+i).innerText);
+			subTotal += total;
+			
+		}
+		
+		document.querySelector("#subTotal").innerText = subTotal;
+		document.querySelector("#totalPrice").innerText = subTotal + 3000;
 	})
 }
 
-// function orderSubmit() {
-	
-// 	var orderForm = document.createElement("form");
-// 	orderForm.setAttribute("method", "post");
-// 	orderForm.setAttribute("action", "/shopping/payment");
-	
-// 	var length = ${fn:length(basket)};
-	
-// 	for(var i=0; i<length; i++) {
-// 		if(document.querySelector("#check"+i).checked) {
-// 			var code = document.createElement("input");
-// 		}
-// 	}
-// }
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
+	/* var total = 
+	$("#subTotal").innerHtml(); */
+	
 	//선택 주문하기
 	$("#orderBtn").click(function() {
 		// 선택된 체크박스
@@ -231,7 +222,7 @@ $(document).ready(function() {
 
 		// 전송 폼
 		var $form = $("<form>")
-			.attr("action", "/shopping/payment")
+			.attr("action", "<%= request.getContextPath()%>/shopping/payment")
 			.attr("method", "get")
 			.append(
 				$("<input>")
@@ -262,22 +253,24 @@ $("#selectDel").click(function(){
 	});
 	var codes = map.get().join(",");
 	
-	console.dir(codes)
-	console.dir($("#userId").val())
-	
-	$.ajax({
-        type: "POST"
-        , url: "/shopping/deletelist"
-        , data: {
-           userId: $("#userId").val(),
-           codes: codes
-        }
-        , success: function(result) {
-           console.log('접속성공')
-        }
-        , error: function() {
-        }
-     });
+	// 전송 폼
+	var $form = $("<form>")
+		.attr("action", "<%= request.getContextPath()%>/shopping/deletelist")
+		.attr("method", "post")
+		.append(
+				$("<input>")
+					.attr("type", "hidden")
+					.attr("name", "userId")
+					.attr("value", $("#userId").val())
+			)
+			.append(
+				$("<input>")
+					.attr("type", "hidden")
+					.attr("name", "codes")
+					.attr("value", codes)
+			);
+	$(document.body).append($form);
+	$form.submit();
 });
 
 var $checkAll = $('#checkAll');
