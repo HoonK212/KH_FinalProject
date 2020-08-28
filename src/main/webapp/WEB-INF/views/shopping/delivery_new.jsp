@@ -9,7 +9,7 @@
                             <div class="mt-6 inline-flex text-sm mr-8 ml-6">
                              
                               수령인 </div>  
-                               <input name="toName" type="text" class=" w-2/3 text-sm text-gray-700 lex items-center justify-between bg-white rounded-md border-2 border-blue-500 p-2 focus:outline-none" 
+                               <input id="toName" type="text" class=" w-2/3 text-sm text-gray-700 lex items-center justify-between bg-white rounded-md border-2 border-blue-500 p-2 focus:outline-none" 
                             placeholder="50자 이내로 입력하세요.">
                             
 <!--                             <br> -->
@@ -21,7 +21,7 @@
                     		<br>
                             <div class="mt-6 inline-flex text-sm mr-8 ml-6">
                               연락처</div>
-						<input name="toTel" type="text" class=" w-2/3 text-sm text-gray-700 lex items-center justify-between bg-white rounded-md border-2 border-blue-500 p-2 focus:outline-none" 
+						<input id="toTel" type="text" class=" w-2/3 text-sm text-gray-700 lex items-center justify-between bg-white rounded-md border-2 border-blue-500 p-2 focus:outline-none" 
                             placeholder="010-0000-1111">
                             <br>
                             <div class="mt-6 inline-flex text-sm ml-6">
@@ -44,7 +44,9 @@
                             <input id="sample4_detailAddress" name="toDetailAddr" placeholder="상세주소" type="text" class="text-sm w-2/3 text-gray-700 lex items-center justify-between bg-white rounded-md border-2 border-blue-500 p-2 focus:outline-none" ><br>
                             <span id="guide" style="color:#999;display:none"></span>
                             
-<%--                             <c:set var="roadAddress" value="$('#sample4_roadAddress').val() $('#sample4_detailAddress').val()"></c:set> --%>
+<%--                             <c:set var="roadAddress" value="$('#sample4_roadAddress').val()"></c:set> --%>
+<%--                             <c:out value="'$('#sample4_roadAddress').val()' '$('#sample4_detailAddress').val()'"></c:out> --%>
+                            
 <%--                             <c:set var="jibunAddress" value="$('#sample4_jibunAddress').val() $('#sample4_detailAddress').val()"></c:set> --%>
                             
                         <div class="mt-6 inline-flex text-sm ml-6">
@@ -59,5 +61,3 @@
                         
 <!--                              <br> -->
                         </div>
-                        
-                      

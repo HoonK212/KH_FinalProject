@@ -80,7 +80,7 @@
 <%--                             	</c:if> --%>
 <%--                             	<c:if test="(${not empty logInInfo.name and not empty logInInfo.post and not empty logInInfo.addr})"> --%>
                                 	<div class="mt-6 flex text-sm ml-6">
-								    	${logInInfo.id}
+								    	${logInInfo.name}
 									</div>
 									<div class="mt-6 flex text-sm ml-6">
 										${logInInfo.post}
@@ -112,7 +112,7 @@
 							<button class="flex items-center justify-between bg-white float-right rounded-md  
 									border-blue-500 p-2 focus:outline-none mr-6" style="display: inline-flex;">
 	                            <label class="flex items-center">
-	                                <input type="checkbox" class="form-radio h-5 w-5 text-blue-600" checked>
+	                                <input type="checkbox" class="form-radio h-5 w-5 text-blue-600"/>
 	                                <span class="ml-2 text-sm text-gray-700">적립포인트 전액 사용</span>
 	                            </label>
                              	<span class="text-gray-600 text-sm"></span>
@@ -120,7 +120,7 @@
                         <br><br><br>
 							<div id="point" class="mt-6 inline-flex text-sm mr-6 ml-6">
 								사용 포인트 </div>
-							<input type="number" class=" w-1/6 mr-6 text-sm text-gray-700 lex items-center justify-between 
+							<input id="point" type="number" max="50000" min="1"  class=" w-1/6 mr-6 text-sm text-gray-700 lex items-center justify-between 
 									bg-white rounded-md border-2 border-blue-500 p-2 focus:outline-none float-right" >
                        	</div>
                     </form>
@@ -165,14 +165,15 @@
 					<!-- ---------------------------------------주문정보-------------------------------- -->
 						<c:set var="total" value="0"></c:set>
 						
-                        <c:forEach items="${product}" var="product">
                         
-                       		<c:set var="price" value="${product.price * product.amount }"></c:set>
                        		
                         		<div class="border rounded-md w-full px-4 py-10">
                             		<div class="flex items-center justify-between">
                                 		<h3 class="text-gray-700 font-medium">주문 정보</h3>
                             		</div>
+                        <c:forEach items="${product}" var="product">
+                       		<c:set var="price" value="${product.price * product.amount }"></c:set>
+                        			<div>
                             	<div class="flex justify-between mt-6 ">
                                 	<div class="flex w-full">
                                     	<img class="h-25 w-40 object-cover rounded" src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80" alt="">
@@ -197,10 +198,12 @@
                                 	</div>
                             	</div>
                                 <span class="text-gray-600 float-right mx-8">주문 금액 ${price}원</span>
-                        	</div>
-                        	
+                                </div>
+                                <br>
                         	<c:set var="total" value="${total + price}"></c:set>
                       </c:forEach>
+                        	</div>
+                        	
                     </div>
                 </div>  
             </div>
@@ -225,13 +228,13 @@
 				        </div>
                         <div class="mx-3">
                         
-						<c:set var="totalPayment" value="${total - point + 3000}"></c:set>
+						<c:set var="totalPayment" value="${total  + 3000}"></c:set>
 						
                         	<h3 class="text-sm text-gray-600">${totalPayment}</h3>
                             <br>
                             <h3 class="text-sm text-gray-600">3,000원</h3>
                             <h3 class="text-sm text-gray-600">0원</h3>
-                            <h3 class="text-sm text-gray-600">${point }포인트</h3>
+                            <h3 id="usePoint" class="text-sm text-gray-600"> 포인트</h3>
                         </div>
 					</div>
 				</div>
@@ -251,7 +254,7 @@
 				    <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M7 16l-4-4m0 0l4-4m-4 4h18"></path></svg>
 				    <span class="mx-2">이전</span>
 				</button>
-                <button onclick="requestPayment();" id="pay" disabled="disabled" class="flex items-center px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded-md focus:outline-none focus:bg-blue-500 float-right">
+                <button onclick="requestPayment();" id="pay" class="flex items-center px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded-md focus:outline-none focus:bg-blue-500 float-right">
                     <span>결제</span>
                     <svg class="h-5 w-5 mx-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                 </button>
@@ -260,32 +263,13 @@
         	</div>
         </div>
     	</main>
-    	
-<script type="text/javascript">
-$(document).ready(function(){
-	
-    $("#necessary").change(function(){
-    	
-    	console.log("체크")
-/*     	
-    	console.log("버튼클릭")
-    		if( !( $("#necessary").is(":checked") )){
-    			alert('구매 동의 체크 해주세요.')
-    		}
-    	
-    	 */
-    	
-        if($("#necessary").is(":checked")){
-        	
-            $("#pay").prop('disabled', false);
-            
-        }else{
-        	$("#pay").prop('disabled', true);
-        }
-    });
-});
+  
+<script type="text/javascript">  	
+   	$("#usePoint").change(function(){
+   		
+   		
+   	})
 </script>
-    
 <script type="text/javascript">
 
 var xmlHttp = null;
@@ -387,6 +371,18 @@ $(document).ready(function() {
 
 <script>
 function requestPayment() {
+	
+	console.log("클릭했니")
+	if($("#necessary").is(":checked")){
+		console.log("활성화하렴")
+		$("#pay").prop('disabled', false);
+	}else{
+		console.log("비활성화하렴")
+		alert("구매조건 확인 및 결제진행 동의 체크 사항은 필수입니다.")
+		return;
+	}
+	
+	
 	IMP.request_pay({
 	    pg : 'html5_inicis', //PG사 - 'kakao':카카오페이, 'html5_inicis':이니시스(웹표준결제), 'nice':나이스페이, 'jtnet':제이티넷, 'uplus':LG유플러스, 'danal':다날, 'payco':페이코, 'syrup':시럽페이, 'paypal':페이팔
 	    pay_method : 'card', //결제방식 - 'samsung':삼성페이, 'card':신용카드, 'trans':실시간계좌이체, 'vbank':가상계좌, 'phone':휴대폰소액결제
@@ -397,13 +393,13 @@ function requestPayment() {
 	    buyer_name : '${logInInfo.name}', //주문자명 - 선택항목 
 	    buyer_tel : '${logInInfo.tel}', //주문자연락처 - 필수항목, 누락되면 PG사전송 시 오류 발생
 	   	buyer_addr : '${logInInfo.addr}', //주문자주소 - 선택항목
-	    buyer_postcode : '${logInInfo.addr}', //주문자우편번호 - 선택항목 
+	    buyer_postcode : '${logInInfo.post}', //주문자우편번호 - 선택항목 
 	    
 	   // m_redirect_url : 'https://www.yourdomain.com/payments/complete' //모바일결제후 이동페이지 - 선택항목, 모바일에서만 동작
 	    
 	}, function(rsp) { // callback - 결제 이후 호출됨, 이곳에서 DB에 저장하는 로직을 작성한다
 	    if ( rsp.success ) { // 결제 성공 로직
-	        var msg = '결제가 완료되었습니다.';
+	        var msg = '결제가 완료되었습니다. 저거니';
 	        msg += '고유ID : ' + rsp.imp_uid;
 	        msg += '상점 거래ID : ' + rsp.merchant_uid;
 	        msg += '결제 금액 : ' + rsp.paid_amount;
@@ -413,41 +409,44 @@ function requestPayment() {
 	        
 	        // 결제 완료 처리 로직
 			//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
-		jQuery.ajax({
-				url: "/shopping/paymentCheck", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
-				type: 'POST',
-				dataType: 'json',
-				data: {
-					imp_uid : rsp.imp_uid
-					//기타 필요한 데이터가 있으면 추가 전달
-					}
-	
-			}).done(function(data) {
+			jQuery.ajax({
+					url: "/shopping/paymentCheck", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
+					type: 'POST',
+					dataType: 'json',
+					contentType:'application/json',
+					data: JSON.stringify({
+						imp_uid : rsp.imp_uid,
+						name : $('#toName').val(),
+						tel : $('#toTel').val(),
+						post :$('#toPost').val(),
+						addr : $("#sample4_roadAddress").val()+" "+$("#sample4_detailAddress").val(),
+						product : '${product}',
+						logInInfo : '${logInInfo}',
+						point : '${point}'
+						//기타 필요한 데이터가 있으면 추가 전달
+						})
+				}).done(function(data) {
 				//[2] 서버에서의 응답 처리
-				if ( data == 'success' ) {
-					var msg = '결제가 완료되었습니다.';
-					msg += '\n고유ID : ' + rsp.imp_uid;
-					msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-					msg += '\n결제 금액 : ' + rsp.paid_amount;
-					msg += '\n카드 승인번호 : ' + rsp.apply_num;
-			        msg += '\n[done]';
-
-					alert(msg);
-					
-					location.href="/shopping/paymentComplete";
-					
-	    		} else {
+					if ( data == 'success' ) {
+						var msg = '결제가 완료되었습니다. 이거니';
+						msg += '\n고유ID : ' + rsp.imp_uid;
+						msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+						msg += '\n결제 금액 : ' + rsp.paid_amount;
+						msg += '\n카드 승인번호 : ' + rsp.apply_num;
+				        msg += '\n[done]';
+	
+						alert(msg);
+	    			} else {
 	    			//[3] 아직 제대로 결제가 되지 않았습니다.
 	    			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
-	    			
-	    		}
-	    	});
+	    			}
+	    		});
+			location.href="/shopping/paymentComplete";
 	        
 	    } else { // 결제 실패 로직
 	        var msg = '결제에 실패하였습니다.';
 	        msg += '에러내용 : ' + rsp.error_msg;
 	    }
-	    alert(msg);
 	});
 }
 

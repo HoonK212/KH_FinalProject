@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.dht.www.shopping.model.service.ShoppingService;
 import com.dht.www.shopping.model.vo.Basket;
 import com.dht.www.user.model.vo.Users;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequestMapping("/shopping")
@@ -223,6 +227,21 @@ public class ShoppingController {
 	public void shoppingPaymentCheck(@RequestBody String uid) {
 		
 		System.out.println("결제" + uid);
+		
+		ObjectMapper mapper = new ObjectMapper(); 
+		Map<String, Object> map = new HashMap<String, Object>(); 
+		try {
+			map = mapper.readValue(uid, new TypeReference<Map<String, Object>>(){});
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		} 
+		System.out.println("1 값이 나오나 " + map.get("product"));
+		System.out.println("2 값이 나오나 " + map.get("poin"));
+		System.out.println("3 값이 나오나 " + map.get("logName"));
+		System.out.println("4 값이 나오나 " + map.get("logPost"));
+		System.out.println("5 값이 나오나 " + map.get("logAddr"));
+
+		
 	}
 	
 	@RequestMapping(value="/paymentComplete", method = RequestMethod.GET)
