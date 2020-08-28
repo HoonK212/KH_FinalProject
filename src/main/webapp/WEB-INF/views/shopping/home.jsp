@@ -55,8 +55,8 @@
 		}
 </style>
 	
-	<main class="my-5">
-		<div class="container mx-auto px-6">
+<main class="my-5">
+	<div class="container mx-auto px-6">
         
 			<!-- 이벤트 상품 -->
 			<div class="h-64 rounded-md overflow-hidden bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1577655197620-704858b270ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1280&q=144')">
@@ -203,39 +203,39 @@
 		</div>
 	</div><!-- 모달창 end -->
 	
-    </main>
+	<input type="hidden" id="userId" value="${logInInfo.id }"/>
+</main>
     
 <script>
-		const modal = document.querySelector('.main-modal');
-		const closeButton = document.querySelectorAll('.modal-close');
+const modal = document.querySelector('.main-modal');
+const closeButton = document.querySelectorAll('.modal-close');
 
-		const modalClose = () => {
-			modal.classList.remove('fadeIn');
-			modal.classList.add('fadeOut');
-			setTimeout(() => {
-				modal.style.display = 'none';
-			}, 500);
-		}
+const modalClose = () => {
+	modal.classList.remove('fadeIn');
+	modal.classList.add('fadeOut');
+	setTimeout(() => {
+		modal.style.display = 'none';
+	}, 500);
+}
 
-		const openModal = (code) => {
-			modal.classList.remove('fadeOut');
-			modal.classList.add('fadeIn');
-			modal.style.display = 'flex';
-			
-			loadBody(code);
-		}
+const openModal = (code) => {
+	modal.classList.remove('fadeOut');
+	modal.classList.add('fadeIn');
+	modal.style.display = 'flex';
+	
+	loadBody(code);
+}
 
-		for (let i = 0; i < closeButton.length; i++) {
-			const elements = closeButton[i];
-			elements.onclick = (e) => modalClose();
-			modal.style.display = 'none';
-			window.onclick = function (event) {
-				if (event.target == modal) modalClose();
-			}
-		}
+for (let i = 0; i < closeButton.length; i++) {
+	const elements = closeButton[i];
+	elements.onclick = (e) => modalClose();
+	modal.style.display = 'none';
+	window.onclick = function (event) {
+		if (event.target == modal) modalClose();
+	}
+}
 		
-function loadBody(code) {
-	console.log(code);
+const loadBody = (code) => {
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET', '<%=request.getContextPath()%>/shopping/modalload?code='+code);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -245,5 +245,80 @@ function loadBody(code) {
 		document.querySelector('#modalBody').innerHTML = data;
 	});
 }
-</script>
+
+const sendOrder = () => {
+	var orderForm = document.createElement("form");
+	orderForm.setAttribute("method", "get");
+	orderForm.setAttribute("action", "<%=request.getContextPath()%>/shopping/payment");
+	
+	var code = document.createElement("input"); 
+	code.setAttribute("type", "hidden"); 
+	code.setAttribute("name", "codes"); 
+	code.setAttribute("value", document.querySelector("#code").value);
+	
+	var amount = document.createElement("input"); 
+	amount.setAttribute("type", "hidden"); 
+	amount.setAttribute("name", "amount"); 
+	amount.setAttribute("value", document.querySelector('#amount').value);
+	
+	var userId = document.createElement("input"); 
+	userId.setAttribute("type", "hidden"); 
+	userId.setAttribute("name", "userId"); 
+	userId.setAttribute("value", document.querySelector('#userId').value);
+	
+	orderForm.appendChild(code);
+	orderForm.appendChild(amount);
+	orderForm.appendChild(userId);
+	
+	document.body.appendChild(orderForm); 
+	orderForm.submit();
+}
+
+//장바구니 추가
+const sendBasket = () => {
+	var basketForm = document.createElement("form");
+	basketForm.setAttribute("method", "post");
+	basketForm.setAttribute("action", "<%=request.getContextPath()%>/shopping/basket");
+	
+	var code = document.createElement("input"); 
+	code.setAttribute("type", "hidden"); 
+	code.setAttribute("name", "codes"); 
+	code.setAttribute("value", document.querySelector("#code").value);
+	
+	var amount = document.createElement("input"); 
+	amount.setAttribute("type", "hidden"); 
+	amount.setAttribute("name", "amount"); 
+	amount.setAttribute("value", document.querySelector('#amount').value);
+	
+	var userId = document.createElement("input"); 
+	userId.setAttribute("type", "hidden"); 
+	userId.setAttribute("name", "userId"); 
+	userId.setAttribute("value", document.querySelector('#userId').value);
+	
+	basketForm.appendChild(code);
+	basketForm.appendChild(amount);
+	basketForm.appendChild(userId);
+	
+	document.body.appendChild(basketForm);
+	
+	send(event, basketForm);
+}
+
+const send = (e,form) => {
+	fetch(form.action,{method:'post', body: new FormData(form)})
+	.then(function(response) {
+		if(response.ok) {
+			var con_test = confirm("장바구니에 상품을 담았습니다. \n장바구니로 이동하시겠습니까?");
+			if(con_test == true){
+				location.href='<%=request.getContextPath()%>/shopping/basket';
+			}
+			else if(con_test == false){
+				modalClose();
+			}
+		}
+	});
+	e.preventDefault();
+}
+</script>	
+
 <%@include file="../layout/shopping_footer.jsp" %>

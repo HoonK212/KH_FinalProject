@@ -13,136 +13,135 @@
 <link href="https://tailwindcomponents.com/css/component.checkboxes.css" rel="stylesheet">
     
 <main class="my-5">
-	<div class="container mx-auto px-6">
-		<div class="flex flex-col w-full p-8 text-gray-800 bg-white shadow-lg pin-r pin-y mx-auto">
-			<p class="text-2xl font-medium px-4">장바구니</p>
-			<hr class="pb-3 mt-4">
-			<div class="flex-1">
-				<table class="w-full text-sm lg:text-base" cellspacing="0">
-					<thead>
-						<tr class="h-12 uppercase">
-							<th class="text-left pl-5">
-								<label class="inline-flex items-center mt-3">
-								<input type="checkbox" id="checkAll" class="form-checkbox h-5 w-5 text-blue-600" checked="checked">
-								</label>
-								<input type="hidden" id="userId" value="${logInInfo.id }">
-							</th>
-							<th class="text-center" colspan="2">상품 정보</th>
-							<th class="hidden text-right md:table-cell">상품 금액</th>
-							<th class="lg:text-right text-left pl-5 lg:pl-0">
-								<span class="lg:hidden" title="Quantity">수량</span>
-								<span class="hidden lg:inline">수량</span>
-							</th>
-							<th class="text-right" width="15%">합계</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:if test="${empty basket }">
-							<tr><td colspan="6" class="py-2 text-center font-semibold text-blue-700">장바구니가 비어있습니다</td></tr>
-						</c:if>
-						<c:set var="subTotal" />
-						<c:forEach items="${basket }" var="item" varStatus="stat">
-						<c:set var="subTotal" value="${subTotal + item.price * item.amount }" />
-						<tr id="b${stat.index }">
-							<td class="text-left pl-5">
-								<label class="inline-flex items-center mt-3">
-								<input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" checked="checked" name="checkRow" id="check${stat.index }" value="${item.code }">
-								</label>
-							</td>
-							<td class="hidden pb-4 md:table-cell">
-								<a href="#">
-								<img src="https://limg.app/i/Calm-Cormorant-Catholic-Pinball-Blaster-yM4oub.jpeg" class="w-20 rounded" alt="Thumbnail">
-								</a>
-							</td>
-							<td>
-								<a href="#"><p class="mb-2 md:ml-4">${item.name }</p></a>
-								<button onclick="deleteBasket(${stat.index});" type="button" class="text-gray-700 md:ml-4">
-								<small>(삭제하기)</small>
-								</button>
-							</td>
-							<td class="hidden text-right md:table-cell">
-								<span class="text-sm lg:text-base font-medium" id="price${stat.index }">
-								${item.price }
-								</span>
-							</td>
-							<td class="justify-center md:justify-end md:flex mt-6">
-								<div class="w-20 h-10">
-									<div class="relative flex flex-row w-full h-8">
-									<input type="number" id="amount${stat.index }" min="1" value="${item.amount }" onchange="calcPrice(${stat.index });"
-									class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
-									</div>
+<div class="container mx-auto px-6">
+	<div class="flex flex-col w-full p-8 text-gray-800 bg-white shadow-lg pin-r pin-y mx-auto">
+		<p class="text-2xl font-medium px-4">장바구니</p>
+		<hr class="pb-3 mt-4">
+		<div class="flex-1">
+			<table class="w-full text-sm lg:text-base" cellspacing="0">
+				<thead>
+					<tr class="h-12 uppercase">
+						<th class="text-left pl-5">
+							<label class="inline-flex items-center mt-3">
+							<input type="checkbox" id="checkAll" class="form-checkbox h-5 w-5 text-blue-600" checked="checked">
+							</label>
+							<input type="hidden" id="userId" value="${logInInfo.id }">
+						</th>
+						<th class="text-center" colspan="2">상품 정보</th>
+						<th class="hidden text-right md:table-cell">상품 금액</th>
+						<th class="lg:text-right text-left pl-5 lg:pl-0">
+							<span class="lg:hidden" title="Quantity">수량</span>
+							<span class="hidden lg:inline">수량</span>
+						</th>
+						<th class="text-right" width="15%">합계</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:if test="${empty basket }">
+						<tr><td colspan="6" class="py-2 text-center font-semibold text-blue-700">장바구니가 비어있습니다</td></tr>
+					</c:if>
+					<c:set var="subTotal" />
+					<c:forEach items="${basket }" var="item" varStatus="stat">
+					<c:set var="subTotal" value="${subTotal + item.price * item.amount }" />
+					<tr id="b${stat.index }">
+						<td class="text-left pl-5">
+							<label class="inline-flex items-center mt-3">
+							<input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" checked="checked" name="checkRow" id="check${stat.index }" value="${item.code }">
+							</label>
+						</td>
+						<td class="hidden pb-4 md:table-cell">
+							<a href="#">
+							<img src="https://limg.app/i/Calm-Cormorant-Catholic-Pinball-Blaster-yM4oub.jpeg" class="w-20 rounded" alt="Thumbnail">
+							</a>
+						</td>
+						<td>
+							<a href="#"><p class="mb-2 md:ml-4">${item.name }</p></a>
+							<button onclick="deleteBasket(${stat.index});" type="button" class="text-gray-700 md:ml-4">
+							<small>(삭제하기)</small>
+							</button>
+						</td>
+						<td class="hidden text-right md:table-cell">
+							<span class="text-sm lg:text-base font-medium" id="price${stat.index }">
+							${item.price }
+							</span>
+						</td>
+						<td class="justify-center md:justify-end md:flex mt-6">
+							<div class="w-20 h-10">
+								<div class="relative flex flex-row w-full h-8">
+								<input type="number" id="amount${stat.index }" min="1" value="${item.amount }" onchange="calcPrice(${stat.index });"
+								class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
 								</div>
-							</td>
-							<td class="text-right">
-								<span class="text-sm lg:text-base font-medium" id="total${stat.index }">
-								${item.price * item.amount }
-								</span>
-							</td>
-						</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			<hr class="pb-6 mt-6">
-			<div class="flex mx-auto">
-				<button id="selectDel" class="flex justify-center px-10 py-3 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
-				<span class="ml-2 mt-5px">선택 삭제</span>
-				</button>
-			</div>
-	      
-			<div class="my-4 mt-6 -mx-2 lg:flex">
-				<div class="w-full">
-					<div class="p-4 bg-gray-100 rounded-full text-center">
+							</div>
+						</td>
+						<td class="text-right">
+							<span class="text-sm lg:text-base font-medium" id="total${stat.index }">
+							${item.price * item.amount }
+							</span>
+						</td>
+					</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		<hr class="pb-6 mt-6">
+		<div class="flex mx-auto">
+			<button id="selectDel" class="flex justify-center px-10 py-3 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
+			<span class="ml-2 mt-5px">선택 삭제</span>
+			</button>
+		</div>
+      
+		<div class="my-4 mt-6 -mx-2 lg:flex">
+			<div class="w-full">
+				<div class="p-4 bg-gray-100 rounded-full text-center">
 					<h1 class="ml-2 font-bold uppercase">주문 상세</h1>
+				</div>
+				<div class="p-4">
+					<div class="flex justify-between border-b">
+						<div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
+							총 상품금액
+						</div>
+						<div id="subTotal" class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
+							${subTotal } 원
+						</div>
 					</div>
-					<div class="p-4">
-						<div class="flex justify-between border-b">
-	                <div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
-	                  총 상품금액
-	                </div>
-	                <div id="subTotal" class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-	                  ${subTotal } 원
-	                </div>
-	              </div>
-	                <div class="flex justify-between border-b">
-	                <div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
-	                  배송비(+)
-	                </div>
-	                <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-	                  3000 원
-	                </div>
-	              </div>
-	                <div class="flex justify-between pt-4 border-b">
-	                  <div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
-	                    할인금액(-)
-	                  </div>
-	                  <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-	                    0 원
-	                  </div>
-	                </div>
-	                <div class="flex justify-between pt-4 border-b">
-	                  <div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
-	                    총 주문금액
-	                  </div>
-	                  <div id="totalPrice" class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-	                    ${subTotal + 3000 } 원
-	                  </div>
-	                </div>
-	              <div class="flex mx-auto justify-center">
-		   			<button onclick="location.href='<%= request.getContextPath()%>/shopping/home'" class="flex justify-center px-10 py-3 my-6 mx-2 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
-		               <span class="ml-2 mt-5px">쇼핑 홈 가기</span>
-		             </button>
-		             <button id="orderBtn" class="flex justify-center px-10 py-3 my-6 mx-2 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
-		               <span class="ml-2 mt-5px">선택 주문</span>
-		             </button>
-			      </div>
-	          </div>
-	        </div>
-	      </div>
-	    </div>
-	  </div>
-	</div>		
-
-    </main>
+                	<div class="flex justify-between border-b">
+						<div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
+							배송비(+)
+						</div>
+						<div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
+							3000 원
+						</div>
+					</div>
+					<div class="flex justify-between pt-4 border-b">
+						<div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
+							할인금액(-)
+						</div>
+						<div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
+							0 원
+						</div>
+					</div>
+					<div class="flex justify-between pt-4 border-b">
+						<div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
+							총 주문금액
+						</div>
+						<div id="totalPrice" class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
+							${subTotal + 3000 } 원
+						</div>
+					</div>
+					<div class="flex mx-auto justify-center">
+						<button onclick="location.href='<%= request.getContextPath()%>/shopping/home'" class="flex justify-center px-10 py-3 my-6 mx-2 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
+							<span class="ml-2 mt-5px">쇼핑 홈 가기</span>
+						</button>
+						<button id="orderBtn" class="flex justify-center px-10 py-3 my-6 mx-2 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
+							<span class="ml-2 mt-5px">선택 주문</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>		
+</main>
  
 <script type="text/javascript">
 function deleteBasket(num){
@@ -202,20 +201,6 @@ function calcPrice(num) {
 	})
 }
 
-// function orderSubmit() {
-	
-// 	var orderForm = document.createElement("form");
-// 	orderForm.setAttribute("method", "post");
-// 	orderForm.setAttribute("action", "/shopping/payment");
-	
-// 	var length = ${fn:length(basket)};
-	
-// 	for(var i=0; i<length; i++) {
-// 		if(document.querySelector("#check"+i).checked) {
-// 			var code = document.createElement("input");
-// 		}
-// 	}
-// }
 </script>
 <script type="text/javascript">
 $(document).ready(function() {

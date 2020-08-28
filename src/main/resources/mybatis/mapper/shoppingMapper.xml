@@ -139,11 +139,11 @@
 		order by substr(p.code,2) desc
 	</select>
 	
-	<select id="checkBasket">
+	<select id="checkBasket" resultType="int">
 		select count(*) from basket
-		where #{id} and #{code}
+		where id = #{id} and code = #{code}
 	</select>
-	
+
 	<insert id="insertBasket">
 		insert into basket 
 		values(#{id}, #{code}, #{amount}, sysdate)
@@ -151,6 +151,11 @@
 	
 	<update id="updateAmount">
 		update basket set amount = #{amount}
+		where id = #{id} and code = #{code}
+	</update>
+	
+	<update id="addAmount">
+		update basket set amount = amount + #{amount}
 		where id = #{id} and code = #{code}
 	</update>
 	

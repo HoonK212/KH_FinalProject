@@ -23,6 +23,8 @@ public interface ShoppingService {
 	
 	public int insertBasket(Basket basket);
 	
+	public int addAmount(Basket basket);
+
 	public int updateAmount(Basket basket);
 	
 	public int deleteBasket(Basket basket);

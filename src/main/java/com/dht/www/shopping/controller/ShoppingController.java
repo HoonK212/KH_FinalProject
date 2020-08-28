@@ -71,7 +71,6 @@ public class ShoppingController {
 	
 	@RequestMapping(value="/modalload", method=RequestMethod.GET)
 	public String modalLoad(Model model, String code) {
-		//System.out.println("/modalload GET code : "+code);
 		model.addAttribute("detail", shoppingService.selectItem(code));
 		return "/shopping/modalcontent";
 	}
@@ -97,16 +96,34 @@ public class ShoppingController {
 
 	//장바구니 추가
 	@RequestMapping(value="/basket", method=RequestMethod.POST)
-	public void addBasket(Model model, HttpSession session) {
+	@ResponseBody
+	public void addBasket(Model model, HttpSession session, 
+			@RequestParam(required=false, defaultValue="guest") String userId, String codes, int amount) {
+		System.out.println(userId);
+		System.out.println(codes);
+		System.out.println(amount);
 		
 		Users user = (Users)session.getAttribute("logInInfo");
 		
-		if(user != null) {
+		if(user != null && userId.equals(user.getId())) {
 			//로그인
+			Basket basket = new Basket();
+			basket.setCode(codes);
+			basket.setId(userId);
+			basket.setAmount(amount);
+			
+			int res = shoppingService.checkBasket(basket);
+			System.out.println(res);
+			
+			if(res > 0) {
+				shoppingService.addAmount(basket);
+				
+			} else {
+				shoppingService.insertBasket(basket);
+			}
 			
 		} else {
 			//비로그인
-			
 		}
 	}
 	
@@ -280,4 +297,17 @@ public class ShoppingController {
 			return "shopping/delivery_new";
 		}
 	}
+	
+	@RequestMapping(value="/test", method=RequestMethod.GET)
+	public void testGet() {
+		
+	}
+	
+	@RequestMapping(value="/test", method=RequestMethod.POST)
+	public void testPost(@RequestParam(required=false, defaultValue="guest") String userId, String codes, int amount) {
+		System.out.println(userId);
+		System.out.println(codes);
+		System.out.println(amount);
+	}
+	
 }
