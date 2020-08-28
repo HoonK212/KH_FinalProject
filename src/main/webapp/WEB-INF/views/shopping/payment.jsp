@@ -418,7 +418,7 @@ function requestPayment() {
 						imp_uid : rsp.imp_uid,
 						name : $('#toName').val(),
 						tel : $('#toTel').val(),
-						post :$('#toPost').val(),
+						post :$('#sample4_postcode').val(),
 						addr : $("#sample4_roadAddress").val()+" "+$("#sample4_detailAddress").val(),
 						product : '${product}',
 						logInInfo : '${logInInfo}',

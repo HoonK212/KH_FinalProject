@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dht.www.shopping.model.vo.Basket;
+import com.dht.www.shopping.model.vo.Orders;
 import com.dht.www.user.model.vo.Users;
 
 import common.util.Paging;
@@ -73,6 +74,10 @@ public class ShoppingDao {
 	
 	public int selectPoint(String id) {
 		return sqlSession.selectOne("Shopping.selectPoint", id);
+	}
+	
+	public int insertOrders(Orders order) {
+		return sqlSession.insert("Shopping.insertOrders", order);
 	}
 	
 }
