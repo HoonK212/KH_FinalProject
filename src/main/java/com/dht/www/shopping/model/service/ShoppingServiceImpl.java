@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.dht.www.shopping.model.dao.ShoppingDao;
 import com.dht.www.shopping.model.vo.Basket;
+import com.dht.www.shopping.model.vo.Orders;
 import com.dht.www.user.model.vo.Users;
 
 import common.util.Paging;
@@ -85,6 +86,12 @@ public class ShoppingServiceImpl implements ShoppingService {
 	public List<Map<String, Object>> selectProuct(Basket basket) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int insertOrders(Orders order) {
+		System.out.println("이거 되지?"+order);
+		return shoppingDao.insertOrders(order);
 	}
 
 }

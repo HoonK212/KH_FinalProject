@@ -166,4 +166,9 @@
 			#{item}
 		</foreach>
 	</delete>
+	
+	<insert id="insertOrders">
+		insert into orders
+		values (ORDERS_SEQ.nextval, 1, 1, sysdate, #{mUid}, 'semin', #{toName}, #{toTel}, #{toAddr}, #{toPost})
+	</insert>
 </mapper>

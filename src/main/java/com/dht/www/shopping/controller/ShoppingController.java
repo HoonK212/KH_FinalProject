@@ -1,5 +1,6 @@
 package com.dht.www.shopping.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dht.www.shopping.model.service.ShoppingService;
 import com.dht.www.shopping.model.vo.Basket;
+import com.dht.www.shopping.model.vo.Orders;
+import com.dht.www.shopping.model.vo.Product;
 import com.dht.www.user.model.vo.Users;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -226,22 +229,40 @@ public class ShoppingController {
 	@ResponseBody
 	public void shoppingPaymentCheck(@RequestBody String uid) {
 		
-		System.out.println("결제" + uid);
-		
 		ObjectMapper mapper = new ObjectMapper(); 
-		Map<String, Object> map = new HashMap<String, Object>(); 
+		Map<String, Object> map = new HashMap<String, Object>();
+
 		try {
+			
 			map = mapper.readValue(uid, new TypeReference<Map<String, Object>>(){});
+			
+			Orders order = new Orders();
+//			order.setId();
+			order.setmUid((String)map.get("imp_uid"));
+			order.setToName((String)map.get("name"));
+			order.setToTel((String)map.get("tel"));
+			order.setToAddr((String)map.get("addr"));
+			order.setToPost((String)map.get("post"));
+
+			System.out.println(order);
+			shoppingService.insertOrders(order);
+			
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		} 
-		System.out.println("1 값이 나오나 " + map.get("product"));
-		System.out.println("2 값이 나오나 " + map.get("poin"));
-		System.out.println("3 값이 나오나 " + map.get("logName"));
-		System.out.println("4 값이 나오나 " + map.get("logPost"));
-		System.out.println("5 값이 나오나 " + map.get("logAddr"));
-
 		
+//		System.out.println("user : " + user);
+//		System.out.println("product : " + product);
+//		System.out.println("1 값이 나오나 " + map1.get("product").getClass() );
+//		System.out.println("2 값이 나오나 " + map1.get("point").getClass());
+//		System.out.println("3 값이 나오나 " + map1.get("logInInfo").getClass());
+//		System.out.println("4 값이 나오나 " + map1.get("addr").getClass());
+//		System.out.println("5 값이 나오나 " + map1.get("post").getClass());
+//		System.out.println("6 값이 나오나 " + map1.get("tel").getClass());
+//		System.out.println("7 값이 나오나 " + map1.get("name").getClass());
+//		System.out.println("8 값이 나오나 " + map1.get("imp_uid").getClass());
+//		
+//		System.out.println("9 값이 나오나 " + list);
 	}
 	
 	@RequestMapping(value="/paymentComplete", method = RequestMethod.GET)
