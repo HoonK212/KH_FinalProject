@@ -40,11 +40,15 @@ public class ShoppingDao {
 	}
 	
 	public int checkBasket(Basket basket) {
-		return sqlSession.selectOne("Shopping.checkBasket");
+		return sqlSession.selectOne("Shopping.checkBasket", basket);
 	}
 	
 	public int insertBasket(Basket basket) {
-		return sqlSession.insert("Shopping.insertBasket");
+		return sqlSession.insert("Shopping.insertBasket", basket);
+	}
+	
+	public int addAmount(Basket basket) {
+		return sqlSession.update("Shopping.addAmount", basket);
 	}
 	
 	public int updateAmount(Basket basket) {

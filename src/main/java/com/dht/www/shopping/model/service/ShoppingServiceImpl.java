@@ -57,6 +57,11 @@ public class ShoppingServiceImpl implements ShoppingService {
 	}
 	
 	@Override
+	public int addAmount(Basket basket) {
+		return shoppingDao.addAmount(basket);
+	}
+	
+	@Override
 	public int updateAmount(Basket basket) {
 		return shoppingDao.updateAmount(basket);
 	}
