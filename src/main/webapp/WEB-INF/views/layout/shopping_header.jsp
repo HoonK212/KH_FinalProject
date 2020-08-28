@@ -83,75 +83,28 @@
 		                </div>
 		            </div>
 		            <div class="flex flex-col md:flex-row hidden md:block -mx-2">
-		                <a href="#" onclick="loadList(0);" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">전체 보기</a>
-		                <a href="#" onclick="loadList(1);" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">이벤트 상품</a>
-		                <a href="#" onclick="loadList(2);" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">인기 상품</a>
-		                <a href="#" onclick="loadList(3);" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">신규 상품</a>
-		                <a href="#" onclick="loadList(4);" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">운동 보조제</a>
-		                <a href="#" onclick="loadList(5);" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">운동 기구</a>
-		                <a href="#" onclick="loadList(6);" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">다이어트 식품</a>
+		                <a href="<%=request.getContextPath()%>/shopping/list?listno=0" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">전체 보기</a>
+		                <a href="<%=request.getContextPath()%>/shopping/list?listno=1" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">이벤트 상품</a>
+		                <a href="<%=request.getContextPath()%>/shopping/list?listno=2" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">인기 상품</a>
+		                <a href="<%=request.getContextPath()%>/shopping/list?listno=3" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">신규 상품</a>
+		                <a href="<%=request.getContextPath()%>/shopping/list?listno=4" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">운동 보조제</a>
+		                <a href="<%=request.getContextPath()%>/shopping/list?listno=5" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">운동 기구</a>
+		                <a href="<%=request.getContextPath()%>/shopping/list?listno=6" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">다이어트 식품</a>
 		            </div>
 		        </div>
             </nav>
-<script type="text/javascript">
-
+            
+<%-- <script type="text/javascript">
 function loadList(num) {
 	
 	var xhr = new XMLHttpRequest();
-	
-	// 통신을 위한 시작줄 작성
 	xhr.open('GET', '<%=request.getContextPath()%>/shopping/list?listno='+num);
-	
-	// http request header 설정
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	
-	// http request body 설정
-	//	xhr.send() : 원하는 데이터를 파라미터에 넣어 데이터 전송
 	xhr.send();
 	
-	// ajax 통신이 끝난 뒤 실행할 콜백함수 등록
 	xhr.addEventListener('load', function() {
-		
 		var data = xhr.response;
-		//console.dir(data)
-		
 		document.querySelector('main').innerHTML = data;
-		
 	})
-	
 }
-
-</script> 
-
-
-
-
-
-
-
-<!--             <nav class="bg-white"> -->
-<!-- 		        <div class="md:flex items-center justify-center py-2 px-8 md:px-12"> -->
-<!-- 		            <div class="flex justify-between items-center"> -->
-<!-- 		               <div class="text-2xl font-bold text-gray-800 md:text-3xl"> -->
-<!-- 		                    <a href="#"></a> -->
-<!-- 		               </div> -->
-<!-- 		                <div class="md:hidden"> -->
-<!-- 		                    <button type="button" class="block text-gray-800 hover:text-gray-700 focus:text-gray-700 focus:outline-none"> -->
-<!-- 		                        <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24"> -->
-<!-- 		                            <path class="hidden" d="M16.24 14.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 0 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12l2.83 2.83z"/> -->
-<!-- 		                            <path d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/> -->
-<!-- 		                        </svg> -->
-<!-- 		                    </button> -->
-<!-- 		                </div> -->
-<!-- 		            </div> -->
-<!-- 		            <div class="flex flex-col md:flex-row hidden md:block -mx-2"> -->
-<!-- 		                <a href="#" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">전체 보기</a> -->
-<!-- 		                <a href="#" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">이벤트 상품</a> -->
-<!-- 		                <a href="#" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">인기 상품</a> -->
-<!-- 		                <a href="#" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">신규 상품</a> -->
-<!-- 		                <a href="#" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">운동 보조제</a> -->
-<!-- 		                <a href="#" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">운동 기구</a> -->
-<!-- 		                <a href="#" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">다이어트 식품</a> -->
-<!-- 		            </div> -->
-<!-- 		        </div> -->
-<!-- 		    </nav> -->
+</script> --%>

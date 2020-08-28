@@ -39,6 +39,10 @@ public class ShoppingDao {
 		return sqlSession.selectList("Shopping.selectBasket", user);
 	}
 	
+	public Map<String, Object> sessionBasket(String code) {
+		return sqlSession.selectOne("Shopping.sessionBasket", code);
+	}
+	
 	public int checkBasket(Basket basket) {
 		return sqlSession.selectOne("Shopping.checkBasket", basket);
 	}
