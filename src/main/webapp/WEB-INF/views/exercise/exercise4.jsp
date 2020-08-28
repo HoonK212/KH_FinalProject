@@ -18,10 +18,12 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 	init();
+	
 })
 
 function countUpdate(count, set) {
@@ -59,7 +61,11 @@ function countUpdate(count, set) {
 				$(".complete").css({'pointer-events':'all'})
     			$(".complete").css({'cursor':'pointer'})
     			
-//     			webcam.pause(); // 웹캠 중단
+//     			var exerName = '<c:out value="${ExerciseInfo[exerStatus]}"/>'
+    			var exerName = 'lunge'
+    			console.log("여기가 끝나요!!!!!!!")
+    			exerChange(exerName)
+    			webcam.pause(); // 웹캠 중단
 			}
 		}
 		console.log("운동함 " + count)
@@ -77,12 +83,13 @@ function leftCountUpdate(progressCnt,exArr) {
 }
 
 // AJAX 통신 - 운동정보 변경
-function exerChange(num) {
-	
+function exerChange(exerName) {
+	console.log(" = = = = = = = = = = = = = = = = = = = = = = =")
+	console.log(exerName)
 	var xhr = new XMLHttpRequest();
 	
 	// 통신을 위한 시작줄 작성
-	xhr.open('GET', '<%=request.getContextPath()%>/shopping/list?listno='+num);
+	xhr.open('GET', '<%=request.getContextPath()%>/exercise/nextexer?exerName='+exerName);
 	
 	// http request header 설정
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -95,10 +102,38 @@ function exerChange(num) {
 	xhr.addEventListener('load', function() {
 		
 		var data = xhr.response;
-		//console.dir(data)
+		console.dir(data)
 		
-		document.querySelector('main').innerHTML = data;
+		document.querySelector('#right').innerHTML = data;
 		
+		exerChangejs(exerName);
+		
+		console.log("새로로로로로로로로로로로")
+		console.dir(URL)
+	})
+	
+}
+
+function exerChangejs(exerName) {
+	console.log(" = = = = = = = = = = = = = = = = = = = = = = =")
+	console.log(exerName)
+	var xhr = new XMLHttpRequest();
+	
+	// 통신을 위한 시작줄 작성
+	xhr.open('GET', '<%=request.getContextPath()%>/exercise/nextexerjs?exerName='+exerName);
+	
+	// http request header 설정
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	
+	// http request body 설정
+	//	xhr.send() : 원하는 데이터를 파라미터에 넣어 데이터 전송
+	xhr.send();
+	
+	// ajax 통신이 끝난 뒤 실행할 콜백함수 등록
+	xhr.addEventListener('load', function() {
+		
+		var data = xhr.response;
+		eval(data);
 	})
 	
 }
@@ -250,7 +285,7 @@ function exerChange(num) {
 					<p class="progressbar-content">운동7</p>
 					<div class="progress">
 						<div class="progress-bar" role="progressbar" aria-valuenow="70"
-							aria-valuemin="0" aria-valuemax="100">70</div>
+							aria-valuemin="0" aria-valuemax="100" id="sidelunge">70</div>
 					</div>
 					<p class="progressbar-content">운동8</p>
 					<div class="progress">
@@ -292,8 +327,8 @@ function exerChange(num) {
 					<c:when test="${ExerciseInfo[exerStatus] eq 'pushup'}">
 						<%@include file="./pushup.jsp"%>
 					</c:when>
-					<c:when test="${ExerciseInfo[exerStatus] eq 'mountainclimb'}">
-						<%@include file="./mountainclimb.jsp"%>
+					<c:when test="${ExerciseInfo[exerStatus] eq 'sidelunge'}">
+						<%@include file="./sidelunge.jsp"%>
 					</c:when>
 					<c:when test="${ExerciseInfo[exerStatus] eq 'squat'}">
 						<%@include file="./squat.jsp"%>
@@ -303,7 +338,6 @@ function exerChange(num) {
 					</c:when>
 				</c:choose>
 				<c:set var="exerStatus" value="${exerStatus + 1} " />
-		
 			
 		</div>
 		<!-- right layout 끝 -->

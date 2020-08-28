@@ -145,7 +145,7 @@
 								        	
 								        	setInterval(function(){
 								        		console.log("하하")
-								        	},10000)
+								        	},20000)
 								        	
 								        	
 								        }

@@ -66,7 +66,7 @@ $(document).ready(function() {
 }
 
 .exer-mountain {
-	background-image: url( "<%=request.getContextPath() %>/resources/image/exercise/Mountain-Climber.jpg");
+	background-image: url( "<%=request.getContextPath() %>/resources/image/exercise/sidelunge.png");
 	background-size: cover;
 	background-repeat: round;
 }
@@ -709,7 +709,7 @@ $(document).ready(function() {
 				<input type="checkbox" name="exercise" id="exer6" value="pushup" onclick="">
 				<label class="premium-label four col exer-pushup" for="exer6"></label>
 			</section><section class="plan cf">
-				<input type="checkbox" name="exercise" id="exer7" value="mountainclimb" onclick="">
+				<input type="checkbox" name="exercise" id="exer7" value="sidelunge" onclick="">
 				<label class="free-label four col exer-mountain" for="exer7"></label>
 				<input type="checkbox" name="exercise" id="exer8" value="squat" onclick="">
 				<label class="basic-label four col exer-squat" for="exer8"></label>

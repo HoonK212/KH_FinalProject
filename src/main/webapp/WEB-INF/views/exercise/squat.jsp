@@ -68,21 +68,15 @@
 <!-- 								<button type="button" onclick="init()">Start</button> -->
 								<div><canvas id="canvas" style="display: inline;"></canvas></div>
 								<div id="label-container"></div>
-								<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
-								<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
 								<script type="text/javascript">
-								    // More API functions here:
-								    // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/pose
-								
-								    // the link to your model provided by Teachable Machine export panel
-								    const URL = "<%=request.getContextPath() %>/resources/motionmodel/squat/";
+								    var URL = "<%=request.getContextPath() %>/resources/motionmodel/squat/";
 								    let model, webcam, ctx, labelContainer, maxPredictions;
 									
 								    console.log("경로" + URL);
 								    
 								    async function init() {
-								        const modelURL = URL + "model.json";
-								        const metadataURL = URL + "metadata.json";
+								        var modelURL = URL + "model.json";
+								        var metadataURL = URL + "metadata.json";
 								
 								        // load the model and metadata
 								        // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
@@ -91,15 +85,15 @@
 								        maxPredictions = model.getTotalClasses();
 								
 								        // Convenience function to setup a webcam
-// 								        const size = 500;
-								        const flip = true; // whether to flip the webcam
+// 								        var size = 500;
+								        var flip = true; // whether to flip the webcam
 								        webcam = new tmPose.Webcam(512, 480, flip); // width, height, flip
 								        await webcam.setup(); // request access to the webcam
 								        await webcam.play();
 								        window.requestAnimationFrame(loop);
 								
 								        // append/get elements to the DOM
-								        const canvas = document.getElementById("canvas");
+								        var canvas = document.getElementById("canvas");
 								        canvas.width = 512; canvas.height = 480;
 								        ctx = canvas.getContext("2d");
 								        labelContainer = document.getElementById("label-container");
@@ -133,8 +127,8 @@
 
 								    
 								    async function predict() {
-								        const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
-								        const prediction = await model.predict(posenetOutput);
+								        var { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
+								        var prediction = await model.predict(posenetOutput);
 								
 								        if(prediction[0].probability.toFixed(2) == 1.00) {
 								        	
@@ -175,7 +169,7 @@
 								        	
 								        	
 								        for (let i = 0; i < maxPredictions; i++) {
-								            const classPrediction =
+								            var classPrediction =
 							                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
 // 								            labelContainer.childNodes[i].innerHTML = classPrediction; //여기가 값나오는 부분!
 								        }
@@ -189,7 +183,7 @@
 								            ctx.drawImage(webcam.canvas, 0, 0);
 								            // draw the keypoints and skeleton
 								            if (pose) {
-								                const minPartConfidence = 0.5;
+								                var minPartConfidence = 0.5;
 								                tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
 								                tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
 								            }
@@ -223,12 +217,12 @@
 						<h5>세트</h5>
 						<div class="progress">
 							<div class="progress-bar-set" role="progressbar"
-								aria-valuenow="0" aria-valuemin="0" aria-valuemax="2">0</div>
+								aria-valuenow="0" aria-valuemin="0" aria-valuemax="1">0</div>
 						</div>
 						<h5>횟수</h5>
 						<div class="progress" >
 							<div class="progress-bar-count" role="progressbar"
-								aria-valuenow="0" aria-valuemin="0" aria-valuemax="2">0</div>
+								aria-valuenow="0" aria-valuemin="0" aria-valuemax="1">0</div>
 						</div>
 					</div>
 				</div>

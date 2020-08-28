@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dht.www.exercise.model.service.ExerciseService;
 import com.dht.www.user.model.vo.Users;
@@ -114,6 +115,28 @@ public class ExerciseController {
 		
 		return "exercise/exercise4";
 	}
+	
+	
+	@RequestMapping(value="/nextexer", method=RequestMethod.GET)
+	public String nextExer(@RequestParam String exerName, Model model) {
+		
+		System.out.println("이이이이이이!!");
+		System.out.println(exerName);
+		
+		
+		return "exercise/lunge";
+	}
+	
+	@RequestMapping(value="/nextexerjs", method=RequestMethod.GET , produces = "application/text;charset=utf8")
+	@ResponseBody
+	public String nextExerjs(@RequestParam String exerName, Model model) {
+		System.out.println(exerName);
+		
+		
+		return "console.log(123123)";
+	}
+	
+	
 	
 	
 }
