@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.dht.www.shopping.model.vo.Basket;
+import com.dht.www.shopping.model.vo.OrderProduct;
 import com.dht.www.shopping.model.vo.Orders;
 import com.dht.www.user.model.vo.Users;
 
@@ -38,4 +39,6 @@ public interface ShoppingService {
 	public int selectPoint(String id);
 	
 	public int insertOrders(Orders order);
+	
+	public int insertOrderProduct(List<OrderProduct> orderProduct);
 }

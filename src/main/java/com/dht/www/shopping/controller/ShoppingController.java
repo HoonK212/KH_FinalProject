@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.json.JSONParser;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dht.www.shopping.model.service.ShoppingService;
 import com.dht.www.shopping.model.vo.Basket;
+import com.dht.www.shopping.model.vo.OrderProduct;
 import com.dht.www.shopping.model.vo.Orders;
 import com.dht.www.shopping.model.vo.Product;
 import com.dht.www.user.model.vo.Users;
@@ -244,7 +246,7 @@ public class ShoppingController {
 	//결제 완료
 	@RequestMapping(value="/paymentCheck", method = RequestMethod.POST)
 	@ResponseBody
-	public void shoppingPaymentCheck(@RequestBody String uid) {
+	public void shoppingPaymentCheck(@RequestBody String uid, HttpServletRequest session) {
 		
 		ObjectMapper mapper = new ObjectMapper(); 
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -253,33 +255,35 @@ public class ShoppingController {
 			
 			map = mapper.readValue(uid, new TypeReference<Map<String, Object>>(){});
 			
+			Users user = (Users) session.getAttribute("logInInfo");
+			
+			
 			Orders order = new Orders();
-//			order.setId();
+			order.setId(user.getId());
 			order.setmUid((String)map.get("imp_uid"));
 			order.setToName((String)map.get("name"));
 			order.setToTel((String)map.get("tel"));
 			order.setToAddr((String)map.get("addr"));
 			order.setToPost((String)map.get("post"));
 
-			System.out.println(order);
+			System.out.println("order : "+order);
 			shoppingService.insertOrders(order);
+			
+//			System.out.println("이거어어어는?"+(List<Product>)map.get("product"));
+			List<OrderProduct> orderProduct = new ArrayList<OrderProduct>();
+			OrderProduct command = new OrderProduct();
+			
+//			command.setAmount(amount);
+//			command.setCode(code);
+//			command.setOrdersNo(ordersNo);
+			command.setPoint((int)map.get("point"));
+			
+			orderProduct.add(command);
+//			shoppingService.insertOrderProduct(orderProduct);
 			
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		} 
-		
-//		System.out.println("user : " + user);
-//		System.out.println("product : " + product);
-//		System.out.println("1 값이 나오나 " + map1.get("product").getClass() );
-//		System.out.println("2 값이 나오나 " + map1.get("point").getClass());
-//		System.out.println("3 값이 나오나 " + map1.get("logInInfo").getClass());
-//		System.out.println("4 값이 나오나 " + map1.get("addr").getClass());
-//		System.out.println("5 값이 나오나 " + map1.get("post").getClass());
-//		System.out.println("6 값이 나오나 " + map1.get("tel").getClass());
-//		System.out.println("7 값이 나오나 " + map1.get("name").getClass());
-//		System.out.println("8 값이 나오나 " + map1.get("imp_uid").getClass());
-//		
-//		System.out.println("9 값이 나오나 " + list);
 	}
 	
 	@RequestMapping(value="/paymentComplete", method = RequestMethod.GET)

@@ -3,27 +3,27 @@
     
     <br>
 <div class="flex items-center justify-between bg-white rounded-md 
-			border-2 p-3 focus:outline-none">
+			border-2 p-3 focus:outline-none mr-6 ml-6">
     <label class="flex items-center">
-        <span class="ml-2 text-sm text-gray-700">${logInInfo.name}</span>
+        <span class="ml-2 text-sm text-gray-700">수령인</span>
     </label>
-    <span class="text-gray-600 text-sm"></span>
+    <span class="text-gray-600 text-sm">${logInInfo.name}</span>
 </div>
-
+<br>
 <div class="flex items-center justify-between bg-white rounded-md 
-			border-2 p-3 focus:outline-none">
+			border-2 p-3 focus:outline-none mr-6 ml-6">
     <label class="flex items-center">
-        <span class="ml-2 text-sm text-gray-700">${logInInfo.post}</span>
+        <span class="ml-2 text-sm text-gray-700">우편번호</span>
     </label>
-    <span class="text-gray-600 text-sm"></span>
+    <span class="text-gray-600 text-sm">${logInInfo.post}</span>
 </div>
-
+<br>
 <div class="flex items-center justify-between bg-white rounded-md 
-			border-2 p-3 focus:outline-none">
+			border-2 p-3 focus:outline-none mr-6 ml-6">
     <label class="flex items-center">
-        <span class="ml-2 text-sm text-gray-700">${logInInfo.addr}</span>
+        <span class="ml-2 text-sm text-gray-700">상세주소</span>
     </label>
-    <span class="text-gray-600 text-sm"></span>
+    <span class="text-gray-600 text-sm">${logInInfo.addr}</span>
 </div>
 
 <br>
