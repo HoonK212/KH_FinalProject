@@ -111,7 +111,14 @@
 		and p.stock > 0 and b.id = #{id}
 		order by b.dates desc
 	</select>
-
+	
+	<!-- 세션 장바구니에 추가할 item 정보 추출 -->
+	<select id="sessionBasket" parameterType="string" resultMap="basketItem">
+		select p.code, name, price, path, renamed, ext from product p, files f, basket b
+		where p.code = f.ref and p.sell = 1 and b.code = p.code 
+		and p.stock > 0 and p.code = #{value}
+		order by b.dates desc
+	</select>
 	
 	<select id="selectProduct" resultMap="basketItem">
 		select p.name, p.company, b.amount, p.price, f.path, f.renamed, f.ext from product p, basket b, files f

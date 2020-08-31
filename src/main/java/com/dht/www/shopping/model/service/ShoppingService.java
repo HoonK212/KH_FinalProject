@@ -19,6 +19,8 @@ public interface ShoppingService {
 	public Map<String, Object> selectItem(String code);
 	
 	public List<Map<String, Object>> selectBasket(Users user);
+
+	public Map<String, Object> sessionBasket(String code);
 	
 	public int checkBasket(Basket basket);
 	

@@ -38,8 +38,9 @@
 				</thead>
 				<tbody>
 					<c:if test="${empty basket }">
-						<tr><td colspan="6" class="py-2 text-center font-semibold text-blue-700">장바구니가 비어있습니다</td></tr>
+					<tr><td colspan="6" class="py-2 text-center font-semibold text-blue-700">장바구니가 비어있습니다</td></tr>
 					</c:if>
+					<c:if test="${not empty basket }">
 					<c:set var="subTotal" />
 					<c:forEach items="${basket }" var="item" varStatus="stat">
 					<c:set var="subTotal" value="${subTotal + item.price * item.amount }" />
@@ -80,6 +81,7 @@
 						</td>
 					</tr>
 					</c:forEach>
+					</c:if>
 				</tbody>
 			</table>
 		<hr class="pb-6 mt-6">

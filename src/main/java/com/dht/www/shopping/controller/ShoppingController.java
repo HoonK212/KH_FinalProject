@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,13 +56,8 @@ public class ShoppingController {
 		model.addAttribute("list", shoppingService.selectList(listno, curPage, cntPerPage));
 		model.addAttribute("listno", listno);
 		
-		return "/shopping/content";
-		
+		return "/shopping/list";
 	}
-	
-	@RequestMapping("/content")
-	@ResponseBody
-	public void loadContent() {}
 	
 	//제품 상세페이지
 	@RequestMapping(value="/detail", method=RequestMethod.GET)
@@ -71,12 +65,12 @@ public class ShoppingController {
 		System.out.println(code);
 	}
 	
+	//장바구니 모달창 AJAX
 	@RequestMapping(value="/modalload", method=RequestMethod.GET)
 	public String modalLoad(Model model, String code) {
 		model.addAttribute("detail", shoppingService.selectItem(code));
 		return "/shopping/modalcontent";
 	}
-	
 	@RequestMapping("/modalcontent")
 	@ResponseBody
 	public void modalContent() { }
@@ -92,7 +86,16 @@ public class ShoppingController {
 			model.addAttribute("basket", shoppingService.selectBasket(user));
 		} else {
 			//비로그인
-			model.addAttribute("basket", session.getAttribute("basket"));
+			List<Map<String, Object>> sessionBasket = (List<Map<String, Object>>) session.getAttribute("sessionBasket");
+			
+			if(sessionBasket != null && session.getId().equals( (String) sessionBasket.get(0).get("sessionId"))) {
+				System.out.println("비로그인, 장바구니 있을때 basket"+sessionBasket);
+				System.out.println("basket.get(1) 비로그인, 장바구니 있을 때"+sessionBasket.get(1));
+				model.addAttribute("basket", sessionBasket.get(1).values());
+			} else {
+				System.out.println("비로그인, 장바구니 비었을때"+sessionBasket);
+				model.addAttribute("basket", null);
+			}
 		}
 	}
 
@@ -107,26 +110,81 @@ public class ShoppingController {
 		
 		Users user = (Users)session.getAttribute("logInInfo");
 		
+		//장바구니에 추가할 item
+		Basket item = new Basket();
+		item.setCode(codes);
+		item.setId(userId); // 로그인 회원일 때는 userId, 비로그인 회원일 때는 guest
+		item.setAmount(amount);
+
+		//------------------------ 로그인 ------------------------
 		if(user != null && userId.equals(user.getId())) {
-			//로그인
-			Basket basket = new Basket();
-			basket.setCode(codes);
-			basket.setId(userId);
-			basket.setAmount(amount);
 			
-			int res = shoppingService.checkBasket(basket);
+			int res = shoppingService.checkBasket(item);
 			System.out.println(res);
 			
 			if(res > 0) {
-				shoppingService.addAmount(basket);
+				shoppingService.addAmount(item);
 				
 			} else {
-				shoppingService.insertBasket(basket);
+				shoppingService.insertBasket(item);
 			}
+		//----------------------------------------------------------
 			
+		//------------------------ 비로그인 ------------------------	
 		} else {
-			//비로그인
+			List<Map<String, Object>> sessionBasket = (List<Map<String, Object>>) session.getAttribute("sessionBasket");
+			
+			//세션에 등록된 장바구니가 없을 때
+			if(sessionBasket == null) {
+				sessionBasket = new ArrayList<Map<String,Object>>();
+
+				Map<String, Object> sessionId = new HashMap<String, Object>();
+				Map<String, Object> items = new HashMap<String, Object>();
+				
+				sessionId.put("sessionId", session.getId());
+				
+				Map<String, Object> sessionItem = shoppingService.sessionBasket(item.getCode());
+				sessionItem.put("amount", item.getAmount());
+				
+				items.put(item.getCode(), sessionItem);
+				
+				sessionBasket.add(sessionId);
+				sessionBasket.add(items);
+				
+				session.setAttribute("sessionBasket", sessionBasket);
+				session.setAttribute("basket", sessionBasket.get(1).values());
+			
+			//세션에 등록된 장바구니가 있을 경우
+			} else {
+				System.out.println("addBasket() - basket"+sessionBasket+"basket.get(1)"+sessionBasket.get(1));
+				
+				if(session.getId().equals( (String) sessionBasket.get(0).get("sessionId"))) {
+					
+					//장바구니 들어있는 map
+					Map<String, Object> items = sessionBasket.get(1);
+					
+					//해당 상품이 없을 경우
+					if(items.get(item.getCode()) == null) {
+						Map<String, Object> sessionItem = shoppingService.sessionBasket(item.getCode());
+						sessionItem.put("amount", item.getAmount());
+						
+						System.out.println("해당 상품이 없을 경우"+sessionItem);
+						items.put(item.getCode(), sessionItem);
+						
+					} else { //해당 상품이 이미 있을 경우
+						Map<String, Object> sessionItem = (Map<String, Object>) items.get(item.getCode());
+						
+						System.out.println("해당 상품이 이미 있을 경우 전"+sessionItem);
+						int updateAmount = (int)sessionItem.get("amount") + item.getAmount();
+						sessionItem.put("amount", updateAmount);
+						
+						System.out.println("해당 상품이 이미 있을 경우 후"+sessionItem);
+					}
+				}
+			}
 		}
+		//----------------------------------------------------------
+		
 	}
 	
 	//장바구니 수량 업데이트
@@ -138,22 +196,22 @@ public class ShoppingController {
 
 		if (user != null) {
 			//로그인
-			Basket basket = new Basket();
-			basket.setId(user.getId());
-			basket.setCode(code);
-			basket.setAmount(amount);
+			Basket item = new Basket();
+			item.setId(user.getId());
+			item.setCode(code);
+			item.setAmount(amount);
 			
-			return shoppingService.updateAmount(basket);
+			return shoppingService.updateAmount(item);
 			
 		} else {
 			//비로그인 - 장바구니 O
-			List<Map<String, Object>> basket = (List<Map<String, Object>>) session.getAttribute("basket");
+			List<Map<String, Object>> sessionBasket = (List<Map<String, Object>>) session.getAttribute("sessionBasket");
 			
-			if (basket.get(0).get("sessionId").equals(session.getId())) {
-				Map<String, Object> items = basket.get(1);
+			if (sessionBasket.get(0).get("sessionId").equals(session.getId())) {
+				Map<String, Object> items = sessionBasket.get(1);
 				
-				Basket item = (Basket) items.get(code);
-				item.setAmount(amount);
+				Map<String, Object> item = (Map<String, Object>) items.get(code);
+				item.put("amount", amount);
 
 				return 0;
 

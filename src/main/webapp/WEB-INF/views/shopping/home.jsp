@@ -176,26 +176,23 @@
 			</div><!-- 다이어트 식품 end -->
         </div>
         
-        <!-- 모달창 -->
-        <div class="main-modal fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster"
-		style="background: rgba(0,0,0,.7);">
+	<!-- 모달창 -->
+	<div class="main-modal fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster"
+	style="background: rgba(0,0,0,.7);">
 		<div style="max-width: 40rem;"
-			class="border border-teal-500 shadow-lg modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+		class="border border-teal-500 shadow-lg modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
 			<div class="modal-content py-4 text-left px-6">
-			
+
 				<!--Title-->
 				<div class="flex justify-between items-center pb-3">
 					<p class="text-2xl font-bold">장바구니 담기</p>
 					<div class="modal-close cursor-pointer z-50">
-						<svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-							viewBox="0 0 18 18">
-							<path
-								d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
-							</path>
+						<svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+						<path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
 						</svg>
 					</div>
 				</div>
-				
+					
 				<!--Body-->
 				<div class="my-5" id="modalBody"></div><!-- 모달 body end -->
 				
@@ -319,6 +316,6 @@ const send = (e,form) => {
 	});
 	e.preventDefault();
 }
-</script>	
+</script>
 
 <%@include file="../layout/shopping_footer.jsp" %>
