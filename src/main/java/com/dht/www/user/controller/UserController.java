@@ -74,6 +74,41 @@ public class UserController {
 			session.setAttribute("logInInfo", res);
 			session.setAttribute("logInPic", pic);
 			System.out.println("프로필 저장 이미지 확인 : " + session.getAttribute("logInPic"));
+			
+			//세션장바구니 >> 로그인 회원 장바구니
+			if(session.getAttribute("sessionBasket") != null) {
+				List<Map<String, Object>> sessionBasket = (List<Map<String, Object>>) session.getAttribute("sessionBasket");
+				if(sessionBasket != null && session.getId().equals( (String) sessionBasket.get(0).get("sessionId"))) {
+					
+					Map<String, Object> items = sessionBasket.get(1);
+					
+					Set<String> keys = items.keySet();
+					Iterator iter = keys.iterator();
+					
+					while(iter.hasNext()) { //iter.next() : 코드
+						String code = (String) iter.next();
+						Map<String, Object> item = (Map<String, Object>) items.get(code);
+						
+						Basket insert = new Basket();
+						insert.setCode((String) item.get("code"));
+						insert.setId(res.getId());
+						insert.setAmount((int) item.get("amount"));
+						
+						int check = shoppingService.checkBasket(insert);
+						
+						if(check > 0) {
+							shoppingService.addAmount(insert);
+							
+						} else {
+							System.out.println("세션 아이템"+item+"삽입할 장바구니"+insert);
+							shoppingService.insertBasket(insert);
+						}
+					}
+					session.removeAttribute("basket");
+					session.removeAttribute("sessionBasket");
+				} 
+			}
+			
 			return "1";
 		
 		}else {//회원정보 없음
@@ -88,6 +123,8 @@ public class UserController {
 		
 		//세션에 저장한 회원정보 삭제
 		session.removeAttribute("logInInfo");
+		session.removeAttribute("basket");
+		session.removeAttribute("sessionBasket");
 		
 		//슬래시가 없으면 상대경로가 된다.
 		return "redirect:login";
