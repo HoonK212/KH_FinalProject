@@ -14,7 +14,7 @@ public interface ShoppingService {
 	
 	public List<Map<String, Object>> selectHome(String cate);
 	
-	public List<Map<String, Object>> selectList(int listno, int curPage, int cntPerPage);
+	public Map<String, Object> selectList(int listno, int curPage, int cntPerPage);
 	
 	public Map<String, Object> selectItem(String code);
 	
@@ -45,4 +45,6 @@ public interface ShoppingService {
 	public int insertOrderProduct(List<OrderProduct> orderProduct);
 	
 	public List<Map<String, Object>> selectReview(String code);
+	
+	public int scoreAvg(String code);
 }

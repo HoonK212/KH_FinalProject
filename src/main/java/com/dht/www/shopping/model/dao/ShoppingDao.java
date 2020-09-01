@@ -89,4 +89,8 @@ public class ShoppingDao {
 		return sqlSession.selectList("Shopping.selectReview", code);
 	}
 	
+	public int scoreAvg(String code) {
+		return sqlSession.selectOne("Shopping.scoreAvg", code);
+	}
+	
 }

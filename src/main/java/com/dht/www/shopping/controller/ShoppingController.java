@@ -46,12 +46,15 @@ public class ShoppingController {
 	
 	//게시판 목록
 	@RequestMapping(value="/list", method=RequestMethod.GET)
-	public String shoppingList(Model model, @RequestParam(required=false, defaultValue="1") int curPage
+	public String shoppingList(Model model, @RequestParam(required=false, defaultValue="1") int cPage
 								, @RequestParam(required=false, defaultValue="0") int listno) {
 		
 		int cntPerPage = 16;
 		
-		model.addAttribute("list", shoppingService.selectList(listno, curPage, cntPerPage));
+		Map<String, Object> commandMap = shoppingService.selectList(listno, cPage, cntPerPage);
+
+		model.addAttribute("list", commandMap.get("list"));
+		model.addAttribute("paging", commandMap.get("paging"));
 		model.addAttribute("listno", listno);
 		
 		return "/shopping/list";
@@ -63,6 +66,7 @@ public class ShoppingController {
 		model.addAttribute("detail", shoppingService.selectItem(code));
 		model.addAttribute("list", shoppingService.selectHome(code.substring(0,1)));
 		model.addAttribute("reviews", shoppingService.selectReview(code));
+		model.addAttribute("avg", shoppingService.scoreAvg(code));
 	}
 	
 	//장바구니 모달창 AJAX
