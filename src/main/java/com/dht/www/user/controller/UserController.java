@@ -1,8 +1,10 @@
 package com.dht.www.user.controller;
 
+import java.util.Iterator;
 import java.util.List;
 
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dht.www.mypage.model.vo.Files;
+import com.dht.www.shopping.model.service.ShoppingService;
+import com.dht.www.shopping.model.vo.Basket;
 import com.dht.www.user.model.service.UserService;
 import com.dht.www.user.model.vo.Users;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -32,6 +36,9 @@ public class UserController {
 	
 	@Autowired
 	public UserService userService;
+	
+	@Autowired
+	private ShoppingService shoppingService;
 
 	// 로그인페이지로 이동
 	@RequestMapping(value = "/login", method = RequestMethod.GET)

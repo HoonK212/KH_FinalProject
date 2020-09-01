@@ -41,6 +41,13 @@
 		<result column="stock" property="stock"/>
 	</resultMap>
 	
+	<resultMap type="map" id="detailReview">
+		<result column="id" property="id"/>
+		<result column="score" property="score"/>
+		<result column="review" property="review"/>
+		<result column="dates" property="dates"/>
+	</resultMap>
+	
 	<select id="selectHome" parameterType="string" resultMap="homeItem">
 		select * from ( select rownum rnum, b.* from (
     		select p.code, name, company, price, path, renamed, ext from product p, files f
@@ -114,10 +121,9 @@
 	
 	<!-- 세션 장바구니에 추가할 item 정보 추출 -->
 	<select id="sessionBasket" parameterType="string" resultMap="basketItem">
-		select p.code, name, price, path, renamed, ext from product p, files f, basket b
-		where p.code = f.ref and p.sell = 1 and b.code = p.code 
+		select p.code, name, price, path, renamed, ext from product p, files f
+		where p.code = f.ref and p.sell = 1
 		and p.stock > 0 and p.code = #{value}
-		order by b.dates desc
 	</select>
 	
 	<select id="selectProduct" resultMap="basketItem">
@@ -128,10 +134,6 @@
 				#{item}
             </foreach>
 		and b.id = #{userId}
-        
-        
-        
-        
 	</select>
 	
 	<select id="selectPoint" parameterType="String" resultType="int">
@@ -144,6 +146,18 @@
 		where p.code = f.ref and p.sell = 1 and p.stock > 0
 		and p.code = #{value}
 		order by substr(p.code,2) desc
+	</select>
+	
+	<select id="selectReview" resultMap="detailReview">
+		select o.id, score, review, r.dates from review r, order_product op, product p, orders o
+		where r.op_no = op.no and p.code = op.code and op.orders_no = o.no
+		and p.code = #{value}
+		order by r.dates desc
+	</select>
+	
+	<select id="scoreAvg" resultType="int">
+		select nvl(avg(score), 0) from review r, order_product op, product p, orders o   
+		where r.op_no = op.no and p.code = op.code and p.code = #{value}
 	</select>
 	
 	<select id="checkBasket" resultType="int">
@@ -181,6 +195,14 @@
 	
 	<insert id="insertOrders">
 		insert into orders
-		values (ORDERS_SEQ.nextval, 1, 1, sysdate, #{mUid}, 'semin', #{toName}, #{toTel}, #{toAddr}, #{toPost})
+		values (ORDERS_SEQ.nextval, 1, 1, sysdate, #{mUid}, #{id}, #{toName}, #{toTel}, #{toAddr}, #{toPost})
+	</insert>
+	
+	<insert id="insertOrderProduct" parameterType="java.util.List">
+		insert into order_product
+		values	
+			<foreach item="item" index="index" collection="list">
+				(order_product_seq.nextval, #{item.amount}, #{item.point}, #{item.code}, #{item.ordersNo})
+			</foreach>
 	</insert>
 </mapper>

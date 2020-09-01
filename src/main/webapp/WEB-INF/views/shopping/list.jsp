@@ -23,7 +23,6 @@
             	<c:when test="${listno eq 6}">다이어트 식품</c:when>
             </c:choose>
             </h3>
-            <!-- <span class="mt-3 text-sm text-gray-500">200+ Products</span> -->
             
             <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
 
@@ -44,46 +43,42 @@
                     </div>
                 </div>
 			</c:forEach>            
-            
-            </div>
-            <div class="flex justify-center">
-                <div class="flex rounded-md mt-8">
-                    <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white"><span>Previous</a></a>
-                    <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"><span>1</span></a>
-                    <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"><span>2</span></a>
-                    <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"><span>3</span></a>
-                    <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 rounded-r hover:bg-blue-500 hover:text-white"><span>Next</span></a>
-                </div>
-            </div>
-            
-            
-            <div class="paging"><!-- section pagination -->
-         <a href="<%= request.getContextPath() %>/notice/noticelist.do" class="nav first"><i class="fas fa-angle-double-left"></i></a>
-        <c:choose>
-        	<c:when test="${paging.blockStart > 1 }">
-         		<a href="<%= request.getContextPath() %>/notice/noticelist.do?cPage=${paging.blockStart-1}" class="nav prev"><i class="fas fa-angle-left"></i></a>
-        	</c:when>
-        	<c:otherwise>
-        		<a href="<%= request.getContextPath() %>/notice/noticelist.do?cPage=${paging.blockStart}" class="nav prev"><i class="fas fa-angle-left"></i></a>
-        	</c:otherwise>
-        </c:choose>
-        <c:forEach begin="${paging.blockStart}" end="${paging.blockEnd}" var="page">
-         <a href="<%= request.getContextPath() %>/notice/noticelist.do?cPage=${page}" class="num active"><span>${page}</span></a>
-        </c:forEach> 
-        
-        <c:choose>
-        	<c:when test="${paging.blockEnd+1 > paging.lastPage }">
-         		<a href="<%= request.getContextPath() %>/notice/noticelist.do?cPage=${paging.blockEnd}" class="nav next"><i class="fas fa-angle-right"></i></a>
-        	</c:when>
-        	<c:otherwise>
-         		<a href="<%= request.getContextPath() %>/notice/noticelist.do?cPage=${paging.blockEnd+1}" class="nav next"><i class="fas fa-angle-right"></i></a>
-        	</c:otherwise>
-   	   	</c:choose>
- 	   	 
- 	   	 <a href="<%= request.getContextPath() %>/notice/noticelist.do?cPage=${paging.lastPage}" class="nav last"><i class="fas fa-angle-double-right"></i></a>
-   	   </div><!-- // section pagination -->
-   	   
+         
         </div>
+        
+        <div class="paging flex justify-center"><!-- section pagination -->
+		<div class="flex rounded-md mt-8">
+			<c:choose>
+			<c:when test="${paging.blockStart > 1 }">
+				<a href="<%= request.getContextPath() %>/shopping/list?listno=${listno}&cPage=${paging.blockStart-1}" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white"><span>Previous</span></a>
+			</c:when>
+			
+			<c:otherwise>
+				<a href="<%= request.getContextPath() %>/shopping/list?listno=${listno}&cPage=${paging.blockStart}" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white"><span>Previous</span></a>
+			</c:otherwise>
+	        </c:choose>
+	        
+	        <c:forEach begin="${paging.blockStart}" end="${paging.blockEnd}" var="page">
+	        <c:if test="${paging.currentPage eq page }">
+				<a href="<%= request.getContextPath() %>/shopping/list?listno=${listno}&cPage=${page}" class="py-2 px-4 leading-tight border border-gray-200 border-r-0 bg-blue-500 text-white"><span>${page}</span></a>
+			</c:if>
+	        <c:if test="${paging.currentPage ne page }">
+				<a href="<%= request.getContextPath() %>/shopping/list?listno=${listno}&cPage=${page}" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"><span>${page}</span></a>
+			</c:if>
+			</c:forEach> 
+	        
+			<c:choose>
+			<c:when test="${paging.blockEnd+1 > paging.lastPage }">
+				<a href="<%= request.getContextPath() %>/shopping/list?listno=${listno}&cPage=${paging.blockEnd}" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"><span>Next</span></a>
+			</c:when>
+			
+			<c:otherwise>
+				<a href="<%= request.getContextPath() %>/shopping/list?listno=${listno}&cPage=${paging.blockEnd+1}" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"><span>Next</span></a>
+			</c:otherwise>
+			</c:choose>
+	 	   	 
+		</div>
+	</div><!-- // section pagination -->
         
 	<!-- 모달창 -->
 	<div class="main-modal fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster"

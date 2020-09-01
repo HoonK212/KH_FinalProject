@@ -16,18 +16,12 @@
         	<h3 class="text-gray-700 text-2xl font-medium">주문/결제</h3>
         <br>
             <div class="flex items-center">
-	            <button class="flex text-sm text-blue-500 focus:outline-none">
-	            	<span class="flex items-center justify-center text-white bg-blue-500 rounded-full h-5 w-5 mr-2">
-	            		1</span>장바구니
-	            </button>
-	            <button class="flex text-sm text-gray-700 ml-8 focus:outline-none">
-	            	<span class="flex items-center justify-center border-2 border-blue-500 rounded-full h-5 w-5 mr-2">
-	            		2</span> 주문/결제
-	            </button>
-	            <button class="flex text-sm text-gray-500 ml-8 focus:outline-none" disabled>
-	            	<span class="flex items-center justify-center border-2 border-gray-500 rounded-full h-5 w-5 mr-2">
-	            		3</span> 완료
-	            </button>
+	           	<span class="flex items-center justify-center text-white bg-blue-500 rounded-full h-5 w-5 mr-2 ml-4">
+	           		1</span>장바구니
+	           	<span class="flex items-center justify-center border-2 border-blue-500 rounded-full h-5 w-5 mr-2 ml-4">
+	           		2</span> 주문/결제
+	           	<span class="flex items-center justify-center border-2 border-gray-500 rounded-full h-5 w-5 mr-2 ml-4">
+	           		3</span> 완료
             </div>
 		<br> 
             <div class="flex flex-col lg:flex-row">
@@ -39,7 +33,7 @@
                     <!-- ---------------------------------------배송지 선택--------------------------------메롱 -->
                     
                         <div style="margin-top: 0">
-                            <h4 class="text-sm text-gray-500 font-medium">배송지 선택</h4>
+                            <h4 class="text-sm text-gray-500 font-bold">배송지 선택</h4>
                             <hr>
                             <div class="ml-6">
                                 <div class="flex items-center justify-between bg-white rounded-md 
@@ -47,7 +41,7 @@
                                     <label class="flex items-center">
                                         <input type="radio" onclick="deliveryfunc(0);" id="deliveryBasic" 
                                         		name="delivery" value="basic" class="form-radio h-5 w-5 text-blue-600" checked>
-                                        		<span class="ml-2 text-sm text-gray-700">기본 배송지</span>
+                                        <span class="ml-2 text-sm text-gray-700">기본 배송지</span>
                                     </label>
 
                                     <span class="text-gray-600 text-sm"></span>
@@ -57,7 +51,7 @@
                                     <label class="flex items-center">
                                         <input type="radio" onclick="deliveryfunc(1);" id="deliveryNew" 
                                         		name="delivery" value="new" class="form-radio h-5 w-5 text-blue-600">
-                                        		<span class="ml-2 text-sm text-gray-700">신규 배송지</span>
+                                       	<span class="ml-2 text-sm text-gray-700">신규 배송지</span>
                                     </label>
 
                                     <span class="text-gray-600 text-sm"></span>
@@ -69,9 +63,9 @@
 					<!-- ---------------------------------------배송지 정보-------------------------------- -->
                 
                         <div class="mt-8" >
-                            <h4 class="text-sm text-gray-500 font-medium">배송지 정보</h4>
+                            <h4 class="text-sm text-gray-500 font-bold">배송지 정보</h4>
                             <hr>
-                            	<div id="deliveryResult">
+                            	<div id="deliveryResult" >
 <%--                             	<c:if test="(${empty logInInfo.name or empty logInInfo.post or empty logInInfo.addr})"> --%>
 <!--                             		<div class="text-sm ml-6 text-gray-700 w-5/6 lex items-center  -->
 <!-- 										justify-between bg-white rounded-md border-2 border-blue-500 p-2 focus:outline-none" > -->
@@ -79,28 +73,46 @@
 <!-- 									</div> -->
 <%--                             	</c:if> --%>
 <%--                             	<c:if test="(${not empty logInInfo.name and not empty logInInfo.post and not empty logInInfo.addr})"> --%>
-                                	<div class="mt-6 flex text-sm ml-6">
-								    	${logInInfo.name}
-									</div>
-									<div class="mt-6 flex text-sm ml-6">
-										${logInInfo.post}
-									</div>
-									<div class="mt-6 flex text-sm ml-6">
-										${logInInfo.addr}
-									</div>
-									<br>
-									<input type="text" class="text-sm ml-6 text-gray-700 w-5/6 lex items-center 
-										justify-between bg-white rounded-md border-2 border-blue-500 p-2 focus:outline-none" 
-										placeholder="요청사항을 직접 입력합니다.">
+                                    
+    <br>
+
+<div class="flex items-center justify-between bg-white rounded-md 
+ 			border-2 p-3 focus:outline-none mr-6 ml-6"> 
+    <label class="flex items-center">
+        <span class="ml-2 text-sm text-gray-700">수령인</span>
+    </label>
+    <span class="text-gray-600 text-sm">${logInInfo.name}</span>
+</div>
+<br>
+<div class="flex items-center justify-between bg-white rounded-md 
+ 			border-2 p-3 focus:outline-none mr-6 ml-6">
+    <label class="flex items-center">
+        <span class="ml-2 text-sm text-gray-700">우편번호</span>
+    </label>
+    <span class="text-gray-600 text-sm">${logInInfo.post}</span>
+</div>
+<br>
+<div class="flex items-center justify-between bg-white rounded-md 
+ 			border-2 p-3 focus:outline-none mr-6 ml-6">
+    <label class="flex items-center">
+        <span class="ml-2 text-sm text-gray-700">상세주소</span>
+    </label>
+    <span class="text-gray-600 text-sm">${logInInfo.addr}</span>
+</div>
+
+<br>
+<!-- 									<input type="text" class="text-sm ml-6 text-gray-700 w-5/6 lex items-center  -->
+<!-- 										justify-between bg-white rounded-md border-2 border-blue-500 p-2 focus:outline-none"  -->
+<!-- 										placeholder="요청사항을 직접 입력합니다."> -->
 <%-- 								</c:if> --%>
 										
                              	</div>
                         </div> 
-						<br><br><br>
+						<br>
 					<!-- ---------------------------------------할인 및 포인트-------------------------------- -->                        
                         
 						<div class="mt-8">
-                            <h4 class="text-sm text-gray-500 font-medium">할인 및 포인트</h4>
+                            <h4 class="text-sm text-gray-500 font-bold">할인 및 포인트</h4>
                             <hr>
                            	<div class="mt-6 flex text-sm inline-flex ml-6" >
                           		적립포인트 잔액
@@ -109,19 +121,19 @@
                              	${point} 포인트
                             </div>
 						<br><br>
-							<button class="flex items-center justify-between bg-white float-right rounded-md  
-									border-blue-500 p-2 focus:outline-none mr-6" style="display: inline-flex;">
-	                            <label class="flex items-center">
-	                                <input type="checkbox" class="form-radio h-5 w-5 text-blue-600"/>
+<!-- 							<button class="flex items-center justify-between bg-white float-right rounded-md   -->
+<!-- 									border-blue-500 p-2 focus:outline-none mr-6" style="display: inline-flex;"> -->
+	                            <label class="flex items-center float-right mr-6">
+	                                <input type="checkbox" id="usePointCheck" class="form-radio h-5 w-5 text-blue-600"/>
 	                                <span class="ml-2 text-sm text-gray-700">적립포인트 전액 사용</span>
 	                            </label>
-                             	<span class="text-gray-600 text-sm"></span>
-                             </button>
+<!--                              	<span class="text-gray-600 text-sm"></span> -->
+<!--                              </button> -->
                         <br><br><br>
-							<div id="point" class="mt-6 inline-flex text-sm mr-6 ml-6">
+							<div class="mt-6 inline-flex text-sm mr-6 ml-6">
 								사용 포인트 </div>
-							<input id="point" type="number" max="50000" min="1"  class=" w-1/6 mr-6 text-sm text-gray-700 lex items-center justify-between 
-									bg-white rounded-md border-2 border-blue-500 p-2 focus:outline-none float-right" >
+							<input id="usePoint" type="number" max="50000" min="1"  class=" w-1/6 mr-6 text-sm text-gray-700 lex items-center justify-between 
+									bg-white rounded-md border-2 border-blue-500 p-2 focus:outline-none float-right" placeholder="포인트"> 포인트
                        	</div>
                     </form>
                 </div>
@@ -133,7 +145,7 @@
                     <div class=" justify-center lg:justify-end details">
                         <div class="border rounded-md w-full px-4 py-10 ">
                             <div class="flex items-center justify-between">
-                                <h3 class="text-gray-700 font-medium">주문자 정보</h3>
+                                <h3 class="text-gray-700 font-bold">주문자 정보</h3>
                             </div>
                             <div class="flex justify-between mt-6">
                                 <div class="flex">
@@ -153,13 +165,13 @@
                                     </div>
                                 </div>
                             </div>  
-                           <br> 
-                            <div class="mx-3">
-                            	<h3 class="text-sm text-gray-600 ">주문자 정보로 결제관련 정보가 제공됩니다.
-                            	<br>정확한 정보로 등록되어있는지 확인해주세요.</h3>
+                           <br><br>
+                            <div class="mx-1">
+                            	<h3 class="text-sm text-blue-500 font-semibold">
+                            	주문자 정보로 결제관련 정보가 제공됩니다. 정확한 정보로 등록되어있는지 확인해주세요.</h3>
                             </div>           
                     	</div>
-                       <br><br>                    	
+                       <br>                   	
                     	
                     	
 					<!-- ---------------------------------------주문정보-------------------------------- -->
@@ -169,7 +181,7 @@
                        		
                         		<div class="border rounded-md w-full px-4 py-10">
                             		<div class="flex items-center justify-between">
-                                		<h3 class="text-gray-700 font-medium">주문 정보</h3>
+                                		<h3 class="text-gray-700 font-bold -webkit-text-stroke: medium">주문 정보</h3>
                             		</div>
                         <c:forEach items="${product}" var="product">
                        		<c:set var="price" value="${product.price * product.amount }"></c:set>
@@ -197,9 +209,10 @@
                                    		</div>
                                 	</div>
                             	</div>
-                                <span class="text-gray-600 float-right mx-8">주문 금액 ${price}원</span>
+                            	<br>
+                                <span class="text-gray-600 float-right mx-8 font-bold">주문 금액 ${price}원</span>
                                 </div>
-                                <br>
+                                <br><br>
                         	<c:set var="total" value="${total + price}"></c:set>
                       </c:forEach>
                         	</div>
@@ -215,7 +228,7 @@
         <div class="container mx-auto px-6">
         	<div class="border rounded-md w-full px-4 py-10">
 				<div class="flex items-center justify-between w-full">
-				    <h3 class="text-gray-700 font-medium">결제 금액</h3>
+				    <h3 class="text-gray-700 font-bold">결제 금액</h3>
 				</div>
 				<div class="flex justify-between mt-6">
 					<div class="flex w-full justify-between">
@@ -227,14 +240,13 @@
 				            <h3 class="text-sm text-gray-600">적립포인트 사용(-)</h3> 
 				        </div>
                         <div class="mx-3">
-                        
 						<c:set var="totalPayment" value="${total  + 3000}"></c:set>
 						
-                        	<h3 class="text-sm text-gray-600">${totalPayment}</h3>
+                        	<h3 id="totalLoc" class="text-sm text-gray-600">${totalPayment} 원</h3>
                             <br>
                             <h3 class="text-sm text-gray-600">3,000원</h3>
                             <h3 class="text-sm text-gray-600">0원</h3>
-                            <h3 id="usePoint" class="text-sm text-gray-600"> 포인트</h3>
+                            <h3 id="usePointLoc" class="text-sm text-gray-600">0 포인트</h3>
                         </div>
 					</div>
 				</div>
@@ -242,12 +254,12 @@
 			</div>
 		
 			<br>
-			<button class="flex items-center justify-between bg-white w-full rounded-md border-2 border-blue-500 p-4 focus:outline-none" style="display: inline-flex;">
+			<div class="flex items-center justify-between bg-white w-full rounded-md border-2 border-blue-500 p-4 focus:outline-none" style="display: inline-flex;">
 				<label class="flex items-center">
-				    <input id = "necessary" type="checkbox" class="form-radio h-5 w-5 text-blue-600" /><span class="ml-2 text-sm text-gray-700">위 상품의 구매조건 확인 및 결제진행 동의</span>
-				</label>
+				    <input id = "necessary" type="checkbox" class="form-radio h-5 w-5 text-blue-600" /><span class="ml-2 text-sm text-gray-700 font-bold">위 상품의 구매조건 확인 및 결제진행 동의</span>
 				<span class="text-gray-600 text-sm"></span>
-			</button>
+				</label>
+			</div>
 		<br><br>
 			<div class=" items-center justify-between">
 				<button type="button" class="flex items-center text-gray-700 text-sm font-medium rounded hover:underline focus:outline-none float-left">
@@ -265,9 +277,21 @@
     	</main>
   
 <script type="text/javascript">  	
+   	$("#usePointCheck").click(function(){
+   		if($("#usePointCheck").is(":checked")){
+   			$("#usePoint").val(${point})
+   			$("#usePointLoc").text(${point}+" 포인트")
+   			$("#totalLoc").text(${totalPayment}-$('#usePoint').val()+" 원")
+   		}else{
+   			$("#usePoint").val('')
+   			$("#usePointLoc").text('')
+			$("#totalLoc").text(${totalPayment}+" 원")
+   		}
+   	})
+   	
    	$("#usePoint").change(function(){
-   		
-   		
+   		$("#usePointLoc").text($("#usePoint").val()+" 포인트")
+   		$("#totalLoc").text(${totalPayment}-$('#usePoint').val()+" 원")
    	})
 </script>
 <script type="text/javascript">

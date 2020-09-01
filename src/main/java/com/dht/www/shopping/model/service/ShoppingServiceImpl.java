@@ -1,5 +1,6 @@
 package com.dht.www.shopping.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.dht.www.shopping.model.dao.ShoppingDao;
 import com.dht.www.shopping.model.vo.Basket;
+import com.dht.www.shopping.model.vo.OrderProduct;
 import com.dht.www.shopping.model.vo.Orders;
 import com.dht.www.user.model.vo.Users;
 
@@ -26,14 +28,19 @@ public class ShoppingServiceImpl implements ShoppingService {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectList(int listno, int curPage, int cntPerPage) {
+	public Map<String, Object> selectList(int listno, int curPage, int cntPerPage) {
 	
-		int total = shoppingDao.selectCntList(listno);
-		Paging paging = new Paging(total, curPage, cntPerPage);
-		paging.setListno(listno);
+		Map<String, Object> commandMap = new HashMap<String, Object>();
 
-		System.out.println("total" + total);
-		return shoppingDao.selectList(paging);
+		Paging paging = new Paging(shoppingDao.selectCntList(listno), curPage, cntPerPage);
+		paging.setListno(listno);
+		
+		 List<Map<String, Object>> list = shoppingDao.selectList(paging);
+		
+		 commandMap.put("paging", paging);
+		 commandMap.put("list", list);
+		
+		return commandMap;
 				
 	}
 	
@@ -94,14 +101,26 @@ public class ShoppingServiceImpl implements ShoppingService {
 
 	@Override
 	public List<Map<String, Object>> selectProuct(Basket basket) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int insertOrders(Orders order) {
-		System.out.println("이거 되지?"+order);
 		return shoppingDao.insertOrders(order);
+	}
+	
+	public int insertOrderProduct(List<OrderProduct> orderProduct) {
+		return shoppingDao.insertOrderProduct(orderProduct);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectReview(String code) {
+		return shoppingDao.selectReview(code);
+	}
+
+	@Override
+	public int scoreAvg(String code) {
+		return shoppingDao.scoreAvg(code);
 	}
 
 }

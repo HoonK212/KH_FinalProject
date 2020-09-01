@@ -306,69 +306,72 @@
   }
 </style>
 
-    <main class="my-5">
+    <main class="my-5 py-3">
         <div class="container mx-auto px-6">
             <div class="md:flex md:items-center">
-                <div class="w-full h-64 md:w-1/2 lg:h-96">
-                    <img class="h-full w-full rounded-md object-cover max-w-lg mx-auto" src="https://images.unsplash.com/photo-1578262825743-a4e402caab76?ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80" alt="Nike Air">
-                </div>
-                <div class="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
-                    <h3 class="text-gray-700 uppercase text-lg">Nike Air</h3>
-                    <span class="text-gray-500 mt-3">$125</span>
-                    <hr class="my-3">
-                    <div class="mt-2">
-                        <label class="text-gray-700 text-sm" for="count">Count:</label>
-                        <div class="flex items-center mt-1">
-                            <button class="text-gray-500 focus:outline-none focus:text-gray-600">
-                                <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            </button>
-                            <span class="text-gray-700 text-lg mx-2">20</span>
-                            <button class="text-gray-500 focus:outline-none focus:text-gray-600">
-                                <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="mt-3">
-                        <label class="text-gray-700 text-sm" for="count">Color:</label>
-                        <div class="flex items-center mt-1">
-                            <button class="h-5 w-5 rounded-full bg-blue-600 border-2 border-blue-200 mr-2 focus:outline-none"></button>
-                            <button class="h-5 w-5 rounded-full bg-teal-600 mr-2 focus:outline-none"></button>
-                            <button class="h-5 w-5 rounded-full bg-pink-600 mr-2 focus:outline-none"></button>
-                        </div>
-                    </div>
-                    <div class="flex items-center mt-6">
-                        <button class="px-8 py-2 bg-indigo-600 text-white text-sm font-medium rounded hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500">Order Now</button>
-                        <button class="mx-2 text-gray-600 border rounded-md p-2 hover:bg-gray-200 focus:outline-none">
-                            <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
+	<div class="w-full h-64 md:w-1/2 lg:h-96">
+		<img class="h-full w-full rounded-md object-cover max-w-lg mx-auto" src="https://images.unsplash.com/photo-1578262825743-a4e402caab76?ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80" alt="Nike Air">
+	</div>
+	<div class="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
+	
+		<h3 class="text-2xl text-gray-700 uppercase text-lg">${detail.name }</h3>
+		<div class="flex items-center">
+			<div class="flex items-center mt-2 mb-4">
+				<c:if test="${avg ne 0 }">
+					<c:forEach begin="0" end="${avg }">
+						<svg class="mx-1 w-4 h-4 fill-current text-yellow-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+					</c:forEach>
+				</c:if>
+				<c:forEach begin="0" end="${4-avg }">
+					<svg class="mx-1 w-4 h-4 fill-current text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+				</c:forEach>
+			</div>
+		</div>
+		
+ 		<span class="text-gray-700 mt-3">${detail.price }원</span>
+		<hr class="my-3">
+		<div class="mt-2">
+			<div class="flex items-center mt-1 py-2">
+				<input type="hidden" value="${detail.code }" id="code">
+				<label class="text-gray-700 text-sm mr-3" for="count">Count:</label>
+				<input type="number" min="1" value="1" name="amount" id="amount"
+				class="text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
+			</div>
+		</div>
+		<div class="flex items-center mt-6">
+			<input type="hidden" id="userId" value="${logInInfo.id }"/>
+			<!-- 주문하기 -->
+			<button onclick="sendOrder();" class="px-8 py-2 bg-indigo-600 text-white text-sm font-medium rounded hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500">주문하기</button>
+			<!-- 장바구니 담기 -->
+			<button onclick="sendBasket();" class="mx-2 text-gray-600 border rounded-md p-2 hover:bg-gray-200 focus:outline-none">
+				<svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+			</button>
+		</div>
+	</div>
+</div>
             
-<div id="wrap">
+<div id="wrap" class="py-3">
   <div id="product_layout_3">
       <div class="tabular">
         <ul class="tabs group">
-          <li><a href="#/one" class="hover:bg-indigo-500">More Info</a></li>
-          <li><a href="#/two" class="hover:bg-indigo-500">Reviews</a></li>
-          <li><a href="#/three" class="active">Details</a></li>
+          <li><a href="#/one" class="hover:bg-gray-500">상세정보</a></li>
+          <li><a href="#/two" class="hover:bg-gray-500">리뷰</a></li>
+          <li><a href="#/three" class="active">Q&A</a></li>
         </ul>
           <div id="content">
+          
             <aside id="one">
-              <p>Excuse me. I'll call you tonight. Right. Yeah, I think maybe you do. Wait a minute, wait a minute, Doc, are you telling me that you built a time machine out of a delorean.</p>
-              <p>Um, well it's a delorean, right? Yeah okay. Wow, ah Red, you look great. Everything looks great. 1:24, I still got time. Oh my god. No, no not again, c'mon, c'mon. Hey. Libyans. Yeah, well uh, lets keep this brain melting stuff to ourselves, okay? Yeah, yeah what are you wearing, Dave.</p>
-               <p>Excuse me. I'll call you tonight. Right. Yeah, I think maybe you do. Wait a minute, wait a minute, Doc, are you telling me that you built a time machine out of a delorean.</p>
-              <p>Um, well it's a delorean, right? Yeah okay. Wow, ah Red, you look great. Everything looks great. 1:24, I still got time. Oh my god. No, no not again, c'mon, c'mon. Hey. Libyans. Yeah, well uh, lets keep this brain melting stuff to ourselves, okay? Yeah, yeah what are you wearing, Dave.</p>
-              <p>Excuse me. I'll call you tonight. Right. Yeah, I think maybe you do. Wait a minute, wait a minute, Doc, are you telling me that you built a time machine out of a delorean.</p>
-              <p>Um, well it's a delorean, right? Yeah okay. Wow, ah Red, you look great. Everything looks great. 1:24, I still got time. Oh my god. No, no not again, c'mon, c'mon. Hey. Libyans. Yeah, well uh, lets keep this brain melting stuff to ourselves, okay? Yeah, yeah what are you wearing, Dave.</p>
+              <p>${detail.describe }</p>
             </aside>
-            <aside id="two">
+            
+            <aside id="two"><!-- 리뷰 리스트명 reviews -->
               <span class="author">Marty Mcfly</span><span class="stars"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half"></i></span><p>"Excuse me. I'll call you tonight. Right. Yeah, I think maybe you do. Wait a minute, wait a minute, Doc, are you telling me that you built a time machine out of a delorean.</p>
               <p>Um, well it's a delorean, right? Yeah okay. Wow, ah Red, you look great. Everything looks great. 1:24, I still got time. Oh my god. No, no not again, c'mon, c'mon. Hey. Libyans. Yeah, well uh, lets keep this brain melting stuff to ourselves, okay? Yeah, yeah what are you wearing, Dave.</p>
               <p>Hey c'mon, I had to change, you think I'm going back in that zoot suit? The old man really came through it worked. You'll find out in thirty years. Can't be. This is nuts. Aw, c'mon. Hey guys, you gotta get back in there and finish the dance. Right, and where am I gonna be?"</p>
               <span class="full_review"><a href="#">Read The Full Review</a></span>
               <span class="write_review"><a href="#">Write Your Own Review</a></span>
             </aside>
+            
             <aside id="three">
               <div class="images">
                 <img src="사진"/>
@@ -378,6 +381,7 @@
               <p>Um, well it's a delorean, right? Yeah okay. Wow, ah Red, you look great. Everything looks great. 1:24, I still got time. Oh my god. No, no not again, c'mon, c'mon. Hey. Libyans. Yeah, well uh, lets keep this brain melting stuff to ourselves, okay? Yeah, yeah what are you wearing, Dave</p>
               </div>
               </aside>
+              
           </div>
       </div>
     </div>
@@ -385,58 +389,101 @@
             
             
             <div class="mt-16">
-                <h3 class="text-gray-600 text-2xl font-medium">More Products</h3>
-                <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
-                    <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
-                        <div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('https://images.unsplash.com/photo-1563170351-be82bc888aa4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=376&q=80')">
-                            <button class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
-                                <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                            </button>
-                        </div>
-                        <div class="px-5 py-3">
-                            <h3 class="text-gray-700 uppercase">Chanel</h3>
-                            <span class="text-gray-500 mt-2">$12</span>
-                        </div>
-                    </div>
-                    <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
-                        <div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('https://images.unsplash.com/photo-1544441893-675973e31985?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80')">
-                            <button class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
-                                <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                            </button>
-                        </div>
-                        <div class="px-5 py-3">
-                            <h3 class="text-gray-700 uppercase">Man Mix</h3>
-                            <span class="text-gray-500 mt-2">$12</span>
-                        </div>
-                    </div>
-                    <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
-                        <div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('https://images.unsplash.com/photo-1532667449560-72a95c8d381b?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80')">
-                            <button class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
-                                <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                            </button>
-                        </div>
-                        <div class="px-5 py-3">
-                            <h3 class="text-gray-700 uppercase">Classic watch</h3>
-                            <span class="text-gray-500 mt-2">$12</span>
-                        </div>
-                    </div>
-                    <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
-                        <div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('https://images.unsplash.com/photo-1590664863685-a99ef05e9f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=345&q=80')">
-                            <button class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
-                                <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                            </button>
-                        </div>
-                        <div class="px-5 py-3">
-                            <h3 class="text-gray-700 uppercase">woman mix</h3>
-                            <span class="text-gray-500 mt-2">$12</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+				<h3 class="text-gray-600 text-2xl font-medium">더 보기</h3>
+				<div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
+                
+					<c:forEach items="${list}" var="item" begin="0" end="3">
+						<div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+							<a href="/shopping/detail?code=${item.code }">
+								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('https://images.unsplash.com/photo-1495856458515-0637185db551?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')"></div>
+							</a>
+							<div class="px-5 py-3">
+								<h3 class="text-gray-700 uppercase"><a href="/shopping/detail?code=${item.code }">${item.name}</a></h3>
+								<span class="text-gray-500 mt-2">${item.price}</span>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
         </div>
     </main>
-    
+
 <script type="text/javascript">
+const sendOrder = () => {
+	var orderForm = document.createElement("form");
+	orderForm.setAttribute("method", "get");
+	orderForm.setAttribute("action", "<%=request.getContextPath()%>/shopping/payment");
+	
+	var code = document.createElement("input"); 
+	code.setAttribute("type", "hidden"); 
+	code.setAttribute("name", "codes"); 
+	code.setAttribute("value", document.querySelector("#code").value);
+	
+	var amount = document.createElement("input"); 
+	amount.setAttribute("type", "hidden"); 
+	amount.setAttribute("name", "amount"); 
+	amount.setAttribute("value", document.querySelector('#amount').value);
+	
+	var userId = document.createElement("input"); 
+	userId.setAttribute("type", "hidden"); 
+	userId.setAttribute("name", "userId"); 
+	userId.setAttribute("value", document.querySelector('#userId').value);
+	
+	orderForm.appendChild(code);
+	orderForm.appendChild(amount);
+	orderForm.appendChild(userId);
+	
+	document.body.appendChild(orderForm); 
+	orderForm.submit();
+}
+
+//장바구니 추가
+const sendBasket = () => {
+	var basketForm = document.createElement("form");
+	basketForm.setAttribute("method", "post");
+	basketForm.setAttribute("action", "<%=request.getContextPath()%>/shopping/basket");
+	
+	var code = document.createElement("input"); 
+	code.setAttribute("type", "hidden"); 
+	code.setAttribute("name", "codes"); 
+	code.setAttribute("value", document.querySelector("#code").value);
+	
+	var amount = document.createElement("input"); 
+	amount.setAttribute("type", "hidden"); 
+	amount.setAttribute("name", "amount"); 
+	amount.setAttribute("value", document.querySelector('#amount').value);
+	
+	var userId = document.createElement("input"); 
+	userId.setAttribute("type", "hidden"); 
+	userId.setAttribute("name", "userId"); 
+	userId.setAttribute("value", document.querySelector('#userId').value);
+	
+	basketForm.appendChild(code);
+	basketForm.appendChild(amount);
+	basketForm.appendChild(userId);
+	
+	document.body.appendChild(basketForm);
+	
+	send(event, basketForm);
+}
+
+const send = (e,form) => {
+	fetch(form.action,{method:'post', body: new FormData(form)})
+	.then(function(response) {
+		if(response.ok) {
+			var con_test = confirm("장바구니에 상품을 담았습니다. \n장바구니로 이동하시겠습니까?");
+			if(con_test == true){
+				location.href='<%=request.getContextPath()%>/shopping/basket';
+			}
+			else if(con_test == false){
+				modalClose();
+			}
+		}
+	});
+	e.preventDefault();
+}
+
+
 (function($) {
 
 	var tabs =  $(".tabs li a");

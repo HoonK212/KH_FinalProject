@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dht.www.shopping.model.vo.Basket;
+import com.dht.www.shopping.model.vo.OrderProduct;
 import com.dht.www.shopping.model.vo.Orders;
 import com.dht.www.user.model.vo.Users;
 
@@ -78,6 +79,18 @@ public class ShoppingDao {
 	
 	public int insertOrders(Orders order) {
 		return sqlSession.insert("Shopping.insertOrders", order);
+	}
+	
+	public int insertOrderProduct(List<OrderProduct> orderProduct) {
+		return sqlSession.insert("Shopping.insertOrderProduct", orderProduct);
+	}
+	
+	public List<Map<String, Object>> selectReview(String code) {
+		return sqlSession.selectList("Shopping.selectReview", code);
+	}
+	
+	public int scoreAvg(String code) {
+		return sqlSession.selectOne("Shopping.scoreAvg", code);
 	}
 	
 }
