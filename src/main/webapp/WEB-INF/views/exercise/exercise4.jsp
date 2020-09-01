@@ -22,7 +22,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	init();
+	
+	exerChange("burpee");
 	
 })
 
@@ -61,10 +62,11 @@ function countUpdate(count, set) {
 				$(".complete").css({'pointer-events':'all'})
     			$(".complete").css({'cursor':'pointer'})
     			
-//     			var exerName = '<c:out value="${ExerciseInfo[exerStatus]}"/>'
-    			var exerName = 'lunge'
+    				
+    			var cOut = '<c:out value="${exerStatus}" />';
+    			console.log(cOut);
+    			
     			console.log("여기가 끝나요!!!!!!!")
-    			exerChange(exerName)
     			webcam.pause(); // 웹캠 중단
 			}
 		}
@@ -338,6 +340,7 @@ function exerChangejs(exerName) {
 					</c:when>
 				</c:choose>
 				<c:set var="exerStatus" value="${exerStatus + 1} " />
+				
 			
 		</div>
 		<!-- right layout 끝 -->

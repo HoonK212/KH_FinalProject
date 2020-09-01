@@ -69,14 +69,14 @@
 								<div><canvas id="canvas" style="display: inline;"></canvas></div>
 								<div id="label-container"></div>
 								<script type="text/javascript">
-								    var URL = "<%=request.getContextPath() %>/resources/motionmodel/squat/";
+								const URL = "<%=request.getContextPath() %>/resources/motionmodel/squat/";
 								    let model, webcam, ctx, labelContainer, maxPredictions;
 									
 								    console.log("경로" + URL);
 								    
 								    async function init() {
-								        var modelURL = URL + "model.json";
-								        var metadataURL = URL + "metadata.json";
+								    	const modelURL = URL + "model.json";
+								    	const metadataURL = URL + "metadata.json";
 								
 								        // load the model and metadata
 								        // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
@@ -86,14 +86,14 @@
 								
 								        // Convenience function to setup a webcam
 // 								        var size = 500;
-								        var flip = true; // whether to flip the webcam
+								        const flip = true; // whether to flip the webcam
 								        webcam = new tmPose.Webcam(512, 480, flip); // width, height, flip
 								        await webcam.setup(); // request access to the webcam
 								        await webcam.play();
 								        window.requestAnimationFrame(loop);
 								
 								        // append/get elements to the DOM
-								        var canvas = document.getElementById("canvas");
+								        const canvas = document.getElementById("canvas");
 								        canvas.width = 512; canvas.height = 480;
 								        ctx = canvas.getContext("2d");
 								        labelContainer = document.getElementById("label-container");
@@ -119,16 +119,11 @@
 								    var progressCnt = 0
 								    var ff = null;
 								    
-								    var exArr = new Array(); 
-								    exArr =	"${exerciseName}".split(",");
-									for(var i=0; i<exArr.length; i++) {
-										console.log(exArr[i])
-									}
 
 								    
 								    async function predict() {
-								        var { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
-								        var prediction = await model.predict(posenetOutput);
+								    	const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
+								    	const prediction = await model.predict(posenetOutput);
 								
 								        if(prediction[0].probability.toFixed(2) == 1.00) {
 								        	
@@ -145,7 +140,7 @@
 								        		//함수호출(오른쪽 프로그래스바)
 								        		ff = countUpdate(count, set);
 								        		//함수호출(왼쪽 프로그래스바)
-								        		leftCountUpdate(progressCnt ,exArr[0])
+								        		leftCountUpdate(progressCnt, "squat")
 								        		
 								        		
 								        	}
@@ -169,7 +164,7 @@
 								        	
 								        	
 								        for (let i = 0; i < maxPredictions; i++) {
-								            var classPrediction =
+								        	const classPrediction =
 							                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
 // 								            labelContainer.childNodes[i].innerHTML = classPrediction; //여기가 값나오는 부분!
 								        }
@@ -183,7 +178,7 @@
 								            ctx.drawImage(webcam.canvas, 0, 0);
 								            // draw the keypoints and skeleton
 								            if (pose) {
-								                var minPartConfidence = 0.5;
+								            	const minPartConfidence = 0.5;
 								                tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
 								                tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
 								            }

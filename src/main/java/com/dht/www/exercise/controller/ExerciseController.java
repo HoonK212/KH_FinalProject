@@ -131,7 +131,7 @@ public class ExerciseController {
 		System.out.println(exerName);
 		
 		
-		return "exercise/lunge";
+		return "exercise/"+exerName;
 	}
 	
 	@RequestMapping(value="/nextexerjs", method=RequestMethod.GET , produces = "application/text;charset=utf8")
@@ -140,32 +140,31 @@ public class ExerciseController {
 		System.out.println(exerName);
 		
 		
-		  String temp;
-		  File fileName = new File(req.getServletContext().getRealPath("WEB-INF/views/exercise/test"));
-		  BufferedReader br = null;
-		  String test = "";
+		String temp;
+		File fileName = new File(req.getServletContext().getRealPath("WEB-INF/resources/"+exerName));
+		BufferedReader br = null;
+		String test = "";
 		  
-	 try {
+		try {
 			br = new BufferedReader(new FileReader(fileName));
-			while( (temp = br.readLine()) != null ) {  
-				test+=temp;
+			while ((temp = br.readLine()) != null) {
+				test += temp;
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
-				if(br!=null)br.close();
+				if (br != null)	br.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 
 		  
-		  System.out.println("디디디디디");
-	 System.out.println(test);
-		  
+		System.out.println("디디디디디");
+		System.out.println(test);
 		  
 		return test;
 	}
