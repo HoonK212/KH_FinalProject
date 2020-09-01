@@ -43,4 +43,6 @@ public interface ShoppingService {
 	public int insertOrders(Orders order);
 	
 	public int insertOrderProduct(List<OrderProduct> orderProduct);
+	
+	public List<Map<String, Object>> selectReview(String code);
 }

@@ -107,4 +107,9 @@ public class ShoppingServiceImpl implements ShoppingService {
 		return shoppingDao.insertOrderProduct(orderProduct);
 	}
 
+	@Override
+	public List<Map<String, Object>> selectReview(String code) {
+		return shoppingDao.selectReview(code);
+	}
+
 }

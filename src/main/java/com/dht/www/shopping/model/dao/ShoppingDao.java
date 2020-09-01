@@ -85,4 +85,8 @@ public class ShoppingDao {
 		return sqlSession.insert("Shopping.insertOrderProduct", orderProduct);
 	}
 	
+	public List<Map<String, Object>> selectReview(String code) {
+		return sqlSession.selectList("Shopping.selectReview", code);
+	}
+	
 }

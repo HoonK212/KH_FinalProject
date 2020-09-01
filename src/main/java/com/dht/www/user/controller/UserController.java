@@ -1,8 +1,10 @@
 package com.dht.www.user.controller;
 
+import java.util.Iterator;
 import java.util.List;
 
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dht.www.shopping.model.service.ShoppingService;
+import com.dht.www.shopping.model.vo.Basket;
 import com.dht.www.user.model.service.UserService;
 import com.dht.www.user.model.vo.Users;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -31,6 +35,9 @@ public class UserController {
 	
 	@Autowired
 	public UserService userService;
+	
+	@Autowired
+	private ShoppingService shoppingService;
 
 	// 로그인페이지로 이동
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -61,6 +68,39 @@ public class UserController {
 
 			//로그인 성공
 			session.setAttribute("logInInfo", res);
+			
+			if(session.getAttribute("sessionBasket") != null) {
+				List<Map<String, Object>> sessionBasket = (List<Map<String, Object>>) session.getAttribute("sessionBasket");
+				if(sessionBasket != null && session.getId().equals( (String) sessionBasket.get(0).get("sessionId"))) {
+					
+					Map<String, Object> items = sessionBasket.get(1);
+					
+					Set<String> keys = items.keySet();
+					Iterator iter = keys.iterator();
+					
+					while(iter.hasNext()) { //iter.next() : 코드
+						String code = (String) iter.next();
+						Map<String, Object> item = (Map<String, Object>) items.get(code);
+						
+						Basket insert = new Basket();
+						insert.setCode((String) item.get("code"));
+						insert.setId(res.getId());
+						insert.setAmount((int) item.get("amount"));
+						
+						int check = shoppingService.checkBasket(insert);
+						
+						if(check > 0) {
+							shoppingService.addAmount(insert);
+							
+						} else {
+							System.out.println("세션 아이템"+item+"삽입할 장바구니"+insert);
+							shoppingService.insertBasket(insert);
+						}
+					}
+					session.removeAttribute("basket");
+					session.removeAttribute("sessionBasket");
+				} 
+			}
 			return "";
 		
 		}else {//회원정보 없음
@@ -75,7 +115,8 @@ public class UserController {
 		
 		//세션에 저장한 회원정보 삭제
 		session.removeAttribute("logInInfo");
-		
+		session.removeAttribute("basket");
+		session.removeAttribute("sessionBasket");
 		return "redirect:login";
 	}
 	

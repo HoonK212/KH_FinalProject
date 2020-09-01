@@ -176,9 +176,10 @@ function calcPrice(num) {
 	
 	var amount = document.querySelector("#amount"+num).value;
 	var code = document.querySelector("#check"+num).value;
+	var userId = document.querySelector("#userId").value;
 	
 	var xhr = new XMLHttpRequest();
-	xhr.open('GET', '<%=request.getContextPath()%>/shopping/amount?amount='+amount+'&code='+code);
+	xhr.open('GET', '<%=request.getContextPath()%>/shopping/amount?amount='+amount+'&code='+code+'&userId='+userId);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	xhr.send();
 	
