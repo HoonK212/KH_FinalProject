@@ -1,9 +1,16 @@
 package com.dht.www.exercise.controller;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -129,11 +136,38 @@ public class ExerciseController {
 	
 	@RequestMapping(value="/nextexerjs", method=RequestMethod.GET , produces = "application/text;charset=utf8")
 	@ResponseBody
-	public String nextExerjs(@RequestParam String exerName, Model model) {
+	public String nextExerjs(@RequestParam String exerName, Model model ,  HttpServletRequest req) {
 		System.out.println(exerName);
 		
 		
-		return "console.log(123123)";
+		  String temp;
+		  File fileName = new File(req.getServletContext().getRealPath("WEB-INF/views/exercise/test"));
+		  BufferedReader br = null;
+		  String test = "";
+		  
+	 try {
+			br = new BufferedReader(new FileReader(fileName));
+			while( (temp = br.readLine()) != null ) {  
+				test+=temp;
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(br!=null)br.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		  
+		  System.out.println("디디디디디");
+	 System.out.println(test);
+		  
+		  
+		return test;
 	}
 	
 	
