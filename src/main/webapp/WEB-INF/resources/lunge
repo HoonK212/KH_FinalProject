@@ -1,7 +1,3 @@
-delete window.init;
-init();
-
-
 const URL = "/resources/motionmodel/lunge/";
 			   let model, webcam, ctx, labelContainer, maxPredictions;
 				
@@ -64,7 +60,7 @@ const URL = "/resources/motionmodel/lunge/";
     		audio.play();
 
     		ff = countUpdate(count, set);
-    		leftCountUpdate(progressCnt ,exArr[0]);
+    		leftCountUpdate(progressCnt, "lunge");
     		
     	}
     	status = "standsss";

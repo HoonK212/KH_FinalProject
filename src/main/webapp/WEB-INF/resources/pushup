@@ -50,7 +50,7 @@ const URL = "/resources/motionmodel/pushup/";
 
         if(prediction[0].probability.toFixed(2) == 1.00) {
         	console.log(status);
-        	if(status == "pushdown") { // 스쿼트에서 일어나면 개수 증가
+        	if(status == "pushdown") {
         		count++;
         		progressCnt++;
 				
