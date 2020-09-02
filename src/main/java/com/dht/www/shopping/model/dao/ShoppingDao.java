@@ -92,5 +92,30 @@ public class ShoppingDao {
 		return no;
 	}
 	
+	public int selectOrdersNo() {
+		return sqlSession.selectOne("Shopping.selectOrdersNo");
+	}
+	
+	public void insertPoint(Map userPoint) {
+		sqlSession.insert("Shopping.insertPoint",userPoint);
+	}
+
+	public List<Map<String, Object>> selectReview(String code) {
+		return sqlSession.selectList("Shopping.selectReview", code);
+	}
+	
+	public int scoreAvg(String code) {
+		return sqlSession.selectOne("Shopping.scoreAvg", code);
+	}
+	
+	public int selectCntSearch(String search) {
+		return sqlSession.selectOne("Shopping.selectCntSearch", search);
+	}
+	
+	public List<Map<String, Object>> selectSearch(Paging paging){
+		return sqlSession.selectList("Shopping.selectSearch", paging);
+	}
+	
+	
 
 }
