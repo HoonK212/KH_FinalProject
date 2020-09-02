@@ -5,40 +5,60 @@
 
 <mapper namespace="Exercise">
 
-<!-- 	<resultMap type="map" id="Exercise"> -->
-<!-- 		<id column="no" property="no" /> -->
-<!-- 		<result column="type" property="type" /> -->
-<!-- 		<result column="name" property="name" /> -->
-<!-- 		<result column="cal" property="cal" /> -->
-<!-- 		<result column="decs" property="decs" /> -->
-<!-- 		<result column="count" property="count" /> -->
-<!-- 	</resultMap> -->
+	<resultMap type="map" id="Exercise">
+		<id column="no" property="no" />
+		<result column="type" property="type" />
+		<result column="name" property="name" />
+		<result column="cal" property="cal" />
+		<result column="describe" property="describe" />
+		<result column="count" property="count" />
+	</resultMap>
 	
-<!-- 	<resultMap type="map" id="Grade"> -->
-<!-- 		<id column="grade" property="grade" /> -->
-<!-- 		<result column="var" property="var" /> -->
-<!-- 	</resultMap> -->
+	<resultMap type="map" id="Grade">
+		<id column="grade" property="grade" />
+		<result column="var" property="var" />
+	</resultMap>
 	
-<!-- 	<resultMap type="map" id="Record"> -->
-<!-- 		<id column="id" property="id" /> -->
-<!-- 		<result column="date" property="date" /> -->
-<!-- 		<result column="record" property="record" /> -->
-<!-- 		<result column="ex_no" property="exNo" /> -->
-<!-- 	</resultMap> -->
+	<resultMap type="map" id="Record">
+		<id column="id" property="id" />
+		<result column="dates" property="dates" />
+		<result column="record" property="record" />
+		<result column="ex_no" property="exNo" />
+	</resultMap>
 	
-<!-- 	<resultMap type="map" id="Compensation"> -->
-<!-- 		<id column="id" property="id" /> -->
-<!-- 		<result column="date" property="date" /> -->
-<!-- 		<result column="type" property="type" /> -->
-<!-- 		<result column="event" property="event" /> -->
-<!-- 		<result column="inc" property="inc" /> -->
-<!-- 		<result column="dec" property="dec" /> -->
-<!-- 	</resultMap> -->
+	<resultMap type="map" id="Compensation">
+		<id column="id" property="id" />
+		<result column="dates" property="dates" />
+		<result column="type" property="type" />
+		<result column="event" property="event" />
+		<result column="inc" property="inc" />
+		<result column="dec" property="dec" />
+	</resultMap>
+	
+	<resultMap type="map" id="Goal">
+		<id column="id" property="id" />
+		<result column="days" property="days" />
+		<result column="exercises" property="exercises" />
+		<result column="grade" property="grade" />
+	</resultMap>
 	
 
-<!-- 	<insert id="insertMatch"> -->
-<!-- 		INSERT INTO TB_SCORE -->
-<!-- 		VALUES (#{rank}, #{teamName}, #{match}, #{win}, #{loose}, #{tie}, #{rate}, sysdate) -->
-<!-- 	</insert> -->
+	<select id="selectRoutine" resultType="String" >
+		select exercises from goal
+		where ID = #{id}
+	</select>
+	
+	<select id="selectGrade" resultType="int"  >
+		select grade from goal
+		where ID = #{id}
+	</select>
+	
+	<!-- 설정한 목표있는지 찾기 -->
+	<select id="selectGoalInfo" resultType="int" >
+		select count(*) from goal
+		where ID = #{id}
+	</select>
+	
+	
 
 </mapper>

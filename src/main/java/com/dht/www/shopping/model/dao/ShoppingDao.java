@@ -30,7 +30,6 @@ public class ShoppingDao {
 	
 	public List<Map<String, Object>> selectList(Paging paging){
 		return sqlSession.selectList("Shopping.selectList", paging);
-		
 	}
 	
 	public Map<String, Object> selectItem(String code) {
@@ -93,11 +92,5 @@ public class ShoppingDao {
 		return no;
 	}
 	
-	public int selectOrdersNo() {
-		return sqlSession.selectOne("Shopping.selectOrdersNo");
-	}
-	
-	public void insertPoint(Map userPoint) {
-		sqlSession.insert("Shopping.insertPoint",userPoint);
-	}
+
 }

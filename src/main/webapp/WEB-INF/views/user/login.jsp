@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>      
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,10 +25,10 @@
                             <div class="flex flex-col mt-4">
                                 <input id="pw" type="password" class="flex-grow h-8 px-2 rounded border border-grey-400" name="pw" required placeholder="Password">
                             </div>
-                            <span id="error" style="color: red; font-size: 0.7rem;"></span>
-                            <div class="flex items-center mt-4">
-                                <input type="checkbox" name="remember" id="remember" class="mr-2"> <label for="remember" class="text-sm text-grey-dark">로그인 상태 유지</label>
-                            </div>
+                            <span id="error" style="color: red; font-size: 0.8rem; min-height: 1rem; display:inline-block"></span>
+<!--                             <div class="flex items-center mt-4"> -->
+<!--                                 <input type="checkbox" name="remember" id="remember" class="mr-2"> <label for="remember" class="text-sm text-grey-dark">로그인 상태 유지</label> -->
+<!--                             </div> -->
                             <div class="flex flex-col mt-4">
                                 <button id="btnLogin" onclick="login()" type="submit" class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-semibold py-2 px-4 rounded">
                                     로그인
@@ -51,6 +52,10 @@
                             <a class="no-underline hover:underline text-blue-dark text-xs" href="<%=request.getContextPath()%>/user/findPw">
                             	비밀번호 찾기
                             </a>
+                            /
+                            <button type="button" class="kakaoLogout no-underline hover:underline text-blue-dark text-xs">
+                            	카카오 로그아웃(임시) 
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -70,6 +75,13 @@
 		var id = document.querySelector("#id").value;
 		var pw = document.querySelector("#pw").value;
 		
+		//입력하지 않았을때 막기
+		if( id == "" || pw == "" ){
+			document.querySelector('#error').textContent = '아이디/비밀번호 입력을 완성하세요.';
+			return false;
+		}
+		
+		
 		var xhr = new XMLHttpRequest();
 		xhr.open('POST', '<%=request.getContextPath()%>/user/loginimple');
 		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -81,10 +93,14 @@
 			console.log(data);
 
 			//로그인 실패
-			if( data != '' ){
-				document.querySelector('#error').textContent = data;
-			}else{ //로그인 성공
+			if (data == '2') {
+				document.querySelector('#error').textContent = '로그인에 실패하셨습니다.';
+			} else if (data == '3') {
+				document.querySelector('#error').textContent = '계정 중지되었습니다.';
+			} else if (data == '1') { //로그인 성공
 				location.href = '<%=request.getContextPath()%>/main';
+			} else {
+				document.querySelector('#error').textContent = '에러가 발생하였습니다.';
 			}
 		})
 		
@@ -96,10 +112,16 @@
 	//카카오 버튼을 클릭했을 때 redirect_uri로 코드(code)를 보내라고 요청하는 코드 
 	kakaoBtn.onclick=function(){
 
-		location.href='https://kauth.kakao.com/oauth/authorize?client_id=f601dfea61fb3ccf05acb9ddb277a697&redirect_uri=http://localhost:8089/www/user/kakaoLogin&response_type=code';  
-
+		location.href='https://kauth.kakao.com/oauth/authorize?client_id=f601dfea61fb3ccf05acb9ddb277a697&redirect_uri=http://<%=request.getServerName() %>:<%=request.getServerPort() %><%=request.getContextPath() %>/user/kakaoLogin&response_type=code'; 
  	}
 	
+   var btn = document.querySelector('.kakaoLogout');
+   
+   btn.onclick=function(){
+      
+      location.href='https://kauth.kakao.com/oauth/logout?client_id=f601dfea61fb3ccf05acb9ddb277a697&logout_redirect_uri=http://<%=request.getServerName() %>:<%=request.getServerPort() %><%=request.getContextPath() %>/user/kakaoLogout';
+  
+   }
 	</script>
 	
 

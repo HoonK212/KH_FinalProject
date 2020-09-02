@@ -14,7 +14,7 @@
 
 <div class="h-screen">
 	<div x-data="app()" x-cloak>
-	<form action="<%=request.getContextPath() %>/user/findIdImpl" method="POST">
+	<form action="<%=request.getContextPath() %>/user/findIdImpl" method="POST" onsubmit="return required();">
 		<div class="max-w-3xl mx-auto px-4 py-10">
 			<div x-show.transition="step === 'complete'">
 				<div class="bg-white rounded-lg p-10 flex items-center shadow justify-between">
@@ -49,14 +49,14 @@
 						<div class="mt-10 mb-10">
 							<label for="name" class="font-bold mb-1 text-gray-800 inline-block">이름</label>
 							<p class="font-bold mb-1 text-gray-400 block text-xs inline-block">(1/2)</p>
-							<input type="text" name="name"
+							<input type="text" name="name" id="name"
 								class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
 								placeholder="등록된 이름 입력">
 						</div>
 						<div class="mb-10">
 							<label for="mail" class="font-bold mb-1 text-gray-800 inline-block">이메일</label>
 							<p class="font-bold mb-1 text-gray-400 block text-xs inline-block">(2/2)</p>
-							<input type="email" name="mail"
+							<input type="email" name="mail" id="mail"
 								class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
 								placeholder="등록된 이메일 입력">
 						</div>
@@ -87,6 +87,16 @@
 		function app() {
 			return {
 				step: 3
+			}
+		}
+		
+		function required(){
+			var id = document.getElementById('id').value;
+			var name = documnet.getElementById('name').value;
+			
+			if( id == "" || name == ""){
+				
+				return false;
 			}
 		}
 	</script>

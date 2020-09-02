@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.dht.www.mypage.model.vo.Files;
 import com.dht.www.user.model.vo.Users;
 
 
@@ -54,6 +55,36 @@ public class UserDao {
 	public int insertBasicProfile(Users user) {
 
 		return session.insert("USERS.insertBasicProfile", user);
+	}
+	
+	//회원 프로필 이미지 정보
+	public Files selectUserProfile(Users user) {
+
+		return session.selectOne("USERS.selectUserProfile", user);
+	}
+	
+	//아이디 중복 확인
+	public int idCheck(String id) {
+
+		return session.selectOne("USERS.idCheck", id);
+	}
+
+	//닉네임 중복 확인
+	public int nickCheck(String nick) {
+
+		return session.selectOne("USERS.nickCheck", nick);
+	}
+	
+	//이메일 중복 확인
+	public int mailCheck(String mail) {
+
+		return session.selectOne("USERS.mailCheck", mail);
+	}
+
+	//카카오 또는 구글로 회원가입한 회원 조회
+	public Users selectUserByApiId(String apiId) {
+
+		return session.selectOne("USERS.selectUserByApiId", apiId);
 	}
 	
 

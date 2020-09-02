@@ -14,14 +14,22 @@
 		<result column="dates" property="dates" />
 		<result column="id" property="id" />
 		<result column="renamed" property="renamed" />
+		<result column="ext" property="ext" />
 		<result column="nick" property="nick" />
+		<result column="good" property="good" />
+		<result column="bad" property="bad" />
 		<result column="goodbad" property="goodbad" />
 	</resultMap>
+	
+	<select id="selectContentCnt" resultType="int">
+		select count(*)
+		from board
+	</select>
 	
 	<select id="selectBoardList" resultMap="Board">
 		select Y.* from
 			(select rownum rnum, X.* from
-				(select B.*, F.renamed, U.nick, decode(goodbad, null, 0, goodbad) as goodbad
+				(select B.*, F.renamed, F.ext, U.nick, decode(goodbad, null, 0, goodbad) as goodbad
 				from board B, (select * from files where type=1) F, users U,
     				(select ref, sum(decode(good_bad, 1, 1, 0))-sum(decode(good_bad, 2, 1, 0)) as goodbad
     				from recommend
@@ -32,9 +40,27 @@
 		where Y.rnum between #{start} and #{end}
 	</select>
 
-	<select id="selectContentCnt" resultType="int">
-		select count(*)
-		from board
+	<update id="updateBoardCount">
+		update board set count=count+1
+		where no = #{no}
+	</update>
+	
+	<select id="selectBoard" resultMap="Board">
+		select rownum rnum, X.* from
+			(select B.*, F.renamed, F.ext, U.nick, decode(good, null, 0, good) as good, decode(bad, null, 0, bad) as bad, decode(goodbad, null, 0, goodbad) as goodbad
+			from board B, (select * from files where type=1) F, users U,
+    				(select ref, sum(decode(good_bad, 1, 1, 0)) as good, sum(decode(good_bad, 2, 1, 0)) as bad, sum(decode(good_bad, 1, 1, 0))-sum(decode(good_bad, 2, 1, 0)) as goodbad
+	  				from recommend
+	  				where type=1
+	  				group by ref) R
+			where B.id = F.ref and B.id = U.id and B.no = R.ref(+)
+			order by B.no desc) X
+		where X.no = #{no}
 	</select>
-
+	
+	<insert id="insertBoard" parameterType="Board">
+		insert into board
+		values (board_seq.nextval, #{type}, #{title}, #{content}, 0, sysdate, #{id})
+	</insert>
+	
 </mapper>

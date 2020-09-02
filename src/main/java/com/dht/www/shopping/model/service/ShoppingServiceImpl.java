@@ -1,6 +1,6 @@
 package com.dht.www.shopping.model.service;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Map;
 
@@ -28,14 +28,19 @@ public class ShoppingServiceImpl implements ShoppingService {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectList(int listno, int curPage, int cntPerPage) {
+	public Map<String, Object> selectList(int listno, int curPage, int cntPerPage) {
 	
-		int total = shoppingDao.selectCntList(listno);
-		Paging paging = new Paging(total, curPage, cntPerPage);
-		paging.setListno(listno);
+		Map<String, Object> commandMap = new HashMap<String, Object>();
 
-		System.out.println("total" + total);
-		return shoppingDao.selectList(paging);
+		Paging paging = new Paging(shoppingDao.selectCntList(listno), curPage, cntPerPage);
+		paging.setListno(listno);
+		
+		 List<Map<String, Object>> list = shoppingDao.selectList(paging);
+		
+		 commandMap.put("paging", paging);
+		 commandMap.put("list", list);
+		
+		return commandMap;
 				
 	}
 	
@@ -108,13 +113,5 @@ public class ShoppingServiceImpl implements ShoppingService {
 		return shoppingDao.insertOrderProduct(orderProduct);
 	}
 
-	@Override
-	public int selectOrdersNo() {
-		return shoppingDao.selectOrdersNo();
-	}
 
-	@Override
-	public void insertPoint(Map userPoint) {
-		shoppingDao.insertPoint(userPoint);
-	}
 }

@@ -1,0 +1,86 @@
+const URL = "/resources/motionmodel/pushup/";
+    let model, webcam, ctx, labelContainer, maxPredictions;
+	
+    console.log("경로" + URL);
+    
+    async function init() {
+        const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+
+        model = await tmPose.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+
+        const flip = true;
+        webcam = new tmPose.Webcam(512, 480, flip);
+        await webcam.setup();
+        await webcam.play();
+        window.requestAnimationFrame(loop);
+
+        const canvas = document.getElementById("canvas");
+        canvas.width = 512; canvas.height = 480;
+        ctx = canvas.getContext("2d");
+        labelContainer = document.getElementById("label-container");
+        for (let i = 0; i < maxPredictions; i++) {
+            labelContainer.appendChild(document.createElement("div"));
+        }
+    }
+
+    async function loop(timestamp) {
+        webcam.update();
+        await predict();
+        window.requestAnimationFrame(loop);
+        
+        
+    }
+	
+    status = "pushup";
+
+    
+    async function predict() {
+        const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
+        const prediction = await model.predict(posenetOutput);
+
+        if(prediction[0].probability.toFixed(2) == 1.00) {
+        	console.log(status);
+        	if(status == "pushdown") {
+        		count++;
+        		progressCnt++;
+        		console.log("카운터 증가" + count);
+        		var audio = new Audio('/resources/audio/' + count + '.mp3');
+    		audio.play();
+    		console.log(count);
+    		
+
+    		countUpdate(count,set);
+    		leftCountUpdate(progressCnt, "pushup");
+    		
+    		
+    	}
+    	
+    	status = "pushup";
+		console.log(status);
+    } else if(prediction[1].probability.toFixed(2) == 1.00) {
+    	status = "pushdown";
+    	console.log(status);
+    } 								        	
+    	
+    for (let i = 0; i < maxPredictions; i++) {
+        const classPrediction =
+        prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+        labelContainer.childNodes[i].innerHTML = classPrediction;
+    }
+
+    drawPose(pose);
+}
+
+function drawPose(pose) {
+    if (webcam.canvas) {
+        ctx.drawImage(webcam.canvas, 0, 0);
+        if (pose) {
+            const minPartConfidence = 0.5;
+            tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
+            tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
+        }
+    }
+}
+init();

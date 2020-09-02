@@ -66,7 +66,7 @@ $(document).ready(function() {
 }
 
 .exer-mountain {
-	background-image: url( "<%=request.getContextPath() %>/resources/image/exercise/Mountain-Climber.jpg");
+	background-image: url( "<%=request.getContextPath() %>/resources/image/exercise/sidelunge.png");
 	background-size: cover;
 	background-repeat: round;
 }
@@ -694,26 +694,26 @@ $(document).ready(function() {
 		
 		<form class="form-exercies cf" action="<%=request.getContextPath() %>/exercise/trainning" method="post">
 			<section class="plan cf">
-				<input type="checkbox" name="exercise" id="exer1" value="exer1" onclick="openModal1()">
+				<input type="checkbox" name="exercise" id="exer1" value="plank" onclick="">
 				<label class="basic-label four col image-plank" for="exer1"></label>
-				<input type="checkbox" name="exercise" id="exer2" value="exer2" onclick="openModal2()">
+				<input type="checkbox" name="exercise" id="exer2" value="jumpingjack" onclick="">
 				<label class="basic-label four col image-jumping-jack" for="exer2"></label>
-				<input type="checkbox" name="exercise" id="exer3" value="exer3" onclick="openModal3()">
+				<input type="checkbox" name="exercise" id="exer3" value="burpee" onclick="">
 				<label class="premium-label four col image-burpee" for="exer3"></label>
 			</section>
 			<section class="plan cf">
-				<input type="checkbox" name="exercise" id="exer4" value="exer4" onclick="openModal4()">
+				<input type="checkbox" name="exercise" id="exer4" value="legraise" onclick="">
 				<label class="free-label four col exer-legraise" for="exer4"></label>
-				<input type="checkbox" name="exercise" id="exer5" value="exer5" onclick="openModal5()">
+				<input type="checkbox" name="exercise" id="exer5" value="crunch" onclick="">
 				<label class="basic-label four col exer-crunch" for="exer5"></label>
-				<input type="checkbox" name="exercise" id="exer6" value="exer6" onclick="openModal6()">
+				<input type="checkbox" name="exercise" id="exer6" value="pushup" onclick="">
 				<label class="premium-label four col exer-pushup" for="exer6"></label>
 			</section><section class="plan cf">
-				<input type="checkbox" name="exercise" id="exer7" value="exer7" onclick="openModal7()">
+				<input type="checkbox" name="exercise" id="exer7" value="sidelunge" onclick="">
 				<label class="free-label four col exer-mountain" for="exer7"></label>
-				<input type="checkbox" name="exercise" id="exer8" value="exer8" onclick="openModal8()">
+				<input type="checkbox" name="exercise" id="exer8" value="squat" onclick="">
 				<label class="basic-label four col exer-squat" for="exer8"></label>
-				<input type="checkbox" name="exercise" id="exer9" value="exer9" onclick="openModal9()">
+				<input type="checkbox" name="exercise" id="exer9" value="lunge" onclick="">
 				<label class="premium-label four col exer-lunge" for="exer9"></label>
 			</section>
 			

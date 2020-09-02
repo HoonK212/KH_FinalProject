@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- CSS -->
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/layout/header.css">
@@ -20,11 +21,17 @@ $(document).ready(function() {
 			alert("1개 이상을 선택해주세요")
 			return false;
 		}
+		if($("input[name='exerType']:checked").val() == "myExer"){
+			$(".form").attr("action", "<%=request.getContextPath() %>/exercise/trainning")
+			
+			
+		}else{
+			$(".form").attr("action", "<%=request.getContextPath() %>/exercise/level")
+		}
 		$(this).submit()
 	})
 	
 	if( <%= session.getAttribute("exerType") %> != null) {
-		console.log("들어왔다~")
 		$("input:radio[id='<%= session.getAttribute("exerType") %>']").prop("checked", true)
 	}
 });
@@ -115,9 +122,14 @@ $(document).ready(function() {
 		
 		<h1 class="level-title">종류를 선택해주세요</h1>
 		
-		<form class="form cf" action="<%=request.getContextPath() %>/exercise/level" method="post">
+		<form class="form cf"  method="post">
 			<section class="plan cf flex">
-				<input type="radio" name="exerType" id="myExer" value="myExer" checked="checked"><label class="free-label four col " for="myExer">설정한 목표 불러오기</label>
+				
+				<!-- 설정한값이 있으면 보임 -->
+				<c:if test="${goal gt 0 }">
+					<input type="radio" name="exerType" id="myExer" value="myExer" ><label class="free-label four col " for="myExer">설정한 목표 불러오기</label>
+				</c:if>
+				
 				<input type="radio" name="exerType" id="newExer" value="newExer"><label class="premium-label four col" for="newExer">새로운 목표 설정하기</label>
 			</section>
 			

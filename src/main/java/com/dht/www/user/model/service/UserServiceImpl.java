@@ -27,11 +27,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.dht.www.mypage.model.vo.Files;
 import com.dht.www.user.model.dao.UserDao;
 import com.dht.www.user.model.vo.Users;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import common.exception.FileException;
+import common.exception.MailException;
 import common.util.FileUtil;
 
 
@@ -48,10 +50,34 @@ public class UserServiceImpl implements UserService{
 	JavaMailSender mailSender;
 	
 	
+	// 로그인
 	@Override
 	public Users selectUser(Users user) {
 		
-		return userDao.selectUser(user);
+		//사용자가 입력한 비밀번호
+		String password = (String) user.getPw();
+		System.out.println("user:"+user);
+		System.out.println("password:"+password);
+		
+		//DB에 저장된 사용자 정보
+		Users res = userDao.selectUser(user);
+		System.out.println("res:"+ res);
+	//	System.out.println("사용자가 입력한 비밀번호 : " + password);
+	//	System.out.println("DB에 입력된 비밀번호 : " + res.getPw());
+		
+		if(res!=null) { //회원정보가 있는 경우
+			//사용자가 입력한 비밀번호와 DB에 암호화돼 저장된 비밀번호가 같은지 확인
+			if(passwordEncoder.matches(password, res.getPw())) { //비밀번호 일치
+				System.out.println("일치");
+				return userDao.selectUser(user);
+			}else { // 비밀번호 불일치
+				System.out.println("불일치");
+				return null;
+			}
+		}else { //회원정보가 없는 경우
+			System.out.println("회원정보 없음");
+			return null;
+		}
 	}
 
 	@Override
@@ -92,7 +118,7 @@ public class UserServiceImpl implements UserService{
 
 	    postParams.add(new BasicNameValuePair("client_id", "f601dfea61fb3ccf05acb9ddb277a697"));    // REST API KEY
 
-	    postParams.add(new BasicNameValuePair("redirect_uri","http://localhost:8089/www/user/kakaoLogin"));    // 리다이렉트 URI
+	    postParams.add(new BasicNameValuePair("redirect_uri","http://localhost:8088/user/kakaoLogin"));    // 리다이렉트 URI
 
 	    postParams.add(new BasicNameValuePair("code", code));    // 로그인 과정중 얻은 code 값
 
@@ -189,9 +215,9 @@ public class UserServiceImpl implements UserService{
 
 	//회원 메일로 아이디 발송
 	@Override
-	public void mailSending(Map<String, Object> commandMap, String urlPath, String searchId) {
+	public void mailSendingToFindId(Map<String, Object> commandMap, String urlPath, String searchId) {
 		
-		String setfrom = "kitty9302@naver.com";
+		String setfrom = "kh_finalproject@naver.com";
 		String tomail = (String) commandMap.get("mail");
 		String title = "아이디 조회결과";
 		String htmlBody01 = 
@@ -258,7 +284,7 @@ public class UserServiceImpl implements UserService{
 
 	//회원 메일로 랜덤 비밀번호 발송
 	@Override
-	public void mailSendingFindPw(Map<String, Object> commandMap, String urlPath, String randomPw) {
+	public void mailSendingToFindPw(Map<String, Object> commandMap, String urlPath, String randomPw) {
 		
 		String setfrom = "kitty9302@naver.com";
 		String tomail = (String) commandMap.get("mail");
@@ -300,40 +326,151 @@ public class UserServiceImpl implements UserService{
 	
 	//회원가입
 	@Override
-	public void insertUser(List<MultipartFile> files, Users user, String root) {
+	public void insertUserProfile(List<MultipartFile> files, Users user, String root) {
 		
-		//회원정보 입력
-		userDao.insertUser(user);
-	      
-	      //사용자가 프로필 이미지를 업로드한 경우
-	      if(!(files.size()==0 && files.get(0).equals(""))) {
-	         
+	      if(!(files.size()== 1 && files.get(0).getOriginalFilename().equals(""))) { //사용자가 프로필 이미지를 업로드한 경우
+	        
+	    	System.out.println("혹시 여기로 왔니?");  
 		    List<Map<String, String>> fileData = null;
-			
 		    try {
-				//실제로 파일 이미지 업로드하기
+				//실제로 이미지 업로드
 		    	fileData = new FileUtil().fileUpload(files, root);
 				
-				//db에 파일 저장
 				for(Map<String, String> f : fileData) {
-					//참조하는 사용자 아이디 넣어주기
-					f.put("id", user.getId()); 
+					//이미지가 참조하는 사용자 아이디정보 넣기
+					f.put("id", user.getId());  
+					//DB에 파일 정보 저장
 					userDao.insertUserProfile(f);
 				}
 			} catch (FileException e) {
 				e.printStackTrace();
 			}
-	      }else { //사용자가 프로필 이미지를 업로드 하지 않을 때 기본 프로필이미지 업로드
+	      }else { //사용자가 프로필 이미지를 업로드 하지 않을 때 기본 프로필 이미지 정보 DB에 저장
 	    	  userDao.insertBasicProfile(user);
 	      }
 	}
-	
 
+	//회원 가입을 위한 이메일 발송
+	@Override
+	public void mailSendingToJoin(Users users, String urlPath) {
+		
+		String setfrom = "kitty9302@naver.com";
+		String tomail = users.getMail();
+		String title = "회원가입을 환영합니다.";
+		String htmlBody = 
+				"<form "
+				         + "action='http://"+urlPath+"/user/joinimple'"
+				         +" method='post'>"
+				         + "<h3>회원가입을 환영합니다</h3>"
+				         + "<input type='hidden' value='" 
+				               + users.getId() 
+				               + "' name='id'>"
+				               + "<input type='hidden' value='" 
+				               + users.getPw() 
+				               + "' name='pw'>"
+				               + "<input type='hidden' value='" 
+				               + users.getName() 
+				               + "' name='name'>"
+				               + "<input type='hidden' value='" 
+				               + users.getNick() 
+				               + "' name='nick'>"
+				               + "<input type='hidden' value='" 
+				               + users.getBirth() 
+				               + "' name='birth'>"
+				               + "<input type='hidden' value='" 
+				               + users.getGender() 
+				               + "' name='gender'>"
+				               + "<input type='hidden' value='" 
+				               + users.getMail() 
+				               + "' name='mail'>"
+				               + "<input type='hidden' value='" 
+				               + users.getTel() 
+				               + "' name='tel'>"
+				               + "<input type='hidden' value='" 
+				               + users.getAddr() 
+				               + "' name='addr'>"
+				               + "<input type='hidden' value='" 
+				               + users.getPost() 
+				               + "' name='post'>"
+				         + "<button type='submit'>전송하기</button></form>";
+		
+		
+		try {
+				//메일 발송
+				mailSender.send( new MimeMessagePreparator() {
+				   public void prepare(MimeMessage mimeMessage) throws MessagingException {
+					     MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+					     //보내는 이
+					     message.setFrom(setfrom);
+					     //받는 이
+					     message.setTo(tomail);
+					     //메일 제목
+					     message.setSubject(title);
+					     //메일 내용
+					     //두번째 boolean값은 html 여부 (true : html, false : text)
+					     message.setText(htmlBody, true);
+				   	};
+			   	
+				});
+		
+		} catch(Exception e) {
+			e.printStackTrace();
+		//	throw new MailException("M_ERROR_01");
+		}
+		
+		
+	}
+	
+	// 회원 정보 저장
+	@Override
+	public int insertUser(Users users) {
+		
+		//사용자가 입력한 password
+		String password = users.getPw();
+		
+		//password 암호화, 매번 다른 방식으로 암호화가 진행
+		password = passwordEncoder.encode(password);
+		System.out.println("암호화된 비밀번호 : " + password);
+		
+		//암호화된 비밀번호로 변경
+		users.setPw(password);
+		
+		return userDao.insertUser(users);
+	}
+	
+	//회원 프로필 이미지 파일 정보 
+	@Override
+	public Files selectUserProfile(Users user) {
 
+		return userDao.selectUserProfile(user);
+	}
 	
+	//아이디 중복 확인
+	@Override
+	public int idCheck(String id) {
+		
+		return userDao.idCheck(id);
+	}
+
+	//닉네임 중복 확인
+	@Override
+	public int nickCheck(String nick) {
+
+		return userDao.nickCheck(nick);
+	}
 	
+	//이메일 중복 확인
+	@Override
+	public int mailCheck(String mail) {
+
+		return userDao.mailCheck(mail);
+	}
 	
-	
-	
+	//카카오 또는 구글로 회원가입한 회원 조회
+	@Override
+	public Users selectUserByApiId(String apiId) {
+
+		return userDao.selectUserByApiId(apiId);
+	}
 		
 }

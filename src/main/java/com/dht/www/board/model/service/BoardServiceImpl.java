@@ -18,18 +18,35 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private BoardDao boardDao;
 	
+	// 게시글 목록 조회
 	@Override
 	public Map<String, Object> selectBoardList(int currentPage, int cntPerPage) {
 		
-		Map<String, Object> commandMap = new HashMap<String, Object>();
+		Map<String, Object> boardListMap = new HashMap<String, Object>();
 		
 		Paging page = new Paging(boardDao.selectContentCnt(), currentPage, cntPerPage);
 		
 		List<Map<String, String>> blist = boardDao.selectBoardList(page);
-		commandMap.put("paging", page);
-		commandMap.put("blist", blist);
+		boardListMap.put("paging", page);
+		boardListMap.put("blist", blist);
 		
-		return commandMap;
+		return boardListMap;
 	}
+
+	// 게시글 상세 조회
+	@Override
+	public Map<String, String> selectBoard(int no) {
+		
+		boardDao.updateBoardCount(no);
+		
+		return boardDao.selectBoard(no);
+	}
+
+	// 게시글 작성
+	@Override
+	public int insertBoard(Board board) {
+		return boardDao.insertBoard(board);
+	}
+
 
 }

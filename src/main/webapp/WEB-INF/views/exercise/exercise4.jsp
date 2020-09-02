@@ -9,97 +9,160 @@
 <%@include file="../layout/header.jsp"%>
 
 
+<style	 type="text/css">
+#label-container{
+	color: white;
+}
+</style>
+
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
 <script type="text/javascript">
-/* 프로그래스바 jQuery 시작 */
-
+var count = 0;
+var set = 0;
+var progressCnt = 0;
+var status = "";
 $(document).ready(function() {
-
 	
-	init();
-	
-	var delay = 1000;
-	$(".progress-bar").each(function() {
-		$(this).animate({
-			width : $(this).attr('aria-valuenow') + '%'
-		}, delay);
-
-		$(this).prop('Counter', 0).animate({
-			Counter : $(this).text()
-		}, {
-			duration : delay,
-			easing : 'swing',
-			step : function(now) {
-				$(this).text(Math.ceil(now) + '%');
-			}
-		});
-	})
-	$(".progress-bar-set").each(function() {
-		$(this).animate({
-			width : $(this).attr('aria-valuenow') + '%'
-		}, delay);
-
-		$(this).prop('Counter', 0).animate({
-			Counter : $(this).text()
-		}, {
-			duration : delay,
-			easing : 'swing',
-			step : function(now) {
-				$(this).text(Math.ceil(now) + '개');
-			}
-		});
-	});;
-	$(".progress-bar-count").each(function() {
-		$(this).animate({
-			width : $(this).attr('aria-valuenow') + '%'
-		}, delay);
-
-		$(this).prop('Counter', 0).animate({
-			Counter : $(this).text()
-		}, {
-			duration : delay,
-			easing : 'swing',
-			step : function(now) {
-				$(this).text(Math.ceil(now) + '개');
-			}
-		});
-	});
-	$(".progress-bar-time").each(function() {
-		$(this).animate({
-			width : $(this).attr('aria-valuenow') + '%'
-		}, delay);
-
-		$(this).prop('Counter', 0).animate({
-			Counter : $(this).text()
-		}, {
-			duration : delay,
-			easing : 'swing',
-			step : function(now) {
-				$(this).text(Math.ceil(now) + '개');
-			}
-		});
-	});
-	
-	function countUpdate() {
-		$(".progress-bar-count").each(function() {
-			$(this).animate({
-				width : $(this).attr('aria-valuenow') + '%'
-			}, delay);
-
-			$(this).prop('Counter', 0).animate({
-				Counter : $(this).text()
-			}, {
-				duration : delay,
-				easing : 'swing',
-				step : function(now) {
-					$(this).text(Math.ceil(now) + '개');
-				}
-			});
-		});
-	}
+	exerChange("${ExerciseInfo[0]}");
 	
 })
-/* 프로그래스바 jQuery 끝 */
+var exerCnt = 0;
+var exerArrList = new Array();
+
+exerArrList[0] = "${ExerciseInfo[0]}";
+exerArrList[1] = "${ExerciseInfo[1]}";
+exerArrList[2] = "${ExerciseInfo[2]}";
+exerArrList[3] = "${ExerciseInfo[3]}";
+exerArrList[4] = "${ExerciseInfo[4]}";
+exerArrList[5] = "${ExerciseInfo[5]}";
+exerArrList[6] = "${ExerciseInfo[6]}";
+exerArrList[7] = "${ExerciseInfo[7]}";
+exerArrList[8] = "${ExerciseInfo[8]}";
+	
+	
+console.log(exerArrList);
+
+function countUpdate(count, set) {
+	
+    
+	var delay = 1000;
+	// count가 countMAX값 보다 같거나 클 때(운동 진행 중)
+	if($(".progress-bar-count")[0].ariaValueMax >= count){
+		$(".progress-bar-count").animate( { width: count / $(".progress-bar-count")[0].ariaValueMax * 100 + "%"	}, delay, 'swing');
+		$(".progress-bar-count").attr("aria-valuenow", count).html(count + "개")
+		
+		
+		// count가 countMAX값 같을 때(1세트 운동 끝)
+		if($(".progress-bar-count")[0].ariaValueMax == count) {
+			console.log("count가 MAX 달성 " + count)
+			window.count = 0;
+			count=0;
+			console.log("count 0으로 대입 후  " + count)
+			
+			// 마지막 세트 끝나면 카운트는 증가x
+			if($(".progress-bar-set")[0].ariaValueMax != set+1){
+				$(".progress-bar-count").animate( { width: count / $(".progress-bar-count")[0].ariaValueMax * 100 + "%"	}, delay, 'swing');
+				$(".progress-bar-count").attr("aria-valuenow", count).html(count + "개")
+			}
+			
+			window.set++;
+			set++;
+			console.log('세이트: ' + set)
+			$('.progress-bar-set').animate( { width: set / $(".progress-bar-set")[0].ariaValueMax * 100 + "%" }, delay, 'swing');
+			
+			$(".progress-bar-set").attr("aria-valuenow", set).html(set + "세트")
+			
+			
+			// 운동 끝
+			if($(".progress-bar-count")[0].ariaValueMax == set) {
+				$(".complete").css({'pointer-events':'all'})
+    			$(".complete").css({'cursor':'pointer'})
+    			
+    			
+    			
+    			
+    			window.exerCnt++;
+    			exerChange(window.exerArrList[window.exerCnt]);
+    			
+    			console.log("여기가 끝나요!!!!!!!")
+//     			webcam.pause(); // 웹캠 중단
+			}
+		}
+		console.log("운동함 " + count)
+	}
+}
+
+
+function leftCountUpdate(progressCnt,exArr) {
+	var delay = 1000;
+	$("div[id='"+ exArr + "']").animate( {
+		width:  Math.floor(progressCnt / ( $(".progress-bar-set")[0].ariaValueMax * $(".progress-bar-count")[0].ariaValueMax )  * 100) + "%"
+	}, delay, 'swing' );
+	
+	$("div[id='"+ exArr + "']").html( Math.floor(progressCnt / ( $(".progress-bar-set")[0].ariaValueMax * $(".progress-bar-count")[0].ariaValueMax )  * 100) + "%")
+}
+
+// AJAX 통신 - 운동정보 변경
+function exerChange(exerName) {
+	console.log(" = = = = = = = = = = = = = = = = = = = = = = =")
+	console.log(exerName)
+	var xhr = new XMLHttpRequest();
+	
+	// 통신을 위한 시작줄 작성
+	xhr.open('GET', '<%=request.getContextPath()%>/exercise/nextexer?exerName='+exerName);
+	
+	// http request header 설정
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	
+	// http request body 설정
+	//	xhr.send() : 원하는 데이터를 파라미터에 넣어 데이터 전송
+	xhr.send();
+	
+	// ajax 통신이 끝난 뒤 실행할 콜백함수 등록
+	xhr.addEventListener('load', function() {
+		
+		var data = xhr.response;
+		console.dir(data)
+		
+		document.querySelector('#right').innerHTML = data;
+		
+		exerChangejs(exerName);
+		
+		console.log("새로로로로로로로로로로로")
+		console.dir(URL)
+	})
+	
+}
+
+function exerChangejs(exerName) {
+	console.log(" = = = = = = = = = = = = = = = = = = = = = = =")
+	console.log(exerName)
+	var xhr = new XMLHttpRequest();
+	
+	// 통신을 위한 시작줄 작성
+	xhr.open('GET', '<%=request.getContextPath()%>/exercise/nextexerjs?exerName='+exerName);
+	
+	// http request header 설정
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	
+	// http request body 설정
+	//	xhr.send() : 원하는 데이터를 파라미터에 넣어 데이터 전송
+	xhr.send();
+	
+	// ajax 통신이 끝난 뒤 실행할 콜백함수 등록
+	xhr.addEventListener('load', function() {
+		
+		var data = xhr.response;
+		eval(data);
+	})
+	
+}
 </script>
+
 
 
 
@@ -195,7 +258,7 @@ $(document).ready(function() {
 						<div class="md:w-2/3 w-full px-3 flex flex-row flex-wrap">
 							<div
 								class="w-full text-right text-gray-700 font-semibold relative pt-3">
-								<div class="text-2xl text-white leading-tight">홍길동</div>
+								<div class="text-2xl text-white leading-tight">${logInInfo.nick }</div>
 								<div class="text-normal text-gray-300">신장 172cm</div>
 								<div class="text-normal text-gray-300">체중 100kg</div>
 								<div class="text-normal text-gray-300">나이 30살</div>
@@ -214,54 +277,49 @@ $(document).ready(function() {
 					<p class="progressbar-content">운동1</p>
 					<div class="progress">
 						<div class="progress-bar" role="progressbar" aria-valuenow="10"
-							aria-valuemin="0" aria-valuemax="100">10</div>
+							aria-valuemin="0" aria-valuemax="100" id="plank">10</div>
 					</div>
 					<p class="progressbar-content">운동2</p>
 					<div class="progress">
 						<div class="progress-bar" role="progressbar" aria-valuenow="20"
-							aria-valuemin="0" aria-valuemax="100">20</div>
+							aria-valuemin="0" aria-valuemax="100" id="jumpingjack">20</div>
 					</div>
 					<p class="progressbar-content">운동3</p>
 					<div class="progress">
 						<div class="progress-bar" role="progressbar" aria-valuenow="30"
-							aria-valuemin="0" aria-valuemax="100">30</div>
+							aria-valuemin="0" aria-valuemax="100" id="burpee">30</div>
 					</div>
 					<h5 class="progressbar-title">상체</h5>
 					<p class="progressbar-content">운동4</p>
 					<div class="progress">
 						<div class="progress-bar" role="progressbar" aria-valuenow="40"
-							aria-valuemin="0" aria-valuemax="100">40</div>
+							aria-valuemin="0" aria-valuemax="100" id="legraise">40</div>
 					</div>
 					<p class="progressbar-content">운동5</p>
 					<div class="progress">
 						<div class="progress-bar" role="progressbar" aria-valuenow="50"
-							aria-valuemin="0" aria-valuemax="100">50</div>
+							aria-valuemin="0" aria-valuemax="100" id="crunch">50</div>
 					</div>
 					<p class="progressbar-content">운동6</p>
 					<div class="progress">
 						<div class="progress-bar" role="progressbar" aria-valuenow="60"
-							aria-valuemin="0" aria-valuemax="100">60</div>
+							aria-valuemin="0" aria-valuemax="100" id="pushup">60</div>
 					</div>
 					<h5 class="progressbar-title">하체</h5>
 					<p class="progressbar-content">운동7</p>
 					<div class="progress">
 						<div class="progress-bar" role="progressbar" aria-valuenow="70"
-							aria-valuemin="0" aria-valuemax="100">70</div>
+							aria-valuemin="0" aria-valuemax="100" id="sidelunge">70</div>
 					</div>
 					<p class="progressbar-content">운동8</p>
 					<div class="progress">
-						<div class="progress-bar" role="progressbar" aria-valuenow="80"
-							aria-valuemin="0" aria-valuemax="100">80</div>
+						<div class="progress-bar" role="progressbar" aria-valuenow="0"
+							aria-valuemin="0" aria-valuemax="100" id="squat">0</div>
 					</div>
 					<p class="progressbar-content">운동9</p>
 					<div class="progress">
 						<div class="progress-bar" role="progressbar" aria-valuenow="90"
-							aria-valuemin="0" aria-valuemax="100">90</div>
-					</div>
-					<p class="progressbar-content">운동10</p>
-					<div class="progress">
-						<div class="progress-bar" role="progressbar" aria-valuenow="100"
-							aria-valuemin="0" aria-valuemax="100">100</div>
+							aria-valuemin="0" aria-valuemax="100" id="lunge">90</div>
 					</div>
 				</div>
 			</div>
@@ -273,282 +331,39 @@ $(document).ready(function() {
 		<!-- right layout 시작 -->
 		<div id="right">
 		
-			<!-- 캠 레이아웃 시작 -->
-			<div class="antialiased max-w-full mx-auto px-8">
-				<div class="relative block md:flex items-center">
-					<div class="w-auto md:w-1/2 relative z-1 bg-gray-100 rounded shadow-lg overflow-hidden">
-						<div class="text-lg font-medium text-black-500 uppercase p-8 text-center border-b border-gray-200 tracking-wide">운동 정보</div>
-						<div class="block sm:flex md:block items-center justify-center layout-overflow">
-							<div class="w-full text-center">
-
-								<!-- 단계별 설명 탬플릿 시작 -->
-								<div class="flex flex-col justify-center m-auto">
-									<div class="flex flex-col bg-teal-200 justify-center text-center">
-										<div class="flex flex-col justify-center items-center relative">
-											<div class="w-56 h-12 hidden justify-center">
-												<div class="h-full  border-teal-300 border-dashed"></div>
-											</div>
-											<div
-												class="rounded-full w-12 h-12 text-xl text-teal-100 bg-teal-700 font-black flex justify-center items-center absolute top-0 right-0 mt-16 shadow-lg mr-2">1</div>
-											<img alt="step1" class="w-56 h-56 shadow my-5 object-scale-down" src="https://image.flaticon.com/icons/svg/1330/1330216.svg">
-											<div class="w-56 h-12 hidden justify-center">
-												<div class="h-full border-r-4 border-teal-300 border-dashed"></div>
-											</div>
-										</div>
-										<div class="ml-5 p-10 flex flex-col justify-center max-w-2xl rounded bg-teal-200">
-											<div class="text-xs uppercase font-bold text-teal-500">Step 1</div>
-											<div class="text-xl font-bold text-teal-700">Find your best idea</div>
-										</div>
-									</div>
-
-									<div class="flex flex-col bg-orange-200 justify-center text-center">
-										<div class="flex flex-col justify-center items-center relative">
-											<div class="w-56 h-12 hidden justify-center">
-												<div class="h-full border-r-4 border-orange-300 border-dashed"></div>
-											</div>
-											<div class="rounded-full w-12 h-12 text-xl text-orange-100 bg-orange-700 font-black flex justify-center items-center absolute top-0 right-0 mt-16 shadow-lg mr-2">2</div>
-											<img alt="step2" class="w-56 h-56 shadow my-5 object-scale-down" src="https://image.flaticon.com/icons/svg/1330/1330216.svg">
-											<div class="w-56 h-12 hidden justify-center">
-												<div class="h-full border-r-4 border-orange-300 border-dashed"></div>
-											</div>
-										</div>
-										<div class="ml-5 p-10 flex flex-col justify-center max-w-2xl rounded bg-orange-200">
-											<div class="text-xs uppercase font-bold text-orange-500">Step 2</div>
-											<div class="text-xl font-bold text-orange-700">Find your team and collaborate</div>
-										</div>
-									</div>
-
-									<div class="flex flex-col bg-indigo-200 justify-center text-center">
-										<div class="flex flex-col justify-center items-center relative">
-											<div class="w-56 h-12 hidden justify-center">
-												<div class="h-full border-r-4 border-indigo-300 border-dashed"></div>
-											</div>
-											<div class="rounded-full w-12 h-12 text-xl text-indigo-100 bg-indigo-700 font-black flex justify-center items-center absolute top-0 right-0 mt-16 shadow-lg mr-2">3</div>
-											<img alt="step3" class="w-56 h-56 shadow my-5 object-scale-down" src="https://image.flaticon.com/icons/svg/1330/1330216.svg">
-											<div class="w-56 h-12 hidden justify-center">
-												<div class="h-full border-r-4 border-indigo-300 border-dashed"></div>
-											</div>
-										</div>
-										<div class="ml-5 p-10 flex flex-col justify-center max-w-2xl rounded bg-indigo-200">
-											<div class="text-xs uppercase font-bold text-indigo-500">Step 3</div>
-											<div class="text-xl font-bold text-indigo-700">Make a good plan and prepare tasks</div>
-										</div>
-									</div>
-
-									<div class="flex flex-col bg-pink-200 justify-center text-center">
-										<div class="flex flex-col justify-center items-center relative">
-											<div class="w-56 h-12 md:flex hidden justify-center">
-												<div class="h-full border-r-4 border-pink-300 border-dashed"></div>
-											</div>
-											<div class="rounded-full w-12 h-12 text-xl text-pink-100 bg-pink-700 font-black flex justify-center items-center absolute top-0 right-0 mt-16 shadow-lg mr-2">4</div>
-											<img alt="step4" class="w-56 h-56 shadow my-5 object-scale-down" src="https://image.flaticon.com/icons/svg/1330/1330216.svg">
-											<div class="w-56 h-12 hidden justify-center">
-												<div class="h-full  border-pink-300 border-dashed"></div>
-											</div>
-										</div>
-										<div class="ml-5 p-10 flex flex-col justify-center max-w-2xl rounded bg-pink-200">
-											<div class="text-xs uppercase font-bold text-pink-500">Step 4</div>
-											<div class="text-xl font-bold text-pink-700">Execute, impletement your solution</div>
-										</div>
-									</div>
-								</div>
-								<!-- 단계별 설명 탬플릿 끝 -->
-
-							</div>
-						</div>
-					</div>
-					
-					<div class="w-full md:w-1/2 relative z-0">
-						<div
-							class="bg-blue-900 text-white rounded-b md:rounded-b-none md:rounded-r shadow-lg overflow-hidden">
-							<div class="text-lg font-medium text-white-500 uppercase p-8 text-center border-b border-gray-200 tracking-wide">
-<!-- 									<button type="button" onclick="init()">운동 Start</button> -->
-								운동 촬영 영상
-							</div>
-							<div class="text-center text-sm sm:text-md max-w-lg mx-auto text-gray-900 mt-8 px-8 lg:px-0 layout-cam">
-							
-							
-							
-							
-<!-- 								<button type="button" onclick="init()">Start</button> -->
-								<div><canvas id="canvas" style="display: inline;"></canvas></div>
-								<div id="label-container"></div>
-								<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
-								<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
-								<script type="text/javascript">
-								    // More API functions here:
-								    // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/pose
-								
-								    // the link to your model provided by Teachable Machine export panel
-								    const URL = "<%=request.getContextPath() %>/resources/motionmodel/squat/";
-								    let model, webcam, ctx, labelContainer, maxPredictions;
-									
-								    console.log("경로" + URL);
-								    
-								    async function init() {
-								        const modelURL = URL + "model.json";
-								        const metadataURL = URL + "metadata.json";
-								
-								        // load the model and metadata
-								        // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
-								        // Note: the pose library adds a tmPose object to your window (window.tmPose)
-								        model = await tmPose.load(modelURL, metadataURL);
-								        maxPredictions = model.getTotalClasses();
-								
-								        // Convenience function to setup a webcam
-// 								        const size = 500;
-								        const flip = true; // whether to flip the webcam
-								        webcam = new tmPose.Webcam(512, 480, flip); // width, height, flip
-								        await webcam.setup(); // request access to the webcam
-								        await webcam.play();
-								        window.requestAnimationFrame(loop);
-								
-								        // append/get elements to the DOM
-								        const canvas = document.getElementById("canvas");
-								        canvas.width = 512; canvas.height = 480;
-								        ctx = canvas.getContext("2d");
-								        labelContainer = document.getElementById("label-container");
-								        for (let i = 0; i < maxPredictions; i++) { // and class labels
-								            labelContainer.appendChild(document.createElement("div"));
-								        }
-								    }
-								
-								    async function loop(timestamp) {
-								        webcam.update(); // update the webcam frame
-								        await predict();
-								        window.requestAnimationFrame(loop);
-								    }
-									
-								    var status = "stand"
-								    var count = 0
-								    var set = 0
-								    async function predict() {
-								        // Prediction #1: run input through posenet
-								        // estimatePose can take in an image, video or canvas html element
-								        const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
-								        // Prediction 2: run input through teachable machine classification model
-								        const prediction = await model.predict(posenetOutput);
-								
-								        if(prediction[0].probability.toFixed(2) == 1.00) {
-								        	
-								        	if(status == "squat") { // 스쿼트에서 일어나면 개수 증가
-								        		count++
-								        		console.log("카운터 증가" + count)
-								        		var audio = new Audio('<%=request.getContextPath() %>/resources/audio/'+count+'.mp3');
-								        		audio.play()
-								        		console.log(count)
-								        		
-								        		// 목표값 이상으로 가면
-								        		if( $(".progress-bar-count")[0].ariaValueMax > count-1) {
-									        		$(".progress-bar-count").width( (count / $(".progress-bar-count")[0].ariaValueMax) * 100 +  "%")
-									        		$(".progress-bar-count").html(count + "개")
-									        		
-									        		if($(".progress-bar-count")[0].ariaValueMax == count) {
-										        		count = 0;
-									        			$(".progress-bar-count").width( (count / $(".progress-bar-count")[0].ariaValueMax) * 100 +  "%")
-										        		$(".progress-bar-count").html(count + "개")
-										        		
-										        		set++
-										        		console.log("dnldp" + set)
-										        		
-														// 목표값 달성 시
-										        		if($(".progress-bar-set")[0].ariaValueMax == set) {
-										        			set = 0;
-										        			$(".complete").prop("disabled", true);
-										        			$(".progress-bar-set").width( (set / $(".progress-bar-set")[0].ariaValueMax) * 100 +  "%")
-											        		$(".progress-bar-set").html(set + "세트")
-											        		$(".complete").css({'pointer-events':'all'})
-										        			$(".complete").css({'cursor':'pointer'})
-										        		}
-									        			
-										        		
-										        		console.log("set : " + set)
-										        		$(".progress-bar-set").width( (set / $(".progress-bar-set")[0].ariaValueMax) * 100 +  "%")
-										        		$(".progress-bar-set").html(set + "세트")
-										        		
-										        		
-									        		}
-								        		}
-								        		
-								        		
-								        		
-								        	}
-								        	status = "stand"
-							        		console.log(status)
-								        } else if(prediction[1].probability.toFixed(2) == 1.00) {
-								        	status = "squat"
-								        	console.log(status)
-								        } else if(prediction[2].probability.toFixed(2) == 1.00) {
-								        	if(status == "squat" || status == "stand") {
-								        		var audio = new Audio('<%=request.getContextPath() %>/resources/audio/wrong.mp3');
-								        		audio.play()
-								        	}
-								        	status = "bent"
-								        	console.log(status)
-								        } else if(prediction[3].probability.toFixed(2) == 1.00) {
-								        	
-								        	console.log("wrong")
-								        } 
-								        	
-								        	
-								        for (let i = 0; i < maxPredictions; i++) {
-								            const classPrediction =
-								                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-								            labelContainer.childNodes[i].innerHTML = classPrediction; //여기가 값나오는 부분!
-								        }
-								
-								        // finally draw the poses
-								        drawPose(pose);
-								    }
-								
-								    function drawPose(pose) {
-								        if (webcam.canvas) {
-								            ctx.drawImage(webcam.canvas, 0, 0);
-								            // draw the keypoints and skeleton
-								            if (pose) {
-								                const minPartConfidence = 0.5;
-								                tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
-								                tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
-								            }
-								        }
-								    }
-								</script>
-								<script type="text/javascript">
-																		
-								</script>
-							
-							
-							</div>
-							<div class="mt-8 border border-blue-800 mx-8 lg:mx-16 flex flex-wrap">
-							
-								<!-- 프로그래스바 템플릿 시작 -->
-								<div class="" style="margin: 10px 15px; width: 100%;">
-									<div class="" style="width: 100%;">
-										<h5>세트</h5>
-										<div class="progress">
-											<div class="progress-bar-set" role="progressbar"
-												aria-valuenow="0" aria-valuemin="0" aria-valuemax="2">0</div>
-										</div>
-										<h5>횟수</h5>
-										<div class="progress" >
-											<div class="progress-bar-count" role="progressbar"
-												aria-valuenow="0" aria-valuemin="0" aria-valuemax="2">0</div>
-										</div>
-									</div>
-								</div>
-								<!-- 프로그래스바 템플릿 끝 -->
-								
-							</div>
-							<a class="block flex items-center justify-center bg-blue-800 hover:bg-blue-700 p-4 text-md font-semibold text-gray-300 uppercase mt-8 complete"
-								href="#" > <span>운동 보상 받기</span> <span class="font-medium text-gray-300 ml-2">➔</span>
-							</a>
-						</div>
-					</div>
-					
-				</div>
+<%-- 				<c:set var="exerStatus" value="0" /> --%>
+<%-- 				<c:choose> --%>
+<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'plank'}"> --%>
+<%-- 						<%@include file="./plank.jsp"%> --%>
+<%-- 					</c:when> --%>
+<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'jumpingjack'}"> --%>
+<%-- 						<%@include file="./jumpingjack.jsp"%> --%>
+<%-- 					</c:when> --%>
+<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'burpee'}"> --%>
+<%-- 						<%@include file="./burpee.jsp"%> --%>
+<%-- 					</c:when> --%>
+<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'legraise'}"> --%>
+<%-- 						<%@include file="./legraise.jsp"%> --%>
+<%-- 					</c:when> --%>
+<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'crunch'}"> --%>
+<%-- 						<%@include file="./crunch.jsp"%> --%>
+<%-- 					</c:when> --%>
+<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'pushup'}"> --%>
+<%-- 						<%@include file="./pushup.jsp"%> --%>
+<%-- 					</c:when> --%>
+<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'sidelunge'}"> --%>
+<%-- 						<%@include file="./sidelunge.jsp"%> --%>
+<%-- 					</c:when> --%>
+<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'squat'}"> --%>
+<%-- 						<%@include file="./squat.jsp"%> --%>
+<%-- 					</c:when> --%>
+<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'lunge'}"> --%>
+<%-- 						<%@include file="./lunge.jsp"%> --%>
+<%-- 					</c:when> --%>
+<%-- 				</c:choose> --%>
+<%-- 				<c:set var="exerStatus" value="${exerStatus + 1} " /> --%>
 				
-			</div>
-			<!-- 캠 레이아웃 끝 -->
+				
 			
 		</div>
 		<!-- right layout 끝 -->
@@ -558,6 +373,9 @@ $(document).ready(function() {
 	
 </section>
 <!-- section 끝 -->
+<script type="text/javascript">
+
+</script>
 
 
 <!-- FOOTER -->

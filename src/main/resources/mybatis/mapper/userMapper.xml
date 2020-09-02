@@ -7,7 +7,7 @@
 	
 	<select id="selectUser" resultType="Users">
 		SELECT * FROM USERS
-		WHERE ID = #{id} and PW = #{pw}
+		WHERE ID = #{id}
 	</select>
 	
 	<select id="getUsersId" resultType="Users">
@@ -32,12 +32,38 @@
 	</insert>
 	
 	<insert id="insertUserProfile">
-		INSERT INTO FILES ( NO, TYPE, REF, PATH, ORIGIN, RENAME, EXT, SIZES, THUMBNAIL )
-		VALUES ( FILES_SEQ.NEXTVAL, 1, #{id}, "upload_user", #{origin}, #{rename}, #{ext}, #{sizes}, 0 )
+		INSERT INTO FILES ( NO, TYPE, REF, PATH, ORIGIN, RENAMED, EXT, SIZES, THUMBNAIL )
+		VALUES ( FILES_SEQ.NEXTVAL, 1, #{id}, 'upload_user', #{origin}, #{rename}, #{ext}, #{sizes}, 0 )
 	</insert>
 	
 	<insert id="insertBasicProfile">
-		INSERT INTO FILES ( NO, TYPE, REF, PATH, ORIGIN, RENAME, EXT, SIZES, THUMBNAIL )
-		VALUES ( FILES_SEQ.NEXTVAL, 1, #{id}, "upload_user", "logo", "logo", "png", 1234, 0 )
+		INSERT INTO FILES ( NO, TYPE, REF, PATH, ORIGIN, RENAMED, EXT, SIZES, THUMBNAIL )
+		VALUES ( FILES_SEQ.NEXTVAL, 1, #{id}, 'upload_user', 'logo', 'logo', 'png', 1234, 0 )
 	</insert>
+	
+	<select id="selectUserProfile" resultType="com.dht.www.mypage.model.vo.Files">
+		SELECT R.* FROM
+		(SELECT ROWNUM AS RN, F.* FROM FILES F WHERE REF = #{id} ORDER BY NO DESC) R
+		where R.RN = 1
+	</select>
+	
+	<select id="idCheck" resultType="int">
+		SELECT COUNT(*) FROM USERS
+		WHERE ID = #{id}
+	</select>
+	
+	<select id="nickCheck" resultType="int">
+		SELECT COUNT(*) FROM USERS
+		WHERE NICK = #{nick}
+	</select>
+	
+	<select id="mailCheck" resultType="int">
+		SELECT COUNT(*) FROM USERS
+		WHERE MAIL = #{mail}
+	</select>
+	
+	<select id="selectUserByApiId" resultType="Users">
+		SELECT * FROM USERS
+		WHERE ID = #{apiId}
+	</select>
 </mapper>
