@@ -40,7 +40,7 @@ $(document).ready(function() {
 </script>
 
 <section class="antialiased font-sans bg-gray-200" style="min-height: 73vh;">
-<form action="/board/write" method="post">
+<form action="/board/write" method="post" enctype="multipart/form-data">
 
     <div class="container mx-auto px-4 sm:px-8">
         <div class="py-8">
@@ -80,7 +80,7 @@ $(document).ready(function() {
                             <tr>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                    <div class="flex items-center ml-3">
-	                                   <input class="text-gray-900 whitespace-no-wrap text-left w-full h-10" placeholder="제목 입력란" name="title"/>
+	                                   <input class="text-gray-900 whitespace-no-wrap text-left w-full h-10" placeholder="제목 입력란" name="title" required="required"/>
                                    </div>
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -126,7 +126,7 @@ $(document).ready(function() {
                                 <td class="border-b border-gray-200 bg-white text-sm">
                                     <div class="flex items-center">
                                         <div class="w-full">
-                                        	<input type="file" multiple="multiple">
+                                        	<br>
 	                                        <textarea id="content" name="content" style="width: 1200px;" required="required"></textarea>
                                             <script type="text/javascript">
 												var oEditors = [];
@@ -137,6 +137,8 @@ $(document).ready(function() {
 												, fCreator: "createSEditor2"
 												})
 											</script>
+											<br>
+                                        	<input class="px-2" type="file" name="files" multiple="multiple">
                                         </div>
                                     </div>
                                 </td>

@@ -63,4 +63,9 @@
 		values (board_seq.nextval, #{type}, #{title}, #{content}, 0, sysdate, #{id})
 	</insert>
 	
+	<insert id="insertFiles">
+		insert into files
+		values (files_seq.nextval, 3, board_seq.currval, 'upload_board', #{origin}, #{rename}, #{ext}, #{sizes}, 0)
+	</insert>
+	
 </mapper>
