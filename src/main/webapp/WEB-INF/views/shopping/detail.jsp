@@ -361,20 +361,28 @@
           <div id="content">
           
             <aside id="one">
-              <p>${detail.describe }</p>
+            <div>
+	            <p>${detail.describe }</p>
+            </div>
             </aside>
             
             <aside id="two"><!-- 리뷰 리스트명 reviews -->
-              <span class="author">Marty Mcfly</span><span class="stars"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half"></i></span><p>"Excuse me. I'll call you tonight. Right. Yeah, I think maybe you do. Wait a minute, wait a minute, Doc, are you telling me that you built a time machine out of a delorean.</p>
-              <p>Um, well it's a delorean, right? Yeah okay. Wow, ah Red, you look great. Everything looks great. 1:24, I still got time. Oh my god. No, no not again, c'mon, c'mon. Hey. Libyans. Yeah, well uh, lets keep this brain melting stuff to ourselves, okay? Yeah, yeah what are you wearing, Dave.</p>
-              <p>Hey c'mon, I had to change, you think I'm going back in that zoot suit? The old man really came through it worked. You'll find out in thirty years. Can't be. This is nuts. Aw, c'mon. Hey guys, you gotta get back in there and finish the dance. Right, and where am I gonna be?"</p>
-              <span class="full_review"><a href="#">Read The Full Review</a></span>
-              <span class="write_review"><a href="#">Write Your Own Review</a></span>
+            	<c:if test="${empty reviews }">
+					<p class="py-2 text-center font-semibold text-blue-700">리뷰가 없습니다</p>
+				</c:if>
+				<c:if test="${not empty reviews }">
+				<c:forEach items="${reviews }" var="review">
+					<div>
+					
+					
+					</div>
+				</c:forEach>
+				</c:if>
             </aside>
             
             <aside id="three">
               <div class="images">
-                <img src="사진"/>
+<!--                 <img src="사진"/> -->
               </div>
               <div class="details">
               <p>Excuse me. I'll call you tonight. Right. Yeah, I think maybe you do. Wait a minute, wait a minute, Doc, are you telling me that you built a time machine out of a delorean.</p>

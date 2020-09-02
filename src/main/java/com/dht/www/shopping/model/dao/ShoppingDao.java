@@ -30,7 +30,6 @@ public class ShoppingDao {
 	
 	public List<Map<String, Object>> selectList(Paging paging){
 		return sqlSession.selectList("Shopping.selectList", paging);
-		
 	}
 	
 	public Map<String, Object> selectItem(String code) {
@@ -91,6 +90,14 @@ public class ShoppingDao {
 	
 	public int scoreAvg(String code) {
 		return sqlSession.selectOne("Shopping.scoreAvg", code);
+	}
+	
+	public int selectCntSearch(String search) {
+		return sqlSession.selectOne("Shopping.selectCntSearch", search);
+	}
+	
+	public List<Map<String, Object>> selectSearch(Paging paging){
+		return sqlSession.selectList("Shopping.selectSearch", paging);
 	}
 	
 }

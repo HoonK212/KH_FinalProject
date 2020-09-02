@@ -75,39 +75,7 @@ public class UserController {
 			session.setAttribute("logInPic", pic);
 			System.out.println("프로필 저장 이미지 확인 : " + session.getAttribute("logInPic"));
 			
-			//세션장바구니 >> 로그인 회원 장바구니
-			if(session.getAttribute("sessionBasket") != null) {
-				List<Map<String, Object>> sessionBasket = (List<Map<String, Object>>) session.getAttribute("sessionBasket");
-				if(sessionBasket != null && session.getId().equals( (String) sessionBasket.get(0).get("sessionId"))) {
-					
-					Map<String, Object> items = sessionBasket.get(1);
-					
-					Set<String> keys = items.keySet();
-					Iterator iter = keys.iterator();
-					
-					while(iter.hasNext()) { //iter.next() : 코드
-						String code = (String) iter.next();
-						Map<String, Object> item = (Map<String, Object>) items.get(code);
-						
-						Basket insert = new Basket();
-						insert.setCode((String) item.get("code"));
-						insert.setId(res.getId());
-						insert.setAmount((int) item.get("amount"));
-						
-						int check = shoppingService.checkBasket(insert);
-						
-						if(check > 0) {
-							shoppingService.addAmount(insert);
-							
-						} else {
-							System.out.println("세션 아이템"+item+"삽입할 장바구니"+insert);
-							shoppingService.insertBasket(insert);
-						}
-					}
-					session.removeAttribute("basket");
-					session.removeAttribute("sessionBasket");
-				} 
-			}
+			addBasket(session);
 			
 			return "1";
 		
@@ -162,6 +130,7 @@ public class UserController {
 				//세션에 저장
 				session.setAttribute("logInInfo", res);
 				session.setAttribute("logInPic", pic);
+				addBasket(session);
 				
 				//슬래시를 붙이면 컨텍스트 루트(www)로 시작되는 절대경로가 된다.
 				return "redirect:/main";
@@ -184,6 +153,8 @@ public class UserController {
 	//invalidate를 하면 session에 담긴 모든값이 사라지지만 
 	//removeAttribute를 하면 loginInfo에 담긴내용만 사라진다  
   	session.removeAttribute("logInInfo");
+  	session.removeAttribute("basket");
+	session.removeAttribute("sessionBasket");
   			
   	return "redirect:login";
 	  		
@@ -365,7 +336,43 @@ public class UserController {
 			return "";
 		}
 	}
+
 	
-	
+	//세션장바구니 >> 로그인 회원 장바구니
+	private void addBasket(HttpSession session) {
+		
+		if(session.getAttribute("sessionBasket") != null) {
+			List<Map<String, Object>> sessionBasket = (List<Map<String, Object>>) session.getAttribute("sessionBasket");
+			if(sessionBasket != null && session.getId().equals( (String) sessionBasket.get(0).get("sessionId"))) {
+				
+				Map<String, Object> items = sessionBasket.get(1);
+				
+				Set<String> keys = items.keySet();
+				Iterator iter = keys.iterator();
+				
+				while(iter.hasNext()) { //iter.next() : 코드
+					String code = (String) iter.next();
+					Map<String, Object> item = (Map<String, Object>) items.get(code);
+					
+					Users login = (Users) session.getAttribute("logInInfo");
+					Basket insert = new Basket();
+					insert.setCode((String) item.get("code"));
+					insert.setId( login.getId() );
+					insert.setAmount((int) item.get("amount"));
+					
+					int check = shoppingService.checkBasket(insert);
+					
+					if(check > 0) {
+						shoppingService.addAmount(insert);
+						
+					} else {
+						shoppingService.insertBasket(insert);
+					}
+				}
+				session.removeAttribute("basket");
+				session.removeAttribute("sessionBasket");
+			} 
+		}
+	}
 	
 }

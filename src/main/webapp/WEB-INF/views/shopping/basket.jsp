@@ -51,12 +51,12 @@
 							</label>
 						</td>
 						<td class="hidden pb-4 md:table-cell">
-							<a href="#">
+							<a href="<%= request.getContextPath()%>/shopping/detail?code=${item.code }">
 							<img src="https://limg.app/i/Calm-Cormorant-Catholic-Pinball-Blaster-yM4oub.jpeg" class="w-20 rounded" alt="Thumbnail">
 							</a>
 						</td>
 						<td>
-							<a href="#"><p class="mb-2 md:ml-4">${item.name }</p></a>
+							<p class="mb-2 md:ml-4"><a href="<%= request.getContextPath()%>/shopping/detail?code=${item.code }">${item.name }</a></p>
 							<button onclick="deleteBasket(${stat.index});" type="button" class="text-gray-700 md:ml-4">
 							<small>(삭제하기)</small>
 							</button>

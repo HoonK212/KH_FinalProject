@@ -123,4 +123,21 @@ public class ShoppingServiceImpl implements ShoppingService {
 		return shoppingDao.scoreAvg(code);
 	}
 
+	@Override
+	public Map<String, Object> selectSearch(String search, int curPage, int cntPerPage) {
+		Map<String, Object> commandMap = new HashMap<String, Object>();
+
+		Paging paging = new Paging(shoppingDao.selectCntSearch(search), curPage, cntPerPage);
+		paging.setSearch(search);
+		
+		System.out.println(paging);
+		
+		List<Map<String, Object>> list = shoppingDao.selectSearch(paging);
+		
+		commandMap.put("paging", paging);
+		commandMap.put("list", list);
+		
+		return commandMap;
+	}
+
 }
