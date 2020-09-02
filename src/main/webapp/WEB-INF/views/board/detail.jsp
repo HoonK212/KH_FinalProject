@@ -26,7 +26,7 @@
         
             <div class="pb-2">
                 <h2 class="text-2xl font-semibold leading-tight text-gray-700">게시글</h2>
-	            <button onclick="document.getElementById('myModal').showModal()" id="btn" class="text-sm font-extrabold float-right w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
+	            <button onclick="document.getElementById('writeComments').showModal()" id="btn" class="text-sm font-extrabold float-right w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
 				>댓글작성</button>
 				<div class="clear-both"></div>
             </div>
@@ -160,13 +160,14 @@
                                 <th
                                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     <p class="float-left inline-block">본문</p>
+                                    <p onclick="document.getElementById('report').showModal()" class="float-right inline-block px-2 text-red-700 font-extrabold report cursor-pointer">신고</p>
                                     <p class="float-right inline-block px-6 font-bold text-red-600">
-                                    	<img onclick="recommend(1, ${board.no }, 2)" class="inline-block w-6 h-6 cursor-pointer" src="<%=request.getContextPath() %>/resources/image/board/bad.png">
+                                    	<img onclick="recommend(1, ${board.no }, 2);" class="inline-block w-6 h-6 cursor-pointer" src="<%=request.getContextPath() %>/resources/image/board/bad.png">
                                     	${board.bad }
                                     </p>
                                     <p class="float-right inline-block px-2">싫어요</p>
                                     <p class="float-right inline-block px-6 font-bold text-blue-600">
-                                    	<img onclick="recommend(1, ${board.no }, 1)" class="inline-block w-6 h-6 cursor-pointer" src="<%=request.getContextPath() %>/resources/image/board/good.png">
+                                    	<img onclick="recommend(1, ${board.no }, 1);" class="inline-block w-6 h-6 cursor-pointer" src="<%=request.getContextPath() %>/resources/image/board/good.png">
 										${board.good }
                                     </p>
                                     <p class="float-right inline-block px-2">좋아요</p>
@@ -224,6 +225,7 @@
                         </thead>
                         <tbody>
                         	<c:forEach items="${commentsData.clist }" var="comments">
+                        	
                             <tr>
                                 <td class="px-2 py-2 border-b border-gray-200 bg-white text-sm">
                                     <div class="flex items-center">
@@ -244,17 +246,18 @@
                                 </td>
                                 <td class="px-2 py-2 border-b border-gray-200 bg-white text-sm">
                                     <p class="text-blue-600 whitespace-no-wrap text-center font-bold">
-                                    	<img onclick="recommend(2, ${comments.no }, 1)" class="inline-block w-6 h-6 cursor-pointer" src="<%=request.getContextPath() %>/resources/image/board/good.png">
+                                    	<img onclick="recommend(2, ${comments.no }, 1);" class="inline-block w-6 h-6 cursor-pointer" src="<%=request.getContextPath() %>/resources/image/board/good.png">
                                     	${comments.good }
                                     </p>
                                 </td>
                                 <td class="px-2 py-2 border-b border-gray-200 bg-white text-sm">
                                     <p class="text-red-600 whitespace-no-wrap text-center font-bold">
-                                    	<img onclick="recommend(2, ${comments.no }, 2)" class="inline-block w-6 h-6 cursor-pointer" src="<%=request.getContextPath() %>/resources/image/board/bad.png">
+                                    	<img onclick="recommend(2, ${comments.no }, 2);" class="inline-block w-6 h-6 cursor-pointer" src="<%=request.getContextPath() %>/resources/image/board/bad.png">
                                     	${comments.bad }
                                     </p>
                                 </td>
                             </tr>
+                            
                             </c:forEach>
                         </tbody>
                     </table>
@@ -266,12 +269,12 @@
         </div>
     </div>
 
-	<!-- Modal -->
-	<dialog id="myModal" class="fixed h-auto w-11/12 md:w-1/2 p-5  bg-white rounded-md ">
+	<!-- Comments Modal -->
+	<dialog id="writeComments" class="fixed h-auto w-11/12 md:w-1/2 p-5  bg-white rounded-md ">
 		<div class="flex flex-col w-full h-auto justify-center items-center">
 			<!-- Header -->
 			<div class="w-full h-auto">
-				<div onclick="document.getElementById('myModal').close();" class="float-right w-1/12 h-auto justify-center cursor-pointer">
+				<div onclick="document.getElementById('writeComments').close();" class="float-right w-1/12 h-auto justify-center cursor-pointer">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
 				</div>
 				<div class="clear-both"></div>
@@ -291,6 +294,48 @@
 						<div class="flex items-start w-1/2 text-gray-700 px-2 mr-auto"></div>
 						<div class="-mr-1">
 							<input type='submit' class="bg-white text-gray-700 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100" value='등록'>
+						</div>
+					</div>
+				</div>
+			</form>
+			<!-- Content End -->
+		</div>
+	</dialog>
+	
+	<!-- report Modal -->
+	<dialog id="report" class="fixed h-auto w-11/12 md:w-1/2 p-5  bg-white rounded-md ">
+		<div class="flex flex-col w-full h-auto justify-center items-center">
+			<!-- Header -->
+			<div class="w-full h-auto">
+				<div onclick="document.getElementById('report').close();" class="float-right w-1/12 h-auto justify-center cursor-pointer">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+				</div>
+				<div class="clear-both"></div>
+				<div class="flex h-auto justify-center items-center text-2xl font-bold">
+					신고 작성
+				</div>
+			</div>
+			<!--Header End-->
+			<!-- Content-->
+			<form action="<%=request.getContextPath() %>/report/insert" method="post" class="w-full max-w-xl rounded-lg px-4 pt-2">
+				<div class="flex flex-wrap -mx-4 mb-2">
+					<div class="w-full md:w-full my-2">
+						<select name="reason">
+							<option value="4">기타</option>
+							<option value="1">욕설</option>
+							<option value="2">거짓</option>
+							<option value="3">중복</option>
+						</select>
+					</div>
+					<div class="w-full md:w-full my-2">
+						<input hidden="hidden" name="ref" value="${board.no }">
+						<input hidden="hidden" name="target" value="${board.id }">
+						<textarea class="bg-gray-300 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none" name="detail" placeholder='사이트의 발전을 위해 신고합니다!' required></textarea>
+					</div>
+					<div class="w-full md:w-full flex items-start md:w-full">
+						<div class="flex items-start w-1/2 text-gray-700 px-2 mr-auto"></div>
+						<div class="-mr-1">
+							<input type='submit' class="bg-white text-gray-700 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100" value='신고'>
 						</div>
 					</div>
 				</div>

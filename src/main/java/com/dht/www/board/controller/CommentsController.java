@@ -31,7 +31,11 @@ public class CommentsController {
 		
 		String logInId = ((Users) session.getAttribute("logInInfo")).getId();
 		comments.setId(logInId);
-		int res = commentsService.insertComments(comments);
+		
+		int res = -1;
+		try {
+			res = commentsService.insertComments(comments);
+		} catch (Exception e) { }
 		
 		if(res > 0) {
 			model.addAttribute("url", req.getContextPath()+"/board/detail?no="+comments.getRef());
