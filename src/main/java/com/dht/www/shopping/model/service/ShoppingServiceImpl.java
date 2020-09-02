@@ -1,5 +1,6 @@
 package com.dht.www.shopping.model.service;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -112,32 +113,43 @@ public class ShoppingServiceImpl implements ShoppingService {
 	public int insertOrderProduct(List<OrderProduct> orderProduct) {
 		return shoppingDao.insertOrderProduct(orderProduct);
 	}
-
+	
 	@Override
-	public List<Map<String, Object>> selectReview(String code) {
-		return shoppingDao.selectReview(code);
-	}
 
-	@Override
-	public int scoreAvg(String code) {
-		return shoppingDao.scoreAvg(code);
-	}
+		public int selectOrdersNo() {
+			return shoppingDao.selectOrdersNo();
+		}
 
-	@Override
-	public Map<String, Object> selectSearch(String search, int curPage, int cntPerPage) {
-		Map<String, Object> commandMap = new HashMap<String, Object>();
+		@Override
+		public void insertPoint(Map userPoint) {
+			shoppingDao.insertPoint(userPoint);
+		}
 
-		Paging paging = new Paging(shoppingDao.selectCntSearch(search), curPage, cntPerPage);
-		paging.setSearch(search);
-		
-		System.out.println(paging);
-		
-		List<Map<String, Object>> list = shoppingDao.selectSearch(paging);
-		
-		commandMap.put("paging", paging);
-		commandMap.put("list", list);
-		
-		return commandMap;
-	}
+		public List<Map<String, Object>> selectReview(String code) {
+			return shoppingDao.selectReview(code);
+		}
+
+		@Override
+		public int scoreAvg(String code) {
+			return shoppingDao.scoreAvg(code);
+		}
+
+		@Override
+		public Map<String, Object> selectSearch(String search, int curPage, int cntPerPage) {
+			Map<String, Object> commandMap = new HashMap<String, Object>();
+
+			Paging paging = new Paging(shoppingDao.selectCntSearch(search), curPage, cntPerPage);
+			paging.setSearch(search);
+			
+			System.out.println(paging);
+			
+			List<Map<String, Object>> list = shoppingDao.selectSearch(paging);
+			
+			commandMap.put("paging", paging);
+			commandMap.put("list", list);
+			
+			return commandMap;
+		}
+
 
 }

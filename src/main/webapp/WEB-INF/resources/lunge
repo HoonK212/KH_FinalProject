@@ -1,11 +1,16 @@
-const URL = "/resources/motionmodel/lunge/";
+init = undefined;
+predict = undefined;
+loop = undefined;
+ 
+init2();
+URL = "/resources/motionmodel/lunge/";
 			   let model, webcam, ctx, labelContainer, maxPredictions;
 				
-			    async function init() {
+			    async function init2() {
 			    	  console.log("init2실행 된거인가요?");
 			    	  console.log("런지 URL" + URL);
-			        const modelURL = URL + "model.json";
-			        const metadataURL = URL + "metadata.json";
+			      	modelURL = URL + "model.json";
+			       	metadataURL = URL + "metadata.json";
 			
 			        model = await tmPose.load(modelURL, metadataURL);
 			        maxPredictions = model.getTotalClasses();
@@ -50,7 +55,7 @@ const URL = "/resources/motionmodel/lunge/";
 							
 			        		console.log("카운터 증가" + count);
 			        		var audio = new Audio('/resources/audio/' + count + '.mp3');
-    		audio.play();
+    						audio.play();
 
     		countUpdate(count, set);
     		leftCountUpdate(progressCnt, "lunge");
@@ -83,4 +88,3 @@ function drawPose(pose) {
         }
     }
 }
-init();

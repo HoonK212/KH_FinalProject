@@ -1,3 +1,4 @@
+delete init;
 const URL = "/resources/motionmodel/legraise/";
 let model, webcam, ctx, labelContainer, maxPredictions;
 

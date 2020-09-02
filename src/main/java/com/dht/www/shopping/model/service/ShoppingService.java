@@ -46,7 +46,12 @@ public interface ShoppingService {
 	
 	public int insertOrderProduct(List<OrderProduct> orderProduct);
 	
+	public int selectOrdersNo();
+	
+	public void insertPoint(Map userPoint);
+
 	public List<Map<String, Object>> selectReview(String code);
 	
 	public int scoreAvg(String code);
+
 }

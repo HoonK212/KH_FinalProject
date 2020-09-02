@@ -81,9 +81,25 @@ public class ShoppingDao {
 	}
 	
 	public int insertOrderProduct(List<OrderProduct> orderProduct) {
-		return sqlSession.insert("Shopping.insertOrderProduct", orderProduct);
+		
+		int no=0;
+		
+		for(int i=0; i<orderProduct.size(); i++) {
+			sqlSession.insert("Shopping.insertOrderProduct", orderProduct.get(i));
+			no+=1;
+		}
+		
+		return no;
 	}
 	
+	public int selectOrdersNo() {
+		return sqlSession.selectOne("Shopping.selectOrdersNo");
+	}
+	
+	public void insertPoint(Map userPoint) {
+		sqlSession.insert("Shopping.insertPoint",userPoint);
+	}
+
 	public List<Map<String, Object>> selectReview(String code) {
 		return sqlSession.selectList("Shopping.selectReview", code);
 	}
@@ -100,4 +116,6 @@ public class ShoppingDao {
 		return sqlSession.selectList("Shopping.selectSearch", paging);
 	}
 	
+	
+
 }

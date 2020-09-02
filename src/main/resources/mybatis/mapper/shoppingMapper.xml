@@ -127,7 +127,7 @@
 	</select>
 	
 	<select id="selectProduct" resultMap="basketItem">
-		select p.name, p.company, b.amount, p.price, f.path, f.renamed, f.ext from product p, basket b, files f
+		select p.name, p.code, p.company, b.amount, p.price, f.path, f.renamed, f.ext from product p, basket b, files f
         where b.code = p.code and f.ref = p.code
         and stock > 0 and sell = 1 and b.code in
         	<foreach collection="array" item="item" separator="," open="(" close=")">
@@ -193,17 +193,21 @@
 		</foreach>
 	</delete>
 	
+	<select id="selectOrdersNo" resultType="int">
+		select orders_seq.nextval from dual
+	</select>
+	
 	<insert id="insertOrders">
 		insert into orders
-		values (ORDERS_SEQ.nextval, 1, 1, sysdate, #{mUid}, #{id}, #{toName}, #{toTel}, #{toAddr}, #{toPost})
+		values (#{no}, 1, 1, sysdate, #{mUid}, #{id}, #{toName}, #{toTel}, #{toAddr}, #{toPost})
 	</insert>
 	
-	<insert id="insertOrderProduct" parameterType="java.util.List">
-		insert into order_product
-		values	
-			<foreach item="item" index="index" collection="list">
-				(order_product_seq.nextval, #{item.amount}, #{item.point}, #{item.code}, #{item.ordersNo})
-			</foreach>
+	<insert id="insertOrderProduct">
+		insert into order_product values (order_product_seq.nextval, #{amount}, #{point}, #{code}, #{ordersNo})
+	</insert>
+	
+	<insert id="insertPoint" parameterType="map">
+		insert into compensation values ( #{id}, sysdate, 1, null, 0, #{point} )
 	</insert>
 	
 	<select id="selectCntSearch" parameterType="string" resultType="int">
