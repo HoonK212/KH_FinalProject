@@ -5,11 +5,11 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/event/event.css">
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/layout/footer.css">
 <script type="text/javascript">
-var colors = ["#B8D430", "#3AB745", "#029990", "#3501CB"];
-var restaraunts = ["Wendy's", "McDonalds", "Chick-fil-a", "Five Guys"];
+var colors = ["#DCEBF1", "#7DCADD", "#1B8BB8", "#0566A3", "#E89EBA", "#F7E59D"];
+var restaraunts = ["꽝!", "3 포인트", "5 포인트", "10 포인트", "3 포인트", "5 포인트"];
 
 var startAngle = 0;
-var arc = Math.PI / 2;
+var arc = Math.PI / 3;
 var spinTimeout = null;
 
 var spinArcStart = 10;
@@ -20,6 +20,7 @@ var ctx;
    
 function drawRouletteWheel() {
   var canvas = document.getElementById("canvas");
+  
   if (canvas.getContext) {
     var outsideRadius = 200;
     var textRadius = 160;
@@ -28,15 +29,14 @@ function drawRouletteWheel() {
     ctx = canvas.getContext("2d");
     ctx.clearRect(0,0,500,500);
    
-   
-    ctx.strokeStyle = "black";
+    ctx.strokeStyle = "white";
     ctx.lineWidth = 2;
    
     ctx.font = 'bold 12px Helvetica, Arial';
    
-    for(var i = 0; i < 4; i++) {
+    for(var i = 0; i < 6; i++) {
       var angle = startAngle + i * arc;
-      ctx.fillStyle = colors[i];
+      ctx.fillStyle = colors[i];	
      
       ctx.beginPath();
       ctx.arc(250, 250, outsideRadius, angle, angle + arc, false);
@@ -45,15 +45,14 @@ function drawRouletteWheel() {
       ctx.fill();
      
       ctx.save();
-      ctx.shadowOffsetX = -1;
-      ctx.shadowOffsetY = -1;
-      ctx.shadowBlur    = 0;
-      ctx.shadowColor   = "rgb(220,220,220)";
+      
       ctx.fillStyle = "black";
       ctx.translate(250 + Math.cos(angle + arc / 2) * textRadius,
                     250 + Math.sin(angle + arc / 2) * textRadius);
       ctx.rotate(angle + arc / 2 + Math.PI / 2);
       var text = restaraunts[i];
+      
+      ctx.font = 'bold 20px Helvetica, Arial';
       ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
       ctx.restore();
     }
@@ -98,10 +97,12 @@ function stopRotateWheel() {
   var arcd = arc * 180 / Math.PI;
   var index = Math.floor((360 - degrees % 360) / arcd);
   ctx.save();
-  ctx.font = 'bold 30px Helvetica, Arial';
+  ctx.font = 'bold 50px Helvetica, Arial';
   var text = restaraunts[index]
-  ctx.fillText(text, 250 - ctx.measureText(text).width / 2, 250 + 10);
+  ctx.fillText(text, 250 - ctx.measureText(text).width / 2 + 7 , 250 + 16);
   ctx.restore();
+  
+  send(text)
 }
 
 function easeOut(t, b, c, d) {
@@ -111,12 +112,36 @@ function easeOut(t, b, c, d) {
 }
 
 drawRouletteWheel();
+
+function send(text) {
+	
+	console.log(text);
+	
+	var url = '<%= request.getContextPath()%>/event/roulette';
+	
+	var xhr = new XMLHttpRequest();
+	
+	xhr.open('POST', url);
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.send('result='+text+'&id='+id);
+	
+	xhr.addEventListener('load', function() {
+		var data = JSON.parse(xhr.response);
+		if( data.point == 0 ) {
+			alert("꽝입니다!\n남은 코인 : " + 2 +"개")
+		} else {
+			alert(data.point+" 포인트를 얻었습니다!\n남은 코인 : " + 2 + "개");
+		}
+	})
+	
+}
 </script>
 
 <%@include file="../layout/header.jsp" %>
 <%@include file="./event_sidebar.jsp" %>
-
+	
 <div id="eventcontent">
+
 	<div style=" font-size: 30px;" id="eventname">
 		<span class="font-extrabold text-black-700"> 
 		<img src="<%=request.getContextPath() %>/resources/image/event/3.png" width="40px;" style="display: inline-block;">
@@ -135,10 +160,7 @@ drawRouletteWheel();
 	  	</button>
   	</div>
 
-
-
 </div>
-
 
 </section>
 <%@include file="../layout/footer.jsp" %>
