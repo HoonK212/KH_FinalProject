@@ -74,33 +74,33 @@
 <%--                             	</c:if> --%>
 <%--                             	<c:if test="(${not empty logInInfo.name and not empty logInInfo.post and not empty logInInfo.addr})"> --%>
                                     
-    <br>
-
-<div class="flex items-center justify-between bg-white rounded-md 
- 			border-2 p-3 focus:outline-none mr-6 ml-6"> 
-    <label class="flex items-center">
-        <span class="ml-2 text-sm text-gray-700">수령인</span>
-    </label>
-    <span class="text-gray-600 text-sm">${logInInfo.name}</span>
-</div>
-<br>
-<div class="flex items-center justify-between bg-white rounded-md 
- 			border-2 p-3 focus:outline-none mr-6 ml-6">
-    <label class="flex items-center">
-        <span class="ml-2 text-sm text-gray-700">우편번호</span>
-    </label>
-    <span class="text-gray-600 text-sm">${logInInfo.post}</span>
-</div>
-<br>
-<div class="flex items-center justify-between bg-white rounded-md 
- 			border-2 p-3 focus:outline-none mr-6 ml-6">
-    <label class="flex items-center">
-        <span class="ml-2 text-sm text-gray-700">상세주소</span>
-    </label>
-    <span class="text-gray-600 text-sm">${logInInfo.addr}</span>
-</div>
-
-<br>
+								    <br>
+								
+								<div class="flex items-center justify-between bg-white rounded-md 
+								 			border-2 p-3 focus:outline-none mr-6 ml-6"> 
+								    <label class="flex items-center">
+								        <span class="ml-2 text-sm text-gray-700">수령인</span>
+								    </label>
+								    <span class="text-gray-600 text-sm">${logInInfo.name}</span>
+								</div>
+								<br>
+								<div class="flex items-center justify-between bg-white rounded-md 
+								 			border-2 p-3 focus:outline-none mr-6 ml-6">
+								    <label class="flex items-center">
+								        <span class="ml-2 text-sm text-gray-700">우편번호</span>
+								    </label>
+								    <span class="text-gray-600 text-sm">${logInInfo.post}</span>
+								</div>
+								<br>
+								<div class="flex items-center justify-between bg-white rounded-md 
+								 			border-2 p-3 focus:outline-none mr-6 ml-6">
+								    <label class="flex items-center">
+								        <span class="ml-2 text-sm text-gray-700">상세주소</span>
+								    </label>
+								    <span class="text-gray-600 text-sm">${logInInfo.addr}</span>
+								</div>
+								
+								<br>
 <!-- 									<input type="text" class="text-sm ml-6 text-gray-700 w-5/6 lex items-center  -->
 <!-- 										justify-between bg-white rounded-md border-2 border-blue-500 p-2 focus:outline-none"  -->
 <!-- 										placeholder="요청사항을 직접 입력합니다."> -->
@@ -133,7 +133,7 @@
 							<div class="mt-6 inline-flex text-sm mr-6 ml-6">
 								사용 포인트 </div>
 							<input id="usePoint" type="number" max="50000" min="1"  class=" w-1/6 mr-6 text-sm text-gray-700 lex items-center justify-between 
-									bg-white rounded-md border-2 border-blue-500 p-2 focus:outline-none float-right" placeholder="포인트"> 포인트
+									bg-white rounded-md border-2 border-blue-500 p-2 focus:outline-none float-right" placeholder="포인트">
                        	</div>
                     </form>
                 </div>
@@ -278,6 +278,7 @@
   
 <script type="text/javascript">  	
    	$("#usePointCheck").click(function(){
+   		
    		if($("#usePointCheck").is(":checked")){
    			$("#usePoint").val(${point})
    			$("#usePointLoc").text(${point}+" 포인트")
@@ -396,7 +397,6 @@ $(document).ready(function() {
 <script>
 function requestPayment() {
 	
-	console.log("클릭했니")
 	if($("#necessary").is(":checked")){
 		console.log("활성화하렴")
 		$("#pay").prop('disabled', false);
@@ -445,8 +445,8 @@ function requestPayment() {
 						post :$('#sample4_postcode').val(),
 						addr : $("#sample4_roadAddress").val()+" "+$("#sample4_detailAddress").val(),
 						product : '${product}',
-						logInInfo : '${logInInfo}',
-						point : '${point}'
+// 						logInInfo : '${logInInfo}',
+						point : $('#usePoint').val()
 						//기타 필요한 데이터가 있으면 추가 전달
 						})
 				}).done(function(data) {

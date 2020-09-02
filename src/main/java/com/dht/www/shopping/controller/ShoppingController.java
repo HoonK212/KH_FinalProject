@@ -1,7 +1,17 @@
 package com.dht.www.shopping.controller;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.io.Reader;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +35,21 @@ import com.dht.www.shopping.model.vo.Product;
 import com.dht.www.user.model.vo.Users;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+
+import org.codehaus.jackson.JsonParser;
+import org.apache.commons.io.input.ReaderInputStream;
+import org.apache.tomcat.util.json.JSONParser;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+
 
 @Controller
 @RequestMapping("/shopping")
@@ -306,42 +330,59 @@ public class ShoppingController {
 	@ResponseBody
 	public void shoppingPaymentCheck(@RequestBody String uid, HttpServletRequest session) {
 		
-		ObjectMapper mapper = new ObjectMapper(); 
-		Map<String, Object> map = new HashMap<String, Object>();
+		Gson gson = new GsonBuilder().create();
+		Map<String, String> another =gson.fromJson(uid, new TypeToken<Map<String, String>>(){}.getType());
+		
+		List<Map<String,String>> result = gson.fromJson(another.get("product"), new TypeToken<List<Map<String,String>>>(){}.getType());
 
-		try {
-			
-			map = mapper.readValue(uid, new TypeReference<Map<String, Object>>(){});
-			
-			Users user = (Users) session.getAttribute("logInInfo");
-			
-			
 			Orders order = new Orders();
-			order.setId(user.getId());
-			order.setmUid((String)map.get("imp_uid"));
-			order.setToName((String)map.get("name"));
-			order.setToTel((String)map.get("tel"));
-			order.setToAddr((String)map.get("addr"));
-			order.setToPost((String)map.get("post"));
+//			Users user = (Users) session.getAttribute("logInInfo");
+//			System.out.println(user);
+//			order.setId(user.getId());
+			
+			System.out.println("user : " + session.getAttribute("logInInfo"));
+			order.setId("semin");
+			order.setmUid(another.get("imp_uid"));
+			order.setToName(another.get("name"));
+			order.setToTel(another.get("tel"));
+			order.setToAddr(another.get("addr"));
+			order.setToPost(another.get("post"));
+			
+			int ordersNo = shoppingService.selectOrdersNo();
+			order.setNo(ordersNo);
 
-			System.out.println("order : "+order);
 			shoppingService.insertOrders(order);
 			
-//			System.out.println("이거어어어는?"+(List<Product>)map.get("product"));
-			List<OrderProduct> orderProduct = new ArrayList<OrderProduct>();
-			OrderProduct command = new OrderProduct();
+			Map userPoint = new HashMap();
+			List<OrderProduct> orderProductList = new ArrayList<OrderProduct>();
 			
-//			command.setAmount(amount);
-//			command.setCode(code);
-//			command.setOrdersNo(ordersNo);
-			command.setPoint((int)map.get("point"));
+			int point=0;
+			int mount =0;
 			
-			orderProduct.add(command);
-//			shoppingService.insertOrderProduct(orderProduct);
+			if(another.get("point") != null && another.get("point") != "") {
+				point = Integer.parseInt(another.get("point"));
+			}
 			
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		} 
+			userPoint.put("id", "semin");
+			userPoint.put("point", point);
+			
+			shoppingService.insertPoint(userPoint);
+			
+			point = point / result.size();
+			
+			for(int i=0; i<result.size(); i++) {
+				
+				OrderProduct orderProduct = new OrderProduct();
+				if(result.get(i).get("amount") != null && result.get(i).get("amount") != "") {
+					mount = Integer.parseInt(result.get(i).get("amount"));
+				}
+				orderProduct.setAmount(mount);
+				orderProduct.setPoint(point);
+				orderProduct.setCode(result.get(i).get("code"));
+				orderProduct.setOrdersNo(ordersNo);
+				orderProductList.add(orderProduct);
+			}
+			shoppingService.insertOrderProduct(orderProductList);
 	}
 	
 	@RequestMapping(value="/paymentComplete", method = RequestMethod.GET)

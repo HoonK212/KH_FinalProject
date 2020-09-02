@@ -1,5 +1,6 @@
 package com.dht.www.shopping.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -107,4 +108,13 @@ public class ShoppingServiceImpl implements ShoppingService {
 		return shoppingDao.insertOrderProduct(orderProduct);
 	}
 
+	@Override
+	public int selectOrdersNo() {
+		return shoppingDao.selectOrdersNo();
+	}
+
+	@Override
+	public void insertPoint(Map userPoint) {
+		shoppingDao.insertPoint(userPoint);
+	}
 }

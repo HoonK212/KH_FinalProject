@@ -43,4 +43,8 @@ public interface ShoppingService {
 	public int insertOrders(Orders order);
 	
 	public int insertOrderProduct(List<OrderProduct> orderProduct);
+	
+	public int selectOrdersNo();
+	
+	public void insertPoint(Map userPoint);
 }
