@@ -44,11 +44,6 @@ var ff = null;
 
 var crunchCnt = 0;
 
-var exArr = new Array(); 
-exArr =	"${exerciseName}".split(",");
-for(var i=0; i<exArr.length; i++) {
-	console.log(exArr[i]);
-}
 
 
 async function predict() {

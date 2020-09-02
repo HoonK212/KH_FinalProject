@@ -26,7 +26,7 @@ async function init() {
 }
 
 async function loop(timestamp) {
-    webcam.update(); // update the webcam frame
+    webcam.update();
     await predict();
     window.requestAnimationFrame(loop);
     
@@ -36,20 +36,15 @@ async function loop(timestamp) {
     
 }
 
-var status = "legdown"
+var status = "legdown";
 
-var count = 0
+var count = 0;
 var set = 0;
-var progressCnt = 0
+var progressCnt = 0;
 var ff = null;
 
 
 
-var exArr = new Array(); 
-exArr =	"${exerciseName}".split(",");
-for(var i=0; i<exArr.length; i++) {
-	console.log(exArr[i])
-}
 
 
 async function predict() {
@@ -57,43 +52,41 @@ async function predict() {
     const prediction = await model.predict(posenetOutput);
 
     if(prediction[0].probability.toFixed(2) == 1.00) {
-    	console.log("레그다운들어옴"+status)
+    	console.log("레그다운들어옴"+status);
     		
 	
-    	status = "legdown"
-		console.log(status)
+    	status = "legdown";
+		console.log(status);
     } else if(prediction[1].probability.toFixed(2) == 1.00) {
      	if(status == "legdown") { 
     		count++;
     		progressCnt++;
 			
     		console.log("카운터 증가" + count);
-    		var audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
-    		audio.play()
-    		console.log(count)
+    		var audio = new Audio('/resources/audio/' + count + '.mp3');
+    		audio.play();
+    		console.log(count);
 
     		ff = countUpdate(count, set);
-    		leftCountUpdate(progressCnt ,exArr[0])
+    		leftCountUpdate(progressCnt, "legraise");
     	}
-    	status = "legup"
-    	console.log("여기가 업"+status)
+    	status = "legup";
+    	console.log("여기가 업"+status);
     }
     
     
     for (let i = 0; i < maxPredictions; i++) {
         const classPrediction =
         prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-        labelContainer.childNodes[i].innerHTML = classPrediction; //여기가 값나오는 부분!
+        labelContainer.childNodes[i].innerHTML = classPrediction;
     }
 
-    // finally draw the poses
     drawPose(pose);
 }
 
 function drawPose(pose) {
     if (webcam.canvas) {
         ctx.drawImage(webcam.canvas, 0, 0);
-        // draw the keypoints and skeleton
         if (pose) {
             const minPartConfidence = 0.5;
             tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
