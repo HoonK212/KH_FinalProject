@@ -10,21 +10,11 @@
 <link href="https://tailwindcomponents.com/css/component.ecommerce-products-list.css" rel="stylesheet">
 
 <main class="my-5">
-	 <div class="container mx-auto px-6">
+	<div class="container mx-auto px-6">
 	 
-            <h3 class="text-gray-700 text-2xl font-medium">
-            <c:choose>
-            	<c:when test="${listno eq 0}">전체 보기</c:when>
-            	<c:when test="${listno eq 1}">이벤트 상품</c:when>
-            	<c:when test="${listno eq 2}">인기 상품</c:when>
-            	<c:when test="${listno eq 3}">신규 상품</c:when>
-            	<c:when test="${listno eq 4}">운동 보조제</c:when>
-            	<c:when test="${listno eq 5}">운동 기구</c:when>
-            	<c:when test="${listno eq 6}">다이어트 식품</c:when>
-            </c:choose>
-            </h3>
-            
-            <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
+		<h3 class="text-gray-700 text-2xl font-medium">검색 결과</h3>
+		
+		<div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
 
 			<c:forEach items="${list}" var="list">
 				<div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
@@ -50,33 +40,33 @@
 		<div class="flex rounded-md mt-8">
 			<c:choose>
 			<c:when test="${paging.blockStart > 1 }">
-				<a href="<%= request.getContextPath() %>/shopping/list?listno=${listno}&cPage=${paging.blockStart-1}" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white"><span>Previous</span></a>
+				<a href="<%= request.getContextPath() %>/shopping/search?search=${paging.search }&cPage=${paging.blockStart-1}" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white"><span>Previous</span></a>
 			</c:when>
 			
 			<c:otherwise>
-				<a href="<%= request.getContextPath() %>/shopping/list?listno=${listno}&cPage=${paging.blockStart}" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white"><span>Previous</span></a>
+				<a href="<%= request.getContextPath() %>/shopping/search?search=${paging.search }&cPage=${paging.blockStart}" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white"><span>Previous</span></a>
 			</c:otherwise>
 	        </c:choose>
 	        
 	        <c:forEach begin="${paging.blockStart}" end="${paging.blockEnd}" var="page">
 	        <c:if test="${paging.currentPage eq page }">
-				<a href="<%= request.getContextPath() %>/shopping/list?listno=${listno}&cPage=${page}" class="py-2 px-4 leading-tight border border-gray-200 border-r-0 bg-blue-500 text-white"><span>${page}</span></a>
+				<a href="<%= request.getContextPath() %>/shopping/search?search=${paging.search }&cPage=${page}" class="py-2 px-4 leading-tight border border-gray-200 border-r-0 bg-blue-500 text-white"><span>${page}</span></a>
 			</c:if>
 	        <c:if test="${paging.currentPage ne page }">
-				<a href="<%= request.getContextPath() %>/shopping/list?listno=${listno}&cPage=${page}" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"><span>${page}</span></a>
+				<a href="<%= request.getContextPath() %>/shopping/search?search=${paging.search }&cPage=${page}" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"><span>${page}</span></a>
 			</c:if>
 			</c:forEach> 
 	        
 			<c:choose>
 			<c:when test="${paging.blockEnd+1 > paging.lastPage }">
-				<a href="<%= request.getContextPath() %>/shopping/list?listno=${listno}&cPage=${paging.blockEnd}" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"><span>Next</span></a>
+				<a href="<%= request.getContextPath() %>/shopping/search?search=${paging.search }&cPage=${paging.blockEnd}" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"><span>Next</span></a>
 			</c:when>
 			
 			<c:otherwise>
-				<a href="<%= request.getContextPath() %>/shopping/list?listno=${listno}&cPage=${paging.blockEnd+1}" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"><span>Next</span></a>
+				<a href="<%= request.getContextPath() %>/shopping/search?search=${paging.search }&cPage=${paging.blockEnd+1}" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"><span>Next</span></a>
 			</c:otherwise>
 			</c:choose>
-	 	   	 
+	 	   	 	
 		</div>
 	</div><!-- // section pagination -->
         

@@ -77,8 +77,8 @@ async function predict() {
     		console.log("0으로 선언후"+sideCnt);
     	}
     	
-    	status = "stand"
-		console.log(status)
+    	status = "stand";
+		console.log(status);
     } else if(prediction[1].probability.toFixed(2) == 1.00) {
 		if(status == "stand" && sideCnt == 0){
 			sideCnt++;
@@ -86,8 +86,8 @@ async function predict() {
 		}
 		
 		
-    	status = "left"
-    	console.log(status)
+    	status = "left";
+    	console.log(status);
     } else if(prediction[2].probability.toFixed(2) == 1.00) {
 		if(status == "stand" && sideCnt == 2){
 			sideCnt++;

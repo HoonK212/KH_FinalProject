@@ -205,4 +205,20 @@
 				(order_product_seq.nextval, #{item.amount}, #{item.point}, #{item.code}, #{item.ordersNo})
 			</foreach>
 	</insert>
+	
+	<select id="selectCntSearch" parameterType="string" resultType="int">
+		select count(*) from product p, files f
+	    where p.code = f.ref and p.sell = 1 and p.stock > 0
+	    and name like '%'|| #{value} || '%'
+	</select>
+	
+	<select id="selectSearch" resultMap="homeItem">
+		select * from ( select rownum rnum, b.* from (
+	    	select p.code, name, company, price, path, renamed, ext from product p, files f
+	    	where p.code = f.ref and p.sell = 1 and p.stock > 0
+	    	and name like '%' || #{search} || '%'
+	    	order by substr(p.code,2) desc
+		) b order by rnum ) t where rnum between #{start} and #{end}
+	</select>
+	
 </mapper>

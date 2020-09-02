@@ -90,8 +90,8 @@ async function predict() {
 			console.log(jumpingcnt);
 		}
 		
-    	status = "jump1"
-    	console.log("그냥 점프1"+status)
+    	status = "jump1";
+    	console.log("그냥 점프1"+status);
     }else if(prediction[2].probability.toFixed(2) == 1.00) {
     	
     	if(status == "jump1" && jumpingcnt == 3){
@@ -112,7 +112,6 @@ async function predict() {
         labelContainer.childNodes[i].innerHTML = classPrediction;
     }
 
-    // finally draw the poses
     drawPose(pose);
 }
 

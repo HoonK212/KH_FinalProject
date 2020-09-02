@@ -87,15 +87,15 @@ public class ShoppingController {
 			
 			if(user != null) {
 				//로그인
-				model.addAttribute("basket", shoppingService.selectBasket(user));
+				session.setAttribute("basket", shoppingService.selectBasket(user));
 			} else {
 				//비로그인
 				List<Map<String, Object>> sessionBasket = (List<Map<String, Object>>) session.getAttribute("sessionBasket");
 				
 				if(sessionBasket != null && session.getId().equals( (String) sessionBasket.get(0).get("sessionId"))) {
-					model.addAttribute("basket", sessionBasket.get(1).values());
+					session.setAttribute("basket", sessionBasket.get(1).values());
 				} else {
-					model.addAttribute("basket", null);
+					session.setAttribute("basket", null);
 				}
 			}
 		}
@@ -372,16 +372,16 @@ public class ShoppingController {
 		}
 	}
 	
-	@RequestMapping(value="/test", method=RequestMethod.GET)
-	public void testGet() {
+	@RequestMapping(value="/search", method=RequestMethod.GET)
+	public void shoppingSearch(Model model, @RequestParam(required=false, defaultValue="1") int cPage
+			, @RequestParam(required=false, defaultValue="") String search) {
 		
-	}
-	
-	@RequestMapping(value="/test", method=RequestMethod.POST)
-	public void testPost(@RequestParam(required=false, defaultValue="guest") String userId, String codes, int amount) {
-		System.out.println(userId);
-		System.out.println(codes);
-		System.out.println(amount);
+		int cntPerPage = 16;
+
+		Map<String, Object> commandMap = shoppingService.selectSearch(search, cPage, cntPerPage);
+
+		model.addAttribute("list", commandMap.get("list"));
+		model.addAttribute("paging", commandMap.get("paging"));
 	}
 	
 }

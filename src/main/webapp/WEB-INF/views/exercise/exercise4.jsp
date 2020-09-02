@@ -21,14 +21,34 @@
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
 <script type="text/javascript">
+var count = 0;
+var set = 0;
+var progressCnt = 0;
+var status = "";
 $(document).ready(function() {
 	
-	exerChange("burpee");
+	exerChange("${ExerciseInfo[0]}");
 	
 })
+var exerCnt = 0;
+var exerArrList = new Array();
+
+exerArrList[0] = "${ExerciseInfo[0]}";
+exerArrList[1] = "${ExerciseInfo[1]}";
+exerArrList[2] = "${ExerciseInfo[2]}";
+exerArrList[3] = "${ExerciseInfo[3]}";
+exerArrList[4] = "${ExerciseInfo[4]}";
+exerArrList[5] = "${ExerciseInfo[5]}";
+exerArrList[6] = "${ExerciseInfo[6]}";
+exerArrList[7] = "${ExerciseInfo[7]}";
+exerArrList[8] = "${ExerciseInfo[8]}";
+	
+	
+console.log(exerArrList);
 
 function countUpdate(count, set) {
-
+	
+    
 	var delay = 1000;
 	// count가 countMAX값 보다 같거나 클 때(운동 진행 중)
 	if($(".progress-bar-count")[0].ariaValueMax >= count){
@@ -51,7 +71,7 @@ function countUpdate(count, set) {
 			
 			window.set++;
 			set++;
-			
+			console.log('세이트: ' + set)
 			$('.progress-bar-set').animate( { width: set / $(".progress-bar-set")[0].ariaValueMax * 100 + "%" }, delay, 'swing');
 			
 			$(".progress-bar-set").attr("aria-valuenow", set).html(set + "세트")
@@ -62,12 +82,14 @@ function countUpdate(count, set) {
 				$(".complete").css({'pointer-events':'all'})
     			$(".complete").css({'cursor':'pointer'})
     			
-    				
-    			var cOut = '<c:out value="${exerStatus}" />';
-    			console.log(cOut);
+    			
+    			
+    			
+    			window.exerCnt++;
+    			exerChange(window.exerArrList[window.exerCnt]);
     			
     			console.log("여기가 끝나요!!!!!!!")
-    			webcam.pause(); // 웹캠 중단
+//     			webcam.pause(); // 웹캠 중단
 			}
 		}
 		console.log("운동함 " + count)
@@ -309,37 +331,38 @@ function exerChangejs(exerName) {
 		<!-- right layout 시작 -->
 		<div id="right">
 		
-				<c:set var="exerStatus" value="0" />
-				<c:choose>
-					<c:when test="${ExerciseInfo[exerStatus] eq 'plank'}">
-						<%@include file="./plank.jsp"%>
-					</c:when>
-					<c:when test="${ExerciseInfo[exerStatus] eq 'jumpingjack'}">
-						<%@include file="./jumpingjack.jsp"%>
-					</c:when>
-					<c:when test="${ExerciseInfo[exerStatus] eq 'burpee'}">
-						<%@include file="./burpee.jsp"%>
-					</c:when>
-					<c:when test="${ExerciseInfo[exerStatus] eq 'legraise'}">
-						<%@include file="./legraise.jsp"%>
-					</c:when>
-					<c:when test="${ExerciseInfo[exerStatus] eq 'crunch'}">
-						<%@include file="./crunch.jsp"%>
-					</c:when>
-					<c:when test="${ExerciseInfo[exerStatus] eq 'pushup'}">
-						<%@include file="./pushup.jsp"%>
-					</c:when>
-					<c:when test="${ExerciseInfo[exerStatus] eq 'sidelunge'}">
-						<%@include file="./sidelunge.jsp"%>
-					</c:when>
-					<c:when test="${ExerciseInfo[exerStatus] eq 'squat'}">
-						<%@include file="./squat.jsp"%>
-					</c:when>
-					<c:when test="${ExerciseInfo[exerStatus] eq 'lunge'}">
-						<%@include file="./lunge.jsp"%>
-					</c:when>
-				</c:choose>
-				<c:set var="exerStatus" value="${exerStatus + 1} " />
+<%-- 				<c:set var="exerStatus" value="0" /> --%>
+<%-- 				<c:choose> --%>
+<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'plank'}"> --%>
+<%-- 						<%@include file="./plank.jsp"%> --%>
+<%-- 					</c:when> --%>
+<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'jumpingjack'}"> --%>
+<%-- 						<%@include file="./jumpingjack.jsp"%> --%>
+<%-- 					</c:when> --%>
+<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'burpee'}"> --%>
+<%-- 						<%@include file="./burpee.jsp"%> --%>
+<%-- 					</c:when> --%>
+<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'legraise'}"> --%>
+<%-- 						<%@include file="./legraise.jsp"%> --%>
+<%-- 					</c:when> --%>
+<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'crunch'}"> --%>
+<%-- 						<%@include file="./crunch.jsp"%> --%>
+<%-- 					</c:when> --%>
+<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'pushup'}"> --%>
+<%-- 						<%@include file="./pushup.jsp"%> --%>
+<%-- 					</c:when> --%>
+<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'sidelunge'}"> --%>
+<%-- 						<%@include file="./sidelunge.jsp"%> --%>
+<%-- 					</c:when> --%>
+<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'squat'}"> --%>
+<%-- 						<%@include file="./squat.jsp"%> --%>
+<%-- 					</c:when> --%>
+<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'lunge'}"> --%>
+<%-- 						<%@include file="./lunge.jsp"%> --%>
+<%-- 					</c:when> --%>
+<%-- 				</c:choose> --%>
+<%-- 				<c:set var="exerStatus" value="${exerStatus + 1} " /> --%>
+				
 				
 			
 		</div>

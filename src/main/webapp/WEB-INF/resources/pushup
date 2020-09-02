@@ -30,18 +30,10 @@ const URL = "/resources/motionmodel/pushup/";
         await predict();
         window.requestAnimationFrame(loop);
         
-        if(ff == false){
-			webcam.pause();
-		}
         
     }
 	
-    var status = "pushup";
-    var count = 0;
-    var set = 0;
-    var progressCnt = 0;
-    var ff = null;
-    
+    status = "pushup";
 
     
     async function predict() {
@@ -50,17 +42,16 @@ const URL = "/resources/motionmodel/pushup/";
 
         if(prediction[0].probability.toFixed(2) == 1.00) {
         	console.log(status);
-        	if(status == "pushdown") { // 스쿼트에서 일어나면 개수 증가
+        	if(status == "pushdown") {
         		count++;
         		progressCnt++;
-				
         		console.log("카운터 증가" + count);
         		var audio = new Audio('/resources/audio/' + count + '.mp3');
     		audio.play();
     		console.log(count);
     		
 
-    		ff = countUpdate(count, set);
+    		countUpdate(count,set);
     		leftCountUpdate(progressCnt, "pushup");
     		
     		
