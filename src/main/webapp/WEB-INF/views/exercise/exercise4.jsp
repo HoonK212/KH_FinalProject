@@ -21,6 +21,10 @@
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
 <script type="text/javascript">
+var count = 0;
+var set = 0;
+var progressCnt = 0;
+var status = "";
 $(document).ready(function() {
 	
 	exerChange("${ExerciseInfo[0]}");
@@ -43,7 +47,8 @@ exerArrList[8] = "${ExerciseInfo[8]}";
 console.log(exerArrList);
 
 function countUpdate(count, set) {
-
+	
+    
 	var delay = 1000;
 	// count가 countMAX값 보다 같거나 클 때(운동 진행 중)
 	if($(".progress-bar-count")[0].ariaValueMax >= count){
@@ -66,7 +71,7 @@ function countUpdate(count, set) {
 			
 			window.set++;
 			set++;
-			
+			console.log('세이트: ' + set)
 			$('.progress-bar-set').animate( { width: set / $(".progress-bar-set")[0].ariaValueMax * 100 + "%" }, delay, 'swing');
 			
 			$(".progress-bar-set").attr("aria-valuenow", set).html(set + "세트")

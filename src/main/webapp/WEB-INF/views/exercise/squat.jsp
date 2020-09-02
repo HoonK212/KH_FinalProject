@@ -92,12 +92,12 @@
 						<h5>세트</h5>
 						<div class="progress">
 							<div class="progress-bar-set" role="progressbar"
-								aria-valuenow="0" aria-valuemin="0" aria-valuemax="1">0</div>
+								aria-valuenow="0" aria-valuemin="0" aria-valuemax="2">0</div>
 						</div>
 						<h5>횟수</h5>
 						<div class="progress" >
 							<div class="progress-bar-count" role="progressbar"
-								aria-valuenow="0" aria-valuemin="0" aria-valuemax="1">0</div>
+								aria-valuenow="0" aria-valuemin="0" aria-valuemax="2">0</div>
 						</div>
 					</div>
 				</div>

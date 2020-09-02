@@ -30,17 +30,10 @@ const URL = "/resources/motionmodel/lunge/";
 			        await predict();
 			        window.requestAnimationFrame(loop);
 			        
-			        if(ff == false){
-	        			webcam.pause();
-	        		}
-			        
 			    }
 				
-			    var status = "stand";
-			    var count = 0;
-			    var set = 0;
-			    var progressCnt = 0;
-			    var ff = null;
+			    status = "stand";
+
 			    
 
 
@@ -59,7 +52,7 @@ const URL = "/resources/motionmodel/lunge/";
 			        		var audio = new Audio('/resources/audio/' + count + '.mp3');
     		audio.play();
 
-    		ff = countUpdate(count, set);
+    		countUpdate(count, set);
     		leftCountUpdate(progressCnt, "lunge");
     		
     	}
