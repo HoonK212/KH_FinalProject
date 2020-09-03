@@ -35,7 +35,7 @@ public class EventController {
 		return eventService.checkPC(com);
 	}
 	
-	//이벤트에서 얻은 포인트 추가
+	//이벤트에서 얻은 포인트 추가 - Compensation inc 필드 이용
 	//업데이트 성공한 행 수 반환
 	private int insertPoint(Compensation com) {
 		return eventService.insertPoint(com);

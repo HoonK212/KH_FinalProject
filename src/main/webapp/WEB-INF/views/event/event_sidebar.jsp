@@ -22,29 +22,29 @@
 		            </div>
 		
 		            <nav class="mt-10">
-		                <a class="flex items-center py-2 px-8 bg-black-200 text-gray-700 border-r-4 border-red-700" href="#">
+		                <a class="flex items-center py-2 px-8 bg-black-200 text-gray-700 border-r-4 border-red-700" href="<%=request.getContextPath() %>/event/attendancecheck">
 		                    <img src="<%=request.getContextPath() %>/resources/image/event/1.png" width="20px;">
 		
 		                    <span class="mx-4 font-medium">출석 이벤트</span>
 		                </a>
 		
-		                <a class="flex items-center mt-5 py-2 px-8 text-gray-600 border-r-4 border-white hover:bg-gray-200 hover:text-gray-700 hover:border-gray-700" href="#">
+		                <a class="flex items-center mt-5 py-2 px-8 text-gray-600 border-r-4 border-white hover:bg-gray-200 hover:text-gray-700 hover:border-gray-700" href="<%=request.getContextPath() %>/event/rockpaper">
 							<img src="<%=request.getContextPath() %>/resources/image/event/2.png" width="20px;">
 		
 		                    <span class="mx-4 font-medium">가위바위보</span>
 		                </a>
 		
-		                <a class="flex items-center mt-5 py-2 px-8 text-gray-600 border-r-4 border-white hover:bg-gray-200 hover:text-gray-700 hover:border-gray-700" href="#">
+		                <a class="flex items-center mt-5 py-2 px-8 text-gray-600 border-r-4 border-white hover:bg-gray-200 hover:text-gray-700 hover:border-gray-700" href="<%=request.getContextPath() %>/event/roulette">
 							<img src="<%=request.getContextPath() %>/resources/image/event/3.png" width="20px;">
 		                    <span class="mx-4 font-medium">룰렛돌리기</span>
 		                </a>
 		
-		                <a class="flex items-center mt-5 py-2 px-8 text-gray-600 border-r-4 border-white hover:bg-gray-200 hover:text-gray-700 hover:border-gray-700" href="#">
+		                <a class="flex items-center mt-5 py-2 px-8 text-gray-600 border-r-4 border-white hover:bg-gray-200 hover:text-gray-700 hover:border-gray-700" href="<%=request.getContextPath() %>/event/quiz">
 							<img src="<%=request.getContextPath() %>/resources/image/event/4.png" width="20px;">
 		                    <span class="mx-4 font-medium">초성퀴즈</span>
 		                </a>
 		                
-		                <a class="flex items-center mt-5 py-2 px-8 text-gray-600 border-r-5 border-white hover:bg-gray-200 hover:text-gray-700 hover:border-gray-700" href="#">
+		                <a class="flex items-center mt-5 py-2 px-8 text-gray-600 border-r-4 border-white hover:bg-gray-200 hover:text-gray-700 hover:border-gray-700" href="<%=request.getContextPath() %>/event/record">
 							<img src="<%=request.getContextPath() %>/resources/image/event/5.png" width="20px;">
 		                    <span class="mx-4 font-medium">신기록 랭킹</span>
 		                </a>
