@@ -21,22 +21,10 @@
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
 <script type="text/javascript">
-var count = 0;
-var set = 0;
-var progressCnt = 0;
-var status = "";
-var URL = "";
-var modelURL = "";
-var metadataURL = "";
-
-var test1;
-var test2;
-var test3;
-var test4;
 
 $(document).ready(function() {
 	
-	exerChange("${ExerciseInfo[0]}");
+	exerChange(window.exerArrList[exerCnt]);
 	
 })
 var exerCnt = 0;
@@ -51,9 +39,7 @@ exerArrList[5] = "${ExerciseInfo[5]}";
 exerArrList[6] = "${ExerciseInfo[6]}";
 exerArrList[7] = "${ExerciseInfo[7]}";
 exerArrList[8] = "${ExerciseInfo[8]}";
-	
-	
-console.log(exerArrList);
+
 
 function countUpdate(count, set) {
 	
@@ -90,15 +76,12 @@ function countUpdate(count, set) {
 			if($(".progress-bar-count")[0].ariaValueMax == set) {
 				$(".complete").css({'pointer-events':'all'})
     			$(".complete").css({'cursor':'pointer'})
-    			
-    			
+    			window.set = 0;
+				set = 0;
     			exerCnt++;
 				console.log("엑설엑설 : " + exerCnt);
     			exerChange(window.exerArrList[exerCnt]);
     			
-    			console.log("여기가 끝나요!!!!!!!")
-//     			window.webcam.pause(); 
-    			return false;
 			}
 		}
 		console.log("운동함 " + count)
@@ -121,17 +104,12 @@ function exerChange(exerName) {
 	console.log(exerName)
 	var xhr = new XMLHttpRequest();
 	
-	// 통신을 위한 시작줄 작성
 	xhr.open('GET', '<%=request.getContextPath()%>/exercise/nextexer?exerName='+exerName);
 	
-	// http request header 설정
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	
-	// http request body 설정
-	//	xhr.send() : 원하는 데이터를 파라미터에 넣어 데이터 전송
 	xhr.send();
 	
-	// ajax 통신이 끝난 뒤 실행할 콜백함수 등록
 	xhr.addEventListener('load', function() {
 		
 		var data = xhr.response;
@@ -139,7 +117,7 @@ function exerChange(exerName) {
 		
 		document.querySelector('#right').innerHTML = data;
 		
-		exerChangejs(exerName);
+		eval(exerArrList[exerCnt]+"();");
 		console.log("새로로로로로로로로로로로")
 		console.dir(URL)
 	})
@@ -151,21 +129,15 @@ function exerChangejs(exerName) {
 	console.log(exerName)
 	var xhr = new XMLHttpRequest();
 	
-	// 통신을 위한 시작줄 작성
 	xhr.open('GET', '<%=request.getContextPath()%>/exercise/nextexerjs?exerName='+exerName);
 	
-	// http request header 설정
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	
-	// http request body 설정
-	//	xhr.send() : 원하는 데이터를 파라미터에 넣어 데이터 전송
 	xhr.send();
 	
-	// ajax 통신이 끝난 뒤 실행할 콜백함수 등록
 	xhr.addEventListener('load', function() {
 		
 		var data = xhr.response;
-		
 		eval(data);
 	})
 	
@@ -262,7 +234,7 @@ function exerChangejs(exerName) {
 						style="background-image: url('https://images.unsplash.com/photo-1578836537282-3171d77f8632?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1950&amp;q=80'); background-repeat: no-repat; background-size: cover; background-blend-mode: multiply;">
 						<div class="md:w-1/3 w-full">
 							<img class="rounded-lg shadow-lg antialiased"
-								src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png">
+                                src="<%=request.getContextPath() %>/resources/upload_user/${logInPic.renamed }.${logInPic.ext }">
 						</div>
 						<div class="md:w-2/3 w-full px-3 flex flex-row flex-wrap">
 							<div
@@ -340,49 +312,209 @@ function exerChangejs(exerName) {
 		<!-- right layout 시작 -->
 		<div id="right">
 		
-<%-- 				<c:set var="exerStatus" value="0" /> --%>
-<%-- 				<c:choose> --%>
-<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'plank'}"> --%>
-<%-- 						<%@include file="./plank.jsp"%> --%>
-<%-- 					</c:when> --%>
-<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'jumpingjack'}"> --%>
-<%-- 						<%@include file="./jumpingjack.jsp"%> --%>
-<%-- 					</c:when> --%>
-<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'burpee'}"> --%>
-<%-- 						<%@include file="./burpee.jsp"%> --%>
-<%-- 					</c:when> --%>
-<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'legraise'}"> --%>
-<%-- 						<%@include file="./legraise.jsp"%> --%>
-<%-- 					</c:when> --%>
-<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'crunch'}"> --%>
-<%-- 						<%@include file="./crunch.jsp"%> --%>
-<%-- 					</c:when> --%>
-<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'pushup'}"> --%>
-<%-- 						<%@include file="./pushup.jsp"%> --%>
-<%-- 					</c:when> --%>
-<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'sidelunge'}"> --%>
-<%-- 						<%@include file="./sidelunge.jsp"%> --%>
-<%-- 					</c:when> --%>
-<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'squat'}"> --%>
-<%-- 						<%@include file="./squat.jsp"%> --%>
-<%-- 					</c:when> --%>
-<%-- 					<c:when test="${ExerciseInfo[exerStatus] eq 'lunge'}"> --%>
-<%-- 						<%@include file="./lunge.jsp"%> --%>
-<%-- 					</c:when> --%>
-<%-- 				</c:choose> --%>
-<%-- 				<c:set var="exerStatus" value="${exerStatus + 1} " /> --%>
-				
+			<script type="text/javascript">
 				
 			
+	
+			
+			</script>				
+				
 		</div>
 		<!-- right layout 끝 -->
 
 	</div>
 	<!-- div wrap 끝 -->
-	
 </section>
 <!-- section 끝 -->
+<!-- JS 통합 -->
 <script type="text/javascript">
+
+var URL, model, webcam, ctx, labelContainer, maxPredictions, modelURL, metadataURL, flip, canvas, minPartConfidence;
+var status;
+var set = 0;
+var progressCnt = 0;
+var count = 0;
+
+async function init() {
+    modelURL = URL + "model.json";
+    metadataURL = URL + "metadata.json";
+
+    model = await tmPose.load(modelURL, metadataURL);
+    maxPredictions = model.getTotalClasses();
+
+    flip = true;
+    webcam = new tmPose.Webcam(512, 480, flip);
+    await webcam.setup();
+    await webcam.play();
+    window.requestAnimationFrame(loop);
+
+    canvas = document.getElementById("canvas");
+    canvas.width = 512; 
+    canvas.height = 480;
+    ctx = canvas.getContext("2d");
+    labelContainer = document.getElementById("label-container");
+    for (let i = 0; i < maxPredictions; i++) {
+        labelContainer.appendChild(document.createElement("div"));
+    }
+}
+
+async function loop(timestamp) {
+    webcam.update();
+    await predict();
+    window.requestAnimationFrame(loop);
+         
+}
+
+var predict;
+var prediction, audio, classPrediction;
+var pose
+
+function drawPose(pose) {
+    if (webcam.canvas) {
+        ctx.drawImage(webcam.canvas, 0, 0);
+        if (pose) {
+            minPartConfidence = 0.5;
+            tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
+            tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
+        }
+       }
+};
+
+
+var pushup_predict = async function predict() {
+  var { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
+    prediction = await model.predict(posenetOutput);
+
+    if(prediction[0].probability.toFixed(2) == 1.00) {
+       console.log(status);
+       if(status == "pushdown") {
+          count++;
+          progressCnt++;
+          console.log("카운터 증가" + count);
+          audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
+      audio.play();
+      console.log(count);
+      
+
+      ff = countUpdate(count,set);
+      leftCountUpdate(progressCnt, "pushup");
+      
+      
+   }
+   
+   status = "pushup";
+   console.log(status);
+   } else if(prediction[1].probability.toFixed(2) == 1.00) {
+      status = "pushdown";
+      console.log(status);
+   }                                    
+      
+   for (let i = 0; i < maxPredictions; i++) {
+       classPrediction =
+       prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+       labelContainer.childNodes[i].innerHTML = classPrediction;
+   }
+   
+   drawPose(pose);
+}
+
+var lunge_predict = async function predict() {
+   var { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
+    prediction = await model.predict(posenetOutput);
+
+    if(prediction[0].probability.toFixed(2) == 1.00) {
+       if(status == "down") { 
+          count++;
+          progressCnt++;
+         
+          console.log("카운터 증가" + count);
+          audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
+         audio.play();
+
+   countUpdate(count, set);
+   leftCountUpdate(progressCnt, "lunge");
+   
+   }
+   status = "standsss";
+   console.log(status);
+   } else if(prediction[1].probability.toFixed(2) == 1.00) {
+   
+   
+   status = "down";
+   console.log(status);
+   }
+   
+   for (let i = 0; i < maxPredictions; i++) {
+   classPrediction = prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+   labelContainer.childNodes[i].innerHTML = classPrediction;
+   }
+   
+   drawPose(pose);
+}
+
+var squat_predict = async function predict() {
+	var { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
+	prediction = await model.predict(posenetOutput);
+
+    if(prediction[0].probability.toFixed(2) == 1.00) {
+    	
+    	if(status == "squat") {
+    		count++;
+    		progressCnt++;
+			
+    		console.log("카운터 증가" + count);
+    		audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
+    		audio.play();
+    		console.log(count);
+    		
+
+    		countUpdate(count, set);
+    		leftCountUpdate(progressCnt, "squat");
+    		
+    	}
+    	
+    	status = "stand";
+		console.log(status);
+    } else if(prediction[1].probability.toFixed(2) == 1.00) {
+    	status = "squat";
+    	console.log(status);
+    } else if(prediction[2].probability.toFixed(2) == 1.00) {
+    	status = "bent";
+    	console.log(status);
+    } else if(prediction[3].probability.toFixed(2) == 1.00) {
+    	
+    	console.log("wrong");
+    } 
+    	
+    	
+    for (let i = 0; i < maxPredictions; i++) {
+    	classPrediction =
+        prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+    }
+
+    drawPose(pose);
+}
+
+
+
+
+/* 진짜 실행할 함수 영역 */
+function pushup() {
+   URL = "<%=request.getContextPath() %>/resources/motionmodel/pushup/";
+   predict = pushup_predict;
+   init();
+}
+
+function squat(){
+   URL = "<%=request.getContextPath() %>/resources/motionmodel/squat/";
+   predict = squat_predict;
+   init();
+}
+function lunge() {
+   URL = "<%=request.getContextPath() %>/resources/motionmodel/lunge/";
+   predict = lunge_predict;
+   init();
+}
 
 </script>
 
