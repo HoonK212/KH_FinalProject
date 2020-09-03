@@ -4,6 +4,11 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/layout/header.css">
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/event/event.css">
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/layout/footer.css">
+
+<!-- jstl -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <script type="text/javascript">
 var colors = ["#DCEBF1", "#7DCADD", "#1B8BB8", "#0566A3", "#E89EBA", "#F7E59D"];
 var restaraunts = ["꽝!", "3 포인트", "5 포인트", "10 포인트", "3 포인트", "5 포인트"];
@@ -73,10 +78,19 @@ function drawRouletteWheel() {
 }
 
 function spin() {
-  spinAngleStart = Math.random() * 10 + 10;
-  spinTime = 0;
-  spinTimeTotal = Math.random() * 3 + 4 * 1000;
-  rotateWheel();
+	var coin = document.querySelector("#coin").innerText;
+
+	if(parseInt(coin) < 1) {
+		alert("코인이 부족합니다");
+		return false;
+		
+	} else {
+	  spinAngleStart = Math.random() * 10 + 10;
+	  spinTime = 0;
+	  spinTimeTotal = Math.random() * 3 + 4 * 1000;
+	  rotateWheel();
+		
+	}
 }
 
 function rotateWheel() {
@@ -100,9 +114,11 @@ function stopRotateWheel() {
   ctx.font = 'bold 50px Helvetica, Arial';
   var text = restaraunts[index]
   ctx.fillText(text, 250 - ctx.measureText(text).width / 2 + 7 , 250 + 16);
-  ctx.restore();
   
   send(text)
+
+  ctx.restore();
+  
 }
 
 function easeOut(t, b, c, d) {
@@ -114,34 +130,48 @@ function easeOut(t, b, c, d) {
 drawRouletteWheel();
 
 function send(text) {
-	
-	console.log(text);
-	
 	var url = '<%= request.getContextPath()%>/event/roulette';
 	
 	var xhr = new XMLHttpRequest();
 	
 	xhr.open('POST', url);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.send('result='+text+'&id='+id);
+	xhr.send('result='+text);
 	
 	xhr.addEventListener('load', function() {
+		
 		var data = JSON.parse(xhr.response);
-		if( data.point == 0 ) {
-			alert("꽝입니다!\n남은 코인 : " + 2 +"개")
+		
+		if( data.getPoint == 0 ) {
+			alert("꽝입니다!\n남은 코인 : " + data.pointcoin.coin +"개")
 		} else {
-			alert(data.point+" 포인트를 얻었습니다!\n남은 코인 : " + 2 + "개");
+			alert(data.getPoint + " 포인트를 얻었습니다!\n남은 코인 : " + data.pointcoin.coin + "개");
 		}
+		
+		document.querySelector("#point").innerText = data.pointcoin.point;
+		document.querySelector("#coin").innerText = data.pointcoin.coin;
+		
 	})
 	
 }
+
+var doubleSpinFlag = false;
+function doubleSpinCheck(){
+	if(doubleSpinFlag){
+		return doubleSpinFlag;
+	}else{
+		doubleSpinFlag = true;
+		return false;
+	}
+}
+
 </script>
 
 <%@include file="../layout/header.jsp" %>
 <%@include file="./event_sidebar.jsp" %>
 	
-<div id="eventcontent">
-
+<div id="eventcontent" class="my-8">
+	
 	<div style=" font-size: 30px;" id="eventname">
 		<span class="font-extrabold text-black-700"> 
 		<img src="<%=request.getContextPath() %>/resources/image/event/3.png" width="40px;" style="display: inline-block;">
@@ -151,6 +181,11 @@ function send(text) {
 	
  	<div>	
 	<canvas id="canvas" width="500" height="500" style="display: inline;"></canvas>
+	</div>
+	
+	<div class="my-2">
+		<p>현재 포인트 : <span id="point">${pointcoin.point }</span></p>
+		<p>잔여 코인 : <span id="coin">${pointcoin.coin }</span></p>
 	</div>
 	
 	<div>

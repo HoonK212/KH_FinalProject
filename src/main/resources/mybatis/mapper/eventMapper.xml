@@ -3,23 +3,25 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="Event">
-
-<!-- 	<resultMap type="map" id="Event"> -->
-<!-- 		<id column="id" property="id" /> -->
-<!-- 		<result column="date" property="dateq" /> -->
-<!-- 		<result column="type" property="type" /> -->
-<!-- 	</resultMap> -->
+	<mapper namespace="Event">
 	
-<!-- 	<resultMap type="map" id="Initial"> -->
-<!-- 		<id column="code" property="code" /> -->
-<!-- 		<result column="initial" property="initial" /> -->
-<!-- 	</resultMap> -->
+		<resultMap type="map" id="pointcoin">
+		<result column="point" property="point"/>
+		<result column="coin" property="coin"/>
+	</resultMap>
 	
+	<select id="checkPC" resultMap="pointcoin">
+		select nvl(point, 0) point, nvl(coin, 0) coin from point_coin where id = #{id}
+	</select>
+	
+	<!-- 포인트 추가 -->
+	<insert id="insertPoint">
+		insert into compensation values (#{id}, sysdate, 1, #{event}, #{inc}, 0)
+	</insert>
 
-<!-- 	<insert id="insertMatch2"> -->
-<!-- 		INSERT INTO TB_SCORE2 -->
-<!-- 		VALUES (#{rank}, #{teamName}, #{match}, #{win}, #{loose}, #{tie}, #{rate}, sysdate) -->
-<!-- 	</insert> -->
+	<!-- 코인 차감 -->
+	<insert id="insertCoin">
+		insert into compensation values (#{id}, sysdate, 2, #{event}, 0, 1)
+	</insert>
 
 </mapper>
