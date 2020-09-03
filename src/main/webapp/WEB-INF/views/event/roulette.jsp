@@ -8,7 +8,11 @@
 <!-- jstl -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<<script type="text/javascript">
+window.onload = function() {
+	drawRouletteWheel();
+}
+</script>
 <script type="text/javascript">
 var colors = ["#DCEBF1", "#7DCADD", "#1B8BB8", "#0566A3", "#E89EBA", "#F7E59D"];
 var restaraunts = ["꽝!", "3 포인트", "5 포인트", "10 포인트", "3 포인트", "5 포인트"];
@@ -22,6 +26,17 @@ var spinTime = 0;
 var spinTimeTotal = 0;
 
 var ctx;
+
+var doubleSpinFlag = false;
+
+function doubleSpinCheck(){
+	if(doubleSpinFlag){
+		return doubleSpinFlag;
+	}else{
+		doubleSpinFlag = true;
+		return false;
+	}
+}
    
 function drawRouletteWheel() {
   var canvas = document.getElementById("canvas");
@@ -79,6 +94,8 @@ function drawRouletteWheel() {
 
 function spin() {
 	var coin = document.querySelector("#coin").innerText;
+	
+	if(doubleSpinCheck()) return;
 
 	if(parseInt(coin) < 1) {
 		alert("코인이 부족합니다");
@@ -127,8 +144,6 @@ function easeOut(t, b, c, d) {
   return b+c*(tc + -3*ts + 3*t);
 }
 
-drawRouletteWheel();
-
 function send(text) {
 	var url = '<%= request.getContextPath()%>/event/roulette';
 	
@@ -151,18 +166,10 @@ function send(text) {
 		document.querySelector("#point").innerText = data.pointcoin.point;
 		document.querySelector("#coin").innerText = data.pointcoin.coin;
 		
+		doubleSpinFlag = false;
+		
 	})
 	
-}
-
-var doubleSpinFlag = false;
-function doubleSpinCheck(){
-	if(doubleSpinFlag){
-		return doubleSpinFlag;
-	}else{
-		doubleSpinFlag = true;
-		return false;
-	}
 }
 
 </script>

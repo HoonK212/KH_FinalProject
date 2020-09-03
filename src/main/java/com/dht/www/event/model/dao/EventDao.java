@@ -26,4 +26,11 @@ public class EventDao {
 		return sqlSession.insert("Event.insertCoin", com);
 	}
 	
+	public Map<String, Object> selectQuiz(int day) {
+		return sqlSession.selectOne("Event.selectQuiz", day);
+	}
+	
+	public int checkQuiz(Map<String, String> map) {
+		return sqlSession.selectOne("Event.checkQuiz", map);
+	}
 }

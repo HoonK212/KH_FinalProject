@@ -28,5 +28,15 @@ public class EventServiceImpl implements EventService {
 	public int insertCoin(Compensation com) {
 		return eventDao.insertCoin(com);
 	}
+
+	@Override
+	public Map<String, Object> selectQuiz(int day) {
+		return eventDao.selectQuiz(day);
+	}
+
+	@Override
+	public int checkQuiz(Map<String, String> map) {
+		return eventDao.checkQuiz(map);
+	}
 	
 }
