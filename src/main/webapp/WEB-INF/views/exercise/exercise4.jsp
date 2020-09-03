@@ -25,6 +25,15 @@ var count = 0;
 var set = 0;
 var progressCnt = 0;
 var status = "";
+var URL = "";
+var modelURL = "";
+var metadataURL = "";
+
+var test1;
+var test2;
+var test3;
+var test4;
+
 $(document).ready(function() {
 	
 	exerChange("${ExerciseInfo[0]}");
@@ -83,13 +92,13 @@ function countUpdate(count, set) {
     			$(".complete").css({'cursor':'pointer'})
     			
     			
-    			
-    			
-    			window.exerCnt++;
-    			exerChange(window.exerArrList[window.exerCnt]);
+    			exerCnt++;
+				console.log("엑설엑설 : " + exerCnt);
+    			exerChange(window.exerArrList[exerCnt]);
     			
     			console.log("여기가 끝나요!!!!!!!")
-//     			webcam.pause(); // 웹캠 중단
+//     			window.webcam.pause(); 
+    			return false;
 			}
 		}
 		console.log("운동함 " + count)
@@ -131,7 +140,6 @@ function exerChange(exerName) {
 		document.querySelector('#right').innerHTML = data;
 		
 		exerChangejs(exerName);
-		
 		console.log("새로로로로로로로로로로로")
 		console.dir(URL)
 	})
@@ -157,6 +165,7 @@ function exerChangejs(exerName) {
 	xhr.addEventListener('load', function() {
 		
 		var data = xhr.response;
+		
 		eval(data);
 	})
 	

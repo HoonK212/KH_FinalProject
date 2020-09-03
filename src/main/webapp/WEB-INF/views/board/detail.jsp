@@ -19,7 +19,7 @@
 <!-- HEADER -->
 <%@include file="../layout/header.jsp" %>
 
-<section class="antialiased font-sans bg-gray-200">
+<section class="antialiased font-sans bg-gray-200" style="min-height: 73vh;">
 
     <div class="container mx-auto px-4 sm:px-8">
         <div class="py-8">
@@ -179,9 +179,26 @@
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                     <div class="flex items-center">
                                         <div class="ml-3">
-                                            <p class="text-gray-900">
-                                            	${board.content }
-                                            </p>
+                                            <p class="text-gray-900">${board.content }</p><br>
+                                        	<c:forEach items="${filesData.flist }" var="files">
+                                        		<br><hr><br>
+			                                    <p class="text-gray-900 whitespace-no-wrap text-left">
+			                                    	<c:choose>
+				                                    	<c:when test="${files.ext eq 'jpg' || files.ext eq 'jpeg' || files.ext eq 'png' || files.ext eq 'gif'}">
+				                                        	<img src="<%=request.getContextPath() %>/resources/upload_board/${files.renamed }.${files.ext }">
+				                                    	</c:when>
+			                                    		<c:otherwise>
+			                                    			<a href="<%=request.getContextPath() %>/resources/upload_board/${files.renamed }.${files.ext }" class="text-blue-300">
+			                                    				${files.renamed }.${files.ext }
+			                                    			</a>
+			                                    			&ensp;&ensp;&ensp;
+			                                    			<a href="<%=request.getContextPath() %>/resources/upload_board/${files.renamed }.${files.ext }" class="text-blue-600" download>
+			                                    				> download
+			                                    			</a>
+			                                    		</c:otherwise>
+			                                    	</c:choose>
+			                                    </p>
+			                                </c:forEach>
                                         </div>
                                     </div>
                                 </td>
@@ -202,6 +219,11 @@
                     		<col width="10%">
                     		<col width="10%">
                     		<col width="10%">
+<%--                     		<col width="60%"> --%>
+<%--                     		<col width="10%"> --%>
+<%--                     		<col width="10%"> --%>
+<%--                     		<col width="10%"> --%>
+<%--                     		<col width="10%"> --%>
                     	</colgroup>
                         <thead>
                             <tr>
@@ -221,6 +243,10 @@
                                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     싫어요
                                 </th>
+<!--                                 <th -->
+<!--                                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider"> -->
+<!--                                     신고 -->
+<!--                                 </th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -256,6 +282,9 @@
                                     	${comments.bad }
                                     </p>
                                 </td>
+<!--                                 <td class="px-2 py-2 border-b border-gray-200 bg-white text-sm text-center"> -->
+<!--                                     <p class="text-red-700 font-extrabold text-center report cursor-pointer">신고</p> -->
+<!--                                 </td> -->
                             </tr>
                             
                             </c:forEach>
