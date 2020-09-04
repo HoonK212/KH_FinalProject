@@ -354,7 +354,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void mailSendingToJoin(Users users, String urlPath) {
 		
-		String setfrom = "kitty9302@naver.com";
+		String setfrom = "kh_finalproject@naver.com";
 		String tomail = users.getMail();
 		String title = "회원가입을 환영합니다.";
 		String htmlBody = 
