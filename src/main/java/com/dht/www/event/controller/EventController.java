@@ -1,10 +1,8 @@
 package com.dht.www.event.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -14,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dht.www.event.model.service.EventService;
@@ -56,9 +55,31 @@ public class EventController {
 	}
 	
 	// 출석체크 VIEW
-	@RequestMapping(value="/attendancecheck", method=RequestMethod.GET)
-	public String eventAttendancecheckfinal() {
-		return "event/attendancecheck";
+	@RequestMapping(value="/attendance", method=RequestMethod.GET)
+	public void eventAttendancecheckfinal(Model model) {
+		
+		Calendar cal = Calendar.getInstance();
+		
+		cal.get(Calendar.YEAR);
+		
+		model.addAttribute("year", cal.get(Calendar.YEAR));
+		model.addAttribute("month", cal.get(Calendar.MONTH));
+	}
+	
+	@RequestMapping(value = "/attendance", method = RequestMethod.POST)
+	@ResponseBody
+	public void eventAttendancePoint(HttpSession session) {
+		
+		Users user = (Users) session.getAttribute("logInInfo");
+		System.out.println("잘 넘어오나"+user);
+		
+		Compensation com = new Compensation();
+		com.setId(user.getId());
+		com.setEvent(1);
+		com.setInc(1);
+		
+		insertPoint(com);
+		
 	}
 	
 	// 룰렛 VIEW
@@ -109,8 +130,26 @@ public class EventController {
 	
 	// 신기록 VIEW
 	@RequestMapping(value="/record", method=RequestMethod.GET)
-	public String eventRecordfinal() {
-		return "event/record";
+	public void eventRecordfinal(Model model) {
+		
+		Map<Integer, List> map = new HashMap<Integer, List>();
+		map = eventService.selectRecord();
+				
+		System.out.println("최종"+ map);
+
+		List list = new ArrayList();
+		
+		for(int i=1; i<=map.size(); i++) {
+			System.out.println("이건 되니 : " + i);
+			System.out.println("이거배열안에꺼는" + map.get(i));
+			System.out.println(map.get(i).size() + "없나봐");
+			for(int j=0; j<map.get(i).size(); j++) {
+				System.out.println("이거는 " + j);
+				list.add(map.get(i).get(j));
+				System.out.println(map.get(i).get(j)+"값이 왜이래");
+			}
+		}
+		model.addAttribute("list",list);
 	}
 	
 	// 초성퀴즈 VIEW - event : 2, 하루 한 번 참여 가능
