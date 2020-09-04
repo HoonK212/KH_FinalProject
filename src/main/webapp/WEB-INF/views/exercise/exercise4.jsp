@@ -29,6 +29,7 @@ $(document).ready(function() {
 })
 var exerCnt = 0;
 var exerArrList = new Array();
+var exerCountArr = new Array();
 
 exerArrList[0] = "${ExerciseInfo[0]}";
 exerArrList[1] = "${ExerciseInfo[1]}";
@@ -39,6 +40,17 @@ exerArrList[5] = "${ExerciseInfo[5]}";
 exerArrList[6] = "${ExerciseInfo[6]}";
 exerArrList[7] = "${ExerciseInfo[7]}";
 exerArrList[8] = "${ExerciseInfo[8]}";
+
+exerCountArr[0] = "${ExerciseCount[0]}";
+exerCountArr[1] = "${ExerciseCount[1]}";
+exerCountArr[2] = "${ExerciseCount[2]}";
+exerCountArr[3] = "${ExerciseCount[3]}";
+exerCountArr[4] = "${ExerciseCount[4]}";
+exerCountArr[5] = "${ExerciseCount[5]}";
+exerCountArr[6] = "${ExerciseCount[6]}";
+exerCountArr[7] = "${ExerciseCount[7]}";
+exerCountArr[8] = "${ExerciseCount[8]}";
+
 
 
 function countUpdate(count, set) {
@@ -126,6 +138,10 @@ function exerChange(exerName) {
 		console.dir(data)
 		
 		document.querySelector('#right').innerHTML = data;
+		
+		// 다음 운동이 안 넘어감
+// 		document.querySelector('.progress-bar-count').ariaValueMax = exerCountArr[exerCnt];
+
 		
 		eval(exerArrList[exerCnt]+"();");
 		

@@ -33,7 +33,7 @@ $(document).ready(function() {
 
 
 <!-- section 시작 -->
-<section>
+<section style="min-height:73vh;">
 
 	<!-- div wrap 시작 -->
 	<div id="wrap">

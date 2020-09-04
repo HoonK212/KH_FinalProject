@@ -117,7 +117,7 @@ public class ExerciseController {
 			
 			// 모델값에 운동*등급 계산한 값 전달
 			int[] newExerCnt = exerciseService.selectCalcExerCnt(newExerArr, userLevel);
-			model.addAttribute("ExerciseCnt", newExerCnt);
+			model.addAttribute("ExerciseCount", newExerCnt);
 		}
 		
 
@@ -138,8 +138,9 @@ public class ExerciseController {
 			int exerGrade = exerciseService.selectExerciseMyGrade(user);
 			System.out.println("등급 : " + exerGrade);
 			
-			// 설정한 운동 등급 모델값 지정
-			model.addAttribute("ExerciseGrade", exerGrade);
+			// 모델값에 운동*등급 계산한 값 전달
+			int[] newExerCnt = exerciseService.selectCalcExerCnt(goalExerArr, exerGrade);
+			model.addAttribute("ExerciseCount", newExerCnt);
 		}
 		
 		return "exercise/exercise4";
