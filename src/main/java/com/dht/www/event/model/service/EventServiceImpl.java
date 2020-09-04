@@ -31,10 +31,11 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-
 	public Map<Integer, List> selectRecord() {
 		return eventDao.selectRecord();
-
+	}
+	
+	@Override
 	public Map<String, Object> selectQuiz(int day) {
 		return eventDao.selectQuiz(day);
 	}

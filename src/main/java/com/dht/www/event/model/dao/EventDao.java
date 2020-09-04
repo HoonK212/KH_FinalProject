@@ -29,7 +29,7 @@ public class EventDao {
 		return sqlSession.insert("Event.insertCoin", com);
 	}
 	
-public Map<Integer, List> selectRecord(){
+	public Map<Integer, List> selectRecord(){
 		
 		Map<Integer, List> map = new HashMap<Integer, List>();
 		
