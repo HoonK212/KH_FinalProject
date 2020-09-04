@@ -5,12 +5,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -91,17 +92,38 @@ public class ExerciseController {
 		System.out.println(exerciseName);
 		
 		
+		// 로그인 세션 얻기
+		Users user = (Users) session.getAttribute("logInInfo");
+		
+		
+		// 만 나이 모델값 지정
+		Map<String, Object> userInfo = new HashMap<>();
+		userInfo.put("name", user.getName());
+		userInfo.put("birth", user.getBirth());
+		
+		model.addAttribute("userAge", exerciseService.selectUserAge(userInfo));
+		
+		
 		// 새로운 목표 설정 시
 		if(exerType == null) {
 			String[] newExerArr = exerciseName.split(",");
 			model.addAttribute("ExerciseInfo", newExerArr);
+			
+			// session으로 넘어온 등급
+			int userLevel = 0;
+			if(!session.getAttribute("level").equals("") && session.getAttribute("level") != null) {
+				userLevel = Integer.parseInt((String) session.getAttribute("level"));
+			}
+			
+			// 모델값에 운동*등급 계산한 값 전달
+			int[] newExerCnt = exerciseService.selectCalcExerCnt(newExerArr, userLevel);
+			model.addAttribute("ExerciseCnt", newExerCnt);
 		}
 		
 
 		// 설정한 목표 설정 시 
 		if (exerciseName == null) {
-			Users user = (Users) session.getAttribute("logInInfo");
-
+			
 			// 설정한 운동 종류 가져오기
 			String exerInfo = exerciseService.selectExerciseMyRoutine(user);
 			System.out.println(exerInfo);

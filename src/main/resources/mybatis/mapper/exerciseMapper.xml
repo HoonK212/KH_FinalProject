@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="Exercise">
+<mapper namespace="EXERCISE">
 
 	<resultMap type="map" id="Exercise">
 		<id column="no" property="no" />
@@ -59,6 +59,28 @@
 		where ID = #{id}
 	</select>
 	
-	
+	<!-- 운동개수 조회 -->
+	<select id="selectExerciseCount" resultType="int">
+		SELECT count FROM exercise
+		WHERE name = #{userExer}
+	</select>
 
+	<!-- 등급 값 조회 -->
+	<select id="selectGradeValue" resultType="int">
+		SELECT var FROM grade
+		WHERE grade = #{userLevel}
+	</select>
+	
+	<!-- 생년월일 조회 -->
+	<select id="selectUserBirth" resultType="String" >
+		SELECT to_char(birth, 'YYYYMMDD') FROM users
+		WHERE name = #{name}
+	</select>
+	
+	<!-- 만 나이 계산 -->
+	<select id="selectUserAge" resultType="int" >
+		SELECT TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE), TO_DATE(#{birth},'YYYYMMDD')) / 12)
+		FROM users WHERE name = #{name}
+	</select>
+	
 </mapper>
