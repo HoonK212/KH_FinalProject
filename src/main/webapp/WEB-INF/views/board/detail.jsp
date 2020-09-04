@@ -26,8 +26,13 @@
         
             <div class="pb-2">
                 <h2 class="text-2xl font-semibold leading-tight text-gray-700">게시글</h2>
-	            <button onclick="document.getElementById('writeComments').showModal()" id="btn" class="text-sm font-extrabold float-right w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
+	            <button onclick="document.getElementById('writeComments').showModal();" id="btn" class="text-sm font-extrabold float-right w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
 				>댓글작성</button>
+				<c:if test="${logInInfo.id eq board.id }">
+		            <button onclick="location.href='<%=request.getContextPath()%>/board/modify?ext=${board.ext }&no=${board.no }&bad=${board.bad }&count=${board.count }&dates=${board.dates }&type=${board.type }&title=${board.title }&good=${board.good }&content=${board.content }&nick=${board.nick }&RNUM=${board.RNUM }&id=${board.id }&renamed=${board.renamed }&goodbad=${board.goodbad }'"
+		            	class="mx-3 text-sm font-extrabold float-right w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
+					>수정하기</button>
+				</c:if>
 				<div class="clear-both"></div>
             </div>
             
@@ -160,7 +165,7 @@
                                 <th
                                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     <p class="float-left inline-block">본문</p>
-                                    <p onclick="document.getElementById('report').showModal()" class="float-right inline-block px-2 text-red-700 font-extrabold report cursor-pointer">신고</p>
+                                    <p onclick="document.getElementById('report').showModal();" class="float-right inline-block px-2 text-red-700 font-extrabold report cursor-pointer">신고</p>
                                     <p class="float-right inline-block px-6 font-bold text-red-600">
                                     	<img onclick="recommend(1, ${board.no }, 2);" class="inline-block w-6 h-6 cursor-pointer" src="<%=request.getContextPath() %>/resources/image/board/bad.png">
                                     	${board.bad }

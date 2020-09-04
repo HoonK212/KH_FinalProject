@@ -62,24 +62,6 @@ public class BoardController {
 	public void write() {
 	}
 	
-	// 게시글 작성
-//	@RequestMapping(value="/write", method=RequestMethod.POST)
-//	public String write(Board board, Model model, HttpServletRequest req, HttpSession session) {
-//		
-//		String logInId = ((Users) session.getAttribute("logInInfo")).getId();
-//		board.setId(logInId);
-//		
-//		int res = boardService.insertBoard(board);
-//		
-//		if(res > 0) {
-//			model.addAttribute("url", req.getContextPath()+"/board/list");
-//		} else {
-//			model.addAttribute("alertMsg", "게시글 작성에 실패하였습니다.");
-//			model.addAttribute("url", req.getContextPath()+"/board/list");
-//		}
-//		
-//		return "/common/result";
-//	}
 	
 	// 게시글 작성 (첨부파일 포함)
 	@RequestMapping(value="/write", method=RequestMethod.POST)
@@ -89,15 +71,45 @@ public class BoardController {
 		board.setId(logInId);
 		
 		String path = session.getServletContext().getRealPath("/resources/upload_board");
+		int res = 0;
 		
-		
-		int res = boardService.insertBoardWithFiles(board, files, path);
+		try {
+			res = boardService.insertBoardWithFiles(board, files, path);
+		} catch (Exception e) {
+		}
 		
 		if(res > 0) {
 			model.addAttribute("url", req.getContextPath()+"/board/list");
 		} else {
 			model.addAttribute("alertMsg", "게시글 작성에 실패하였습니다.");
 			model.addAttribute("url", req.getContextPath()+"/board/list");
+		}
+		
+		return "/common/result";
+	}
+	
+	// 게시글 수정 페이지
+	@RequestMapping(value="/modify", method=RequestMethod.GET)
+	public void modify(@RequestParam Map<String, String> boardMap, Model model) {
+		model.addAttribute("board", boardMap);
+	}
+	
+	// 게시글 수정
+	@RequestMapping(value="/modify", method=RequestMethod.POST)
+	public String modify(Board board, Model model, HttpServletRequest req) {
+		
+		int res = 0;
+		
+		try {
+			res = boardService.updateBoardContent(board);
+		} catch (Exception e) {
+		}
+		
+		if(res > 0) {
+			model.addAttribute("url", req.getContextPath()+"/board/detail?no="+board.getNo());
+		} else {
+			model.addAttribute("alertMsg", "게시글 작성에 실패하였습니다.");
+			model.addAttribute("url", req.getContextPath()+"/board/detail?no="+board.getNo());
 		}
 		
 		return "/common/result";

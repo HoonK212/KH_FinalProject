@@ -49,12 +49,6 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.selectBoard(no);
 	}
 
-	// 게시글 작성
-//	@Override
-//	public int insertBoard(Board board) {
-//		return boardDao.insertBoard(board);
-//	}
-	
 	// 게시글 작성 (첨부파일 포함)
 	@Override
 	public int insertBoardWithFiles(Board board, List<MultipartFile> files, String path) throws FileException {
@@ -71,6 +65,11 @@ public class BoardServiceImpl implements BoardService {
 		}
 		
 		return result;
+	}
+
+	@Override
+	public int updateBoardContent(Board board) {
+		return boardDao.updateBoardContent(board);
 	}
 
 

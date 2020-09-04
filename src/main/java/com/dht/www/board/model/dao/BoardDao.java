@@ -42,4 +42,9 @@ public class BoardDao {
 		return sqlSession.insert("BOARD.insertBoard", board);
 	}
 
+	// 게시글 수정
+	public int updateBoardContent(Board board) {
+		return sqlSession.insert("BOARD.updateBoardContent", board);
+	}
+
 }
