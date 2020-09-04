@@ -120,11 +120,11 @@ $(document).ready(function() {
 		<h1 class="level-title">등급을 선택해주세요</h1>
 		<form class="levelForm cf" action="<%=request.getContextPath() %>/exercise/select" method="post">
 			<section class="plan cf">
-				<input type="radio" name="level" id="level1" value="level1"><label class="free-label four-level col" for="level1">왕초보자</label>
-				<input type="radio" name="level" id="level2" value="level2"><label class="basic-label four-level col" for="level2">초보자</label>
-				<input type="radio" name="level" id="level3" value="level3"><label class="basic-label four-level col" for="level3">중급자</label>
-				<input type="radio" name="level" id="level4" value="level4"><label class="basic-label four-level col" for="level4">고급자</label>
-				<input type="radio" name="level" id="level5" value="level5"><label class="premium-label four-level col" for="level5">마스터</label>
+				<input type="radio" name="level" id="level1" value="1"><label class="free-label four-level col" for="level1">왕초보자</label>
+				<input type="radio" name="level" id="level2" value="2"><label class="basic-label four-level col" for="level2">초보자</label>
+				<input type="radio" name="level" id="level3" value="3"><label class="basic-label four-level col" for="level3">중급자</label>
+				<input type="radio" name="level" id="level4" value="4"><label class="basic-label four-level col" for="level4">고급자</label>
+				<input type="radio" name="level" id="level5" value="5"><label class="premium-label four-level col" for="level5">마스터</label>
 			</section>
 				
 			<!-- 버튼 시작 -->

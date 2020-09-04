@@ -60,6 +60,7 @@ function countUpdate(count, set) {
 			
 			// 마지막 세트 끝나면 카운트는 증가x
 			if($(".progress-bar-set")[0].ariaValueMax != set+1){
+				
 				$(".progress-bar-count").animate( { width: count / $(".progress-bar-count")[0].ariaValueMax * 100 + "%"	}, delay, 'swing');
 				$(".progress-bar-count").attr("aria-valuenow", count).html(count + "개")
 			}
@@ -74,13 +75,21 @@ function countUpdate(count, set) {
 			
 			// 운동 끝
 			if($(".progress-bar-count")[0].ariaValueMax == set) {
-				$(".complete").css({'pointer-events':'all'})
-    			$(".complete").css({'cursor':'pointer'})
-    			window.set = 0;
-				set = 0;
+				
     			exerCnt++;
-				console.log("엑설엑설 : " + exerCnt);
-    			exerChange(window.exerArrList[exerCnt]);
+    			
+				if(window.exerArrList[exerCnt] != "") {
+	    			window.set = 0;
+					set = 0;
+					console.log("엑설엑설 : " + exerCnt);
+	    			exerChange(window.exerArrList[exerCnt]);
+	    			
+				} else {
+					alert("운동끝입니다다다");
+					$(".complete").css({'pointer-events':'all'});
+	    			$(".complete").css({'cursor':'pointer'});
+				}
+				
     			
 			}
 		}
@@ -90,6 +99,7 @@ function countUpdate(count, set) {
 
 
 function leftCountUpdate(progressCnt,exArr) {
+	
 	var delay = 1000;
 	$("div[id='"+ exArr + "']").animate( {
 		width:  Math.floor(progressCnt / ( $(".progress-bar-set")[0].ariaValueMax * $(".progress-bar-count")[0].ariaValueMax )  * 100) + "%"
@@ -118,6 +128,7 @@ function exerChange(exerName) {
 		document.querySelector('#right').innerHTML = data;
 		
 		eval(exerArrList[exerCnt]+"();");
+		
 		console.log("새로로로로로로로로로로로")
 		console.dir(URL)
 	})
@@ -240,9 +251,7 @@ function exerChangejs(exerName) {
 							<div
 								class="w-full text-right text-gray-700 font-semibold relative pt-3">
 								<div class="text-2xl text-white leading-tight">${logInInfo.nick }</div>
-								<div class="text-normal text-gray-300">신장 172cm</div>
-								<div class="text-normal text-gray-300">체중 100kg</div>
-								<div class="text-normal text-gray-300">나이 30살</div>
+								<div class="text-normal text-gray-300 mt-1">만 ${userAge }살</div>
 							</div>
 						</div>
 					</div>
@@ -334,6 +343,8 @@ var status;
 var set = 0;
 var progressCnt = 0;
 var count = 0;
+var jumpingcnt = 0; // jumpingjack 가짜 cnt
+var burpeeCnt = 0; // burpee 가짜 cnt
 
 async function init() {
     modelURL = URL + "model.json";
@@ -495,7 +506,125 @@ var squat_predict = async function predict() {
     drawPose(pose);
 }
 
+var jumpingjack_predict = async function predict() {
+	var { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
+	prediction = await model.predict(posenetOutput);
 
+if(prediction[0].probability.toFixed(2) == 1.00) {
+    	
+    	if(status == "jump1" && jumpingcnt==1){
+    		jumpingcnt++;
+    		console.log(jumpingcnt);
+    	}
+    	
+    	if(jumpingcnt >= 4){
+    		count++;
+    		progressCnt++;
+			
+    		console.log("카운터 증가" + count);
+    		audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
+    		audio.play();
+    		console.log(count);
+
+    		countUpdate(count, set);
+    		leftCountUpdate(progressCnt, "jumpingjack");
+    		window.jumpingcnt = 0;
+    		console.log("0으로 선언후"+jumpingcnt);
+    	}
+    	
+    	status = "stand";
+		console.log(status);
+    } else if(prediction[1].probability.toFixed(2) == 1.00) {
+		if(status == "stand" && jumpingcnt == 0){
+			jumpingcnt++;
+			console.log(jumpingcnt);
+		}
+		if(status == "stand" && jumpingcnt == 2){
+			jumpingcnt++;
+			console.log(jumpingcnt);
+		}
+		
+		if(status == "jump2" && jumpingcnt == 4){
+			jumpingcnt++;
+			console.log(jumpingcnt);
+		}
+		
+    	status = "jump1";
+    	console.log("그냥 점프1"+status);
+    }else if(prediction[2].probability.toFixed(2) == 1.00) {
+    	
+    	if(status == "jump1" && jumpingcnt == 3){
+			jumpingcnt++;
+			console.log(jumpingcnt);
+		}
+    	
+    	status = "jump2";
+    	console.log("그냥 점프2"+status);
+    }
+    	
+    	
+    for (let i = 0; i < maxPredictions; i++) {
+    	classPrediction =
+        prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+    }
+
+    drawPose(pose);
+}
+
+var burpee_predict = async function predict() {
+	var { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
+	prediction = await model.predict(posenetOutput);
+
+	if(prediction[0].probability.toFixed(2) == 1.00) {
+
+	 	if(status == "burpee1" && burpeeCnt == 3) { 
+			        		
+    		count++;
+    		progressCnt++;
+			
+    		console.log("카운터 증가" + count);
+    		audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
+    		audio.play();
+    		console.log(count);
+
+    		countUpdate(count, set);
+    		leftCountUpdate(progressCnt, "burpee");
+    		window.burpeeCnt = 0;
+    		console.log("0으로 선언후"+burpeeCnt);
+		
+		}
+    	
+    	status = "stand";
+		console.log(status);
+    } else if(prediction[1].probability.toFixed(2) == 1.00) {
+    	if(status == "stand" && burpeeCnt == 0 ){
+    		burpeeCnt++;
+    		console.log(burpeeCnt);
+    	}
+    	if(status == "burpee2" && burpeeCnt == 2 ){
+    		burpeeCnt++;
+    		console.log(burpeeCnt);
+    	}
+    	
+    	status = "burpee1";
+    	console.log("여기가 기본"+status);
+    } else if(prediction[2].probability.toFixed(2) == 1.00) {
+    	if(status == "burpee1" && burpeeCnt == 1 ){
+    		burpeeCnt++;
+    		console.log(burpeeCnt);
+    	}
+    	status = "burpee2";
+    	console.log("여기가 기본"+status);
+    } 
+    	
+    	
+    for (let i = 0; i < maxPredictions; i++) {
+    	classPrediction =
+        prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+    }
+
+    drawPose(pose);
+}
 
 
 /* 진짜 실행할 함수 영역 */
@@ -515,6 +644,18 @@ function lunge() {
    predict = lunge_predict;
    init();
 }
+
+function jumpingjack() {
+   URL = "<%=request.getContextPath() %>/resources/motionmodel/jumpingjack/";
+   predict = jumpingjack_predict;
+   init();
+}
+
+function burpee() {
+	   URL = "<%=request.getContextPath() %>/resources/motionmodel/burpee/";
+	   predict = burpee_predict;
+	   init();
+	}
 
 </script>
 
