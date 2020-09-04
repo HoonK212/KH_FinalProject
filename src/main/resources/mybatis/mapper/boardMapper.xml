@@ -68,4 +68,9 @@
 		values (files_seq.nextval, 3, board_seq.currval, 'upload_board', #{origin}, #{rename}, #{ext}, #{sizes}, 0)
 	</insert>
 	
+	<update id="updateBoardContent">
+		update board set content=#{content}
+		where no = #{no}
+	</update>
+	
 </mapper>
