@@ -1,5 +1,6 @@
 package com.dht.www.event.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,11 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
+	public Map<Integer, List> selectRecord() {
+		return eventDao.selectRecord();
+	}
+	
+	@Override
 	public Map<String, Object> selectQuiz(int day) {
 		return eventDao.selectQuiz(day);
 	}
@@ -37,6 +43,7 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public int checkQuiz(Map<String, String> map) {
 		return eventDao.checkQuiz(map);
+
 	}
 	
 }

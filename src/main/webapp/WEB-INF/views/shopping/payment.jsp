@@ -132,7 +132,7 @@
                         <br><br><br>
 							<div class="mt-6 inline-flex text-sm mr-6 ml-6">
 								사용 포인트 </div>
-							<input id="usePoint" type="number" max="50000" min="1"  class=" w-1/6 mr-6 text-sm text-gray-700 lex items-center justify-between 
+							<input id="usePoint" type="number" max="${point}" min="0"  class=" w-1/6 mr-6 text-sm text-gray-700 lex items-center justify-between 
 									bg-white rounded-md border-2 border-blue-500 p-2 focus:outline-none float-right" placeholder="포인트">
                        	</div>
                     </form>
@@ -291,8 +291,17 @@
    	})
    	
    	$("#usePoint").change(function(){
-   		$("#usePointLoc").text($("#usePoint").val()+" 포인트")
-   		$("#totalLoc").text(${totalPayment}-$('#usePoint').val()+" 원")
+   		
+   		if(($("#usePoint").val() >= 0) && ($("#usePoint").val() <= ${point})){
+	   		$("#usePointLoc").text($("#usePoint").val()+" 포인트")
+	   		$("#totalLoc").text(${totalPayment}-$('#usePoint').val()+" 원")
+   		}else if($("#usePoint").val() < 0){
+   			alert("잘못된 입력 형식입니다.")
+   			$("#usePoint").val('')
+   		}else{
+   			alert("보유포인트가 부족합니다.")
+   			$("#usePoint").val('')
+   		}
    	})
 </script>
 <script type="text/javascript">
@@ -445,7 +454,7 @@ function requestPayment() {
 						post :$('#sample4_postcode').val(),
 						addr : $("#sample4_roadAddress").val()+" "+$("#sample4_detailAddress").val(),
 						product : '${product}',
-// 						logInInfo : '${logInInfo}',
+// 						info : '${logInInfo}',
 						point : $('#usePoint').val()
 						//기타 필요한 데이터가 있으면 추가 전달
 						})
