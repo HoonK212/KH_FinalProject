@@ -1,17 +1,7 @@
 package com.dht.www.shopping.controller;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
-import java.io.Reader;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -31,25 +21,13 @@ import com.dht.www.shopping.model.service.ShoppingService;
 import com.dht.www.shopping.model.vo.Basket;
 import com.dht.www.shopping.model.vo.OrderProduct;
 import com.dht.www.shopping.model.vo.Orders;
-import com.dht.www.shopping.model.vo.Product;
+
 import com.dht.www.user.model.vo.Users;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
+
 import com.google.gson.reflect.TypeToken;
-
-import org.codehaus.jackson.JsonParser;
-import org.apache.commons.io.input.ReaderInputStream;
-import org.apache.tomcat.util.json.JSONParser;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
-
 
 @Controller
 @RequestMapping("/shopping")
@@ -348,12 +326,12 @@ public class ShoppingController {
 		List<Map<String,String>> result = gson.fromJson(another.get("product"), new TypeToken<List<Map<String,String>>>(){}.getType());
 
 			Orders order = new Orders();
-//			Users user = (Users) session.getAttribute("logInInfo");
-//			System.out.println(user);
-//			order.setId(user.getId());
 			
-			System.out.println("user : " + session.getAttribute("logInInfo"));
-			order.setId("semin");
+			Users user = (Users) session.getAttribute("logInInfo");
+			System.out.println("사용자나와라"+user);
+			//------------------------------------------------------------
+			
+			order.setId(user.getId());
 			order.setmUid(another.get("imp_uid"));
 			order.setToName(another.get("name"));
 			order.setToTel(another.get("tel"));

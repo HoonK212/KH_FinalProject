@@ -7,6 +7,9 @@
 
 <%@include file="../layout/header.jsp" %>
 <%@include file="./event_sidebar.jsp" %>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Calendar"%>
+
 <div id="eventcontent">
 	
 	<div style=" font-size: 30px;" id="eventname">
@@ -16,7 +19,20 @@
 		</span>
 	</div>
 	
+<%	
+	Calendar cal = Calendar.getInstance();
+
+	String strYear = request.getParameter("year");
+	String strMonth = request.getParameter("month");
 	
+	int year = cal.get(Calendar.YEAR);
+	int month = cal.get(Calendar.MONTH);
+	int date = cal.get(Calendar.DATE);
+%>
+
+
+
+
 	 <div class="wrapcontent">
       <div class="calendar">
         <div class="front">
@@ -99,14 +115,6 @@
 	      <div class="ribbon bg-red-500 text-sm whitespace-no-wrap px-4">check</div>
 	  	</button>
 	  	</div>
-	  	
-    
-    
-	
-	
 </div>
 
-
-
-</section>
 <%@include file="../layout/footer.jsp" %>

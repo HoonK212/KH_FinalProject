@@ -1,5 +1,6 @@
 package com.dht.www.event.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,11 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public int insertCoin(Compensation com) {
 		return eventDao.insertCoin(com);
+	}
+
+	@Override
+	public Map<Integer, List> selectRecord() {
+		return eventDao.selectRecord();
 	}
 	
 }

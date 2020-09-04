@@ -10,6 +10,13 @@
 		<result column="coin" property="coin"/>
 	</resultMap>
 	
+	<resultMap type="map" id="exerRecord">
+		<result column="name" property="name"/>
+		<result column="id" property="id"/>
+		<result column="record" property="record"/>
+		<result column="rk" property="rank"/>
+	</resultMap>
+	
 	<select id="checkPC" resultMap="pointcoin">
 		select nvl(point, 0) point, nvl(coin, 0) coin from point_coin where id = #{id}
 	</select>
@@ -23,5 +30,10 @@
 	<insert id="insertCoin">
 		insert into compensation values (#{id}, sysdate, 2, #{event}, 0, 1)
 	</insert>
+	
+	<select id="selectRecord" resultMap="exerRecord">
+		select e.name, r.id, r.record , RANK() OVER (order by r.record desc ) as rk 
+		from exercise e, record r where e.no = r.ex_no and ex_no = #{no} 
+	</select>
 
 </mapper>
