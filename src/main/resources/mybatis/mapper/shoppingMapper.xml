@@ -52,6 +52,7 @@
 		select * from ( select rownum rnum, b.* from (
     		select p.code, name, company, price, path, renamed, ext from product p, files f
     		where p.code = f.ref and p.sell = 1 and p.stock > 0
+    		and thumbnail = 1
     		
     		and p.code like #{cate} || '%'
     		
@@ -88,6 +89,7 @@
     		</if>
     		
     		where p.code = f.ref and p.sell = 1 and p.stock > 0
+    		and thumbnail = 1
     		
     		<if test="listno == 1">
     			and p.code = (select code from product_initial)
@@ -122,13 +124,13 @@
 	<!-- 세션 장바구니에 추가할 item 정보 추출 -->
 	<select id="sessionBasket" parameterType="string" resultMap="basketItem">
 		select p.code, name, price, path, renamed, ext from product p, files f
-		where p.code = f.ref and p.sell = 1
+		where p.code = f.ref and p.sell = 1 and thumbnail = 1
 		and p.stock > 0 and p.code = #{value}
 	</select>
 	
 	<select id="selectProduct" resultMap="basketItem">
 		select p.name, p.code, p.company, b.amount, p.price, f.path, f.renamed, f.ext from product p, basket b, files f
-        where b.code = p.code and f.ref = p.code
+        where b.code = p.code and f.ref = p.code and thumbnail = 1
         and stock > 0 and sell = 1 and b.code in
         	<foreach collection="array" item="item" separator="," open="(" close=")">
 				#{item}
@@ -143,7 +145,7 @@
 
 	<select id="selectItem" resultMap="detailItem">
 		select p.code, name, price, path, renamed, ext, company, describe, stock from product p, files f
-		where p.code = f.ref and p.sell = 1 and p.stock > 0
+		where p.code = f.ref and p.sell = 1 and p.stock > 0 and thumbnail = 1
 		and p.code = #{value}
 		order by substr(p.code,2) desc
 	</select>
@@ -211,15 +213,14 @@
 	</insert>
 	
 	<select id="selectCntSearch" parameterType="string" resultType="int">
-		select count(*) from product p, files f
-	    where p.code = f.ref and p.sell = 1 and p.stock > 0
-	    and name like '%'|| #{value} || '%'
+		select count(*) from product
+	    where name like '%'|| #{value} || '%'
 	</select>
 	
 	<select id="selectSearch" resultMap="homeItem">
 		select * from ( select rownum rnum, b.* from (
 	    	select p.code, name, company, price, path, renamed, ext from product p, files f
-	    	where p.code = f.ref and p.sell = 1 and p.stock > 0
+	    	where p.code = f.ref and p.sell = 1 and p.stock > 0 and thumbnail = 1
 	    	and name like '%' || #{search} || '%'
 	    	order by substr(p.code,2) desc
 		) b order by rnum ) t where rnum between #{start} and #{end}
