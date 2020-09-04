@@ -13,6 +13,11 @@ public interface EventService {
 	
 	public int insertCoin(Compensation com);
 	
+<<<<<<< HEAD
 	public Map<Integer, List> selectRecord();
+=======
+	public Map<String, Object> selectQuiz(int day);
+>>>>>>> 13407282e31d15eaf64a4d95cbdad52b88446185
 	
+	public int checkQuiz(Map<String, String> map);
 }

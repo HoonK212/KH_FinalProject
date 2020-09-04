@@ -1,7 +1,6 @@
 package com.dht.www.event.controller;
 
-import java.util.ArrayList;
-import java.util.Calendar;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +34,7 @@ public class EventController {
 		return eventService.checkPC(com);
 	}
 	
-	//이벤트에서 얻은 포인트 추가
+	//이벤트에서 얻은 포인트 추가 - Compensation inc 필드 이용
 	//업데이트 성공한 행 수 반환
 	private int insertPoint(Compensation com) {
 		return eventService.insertPoint(com);
@@ -153,10 +152,46 @@ public class EventController {
 		model.addAttribute("list",list);
 	}
 	
-	// 초성퀴즈 VIEW
+	// 초성퀴즈 VIEW - event : 2, 하루 한 번 참여 가능
 	@RequestMapping(value="/quiz", method=RequestMethod.GET)
-	public String eventQuizfinal() {
-		return "event/quiz";
+	public void eventQuiz(HttpSession session, Model model) {
+		
+		Users login = (Users) session.getAttribute("logInInfo");
+		SimpleDateFormat format = new SimpleDateFormat("yy/MM/dd");
+		
+		//요일을 1-7으로 반환
+		GregorianCalendar cal = new GregorianCalendar();
+		
+		String today = format.format(new Date());
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", login.getId());
+		map.put("dates", today);
+		
+		
+		int day = cal.get(Calendar.DAY_OF_WEEK);
+			
+		Map<String, Object> quiz = eventService.selectQuiz(day);
+		String[] words = ((String) quiz.get("INI")).split("");
+		quiz.put("words", words);
+		quiz.put("length", words.length);
+		
+		model.addAttribute("attend", eventService.checkQuiz(map));
+		model.addAttribute("quiz", quiz);
+		
+	}
+	
+	@RequestMapping(value="/quiz", method=RequestMethod.POST)
+	public String quizResult(HttpSession session, String answer) {
+		Users login = (Users) session.getAttribute("logInInfo");
+		Compensation com = new Compensation();
+		com.setId(login.getId());
+		com.setEvent(2);
+		com.setInc(10);
+		
+		insertPoint(com);
+		
+		return "redirect:/event/quiz";
 	}
 	
 }

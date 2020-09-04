@@ -19,24 +19,24 @@
     <header class="h-24 sm:h-32 flex items-center z-30 absolute top-0 left-0 w-full">
         <div class="container mx-auto px-6 flex items-center justify-between">
             <div class="text-white font-black text-2xl">
-				<img src="<%=request.getContextPath() %>/resources/image/logo.png" style="width:80px; height:80px;">Daily Home Training
+				<a href="<%=request.getContextPath() %>/"><img src="<%=request.getContextPath() %>/resources/image/logo.png" style="width:80px; height:80px;">Daily Home Training</a>
             </div>
             <div class="flex items-center">
                 <nav class="font-sen text-white uppercase text-lg lg:flex items-center hidden font-extrabold">
-                    <a href="#" class="py-2 px-6 flex">
+                    <a href="<%=request.getContextPath() %>/" class="py-2 px-6 flex">
                         Home
                     </a>
-                    <a href="#" class="py-2 px-6 flex">
-                        Services
+                    <a href="<%=request.getContextPath() %>/shopping/home" class="py-2 px-6 flex">
+                        Shop
                     </a>
                     <a href="#" class="py-2 px-6 flex">
-                        About
+                        Exercise
+                    </a>
+                    <a href="<%=request.getContextPath() %>/event/attendancecheck" class="py-2 px-6 flex">
+                        Event
                     </a>
                     <a href="#" class="py-2 px-6 flex">
-                        Contact
-                    </a>
-                    <a href="#" class="py-2 px-6 flex">
-                        FAQ
+                        Board
                     </a>
                     <c:if test="${logInInfo == null}">
                     <a href="<%=request.getContextPath() %>/user/login" class="py-2 px-6 flex">

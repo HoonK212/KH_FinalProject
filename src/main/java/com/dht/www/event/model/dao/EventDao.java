@@ -29,19 +29,5 @@ public class EventDao {
 		return sqlSession.insert("Event.insertCoin", com);
 	}
 	
-	public Map<Integer, List> selectRecord(){
-		
-		Map<Integer, List> map = new HashMap<Integer, List>();
-		
-		for(int i=1; i<10; i++) {
-			List rank = new ArrayList(); 
-			System.out.println("돌아야지 왜 안돌아 " + i);
-			rank = sqlSession.selectList("Event.selectRecord",i);
-			System.out.println("이건 한번?" + rank);
-			map.put(i, rank);
-		}
-		System.out.println(map);
-		return map;
-	}
-	
+
 }

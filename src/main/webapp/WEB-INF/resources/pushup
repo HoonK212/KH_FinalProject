@@ -3,7 +3,6 @@ URL = "/resources/motionmodel/pushup/";
 	
     console.log("경로" + URL);
     
-
      async function init() {
         modelURL = URL + "model.json";
         metadataURL = URL + "metadata.json";
@@ -86,3 +85,4 @@ function drawPose(pose) {
        }
 };
 init();
+var d = document.getElementById('nextexerss');

@@ -22,8 +22,10 @@
             <div class=" items-center justify-between">
                 <div class="hidden w-full text-white-600 md:flex md:items-center"></div>
                 <div class="w-full text-white-700 md:text-center text-2xl ">
+                <a href="<%=request.getContextPath() %>/">
                 <img src="<%=request.getContextPath() %>/resources/image/logo.png" style="width: 70px; height: 70px; display: inline;">
                     Daily Home Training
+                </a>
                 </div>
 <!--                 <div class="flex items-center justify-end w-full"> -->
 <!--                     <div class="flex sm:hidden"> -->
@@ -37,11 +39,11 @@
             </div>
             <nav :class="isOpen ? '' : 'hidden'" class="sm:flex sm:justify-center sm:items-center mt-4">
                 <div class="flex flex-col sm:flex-row">
-                    <a class="mt-3 text-white-600 sm:mx-30 sm:mt-0 lg:mx-24" href="#">Home</a>
-                    <a class="mt-3 text-white-600 sm:mx-30 sm:mt-0 lg:mx-24" href="#">Shop</a>
-                    <a class="mt-3 text-white-600 sm:mx-30 sm:mt-0 lg:mx-24" href="#">Categories</a>
-                    <a class="mt-3 text-white-600 sm:mx-30 sm:mt-0 lg:mx-24" href="#">Contact</a>
-                    <a class="mt-3 text-white-600 sm:mx-30 sm:mt-0 lg:mx-24" href="#">About</a>
+                    <a class="mt-3 text-white-600 sm:mx-30 sm:mt-0 lg:mx-24" href="<%=request.getContextPath() %>/">Home</a>
+                    <a class="mt-3 text-white-600 sm:mx-30 sm:mt-0 lg:mx-24" href="<%=request.getContextPath() %>/shopping/home">Shop</a>
+                    <a class="mt-3 text-white-600 sm:mx-30 sm:mt-0 lg:mx-24" href="#">Exercise</a>
+                    <a class="mt-3 text-white-600 sm:mx-30 sm:mt-0 lg:mx-24" href="<%=request.getContextPath() %>/event/attendancecheck">Event</a>
+                    <a class="mt-3 text-white-600 sm:mx-30 sm:mt-0 lg:mx-24" href="#">Board</a>
                 </div>
             </nav>
         </div>
