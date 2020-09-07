@@ -83,4 +83,38 @@
 		FROM users WHERE name = #{name}
 	</select>
 	
+	<!-- 포인트 지급 -->
+	<insert id="insertExerciseReward">
+		INSERT INTO compensation(id, dates, type, inc)
+		VALUES(#{userid}, sysdate, 1, #{point})
+	</insert>
+	
+	<!-- 사용자 보유 코인 조회 -->
+	<select id="selectUserCoin" resultType="int">
+		SELECT inc FROM compensation
+		WHERE id = #{userid}
+			and type = 2
+			and to_char(dates, 'YY/MM/DD') = to_char(sysdate, 'YY/MM/DD')
+	</select>
+	
+	<!-- 코인지급 -->
+	<insert id="insertRewardCoin">
+		INSERT INTO compensation(id, dates, type, inc)
+		VALUES(#{userid}, sysdate, 2, #{coin});
+	</insert> 
+	
+	
+	
+	<!-- 운동이름으로 운동번호 조회 -->
+	<select id="selectExerciseNo" resultType="int">
+		SELECT no FROM exercise
+		WHERE name = #{exerciseName}
+	</select>
+	
+	<!-- 운동기록 저장 -->
+	<insert id="insertEventRecord">
+		INSERT INTO record(id, dates, record, ex_no)
+		VALUES(#{userid}, sysdate, #{exerciseCount}, #{exerciseNo})
+	</insert>
+	
 </mapper>
