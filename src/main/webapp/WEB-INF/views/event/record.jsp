@@ -27,13 +27,11 @@ $("#recordrow1").html
 	<br><br><br>
 	
 		<div id="recordrow1">
-			<c:forEach var="i" begin="1" end="3">
 				<div id="ex1">
 					<table class="content-table">
-					<c:forEach var="item" items="${list}" begin="0" end="26" step="3">
 						<thead>
 				  			<tr>
-				      			<th colspan="3;" style="text-align: center;">${item.name }</th>
+				      			<th colspan="3;" style="text-align: center;">${list1[0].name}</th>
 							</tr>
 							<tr>
 								<th>Rank</th>
@@ -41,9 +39,7 @@ $("#recordrow1").html
 								<th>기록</th>
 							</tr>
 				 		</thead>
-			</c:forEach>
-				 		
-				 		<c:forEach var="result" items="${list}" begin="0" end="26">
+				 		<c:forEach var="result" items="${list1}" begin="0" end="2">
 				 		<tbody>
 					   			<tr style="">
 									<td>${result.rank }</td>
@@ -54,18 +50,12 @@ $("#recordrow1").html
 					 	</tbody>
 					</table>
 				</div>
-			</c:forEach>
-		</div>
-		
-		<br>
-	<%-- 	
-		<div id="recordrow2">
-			<c:forEach var="i" begin="1" end="3">
+				
 				<div id="ex1">
 					<table class="content-table">
 						<thead>
 				  			<tr>
-				      			<th colspan="3;" style="text-align: center;">${list4[1].name }</th>
+				      			<th colspan="3;" style="text-align: center;">${list2[0].name}</th>
 							</tr>
 							<tr>
 								<th>Rank</th>
@@ -73,30 +63,125 @@ $("#recordrow1").html
 								<th>기록</th>
 							</tr>
 				 		</thead>
-				 		
-				 			<c:forEach var="item" items="${list4}" begin="0" end="2">
+				 		<c:forEach var="result" items="${list2}" begin="0" end="2">
 				 		<tbody>
 					   			<tr style="">
-									<td>${item.rank }</td>
-									<td>${item.id }</td>
-									<td>${item.record }</td>
+									<td>${result.rank }</td>
+									<td>${result.id }</td>
+									<td>${result.record }</td>
 					   			</tr>
 				 			</c:forEach>
 					 	</tbody>
 					</table>
 				</div>
-			</c:forEach>
+				
+				<div id="ex1">
+					<table class="content-table">
+						<thead>
+				  			<tr>
+				      			<th colspan="3;" style="text-align: center;">${list3[0].name}</th>
+							</tr>
+							<tr>
+								<th>Rank</th>
+								<th>Name</th>
+								<th>기록</th>
+							</tr>
+				 		</thead>
+				 		<c:forEach var="result" items="${list3}" begin="0" end="2">
+				 		<tbody>
+					   			<tr style="">
+									<td>${result.rank }</td>
+									<td>${result.id }</td>
+									<td>${result.record }</td>
+					   			</tr>
+				 			</c:forEach>
+					 	</tbody>
+					</table>
+				</div>
 		</div>
+		<br>
 		
+		<div id="recordrow2">
+				<div id="ex1">
+					<table class="content-table">
+						<thead>
+				  			<tr>
+				      			<th colspan="3;" style="text-align: center;">${list4[0].name}</th>
+							</tr>
+							<tr>
+								<th>Rank</th>
+								<th>Name</th>
+								<th>기록</th>
+							</tr>
+				 		</thead>
+				 		<c:forEach var="result" items="${list4}" begin="0" end="2">
+				 		<tbody>
+					   			<tr style="">
+									<td>${result.rank }</td>
+									<td>${result.id }</td>
+									<td>${result.record }</td>
+					   			</tr>
+				 			</c:forEach>
+					 	</tbody>
+					</table>
+				</div>
+				
+				<div id="ex1">
+					<table class="content-table">
+						<thead>
+				  			<tr>
+				      			<th colspan="3;" style="text-align: center;">${list5[0].name}</th>
+							</tr>
+							<tr>
+								<th>Rank</th>
+								<th>Name</th>
+								<th>기록</th>
+							</tr>
+				 		</thead>
+				 		<c:forEach var="result" items="${list5}" begin="0" end="2">
+				 		<tbody>
+					   			<tr style="">
+									<td>${result.rank }</td>
+									<td>${result.id }</td>
+									<td>${result.record }</td>
+					   			</tr>
+				 			</c:forEach>
+					 	</tbody>
+					</table>
+				</div>
+				
+				<div id="ex1">
+					<table class="content-table">
+						<thead>
+				  			<tr>
+				      			<th colspan="3;" style="text-align: center;">${list6[0].name}</th>
+							</tr>
+							<tr>
+								<th>Rank</th>
+								<th>Name</th>
+								<th>기록</th>
+							</tr>
+				 		</thead>
+				 		<c:forEach var="result" items="${list6}" begin="0" end="2">
+				 		<tbody>
+					   			<tr style="">
+									<td>${result.rank }</td>
+									<td>${result.id }</td>
+									<td>${result.record }</td>
+					   			</tr>
+				 			</c:forEach>
+					 	</tbody>
+					</table>
+				</div>
+		</div>
 		<br>
 		
 		<div id="recordrow3">
-			<c:forEach var="i" begin="1" end="3">
 				<div id="ex1">
 					<table class="content-table">
 						<thead>
 				  			<tr>
-				      			<th colspan="3;" style="text-align: center;">${list7[1].name }</th>
+				      			<th colspan="3;" style="text-align: center;">${list7[0].name}</th>
 							</tr>
 							<tr>
 								<th>Rank</th>
@@ -104,20 +189,67 @@ $("#recordrow1").html
 								<th>기록</th>
 							</tr>
 				 		</thead>
-				 		
-				 			<c:forEach var="item" items="${list7}" begin="0" end="2">
+				 		<c:forEach var="result" items="${list7}" begin="0" end="2">
 				 		<tbody>
 					   			<tr style="">
-									<td>${item.rank }</td>
-									<td>${item.id }</td>
-									<td>${item.record }</td>
+									<td>${result.rank }</td>
+									<td>${result.id }</td>
+									<td>${result.record }</td>
 					   			</tr>
 				 			</c:forEach>
 					 	</tbody>
 					</table>
 				</div>
-			</c:forEach>
-		</div> --%>
+				
+				<div id="ex1">
+					<table class="content-table">
+						<thead>
+				  			<tr>
+				      			<th colspan="3;" style="text-align: center;">${list8[0].name}</th>
+							</tr>
+							<tr>
+								<th>Rank</th>
+								<th>Name</th>
+								<th>기록</th>
+							</tr>
+				 		</thead>
+				 		<c:forEach var="result" items="${list8}" begin="0" end="2">
+				 		<tbody>
+					   			<tr style="">
+									<td>${result.rank }</td>
+									<td>${result.id }</td>
+									<td>${result.record }</td>
+					   			</tr>
+				 			</c:forEach>
+					 	</tbody>
+					</table>
+				</div>
+				
+				<div id="ex1">
+					<table class="content-table">
+						<thead>
+				  			<tr>
+				      			<th colspan="3;" style="text-align: center;">${list9[0].name}</th>
+							</tr>
+							<tr>
+								<th>Rank</th>
+								<th>Name</th>
+								<th>기록</th>
+							</tr>
+				 		</thead>
+				 		<c:forEach var="result" items="${list9}" begin="0" end="2">
+				 		<tbody>
+					   			<tr style="">
+									<td>${result.rank }</td>
+									<td>${result.id }</td>
+									<td>${result.record }</td>
+					   			</tr>
+				 			</c:forEach>
+					 	</tbody>
+					</table>
+				</div>
+		</div>
+		<br>
 	
 	
 

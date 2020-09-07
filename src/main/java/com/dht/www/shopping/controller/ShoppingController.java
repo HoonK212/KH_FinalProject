@@ -318,25 +318,36 @@ public class ShoppingController {
 	//결제 완료
 	@RequestMapping(value="/paymentCheck", method = RequestMethod.POST)
 	@ResponseBody
-	public void shoppingPaymentCheck(@RequestBody String uid, HttpServletRequest session) {
+	public void shoppingPaymentCheck(@RequestBody String uid, HttpSession session) {
 		
 		Gson gson = new GsonBuilder().create();
 		Map<String, String> another =gson.fromJson(uid, new TypeToken<Map<String, String>>(){}.getType());
-		
 		List<Map<String,String>> result = gson.fromJson(another.get("product"), new TypeToken<List<Map<String,String>>>(){}.getType());
 
 			Orders order = new Orders();
 			
-			Users user = (Users) session.getAttribute("logInInfo");
+			Users user = (Users)session.getAttribute("logInInfo");
 			System.out.println("사용자나와라"+user);
 			//------------------------------------------------------------
 			
 			order.setId(user.getId());
 			order.setmUid(another.get("imp_uid"));
-			order.setToName(another.get("name"));
-			order.setToTel(another.get("tel"));
-			order.setToAddr(another.get("addr"));
-			order.setToPost(another.get("post"));
+			
+			if(another.get("name") != null ) {
+				
+				order.setToName(another.get("name"));
+				order.setToTel(another.get("tel"));
+				order.setToAddr(another.get("addr"));
+				order.setToPost(another.get("post"));
+				
+			}else {
+				
+				order.setToName(user.getName());
+				order.setToTel(user.getTel());
+				order.setToAddr(user.getAddr());
+				order.setToPost(user.getPost());
+				
+			}
 			
 			int ordersNo = shoppingService.selectOrdersNo();
 			order.setNo(ordersNo);
@@ -353,7 +364,7 @@ public class ShoppingController {
 				point = Integer.parseInt(another.get("point"));
 			}
 			
-			userPoint.put("id", "semin");
+			userPoint.put("id", user.getId());
 			userPoint.put("point", point);
 			
 			shoppingService.insertPoint(userPoint);

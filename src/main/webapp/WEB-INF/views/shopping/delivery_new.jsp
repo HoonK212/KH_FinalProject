@@ -30,13 +30,16 @@
                      		<input onclick="sample4_execDaumPostcode()" value="우편번호 찾기" readonly="readonly" class="inline-flex items-center px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
                             
                            <br>
+                           
+                            <div class="mt-6 inline-flex text-sm ml-6">
+                                 지번&nbsp&nbsp&nbsp&nbsp주소</div>
+                            <input id="sample4_jibunAddress" name="toJibunAddr" placeholder="지번주소" type="text" class="text-sm w-2/3 text-gray-700 lex items-center justify-between bg-white rounded-md border-2 border-blue-500 p-2 focus:outline-none" ><br>
+                           
                             <div class="mt-6 inline-flex text-sm ml-6">
                               도로명 주소</div>
                             <input id="sample4_roadAddress" name="toRoadAddr" placeholder="도로명주소" type="text" class="text-sm w-2/3 text-gray-700 lex items-center justify-between bg-white rounded-md border-2 border-blue-500 p-2 focus:outline-none" ><br>
                             
-                             <div class="mt-6 inline-flex text-sm ml-6">
-                                 지번&nbsp&nbsp&nbsp&nbsp주소</div>
-                            <input id="sample4_jibunAddress" name="toJibunAddr" placeholder="지번주소" type="text" class="text-sm w-2/3 text-gray-700 lex items-center justify-between bg-white rounded-md border-2 border-blue-500 p-2 focus:outline-none" ><br>
+
                             
                             
                             <div class="mt-6 inline-flex text-sm ml-6">
