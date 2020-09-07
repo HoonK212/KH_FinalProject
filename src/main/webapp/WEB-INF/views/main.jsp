@@ -35,7 +35,7 @@
                     <a href="<%=request.getContextPath() %>/event/attendancecheck" class="py-2 px-6 flex">
                         Event
                     </a>
-                    <a href="#" class="py-2 px-6 flex">
+                    <a href="<%=request.getContextPath() %>/board/list" class="py-2 px-6 flex">
                         Board
                     </a>
                     <c:if test="${logInInfo == null}">
