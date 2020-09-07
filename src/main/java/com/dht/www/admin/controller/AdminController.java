@@ -219,11 +219,11 @@ public class AdminController {
 	//상품이미지 삭제
 	@RequestMapping(value = "/deletefile" , method = RequestMethod.GET)
 	@ResponseBody
-	public String deleteThumb(String no) {
+	public String deleteThumb(String no, HttpSession session) {
 		
 		System.out.println(no);
 		
-		int res = adminService.deleteFile(no);
+		int res = adminService.deleteFile(no, session);
 		System.out.println(res);
 		
 		return no;

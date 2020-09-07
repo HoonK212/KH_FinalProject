@@ -1,6 +1,7 @@
 package com.dht.www.user.controller;
 
 import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,6 +21,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import common.util.FileUtil;
 
 @Controller
 @RequestMapping("/captchaImage")
@@ -48,6 +51,16 @@ public class ApiExamCaptchaImage {
         
         return responseBody;
     }
+	
+	@RequestMapping(value="/deleteImg", method=RequestMethod.GET)
+	@ResponseBody
+	public static boolean deleteCaptchaImage(String filename, HttpSession session) {
+		
+		String path = session.getServletContext().getRealPath("/resources/image/captcha") + "/" + filename + ".jpg";
+		new FileUtil().deleteFile(path);
+		
+		return true;
+	}
 
     private static String get(String apiUrl, Map<String, String> requestHeaders, HttpSession session){
         

@@ -390,6 +390,11 @@
 			WHERE REF = #{code} AND THUMBNAIL = '1'
 		</select>
 		
+		<!-- 상품 이미지 삭제를 위한 정보 -->
+		<select id="selectFileWifhFileNo" resultMap="filedata">
+			SELECT * FROM FILES WHERE NO = #{no}
+		</select>
+ 		
 		<!-- 상품 이미지 삭제 -->
 		<delete id="deleteFile">
 			DELETE FILES WHERE NO = #{no}
@@ -401,6 +406,8 @@
 			SET NAME = #{name}, DESCRIBE = #{describe}, PRICE = #{price}, COMPANY = #{company}, DATES = #{dates}
 			WHERE CODE = #{code}
 		</update>
+		
+		
 </mapper>
 
 

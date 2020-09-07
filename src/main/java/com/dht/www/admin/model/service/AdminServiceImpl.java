@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -354,9 +356,16 @@ public class AdminServiceImpl implements AdminService {
 			return adminDao.selectFilesOfProduct(code);
 		}
 		
-		//썸네일 이미지 삭제
+		//상품 이미지 삭제
 		@Override
-		public int deleteFile(String no) {
+		public int deleteFile(String no, HttpSession session) {
+			
+			Map<String, Object> commandMap = adminDao.selectFileWifhFileNo(no);
+			
+			String path = session.getServletContext().getRealPath("/resources/upload_product") + "/" + commandMap.get("renamed") + "." + commandMap.get("ext");
+			System.out.println("서비스임플" + path);
+			
+			new FileUtil().deleteFile(path);
 			
 			return adminDao.deleteFile(no);
 		}

@@ -227,6 +227,12 @@ public class AdminDao {
 
 			return sqlSession.update("ADMIN.updateProductData", product);
 		}
+		
+		//상품 이미지 삭제를 위한 정보 호출
+		public Map<String, Object> selectFileWifhFileNo(String no) {
+			
+			return sqlSession.selectOne("ADMIN.selectFileWifhFileNo", no);
+		}
 
 
 

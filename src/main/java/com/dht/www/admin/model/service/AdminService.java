@@ -3,6 +3,8 @@ package com.dht.www.admin.model.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dht.www.board.model.vo.Board;
@@ -39,7 +41,7 @@ public interface AdminService {
 	public Map<String, Object> selectFilesOfProduct(String code);
 	
 	//썸네일 이미지 삭제
-	public int deleteFile(String no);
+	public int deleteFile(String no, HttpSession session);
 
 	//상품 정보 수정
 	public void updateProductData(List<MultipartFile> files, Map<String, Object> product, String path,
