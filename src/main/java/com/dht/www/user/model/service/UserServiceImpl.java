@@ -331,12 +331,12 @@ public class UserServiceImpl implements UserService{
 	      if(!(files.size()== 1 && files.get(0).getOriginalFilename().equals(""))) { //사용자가 프로필 이미지를 업로드한 경우
 	        
 	    	System.out.println("혹시 여기로 왔니?");  
-		    List<Map<String, String>> fileData = null;
+		    List<Map<String, Object>> fileData = null;
 		    try {
 				//실제로 이미지 업로드
 		    	fileData = new FileUtil().fileUpload(files, root);
 				
-				for(Map<String, String> f : fileData) {
+				for(Map<String, Object> f : fileData) {
 					//이미지가 참조하는 사용자 아이디정보 넣기
 					f.put("id", user.getId());  
 					//DB에 파일 정보 저장
