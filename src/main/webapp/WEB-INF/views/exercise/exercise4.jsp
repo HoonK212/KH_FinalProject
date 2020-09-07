@@ -169,6 +169,11 @@ function exerChangejs(exerName) {
 	})
 	
 }
+
+$(".complete").click(function() {
+	console.log("클릭");
+	location.href = "<%=request.getContextPath()%>/exercise/exercisefinish";
+})
 </script>
 
 
