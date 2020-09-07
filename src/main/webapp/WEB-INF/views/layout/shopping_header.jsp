@@ -144,14 +144,11 @@ const sendSearch = () => {
 /* 마우스 오버시 장바구니 출력 */
 
 const openCart = () => {
-	console.log("장바구니 열림");
-	
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET', '<%=request.getContextPath()%>/shopping/loadcart');
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	xhr.send();
 	xhr.addEventListener('load', function() {
-		console.log('통신성공')
 		var data = xhr.response;
 		document.querySelector('#cartContent').innerHTML = data;
 	});

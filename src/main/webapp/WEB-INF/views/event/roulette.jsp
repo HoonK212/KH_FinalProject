@@ -8,7 +8,7 @@
 <!-- jstl -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<<script type="text/javascript">
+<script type="text/javascript">
 window.onload = function() {
 	drawRouletteWheel();
 }
@@ -177,7 +177,7 @@ function send(text) {
 <%@include file="../layout/header.jsp" %>
 <%@include file="./event_sidebar.jsp" %>
 	
-<div id="eventcontent" class="my-8">
+<div id="eventcontent" class="my-8" style="min-height: 73vh;">
 	
 	<div style=" font-size: 30px;" id="eventname">
 		<span class="font-extrabold text-black-700"> 
