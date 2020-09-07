@@ -29,6 +29,8 @@
 		<typeAlias type="com.dht.www.board.model.vo.Report" alias="Report" />
 		
 		<typeAlias type="com.dht.www.admin.model.vo.Admin" alias="Admin" />
+		
+		<typeAlias type="com.dht.www.mypage.model.vo.Files" alias="Files" />
 	</typeAliases>
 
 </configuration>

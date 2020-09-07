@@ -2,10 +2,10 @@
 
 .product-img{
 	display: grid;
-/* 	justify-content: center; */
-/* 	align-items: center; */
+	justify-content: center;
+	align-items: center;
 	grid-template-columns: repeat(3,1fr);
-  	grid-template-rows: 100px 100px;
+  	grid-template-rows: repeat(6,1fr);
 	
 	height: 18rem;
 	width: 16rem;
@@ -22,15 +22,16 @@
 
 .product-img > div:nth-child(1){
 	grid-column: 1/4;
-	grid-row: 1/4;
+	grid-row: 1/6;
 	background-color: white;
 /* 	border: 1px solid rgba(201, 76, 76, 0.3); */
 	text-align: center;
 }
 .product-img > div:nth-child(2){
-	grid-column: 1/4;
-	grid-row: 4/5;
+ 	grid-column: 1/4; 
+ 	grid-row: 6/7; 
 /* 	background-color: yellow; */
+/* 	text-align: center; */
 }
 
 
