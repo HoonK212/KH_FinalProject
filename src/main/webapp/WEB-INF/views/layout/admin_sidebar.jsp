@@ -23,7 +23,7 @@
                     </button>
 
                     <div x-show="open" class="bg-gray-700">
-                        <a class="py-2 px-16 block text-sm text-gray-100 hover:bg-blue-500 hover:text-white" href="#">상품등록</a>
+                        <a class="py-2 px-16 block text-sm text-gray-100 hover:bg-blue-500 hover:text-white" href="<%=request.getContextPath()%>/admin/productlist">상품관리</a>
                         <a class="py-2 px-16 block text-sm text-gray-100 hover:bg-blue-500 hover:text-white" href="#">매출조회</a>
                     </div>
                 </div>
@@ -48,8 +48,8 @@
                     </button>
 
                     <div x-show="open" class="bg-gray-700">
-                        <a class="py-2 px-16 block text-sm text-gray-100 hover:bg-blue-500 hover:text-white" href="#">재고관리</a>
-                        <a class="py-2 px-16 block text-sm text-gray-100 hover:bg-blue-500 hover:text-white" href="#">반품조회</a>
+                        <a class="py-2 px-16 block text-sm text-gray-100 hover:bg-blue-500 hover:text-white" href="<%=request.getContextPath()%>/admin/stocklist">재고관리</a>
+                        <a class="py-2 px-16 block text-sm text-gray-100 hover:bg-blue-500 hover:text-white" href="<%=request.getContextPath()%>/admin/returnlist">반품조회</a>
                     </div>
                 </div>
 

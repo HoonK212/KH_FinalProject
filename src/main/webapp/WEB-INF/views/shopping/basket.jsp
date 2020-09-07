@@ -7,7 +7,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%@include file="../layout/shopping_header.jsp" %>
-<%@include file="../layout/shopping_cart.jsp" %>
 
 <link href="https://tailwindcomponents.com/css/component.ecommerce-product.css" rel="stylesheet">
 <link href="https://tailwindcomponents.com/css/component.checkboxes.css" rel="stylesheet">

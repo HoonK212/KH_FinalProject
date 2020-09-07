@@ -12,7 +12,7 @@
 <%@include file="../layout/header.jsp" %>
 <%@include file="./event_sidebar.jsp" %>
 
-<div id="eventcontent" class="my-8 mb-10">
+<div id="eventcontent" class="my-8 mb-10" style="min-height: 73vh;">
 	
 	<div style=" font-size: 30px;" id="eventname">
 		<span class="font-extrabold text-black-700"> 

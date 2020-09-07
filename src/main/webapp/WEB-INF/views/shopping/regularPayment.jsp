@@ -9,7 +9,6 @@
 <link href="https://tailwindcomponents.com/css/component.ecommerce-checkout.css" rel="stylesheet">
 
 <%@include file="../layout/shopping_header.jsp" %>
-<%@include file="../layout/shopping_cart.jsp" %>
 
     <main class="my-5" style="width: 90%; margin: 0 auto;">
         <div class="container mx-auto px-6">

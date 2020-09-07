@@ -25,24 +25,26 @@
 		
 		
 			<!-- 상단 버튼 영역 -->
+			<form action="<%=request.getContextPath()%>/admin/salesSearchList" method="post"> 
 			<div class="flex justify-end">
 				<div class="mr-3">
-					<input type="date" /> - <input type="date" />
+					<input type="date" name="date1" /> - <input type="date" name="date2"/>
 				</div>
 			
 				  <div class="mr-3">
-				      <select id="select">
-				          <option value="1">상품번호</option>
-				          <option value="2">상품명</option>
+				      <select id="select" name="search">
+				          <option value="code">상품번호</option>
+				          <option value="name">상품명</option>
 				      </select>
 				  </div>
 				  
-	            <input type="text" class="mr-3" placeholder="입력하세요"/>
+	            <input type="text" class="mr-3" placeholder="입력하세요" name="search2"/>
 			    <button class='bg-gray-100 text-gray-800 py-2 px-3 rounded font-bold'>
 			      조회하기
 			  	</button>
-					        
 			</div>
+			</form>
+					        
 		
 		
 		
@@ -65,158 +67,96 @@
 			        </tr>
 			      </thead>
 			    <tbody class="text-gray-700">
+			     <c:forEach items="${salesData.slist}" var="listData">
+			     				     
 			      <tr>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">A1002</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">닭가슴살</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">35000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">0</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >35</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >10000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >35000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >700000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >2020.08.16</a></td>
+			        <td class="w-1/9 py-3 px-4 text-center">${listData.code}</td>
+			        <td class="w-1/9 py-3 px-4 text-center">${listData.name}</td>
+			        <td class="w-1/9 py-3 px-4 text-center">${listData.price}</td>
+			        <td class="w-1/9 py-3 px-4 text-center">0</td>
+			        <td class="w-1/9 py-3 px-4 text-center">${listData.amount}</td>
+			        <td class="w-1/9 py-3 px-4 text-center">${listData.point}</td>
+			        <td class="w-1/9 py-3 px-4 text-center">${listData.price}</td>
+			        <td class="w-1/9 py-3 px-4 text-center"><c:out value=" ${listData.price * listData.amount - listData.point }" /></td>
+			        <td class="w-1/9 py-3 px-4 text-center"><c:out value="${listData.dates}" /></td>
 			      </tr>
-			      <tr class="bg-gray-100">
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">A1002</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">닭가슴살</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">35000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">0</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >35</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >10000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >35000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >700000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >2020.08.16</a></td>
-			      </tr>
-			      <tr>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">A1002</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">닭가슴살</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">35000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">0</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >35</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >10000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >35000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >700000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >2020.08.16</a></td>
-			      </tr>
-			      <tr class="bg-gray-100">
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">A1002</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">닭가슴살</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">35000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">0</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >35</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >10000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >35000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >700000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >2020.08.16</a></td>
-			      </tr>
-				  <tr>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">A1002</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">닭가슴살</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">35000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">0</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >35</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >10000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >35000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >700000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >2020.08.16</a></td>
-			      </tr>
-			      <tr class="bg-gray-100">
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">A1002</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">닭가슴살</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">35000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">0</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >35</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >10000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >35000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >700000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >2020.08.16</a></td>
-			      </tr>
-			 	  <tr>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">A1002</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">닭가슴살</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">35000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">0</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >35</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >10000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >35000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >700000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >2020.08.16</a></td>
-			      </tr>
-			      <tr class="bg-gray-100">
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">A1002</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">닭가슴살</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">35000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">0</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >35</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >10000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >35000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >700000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >2020.08.16</a></td>
-			      </tr>
-			      <tr>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">A1002</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">닭가슴살</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">35000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">0</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >35</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >10000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >35000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >700000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >2020.08.16</a></td>
-			      </tr>
-			      <tr class="bg-gray-100">
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">A1002</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">닭가슴살</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">35000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">0</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >35</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >10000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >35000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >700000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >2020.08.16</a></td>
-			      </tr>
-			      <tr>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">A1002</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">닭가슴살</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">35000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">0</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >35</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >10000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >35000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >700000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >2020.08.16</a></td>
-			      </tr>
-			      <tr class="bg-gray-100">
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">A1002</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">닭가슴살</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">35000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500">0</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >35</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >10000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >35000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >700000</a></td>
-			        <td class="w-1/9 py-3 px-4 text-center"><a class="hover:text-blue-500" >2020.08.16</a></td>
-			      </tr>
+			    </c:forEach>
 			    </tbody>
 			    </table>
 			  </div>
 
+   	   <!-- 페이징 처리 -->
 		
-		
-		
-			<!-- 하단 페이지네이션 영역 -->	
-			<div class="flex justify-center">
-				<nav class="space-y-2">
-					<div class="text-sm bg-gray-800 hover:bg-gray-400 hover:text-gray-800 text-white font-semibold py-1 px-3 rounded-l inline-block">이전</div>				
-					<div class="text-sm bg-gray-800 hover:bg-gray-400 hover:text-gray-800 text-white font-semibold py-1 px-3 rounded inline-block">1</div>				
-					<div class="text-sm bg-gray-800 hover:bg-gray-400 hover:text-gray-800 text-white font-semibold py-1 px-3 rounded inline-block"">2</div>				
-					<div class="text-sm bg-gray-800 hover:bg-gray-400 hover:text-gray-800 text-white font-semibold py-1 px-3 rounded inline-block">3</div>				
-					<div class="text-sm bg-gray-800 hover:bg-gray-400 hover:text-gray-800 text-white font-semibold py-1 px-3 rounded inline-block">4</div>				
-					<div class="text-sm bg-gray-800 hover:bg-gray-400 hover:text-gray-800 text-white font-semibold py-1 px-3 rounded inline-block">5</div>				
-					<button class="text-sm bg-gray-800 hover:bg-gray-400 hover:text-gray-800 text-white font-semibold py-1 px-3 rounded-r inline-block">다음</button>				
-				</nav>
-			</div>
+		   <div
+                        class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
+                        <div class="inline-flex mt-2 xs:mt-0">
+							<div class="flex flex-col items-center">
+							    <div class="flex text-gray-700 pb-3">
 
+							        <c:choose>
+							        	<c:when test="${paging.blockStart > 1 }">
+							         		<a href="<%= request.getContextPath() %>/admin/salesList?cPage=${paging.blockStart-1}" class="nav prev">
+												<div class="h-8 w-8 mr-1 flex justify-center items-center  cursor-pointer">
+										            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left w-4 h-4">
+										                <polyline points="15 18 9 12 15 6"></polyline>
+										            </svg>
+										        </div>
+											</a>
+							        	</c:when>
+							        	<c:otherwise>
+							        		<a href="<%= request.getContextPath() %>/admin/salesList?cPage=${paging.blockStart}" class="nav prev">
+												<div class="h-8 w-8 mr-1 flex justify-center items-center  cursor-pointer">
+										            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left w-4 h-4">
+										                <polyline points="15 18 9 12 15 6"></polyline>
+										            </svg>
+										        </div>
+											</a>
+							        	</c:otherwise>
+							        </c:choose>
+							        
+							        <div class="flex h-8 font-medium ">
+							            <c:forEach begin="${paging.blockStart}" end="${paging.blockEnd}" var="page">
+								         <a href="<%= request.getContextPath() %>/admin/salesList?cPage=${page }">
+								       	  <c:choose>
+								       	   <c:when test="${paging.currentPage eq page }">
+								       	    <div class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in border-t-2 border-orange-600">${page}</div>
+								       	   </c:when>
+								       	   <c:otherwise>
+								       	    <div class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in border-t-2 border-transparent">${page}</div>
+								       	   </c:otherwise>
+								       	  </c:choose>
+								       	 </a>
+								        </c:forEach>
+							        </div>
+							        
+									<c:choose>
+							        	<c:when test="${paging.blockEnd+1 > paging.lastPage }">
+							         		<a href="<%= request.getContextPath() %>/admin/salesList?cPage=${paging.blockEnd}">
+										        <div class="h-8 w-8 ml-1 flex justify-center items-center  cursor-pointer">
+										            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right w-4 h-4">
+										                <polyline points="9 18 15 12 9 6"></polyline>
+										            </svg>
+										        </div>
+							         		</a>
+							        	</c:when>
+							        	<c:otherwise>
+							         		<a href="<%= request.getContextPath() %>/admin/salesList?cPage=${paging.blockEnd+1}">
+										        <div class="h-8 w-8 ml-1 flex justify-center items-center  cursor-pointer">
+										            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right w-4 h-4">
+										                <polyline points="9 18 15 12 9 6"></polyline>
+										            </svg>
+										        </div>
+										    </a>
+							        	</c:otherwise>
+							   	   	</c:choose>
+							   	   	
+							    </div>
+								<span class="text-xs xs:text-sm text-gray-900">
+		                            Showing ${paging.blockStart } to ${paging.blockEnd } of ${paging.lastPage }
+		                        </span>
+							</div>
+	                	</div>
+                    </div>	
 		
 	</div> <!-- CONTENT 영역 끝 -->
 

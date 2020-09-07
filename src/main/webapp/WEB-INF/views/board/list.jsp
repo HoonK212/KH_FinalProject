@@ -34,6 +34,7 @@
                     <div class="relative">
                         <select id="cntPerPage" name="cntPerPage" onchange="location.href='<%=request.getContextPath() %>/board/list?cntPerPage='+this.value"
                             class="appearance-none h-full rounded-l border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            <option>게시글 수</option>
                             <option value="10">10</option>
                             <option value="15">15</option>
                             <option value="20">20</option>

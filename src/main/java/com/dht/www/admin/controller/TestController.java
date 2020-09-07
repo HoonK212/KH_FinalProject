@@ -1,7 +1,6 @@
-package common.util;
+package com.dht.www.admin.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,19 +8,50 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import common.exception.FileException;
 
-public class FileUtil {
-
-	public List<Map<String, Object>> fileUpload(List<MultipartFile> files, String path) throws FileException {
+@Controller
+@RequestMapping("/test")
+public class TestController {
+	
+	
+	@RequestMapping("/view")
+	public String view() {
 		
-		System.out.println(files.get(0));
-		System.out.println(files.get(1));
+		return "admin/fileuploadtest";
+	}
+
+	
+	@RequestMapping("/filetest")
+	public void fileTest(@RequestParam List <MultipartFile> testfile, String name, HttpSession session) {
+		
+		String root = session.getServletContext().getRealPath("/resources/upload_product");
+		
+		List<Map<String, String>> result = null;
+		System.out.println("전 : " + result);
+		
+		try {
+			result = fileUpload(testfile, root);
+		} catch (FileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("후 : " + result);
+		System.out.println("끝");
+	}
+	
+	public static List<Map<String, String>> fileUpload(List<MultipartFile> files, String root) throws FileException {
 		
 		// 파일 관련 정보를 반환할 list 생성
-		List<Map<String, Object>> fileData = new ArrayList<Map<String,Object>>();
+		List<Map<String, String>> fileData = new ArrayList<Map<String,String>>();
 		
 		// rename에 사용할 index
 		int idx = 0;
@@ -43,7 +73,7 @@ public class FileUtil {
 			int s = (int) mf.getSize();
 			String size = Integer.toString(s);
 			
-			Map<String, Object> map = new HashMap<String, Object>();
+			Map<String, String> map = new HashMap<String, String>();
 			map.put("origin", originFileName);
 			map.put("rename", renameFileName);
 			map.put("ext", ext);
@@ -53,10 +83,10 @@ public class FileUtil {
 			fileData.add(map);
 			
 			// 저장 경로
-			String loc = path + "/" + renameFileName + "." + ext;
+			String path = root + "/" + renameFileName + "." + ext;
 
 			// 사용자가 등록한 파일을 설정한 경로에 저장
-			saveFile(mf, loc);
+		//	saveFile(mf, path);
 			
 			idx++;
 		}
@@ -64,7 +94,7 @@ public class FileUtil {
 		return fileData;
 	}
 	
-	public String getRenameFileName(String originFileName, int idx) {
+	public static String getRenameFileName(String originFileName, int idx) {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String renameFileName = sdf.format(new Date(System.currentTimeMillis()))
