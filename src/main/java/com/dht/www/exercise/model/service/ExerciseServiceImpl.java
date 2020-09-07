@@ -1,7 +1,5 @@
 package com.dht.www.exercise.model.service;
 
-import java.sql.Date;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +38,12 @@ public class ExerciseServiceImpl implements ExerciseService {
 		int[] calcExerCnt = new int[userExer.length];
 		
 		// 레벨에 대한 값 조회하기
-		int level = exerciseDao.selectGradeValue(userLevel);
+		double level = exerciseDao.selectGradeValue(userLevel);
 		System.out.println("조회한 level  : " + level);
 		
 		// calcExerCnt 배열에 [조회한 운동 * level] 저장
 		for(int i=0; i<userExer.length; i++) {
-			calcExerCnt[i] = exerciseDao.selectExerciseCount(userExer[i]) * level;
+			calcExerCnt[i] = (int) Math.ceil(exerciseDao.selectExerciseCount(userExer[i]) * level);
 			System.out.println("calcExerCnt  : " + calcExerCnt[i]);
 		}
 		

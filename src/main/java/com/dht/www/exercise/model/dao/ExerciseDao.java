@@ -35,7 +35,7 @@ public class ExerciseDao {
 	}
 
 	// 등급 값 조회하기
-	public int selectGradeValue(int userLevel) {
+	public double selectGradeValue(int userLevel) {
 		return sqlSession.selectOne("EXERCISE.selectGradeValue", userLevel);
 	}
 

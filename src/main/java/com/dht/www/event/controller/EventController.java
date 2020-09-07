@@ -135,25 +135,82 @@ public class EventController {
 	// 신기록 VIEW
 	@RequestMapping(value="/record", method=RequestMethod.GET)
 	public void eventRecordfinal(Model model) {
+	
+//		//매주 수요일 최고기록 정산
+//		Calendar wed = Calendar.getInstance();
+//		
+//		int hour = wed.get(Calendar.HOUR);
+//		int minute = wed.get(Calendar.MINUTE);
+//		int second = wed.get(Calendar.SECOND);
+//				
+//		if(wed.get(Calendar.DAY_OF_WEEK) == 4) {
+//			if(hour == 0 && minute == 0 && second == 0 ) {
+//				
+//				
+//			}
+//		}
 		
 		Map<Integer, List> map = new HashMap<Integer, List>();
 		map = eventService.selectRecord();
 				
 		System.out.println("최종"+ map);
 
-		List list = new ArrayList();
+		List list1 = new ArrayList();
+		List list2 = new ArrayList();
+		List list3 = new ArrayList();
+		List list4 = new ArrayList();
+		List list5 = new ArrayList();
+		List list6 = new ArrayList();
+		List list7 = new ArrayList();
+		List list8 = new ArrayList();
+		List list9 = new ArrayList();
 		
-		for(int i=1; i<=map.size(); i++) {
-			System.out.println("이건 되니 : " + i);
-			System.out.println("이거배열안에꺼는" + map.get(i));
-			System.out.println(map.get(i).size() + "없나봐");
-			for(int j=0; j<map.get(i).size(); j++) {
-				System.out.println("이거는 " + j);
-				list.add(map.get(i).get(j));
-				System.out.println(map.get(i).get(j)+"값이 왜이래");
-			}
-		}
-		model.addAttribute("list",list);
+//		for(int i=1; i<=map.size(); i++) {
+//			System.out.println("이건 되니 : " + i);
+//			System.out.println("이거배열안에꺼는" + map.get(i));
+//			System.out.println(map.get(i).size() + "없나봐");
+//			for(int j=0; j<map.get(i).size(); j++) {
+//				System.out.println("이거는 " + j);
+//				list.add(map.get(i).get(j));
+//				System.out.println(map.get(i).get(j)+"값이 왜이래");
+//			}
+//		}
+//		model.addAttribute("list",list);
+		
+		
+
+
+		list1 = map.get(1);
+		list2 = map.get(2);
+		list3 = map.get(3);
+		list4 = map.get(4);
+		list5 = map.get(5);
+		list6 = map.get(6);
+		list7 = map.get(7);
+		list8 = map.get(8);
+		list9 = map.get(9);
+		
+		
+//		for(int i=1; i<=map.size(); i++) {
+//			
+//			model.addAttribute(""+i+"", map.get(i));
+//			System.out.println("숫자"+i);
+//			System.out.println("모델"+model);
+//		}
+		
+		
+		model.addAttribute("list1",list1);
+		model.addAttribute("list2",list2);
+		model.addAttribute("list3",list3);
+		model.addAttribute("list4",list4);
+		model.addAttribute("list5",list5);
+		model.addAttribute("list6",list6);
+		model.addAttribute("list7",list7);
+		model.addAttribute("list8",list8);
+		model.addAttribute("list9",list9);
+		
+		System.out.println("왜안되는데"+list1);
+		
 	}
 	
 	// 초성퀴즈 VIEW - event : 2, 하루 한 번 참여 가능
