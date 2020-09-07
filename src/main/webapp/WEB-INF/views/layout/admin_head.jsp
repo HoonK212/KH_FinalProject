@@ -18,6 +18,9 @@
 <!-- 네이버 스마트 에디터2 라이브러리 -->
 <script type="text/javascript" src="<%=request.getContextPath() %>/resources/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 
+<!-- jQuery CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <!-- CSS -->
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/admin/total_layout.css">    
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/admin/section_layout.css">  

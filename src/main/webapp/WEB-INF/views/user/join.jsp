@@ -546,6 +546,11 @@
                captchaImage(captchaKey);
             }); 
             
+            //캡차 인증이 끝나면 파일 삭제
+            if(ajaxFlag_captcha){ //null이면 어차피 false
+            	deleteCaptchaFile(filename); 
+            }
+            
       });
       
       //캡차키를 던져 이미지 받아오기
@@ -592,6 +597,23 @@
          //페이지가 로드되면 자동으로 캡차 이미지가 나오게 한다
          document.getElementById('refresh').click();
       }
+    
+    //사용한 캡차 이미지 삭제
+    function deleteCaptchaFile(filename) {
+    	
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '<%=request.getContextPath()%>/captchaImage/deleteImg?filename=' + filename);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send();
+        xhr.addEventListener('load', function(){
+        	
+        	if(JSON.parse(xhr.response)){
+        		console.log('사용한 캡차 이미지 삭제 성공');
+        	}else{
+        		console.log('사용한 캡차 이미지 삭제 실패');
+        	};
+        });
+    };
     
     
      //주소 가져오는 코드

@@ -47,7 +47,7 @@ public class UserDao {
 	}
 	
 	//회원 프로필 사진 입력
-	public int insertUserProfile(Map<String, String> f) {
+	public int insertUserProfile(Map<String, Object> f) {
 
 		return session.insert("USERS.insertUserProfile", f);
 	}
