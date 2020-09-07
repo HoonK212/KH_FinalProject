@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<!-- jstl -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!doctype html>
 <html lang="ko">
 <head>
@@ -24,7 +28,9 @@
         <div class="container mx-auto px-6 py-8 font-extrabold">
             <div class="items-center justify-between">
             	<div class="flex items-center justify-end w-full">
-                    <button @mouseover="cartOpen = !cartOpen" class="text-gray-600 focus:outline-none mx-4 sm:mx-0">
+            	
+            		<!-- 장바구니 아이콘 -->
+                    <button id="cartBtn" onclick="location.href='<%=request.getContextPath()%>/shopping/basket'" @mouseover="{cartOpen = !cartOpen, openCart()}" class="text-gray-600 focus:outline-none mx-4 sm:mx-0">
                         <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                             <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                         </svg>
@@ -59,6 +65,27 @@
             
         </div>
     </header>
+    
+    <!-- 사이드 장바구니 -->
+    <div @mouseleave="cartOpen = !cartOpen" :class="cartOpen ? 'translate-x-0 ease-out' : 'translate-x-full ease-in'" class="z-50 fixed right-0 top-0 max-w-xs w-full h-full px-6 py-4 transition duration-300 transform overflow-y-auto bg-white border-l-2 border-gray-300">
+        <div class="flex items-center justify-between">
+            <button onclick="location.href='<%=request.getContextPath()%>/shopping/basket'" class="text-2xl font-medium text-gray-700">장바구니</button>
+            <button @click="cartOpen = !cartOpen" class="text-gray-600 focus:outline-none">
+                <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <hr class="my-3">
+        
+		<!-- 장바구니 아이템 -->
+		<div id="cartContent"></div>	
+		
+        <!-- 결제하기 -->
+        <a onclick="location.href='<%=request.getContextPath() %>/shopping/basket'" class="flex items-center justify-center mt-4 px-3 py-2 bg-blue-600 text-white text-sm uppercase font-medium rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+            <span>주문하기</span>
+            <svg class="h-5 w-5 mx-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+        </a>
+    </div><!-- 장바구니 아이콘 클릭 end -->
+    
     <!-- 검색창 -->
             <div class="relative mt-6 max-w-lg mx-auto py-2">
             <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
@@ -113,4 +140,21 @@ const sendSearch = () => {
 	document.body.appendChild(searchForm); 
 	searchForm.submit();
 }
+
+/* 마우스 오버시 장바구니 출력 */
+
+const openCart = () => {
+	console.log("장바구니 열림");
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', '<%=request.getContextPath()%>/shopping/loadcart');
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.send();
+	xhr.addEventListener('load', function() {
+		console.log('통신성공')
+		var data = xhr.response;
+		document.querySelector('#cartContent').innerHTML = data;
+	});
+}
+
 </script>

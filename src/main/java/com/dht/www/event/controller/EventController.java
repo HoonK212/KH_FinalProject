@@ -198,4 +198,9 @@ public class EventController {
 		return "redirect:/event/quiz";
 	}
 	
+	@RequestMapping(value="/jooyi", method=RequestMethod.GET)
+	public void jooyi() {
+		
+	}
+	
 }

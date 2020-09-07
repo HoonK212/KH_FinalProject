@@ -9,7 +9,6 @@
 <link href="https://tailwindcomponents.com/css/component.ecommerce-home.css" rel="stylesheet">    
 
 <%@include file="../layout/shopping_header.jsp" %>
-<%@include file="../layout/shopping_cart.jsp" %>
 
 <style>
 		.animated {

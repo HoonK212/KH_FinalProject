@@ -6,7 +6,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 <%@include file="../layout/shopping_header.jsp" %>
-<%@include file="../layout/shopping_cart.jsp" %>
 
 <link href="https://tailwindcomponents.com/css/component.ecommerce-product.css" rel="stylesheet">
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
