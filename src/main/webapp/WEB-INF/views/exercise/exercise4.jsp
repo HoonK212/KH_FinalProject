@@ -31,25 +31,25 @@ var exerCnt = 0;
 var exerArrList = new Array();
 var exerCountArr = new Array();
 
-exerArrList[0] = "${ExerciseInfo[0]}";
-exerArrList[1] = "${ExerciseInfo[1]}";
-exerArrList[2] = "${ExerciseInfo[2]}";
-exerArrList[3] = "${ExerciseInfo[3]}";
-exerArrList[4] = "${ExerciseInfo[4]}";
-exerArrList[5] = "${ExerciseInfo[5]}";
-exerArrList[6] = "${ExerciseInfo[6]}";
-exerArrList[7] = "${ExerciseInfo[7]}";
-exerArrList[8] = "${ExerciseInfo[8]}";
+exerArrList[0] = "${exerciseInfo[0]}";
+exerArrList[1] = "${exerciseInfo[1]}";
+exerArrList[2] = "${exerciseInfo[2]}";
+exerArrList[3] = "${exerciseInfo[3]}";
+exerArrList[4] = "${exerciseInfo[4]}";
+exerArrList[5] = "${exerciseInfo[5]}";
+exerArrList[6] = "${exerciseInfo[6]}";
+exerArrList[7] = "${exerciseInfo[7]}";
+exerArrList[8] = "${exerciseInfo[8]}";
 
-exerCountArr[0] = "${ExerciseCount[0]}";
-exerCountArr[1] = "${ExerciseCount[1]}";
-exerCountArr[2] = "${ExerciseCount[2]}";
-exerCountArr[3] = "${ExerciseCount[3]}";
-exerCountArr[4] = "${ExerciseCount[4]}";
-exerCountArr[5] = "${ExerciseCount[5]}";
-exerCountArr[6] = "${ExerciseCount[6]}";
-exerCountArr[7] = "${ExerciseCount[7]}";
-exerCountArr[8] = "${ExerciseCount[8]}";
+exerCountArr[0] = "${exerciseCount[0]}";
+exerCountArr[1] = "${exerciseCount[1]}";
+exerCountArr[2] = "${exerciseCount[2]}";
+exerCountArr[3] = "${exerciseCount[3]}";
+exerCountArr[4] = "${exerciseCount[4]}";
+exerCountArr[5] = "${exerciseCount[5]}";
+exerCountArr[6] = "${exerciseCount[6]}";
+exerCountArr[7] = "${exerciseCount[7]}";
+exerCountArr[8] = "${exerciseCount[8]}";
 
 
 
@@ -284,54 +284,37 @@ $(".complete").click(function() {
 			<!-- 프로그래스바 템플릿 시작 -->
 			<div style="margin: 10px 15px;">
 				<div style="width: 100%;">
+					
 					<h5 class="progressbar-title">전신</h5>
-					<p class="progressbar-content">운동1</p>
-					<div class="progress">
-						<div class="progress-bar" role="progressbar" aria-valuenow="10"
-							aria-valuemin="0" aria-valuemax="100" id="plank">10</div>
-					</div>
-					<p class="progressbar-content">운동2</p>
-					<div class="progress">
-						<div class="progress-bar" role="progressbar" aria-valuenow="20"
-							aria-valuemin="0" aria-valuemax="100" id="jumpingjack">20</div>
-					</div>
-					<p class="progressbar-content">운동3</p>
-					<div class="progress">
-						<div class="progress-bar" role="progressbar" aria-valuenow="30"
-							aria-valuemin="0" aria-valuemax="100" id="burpee">30</div>
-					</div>
+					<c:forEach items="${leftExerInfo }" var="exerInfo">
+					<c:if test="${exerInfo.type eq 1}">
+						<p class="progressbar-content">${exerInfo.name }</p>
+						<div class="progress">
+							<div class="progress-bar" role="progressbar" aria-valuenow="0"  aria-valuemin="0" aria-valuemax="100" id="${exerInfo.name }">0</div>
+						</div>
+					</c:if>
+					</c:forEach>
+					
 					<h5 class="progressbar-title">상체</h5>
-					<p class="progressbar-content">운동4</p>
-					<div class="progress">
-						<div class="progress-bar" role="progressbar" aria-valuenow="40"
-							aria-valuemin="0" aria-valuemax="100" id="legraise">40</div>
-					</div>
-					<p class="progressbar-content">운동5</p>
-					<div class="progress">
-						<div class="progress-bar" role="progressbar" aria-valuenow="50"
-							aria-valuemin="0" aria-valuemax="100" id="crunch">50</div>
-					</div>
-					<p class="progressbar-content">운동6</p>
-					<div class="progress">
-						<div class="progress-bar" role="progressbar" aria-valuenow="60"
-							aria-valuemin="0" aria-valuemax="100" id="pushup">60</div>
-					</div>
+					<c:forEach items="${leftExerInfo }" var="exerInfo">
+					<c:if test="${exerInfo.type eq 2}">
+						<p class="progressbar-content">${exerInfo.name }</p>
+						<div class="progress">
+							<div class="progress-bar" role="progressbar" aria-valuenow="0"  aria-valuemin="0" aria-valuemax="100" id="${exerInfo.name }">0</div>
+						</div>
+					</c:if>
+					</c:forEach>
+					
 					<h5 class="progressbar-title">하체</h5>
-					<p class="progressbar-content">운동7</p>
-					<div class="progress">
-						<div class="progress-bar" role="progressbar" aria-valuenow="70"
-							aria-valuemin="0" aria-valuemax="100" id="sidelunge">70</div>
-					</div>
-					<p class="progressbar-content">운동8</p>
-					<div class="progress">
-						<div class="progress-bar" role="progressbar" aria-valuenow="0"
-							aria-valuemin="0" aria-valuemax="100" id="squat">0</div>
-					</div>
-					<p class="progressbar-content">운동9</p>
-					<div class="progress">
-						<div class="progress-bar" role="progressbar" aria-valuenow="90"
-							aria-valuemin="0" aria-valuemax="100" id="lunge">90</div>
-					</div>
+					<c:forEach items="${leftExerInfo }" var="exerInfo">
+					<c:if test="${exerInfo.type eq 3}">
+						<p class="progressbar-content">${exerInfo.name }</p>
+						<div class="progress">
+							<div class="progress-bar" role="progressbar" aria-valuenow="0"  aria-valuemin="0" aria-valuemax="100" id="${exerInfo.name }">0</div>
+						</div>
+					</c:if>
+					</c:forEach>
+					
 				</div>
 			</div>
 			<!-- 프로그래스바 템플릿 끝 -->
@@ -342,12 +325,7 @@ $(".complete").click(function() {
 		<!-- right layout 시작 -->
 		<div id="right">
 		
-			<script type="text/javascript">
-				
-			
-	
-			
-			</script>				
+				<!-- 운동설명, 캠 영역 -->
 				
 		</div>
 		<!-- right layout 끝 -->
@@ -366,35 +344,36 @@ var progressCnt = 0;
 var count = 0;
 var jumpingcnt = 0; // jumpingjack 가짜 cnt
 var burpeeCnt = 0; // burpee 가짜 cnt
+var crunchCnt = 0; // crunch 가짜 cnt
+var sideCnt = 0; // sidelunge 가짜 cnt
 
 async function init() {
     modelURL = URL + "model.json";
-    metadataURL = URL + "metadata.json";
+	metadataURL = URL + "metadata.json";
 
-    model = await tmPose.load(modelURL, metadataURL);
-    maxPredictions = model.getTotalClasses();
+	model = await tmPose.load(modelURL, metadataURL);
+	maxPredictions = model.getTotalClasses();
 
-    flip = true;
-    webcam = new tmPose.Webcam(512, 480, flip);
-    await webcam.setup();
-    await webcam.play();
-    window.requestAnimationFrame(loop);
+	flip = true;
+	webcam = new tmPose.Webcam(512, 480, flip);
+	await webcam.setup();
+	await webcam.play();
+	window.requestAnimationFrame(loop);
 
-    canvas = document.getElementById("canvas");
-    canvas.width = 512; 
-    canvas.height = 480;
-    ctx = canvas.getContext("2d");
-    labelContainer = document.getElementById("label-container");
-    for (let i = 0; i < maxPredictions; i++) {
+	canvas = document.getElementById("canvas");
+	canvas.width = 512; 
+	canvas.height = 480;
+	ctx = canvas.getContext("2d");
+	labelContainer = document.getElementById("label-container");
+	for (let i = 0; i < maxPredictions; i++) {
         labelContainer.appendChild(document.createElement("div"));
     }
 }
 
 async function loop(timestamp) {
-    webcam.update();
-    await predict();
-    window.requestAnimationFrame(loop);
-         
+	webcam.update();
+	await predict();
+	window.requestAnimationFrame(loop);
 }
 
 var predict;
@@ -402,160 +381,46 @@ var prediction, audio, classPrediction;
 var pose
 
 function drawPose(pose) {
-    if (webcam.canvas) {
-        ctx.drawImage(webcam.canvas, 0, 0);
-        if (pose) {
-            minPartConfidence = 0.5;
-            tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
-            tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
-        }
-       }
+	if (webcam.canvas) {
+		ctx.drawImage(webcam.canvas, 0, 0);
+		if (pose) {
+			minPartConfidence = 0.5;
+			tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
+			tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
+		}
+	}
 };
 
-
-var pushup_predict = async function predict() {
-  var { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
-    prediction = await model.predict(posenetOutput);
-
-    if(prediction[0].probability.toFixed(2) == 1.00) {
-       console.log(status);
-       if(status == "pushdown") {
-          count++;
-          progressCnt++;
-          console.log("카운터 증가" + count);
-          audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
-      audio.play();
-      console.log(count);
-      
-
-      ff = countUpdate(count,set);
-      leftCountUpdate(progressCnt, "pushup");
-      
-      
-   }
-   
-   status = "pushup";
-   console.log(status);
-   } else if(prediction[1].probability.toFixed(2) == 1.00) {
-      status = "pushdown";
-      console.log(status);
-   }                                    
-      
-   for (let i = 0; i < maxPredictions; i++) {
-       classPrediction =
-       prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-       labelContainer.childNodes[i].innerHTML = classPrediction;
-   }
-   
-   drawPose(pose);
-}
-
-var lunge_predict = async function predict() {
-   var { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
-    prediction = await model.predict(posenetOutput);
-
-    if(prediction[0].probability.toFixed(2) == 1.00) {
-       if(status == "down") { 
-          count++;
-          progressCnt++;
-         
-          console.log("카운터 증가" + count);
-          audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
-         audio.play();
-
-   countUpdate(count, set);
-   leftCountUpdate(progressCnt, "lunge");
-   
-   }
-   status = "standsss";
-   console.log(status);
-   } else if(prediction[1].probability.toFixed(2) == 1.00) {
-   
-   
-   status = "down";
-   console.log(status);
-   }
-   
-   for (let i = 0; i < maxPredictions; i++) {
-   classPrediction = prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-   labelContainer.childNodes[i].innerHTML = classPrediction;
-   }
-   
-   drawPose(pose);
-}
-
-var squat_predict = async function predict() {
-	var { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
-	prediction = await model.predict(posenetOutput);
-
-    if(prediction[0].probability.toFixed(2) == 1.00) {
-    	
-    	if(status == "squat") {
-    		count++;
-    		progressCnt++;
-			
-    		console.log("카운터 증가" + count);
-    		audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
-    		audio.play();
-    		console.log(count);
-    		
-
-    		countUpdate(count, set);
-    		leftCountUpdate(progressCnt, "squat");
-    		
-    	}
-    	
-    	status = "stand";
-		console.log(status);
-    } else if(prediction[1].probability.toFixed(2) == 1.00) {
-    	status = "squat";
-    	console.log(status);
-    } else if(prediction[2].probability.toFixed(2) == 1.00) {
-    	status = "bent";
-    	console.log(status);
-    } else if(prediction[3].probability.toFixed(2) == 1.00) {
-    	
-    	console.log("wrong");
-    } 
-    	
-    	
-    for (let i = 0; i < maxPredictions; i++) {
-    	classPrediction =
-        prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-    }
-
-    drawPose(pose);
-}
-
+/* 점핑잭 시작 */
 var jumpingjack_predict = async function predict() {
 	var { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
 	prediction = await model.predict(posenetOutput);
 
-if(prediction[0].probability.toFixed(2) == 1.00) {
+	if(prediction[0].probability.toFixed(2) == 1.00) {
     	
-    	if(status == "jump1" && jumpingcnt==1){
-    		jumpingcnt++;
-    		console.log(jumpingcnt);
-    	}
+		if(status == "jump1" && jumpingcnt==1){
+			jumpingcnt++;
+			console.log(jumpingcnt);
+		}
     	
-    	if(jumpingcnt >= 4){
-    		count++;
-    		progressCnt++;
+		if(jumpingcnt >= 4){
+			count++;
+			progressCnt++;
 			
-    		console.log("카운터 증가" + count);
-    		audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
-    		audio.play();
-    		console.log(count);
+			console.log("카운터 증가" + count);
+			audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
+			audio.play();
+			console.log(count);
 
-    		countUpdate(count, set);
-    		leftCountUpdate(progressCnt, "jumpingjack");
-    		window.jumpingcnt = 0;
-    		console.log("0으로 선언후"+jumpingcnt);
-    	}
+			countUpdate(count, set);
+			leftCountUpdate(progressCnt, "jumpingjack");
+			window.jumpingcnt = 0;
+			console.log("0으로 선언후"+jumpingcnt);
+		}
     	
-    	status = "stand";
+		status = "stand";
 		console.log(status);
-    } else if(prediction[1].probability.toFixed(2) == 1.00) {
+	} else if(prediction[1].probability.toFixed(2) == 1.00) {
 		if(status == "stand" && jumpingcnt == 0){
 			jumpingcnt++;
 			console.log(jumpingcnt);
@@ -564,120 +429,411 @@ if(prediction[0].probability.toFixed(2) == 1.00) {
 			jumpingcnt++;
 			console.log(jumpingcnt);
 		}
-		
 		if(status == "jump2" && jumpingcnt == 4){
 			jumpingcnt++;
 			console.log(jumpingcnt);
 		}
-		
-    	status = "jump1";
-    	console.log("그냥 점프1"+status);
-    }else if(prediction[2].probability.toFixed(2) == 1.00) {
-    	
-    	if(status == "jump1" && jumpingcnt == 3){
+
+		status = "jump1";
+		console.log("그냥 점프1"+status);
+	}else if(prediction[2].probability.toFixed(2) == 1.00) {
+
+		if(status == "jump1" && jumpingcnt == 3){
 			jumpingcnt++;
 			console.log(jumpingcnt);
 		}
-    	
-    	status = "jump2";
-    	console.log("그냥 점프2"+status);
-    }
-    	
-    	
-    for (let i = 0; i < maxPredictions; i++) {
-    	classPrediction =
-        prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-    }
 
-    drawPose(pose);
+		status = "jump2";
+		console.log("그냥 점프2"+status);
+	}
+    	
+	for (let i = 0; i < maxPredictions; i++) {
+		classPrediction =
+		prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+	}
+
+	drawPose(pose);
 }
+/* 점핑잭 끝 */
 
+/* 버피 시작 */
 var burpee_predict = async function predict() {
 	var { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
 	prediction = await model.predict(posenetOutput);
 
 	if(prediction[0].probability.toFixed(2) == 1.00) {
 
-	 	if(status == "burpee1" && burpeeCnt == 3) { 
-			        		
+		if(status == "burpee1" && burpeeCnt == 3) { 
+
+			count++;
+			progressCnt++;
+			
+			console.log("카운터 증가" + count);
+			audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
+			audio.play();
+			console.log(count);
+
+			countUpdate(count, set);
+			leftCountUpdate(progressCnt, "burpee");
+			window.burpeeCnt = 0;
+			console.log("0으로 선언후"+burpeeCnt);
+		}
+    	
+		status = "stand";
+		console.log(status);
+	} else if(prediction[1].probability.toFixed(2) == 1.00) {
+		if(status == "stand" && burpeeCnt == 0 ){
+			burpeeCnt++;
+			console.log(burpeeCnt);
+		}
+		if(status == "burpee2" && burpeeCnt == 2 ){
+			burpeeCnt++;
+			console.log(burpeeCnt);
+		}
+
+		status = "burpee1";
+		console.log("여기가 기본"+status);
+	} else if(prediction[2].probability.toFixed(2) == 1.00) {
+		if(status == "burpee1" && burpeeCnt == 1 ){
+			burpeeCnt++;
+			console.log(burpeeCnt);
+		}
+		status = "burpee2";
+		console.log("여기가 기본"+status);
+	} 
+    	
+	for (let i = 0; i < maxPredictions; i++) {
+		classPrediction =
+		prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+	}
+
+    drawPose(pose);
+}
+/* 버피 끝 */
+
+/* 레그레이즈 시작 */
+var legraise_predict = async function predict() {
+	var { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
+	prediction = await model.predict(posenetOutput);
+
+	if(prediction[0].probability.toFixed(2) == 1.00) {
+		console.log("레그다운들어옴"+status);
+    		
+		status = "legdown";
+		console.log(status);
+	} else if(prediction[1].probability.toFixed(2) == 1.00) {
+		if(status == "legdown") { 
+			count++;
+			progressCnt++;
+
+			console.log("카운터 증가" + count);
+			var audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
+			audio.play();
+			console.log(count);
+
+			countUpdate(count, set);
+			leftCountUpdate(progressCnt, "legraise");
+		}
+		status = "legup";
+		console.log("여기가 업"+status);
+	}
+    
+	for (let i = 0; i < maxPredictions; i++) {
+		classPrediction =
+		prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+		labelContainer.childNodes[i].innerHTML = classPrediction;
+    }
+
+    drawPose(pose);
+}
+/* 레그레이즈 끝 */
+
+/* 크런치 시작 */
+var crunch_predict = async function predict() {
+	var { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
+	prediction = await model.predict(posenetOutput);
+
+	if(prediction[0].probability.toFixed(2) == 1.00) {
+    	console.log("클래스1 들어옴"+status);
+    		
+		if(crunchCnt == 1){
+		 	if(status == "bent") { 
+				        		
     		count++;
     		progressCnt++;
 			
     		console.log("카운터 증가" + count);
-    		audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
+    		var audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
     		audio.play();
     		console.log(count);
 
     		countUpdate(count, set);
-    		leftCountUpdate(progressCnt, "burpee");
-    		window.burpeeCnt = 0;
-    		console.log("0으로 선언후"+burpeeCnt);
-		
+    		leftCountUpdate(progressCnt, "crunch");
+    		window.crunchCnt = 0;
+    		console.log("0으로 선언후"+crunchCnt);
+    		}
+    	}
+    	
+		if(status == "bent" && crunchCnt == 0) { 
+			crunchCnt++;
+    		console.log("점프카운트 증가후"+crunchCnt);
 		}
+    	
+    	status = "up";
+		console.log(status);
+    } else if(prediction[1].probability.toFixed(2) == 1.00) {
+    	status = "bent";
+    	console.log("여기가 기본 class2"+status);
+    }
+    
+    for (let i = 0; i < maxPredictions; i++) {
+        classPrediction =
+        prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+        labelContainer.childNodes[i].innerHTML = classPrediction;
+    }
+
+    drawPose(pose);
+}
+/* 크런치 끝 */
+
+/* 푸쉬업 시작 */
+var pushup_predict = async function predict() {
+	var { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
+    prediction = await model.predict(posenetOutput);
+
+    if(prediction[0].probability.toFixed(2) == 1.00) {
+       console.log(status);
+       if(status == "pushdown") {
+			count++;
+			progressCnt++;
+			console.log("카운터 증가" + count);
+			audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
+			audio.play();
+			console.log(count);
+			
+			countUpdate(count,set);
+			leftCountUpdate(progressCnt, "pushup");
+	   }
+   
+		status = "pushup";
+		console.log(status);
+   } else if(prediction[1].probability.toFixed(2) == 1.00) {
+		status = "pushdown";
+		console.log(status);
+   }                                    
+      
+   for (let i = 0; i < maxPredictions; i++) {
+		classPrediction =
+		prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+		labelContainer.childNodes[i].innerHTML = classPrediction;
+   }
+   
+   drawPose(pose);
+}
+/* 푸쉬업 끝 */
+
+var sidelunge_predict = async function predict() {
+    var { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
+    prediction = await model.predict(posenetOutput);
+
+    if(prediction[0].probability.toFixed(2) == 1.00) {
+    	
+    	if(status == "left" && sideCnt==1){
+    		sideCnt++;
+    		console.log(sideCnt);
+    	}
+    	
+    	if(status == "right" && sideCnt==3){
+    		sideCnt++;
+    		console.log(sideCnt);
+    	}
+    	
+    	if(sideCnt == 4){
+			count++;
+    		progressCnt++;
+			
+    		console.log("카운터 증가" + count);
+    		var audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
+    		audio.play();
+    		console.log(count);
+
+    		countUpdate(count, set);
+    		leftCountUpdate(progressCnt, "sidelunge");
+    		window.sideCnt = 0;
+    		console.log("0으로 선언후"+sideCnt);
+    	}
     	
     	status = "stand";
 		console.log(status);
     } else if(prediction[1].probability.toFixed(2) == 1.00) {
-    	if(status == "stand" && burpeeCnt == 0 ){
-    		burpeeCnt++;
-    		console.log(burpeeCnt);
-    	}
-    	if(status == "burpee2" && burpeeCnt == 2 ){
-    		burpeeCnt++;
-    		console.log(burpeeCnt);
-    	}
-    	
-    	status = "burpee1";
-    	console.log("여기가 기본"+status);
+		if(status == "stand" && sideCnt == 0){
+			sideCnt++;
+			console.log(sideCnt);
+		}
+		
+    	status = "left";
+    	console.log(status);
     } else if(prediction[2].probability.toFixed(2) == 1.00) {
-    	if(status == "burpee1" && burpeeCnt == 1 ){
-    		burpeeCnt++;
-    		console.log(burpeeCnt);
-    	}
-    	status = "burpee2";
-    	console.log("여기가 기본"+status);
-    } 
-    	
-    	
+		if(status == "stand" && sideCnt == 2){
+			sideCnt++;
+			console.log(sideCnt);
+		}
+    	status = "right";
+    	console.log(status);
+    }
+    
     for (let i = 0; i < maxPredictions; i++) {
-    	classPrediction =
+        classPrediction =
         prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+        labelContainer.childNodes[i].innerHTML = classPrediction;
     }
 
     drawPose(pose);
 }
 
 
+
+/* 스쿼트 시작 */
+var squat_predict = async function predict() {
+	var { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
+	prediction = await model.predict(posenetOutput);
+
+    if(prediction[0].probability.toFixed(2) == 1.00) {
+    	
+    	if(status == "squat") {
+			count++;
+    		progressCnt++;
+			
+    		console.log("카운터 증가" + count);
+    		audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
+    		audio.play();
+    		console.log(count);
+    		
+    		countUpdate(count, set);
+    		leftCountUpdate(progressCnt, "squat");
+    		
+    	}
+    	
+    	status = "stand";
+		console.log(status);
+    } else if(prediction[1].probability.toFixed(2) == 1.00) {
+		status = "squat";
+		console.log(status);
+	} else if(prediction[2].probability.toFixed(2) == 1.00) {
+    	status = "bent";
+    	console.log(status);
+    } else if(prediction[3].probability.toFixed(2) == 1.00) {
+    	
+    	console.log("wrong");
+    } 
+    	
+    for (let i = 0; i < maxPredictions; i++) {
+		classPrediction =
+        prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+    }
+
+    drawPose(pose);
+}
+/* 스쿼트 끝 */
+
+/* 런지 시작 */
+var lunge_predict = async function predict() {
+   var { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
+    prediction = await model.predict(posenetOutput);
+
+    if(prediction[0].probability.toFixed(2) == 1.00) {
+       if(status == "down") { 
+			count++;
+			progressCnt++;
+			
+			console.log("카운터 증가" + count);
+			audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
+			audio.play();
+			
+			countUpdate(count, set);
+			leftCountUpdate(progressCnt, "lunge");
+		}
+		status = "stand";
+		console.log(status);
+	} else if(prediction[1].probability.toFixed(2) == 1.00) {
+		status = "down";
+		console.log(status);
+	}
+   
+	for (let i = 0; i < maxPredictions; i++) {
+		classPrediction = prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+		labelContainer.childNodes[i].innerHTML = classPrediction;
+	}
+   
+   drawPose(pose);
+}
+/* 런지 끝 */
+
+
 /* 진짜 실행할 함수 영역 */
-function pushup() {
-   URL = "<%=request.getContextPath() %>/resources/motionmodel/pushup/";
-   predict = pushup_predict;
-   init();
-}
-
-function squat(){
-   URL = "<%=request.getContextPath() %>/resources/motionmodel/squat/";
-   predict = squat_predict;
-   init();
-}
-function lunge() {
-   URL = "<%=request.getContextPath() %>/resources/motionmodel/lunge/";
-   predict = lunge_predict;
-   init();
-}
-
 function jumpingjack() {
-   URL = "<%=request.getContextPath() %>/resources/motionmodel/jumpingjack/";
-   predict = jumpingjack_predict;
-   init();
+	URL = "<%=request.getContextPath() %>/resources/motionmodel/jumpingjack/";
+	predict = jumpingjack_predict;
+	init();
+	audio = new Audio('<%=request.getContextPath() %>/resources/audio/face.mp3');
+    audio.play();
 }
 
 function burpee() {
-	   URL = "<%=request.getContextPath() %>/resources/motionmodel/burpee/";
-	   predict = burpee_predict;
-	   init();
-	}
+	URL = "<%=request.getContextPath() %>/resources/motionmodel/burpee/";
+	predict = burpee_predict;
+	init();
+	audio = new Audio('<%=request.getContextPath() %>/resources/audio/face.mp3');
+    audio.play();
+}
 
+function legraise() {
+	URL = "<%=request.getContextPath() %>/resources/motionmodel/legraise/";
+	predict = legraise_predict;
+	init();
+	audio = new Audio('<%=request.getContextPath() %>/resources/audio/face.mp3');
+    audio.play();
+}
+
+function crunch() {
+	URL = "<%=request.getContextPath() %>/resources/motionmodel/crunch/";
+	predict = crunch_predict;
+	init();
+	audio = new Audio('<%=request.getContextPath() %>/resources/audio/face.mp3');
+    audio.play();
+}
+
+function pushup() {
+	URL = "<%=request.getContextPath() %>/resources/motionmodel/pushup/";
+	predict = pushup_predict;
+	init();
+	audio = new Audio('<%=request.getContextPath() %>/resources/audio/face.mp3');
+    audio.play();
+}
+
+function sidelunge() {
+	URL = "<%=request.getContextPath() %>/resources/motionmodel/sidelunge/";
+	predict = sidelunge_predict;
+	init();
+	audio = new Audio('<%=request.getContextPath() %>/resources/audio/face.mp3');
+    audio.play();
+}
+
+function squat(){
+	URL = "<%=request.getContextPath() %>/resources/motionmodel/squat/";
+	predict = squat_predict;
+	init();
+	audio = new Audio('<%=request.getContextPath() %>/resources/audio/face.mp3');
+    audio.play();
+}
+
+function lunge() {
+	URL = "<%=request.getContextPath() %>/resources/motionmodel/lunge/";
+	predict = lunge_predict;
+	init();
+	audio = new Audio('<%=request.getContextPath() %>/resources/audio/face.mp3');
+    audio.play();
+}
 </script>
 
 
