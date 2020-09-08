@@ -13,9 +13,11 @@ public interface EventService {
 	
 	public int insertCoin(Compensation com);
 
-	public int checkQuiz(Map<String, String> map);
+	public int checkAtt(Map<String, Object> map);
 	
 	public Map<Integer, List> selectRecord();
 
 	public Map<String, Object> selectQuiz(int day);
+	
+	public List<Map<String, Object>> selectAttend(String id);
 }

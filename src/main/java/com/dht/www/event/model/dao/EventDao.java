@@ -49,8 +49,12 @@ public class EventDao {
 		return sqlSession.selectOne("Event.selectQuiz", day);
 	}
 	
-	public int checkQuiz(Map<String, String> map) {
-		return sqlSession.selectOne("Event.checkQuiz", map);
+	public int checkAtt(Map<String, Object> map) {
+		return sqlSession.selectOne("Event.checkAtt", map);
+	}
+	
+	public List<Map<String, Object>> selectAttend(String id) {
+		return sqlSession.selectList("Event.selectAttend", id);
 	}
 	
 

@@ -225,9 +225,10 @@ public class EventController {
 		
 		String today = format.format(new Date());
 		
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", login.getId());
 		map.put("dates", today);
+		map.put("event", 2);
 		
 		
 		int day = cal.get(Calendar.DAY_OF_WEEK);
@@ -237,7 +238,7 @@ public class EventController {
 		quiz.put("words", words);
 		quiz.put("length", words.length);
 		
-		model.addAttribute("attend", eventService.checkQuiz(map));
+		model.addAttribute("attend", eventService.checkAtt(map));
 		model.addAttribute("quiz", quiz);
 		
 	}
@@ -255,8 +256,36 @@ public class EventController {
 		return "redirect:/event/quiz";
 	}
 	
-	@RequestMapping(value="/jooyi", method=RequestMethod.GET)
-	public void jooyi() {
+	// 출석체크 VIEW
+	@RequestMapping(value="/attend", method=RequestMethod.GET)
+	public void jooyi(HttpSession session, Model model) {
+		
+		Users login = (Users) session.getAttribute("logInInfo");
+		SimpleDateFormat format1 = new SimpleDateFormat("yy/MM/dd");
+		
+		String today = format1.format(new Date());
+		
+		Map<String, Object> check = new HashMap<String, Object>();
+		check.put("id", login.getId());
+		check.put("dates", today);
+		check.put("event", 1);
+		
+		model.addAttribute("attend", eventService.checkAtt(check));
+		model.addAttribute("attList", eventService.selectAttend(login.getId()));
+		
+	}
+	
+	@RequestMapping("/check")
+	@ResponseBody
+	public void check(HttpSession session, String id, String today) {
+		Users login = (Users) session.getAttribute("logInInfo");
+		
+		Compensation com = new Compensation();
+		com.setId(login.getId());
+		com.setEvent(1);
+		com.setInc(10);
+		
+		insertPoint(com);
 		
 	}
 	
