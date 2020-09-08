@@ -309,7 +309,7 @@
         <div class="container mx-auto px-6">
             <div class="md:flex md:items-center">
 	<div class="w-full h-64 md:w-1/2 lg:h-96">
-		<img class="h-full w-full rounded-md object-cover max-w-lg mx-auto" src="https://images.unsplash.com/photo-1578262825743-a4e402caab76?ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80" alt="Nike Air">
+		<img class="h-full w-full rounded-md object-cover max-w-lg mx-auto" src="<%=request.getContextPath() %>/resources/${detail.path }/${detail.renamed }.${detail.ext }" alt="thumbnail">
 	</div>
 	<div class="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
 	
@@ -348,7 +348,7 @@
 		</div>
 	</div>
 </div>
-            
+${files }            
 <div id="wrap" class="py-3">
   <div id="product_layout_3">
       <div class="tabular">

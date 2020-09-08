@@ -39,7 +39,7 @@ public class ShoppingController {
 	// 쇼핑 홈
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public void shoppingHome(Model model) {
-
+		
 		model.addAttribute("list1", shoppingService.selectHome("A"));
 		model.addAttribute("list2", shoppingService.selectHome("B"));
 		model.addAttribute("list3", shoppingService.selectHome("C"));
@@ -65,9 +65,11 @@ public class ShoppingController {
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public void shoppingDetail(Model model, String code) {
 		model.addAttribute("detail", shoppingService.selectItem(code));
-		model.addAttribute("list", shoppingService.selectHome(code.substring(0, 1)));
-		model.addAttribute("reviews", shoppingService.selectReview(code));
+		model.addAttribute("files", shoppingService.selectFiles(code));
 		model.addAttribute("avg", shoppingService.scoreAvg(code));
+		model.addAttribute("reviews", shoppingService.selectReview(code));
+		model.addAttribute("list", shoppingService.selectHome(code.substring(0, 1)));
+		
 	}
 
 	// 장바구니 모달창 AJAX

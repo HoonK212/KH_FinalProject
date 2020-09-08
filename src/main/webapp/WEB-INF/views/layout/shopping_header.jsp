@@ -58,7 +58,7 @@
                     <a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0 lg:mx-24" href="<%=request.getContextPath() %>/">Home</a>
                     <a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0 lg:mx-24" href="<%=request.getContextPath() %>/shopping/home">Shop</a>
                     <a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0 lg:mx-24" href="<%=request.getContextPath() %>/exercise/type">Exercise</a>
-                    <a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0 lg:mx-24" href="<%=request.getContextPath() %>/event/attendancecheck">Event</a>
+                    <a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0 lg:mx-24" href="<%=request.getContextPath() %>/event/attend">Event</a>
                     <a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0 lg:mx-24" href="#">Board</a>
                 </div>
             </nav>

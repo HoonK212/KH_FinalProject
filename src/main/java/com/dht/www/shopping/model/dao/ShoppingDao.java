@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.dht.www.mypage.model.vo.Files;
 import com.dht.www.shopping.model.vo.Basket;
 import com.dht.www.shopping.model.vo.OrderProduct;
 import com.dht.www.shopping.model.vo.Orders;
@@ -116,6 +117,8 @@ public class ShoppingDao {
 		return sqlSession.selectList("Shopping.selectSearch", paging);
 	}
 	
-	
+	public List<Files> selectFiles(String code) {
+		return sqlSession.selectList("Shopping.selectFiles", code);
+	}
 
 }

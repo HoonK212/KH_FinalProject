@@ -3,6 +3,7 @@ package com.dht.www.shopping.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.dht.www.mypage.model.vo.Files;
 import com.dht.www.shopping.model.vo.Basket;
 import com.dht.www.shopping.model.vo.OrderProduct;
 import com.dht.www.shopping.model.vo.Orders;
@@ -53,5 +54,7 @@ public interface ShoppingService {
 	public List<Map<String, Object>> selectReview(String code);
 	
 	public int scoreAvg(String code);
+	
+	public List<Files> selectFiles(String code);
 
 }
