@@ -29,7 +29,7 @@
                     <a href="<%=request.getContextPath() %>/shopping/home" class="py-2 px-6 flex">
                         Shop
                     </a>
-                    <a href="#" class="py-2 px-6 flex">
+                    <a href="<%=request.getContextPath() %>/exercise/type" class="py-2 px-6 flex">
                         Exercise
                     </a>
                     <a href="<%=request.getContextPath() %>/event/attendancecheck" class="py-2 px-6 flex">

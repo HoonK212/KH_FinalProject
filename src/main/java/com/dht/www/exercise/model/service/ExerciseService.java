@@ -19,5 +19,14 @@ public interface ExerciseService {
 	// 사용자 만 나이 구하기
 	public int selectUserAge(Map<String, Object> userInfo);
 
+	// 포인트지급 - 운동개수 * 운동등급
+	public void insertExerciseReward(Map<String, Object> rewardMap);
+
+	// 운동 기록
+	public void insertEventRecord(Map<String, Object> recordMap);
+
+
+
+
 	
 }

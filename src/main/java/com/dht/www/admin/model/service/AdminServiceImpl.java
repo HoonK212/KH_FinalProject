@@ -305,7 +305,7 @@ public class AdminServiceImpl implements AdminService {
 			int idx = -1;
 			
 			//상품 이미지를 업로드한 경우
-			if(!(files.size()== 1 && files.get(0).getOriginalFilename().equals(""))) { 
+			if(!(files.get(0).getOriginalFilename().equals(""))) { 
 		        
 			    List<Map<String, Object>> fileData = null;
 			    

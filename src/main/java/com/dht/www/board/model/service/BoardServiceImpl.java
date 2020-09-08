@@ -57,9 +57,9 @@ public class BoardServiceImpl implements BoardService {
 		
 		if(!(files.size() ==1 && files.get(0).getOriginalFilename().equals(""))) {
 			
-			List<Map<String, String>> filedata = new FileUtil().fileUpload(files, path);
+			List<Map<String, Object>> filedata = new FileUtil().fileUpload(files, path);
 			
-			for (Map<String, String> f : filedata) {
+			for (Map<String, Object> f : filedata) {
 				filesDao.insertBoardFile(f);
 			}
 		}
