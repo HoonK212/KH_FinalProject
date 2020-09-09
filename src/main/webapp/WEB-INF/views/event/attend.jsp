@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerToolbar: {
         left: 'title',
         center: '',
-        right: 'custom'
+        right: 'custom prev next'
       }
       , customButtons: {
     	  custom: {
@@ -83,7 +83,12 @@ document.addEventListener('DOMContentLoaded', function() {
 				xhr.send();
 				xhr.addEventListener('load', function() {
 					var data = xhr.response;
-					//document.querySelector('#cartContent').innerHTML = data;
+					if(data == 6) {
+						alert("출석완료되었습니다!\n이번주 연속 출석 달성!\n"+data+" 포인트를 얻었습니다!");
+					} else {
+						alert("출석완료되었습니다!\n"+data+" 포인트를 얻었습니다!");
+					}
+					
 					document.querySelector(".fc-custom-button").disabled =  true;
 					document.querySelector(".fc-custom-button").innerHTML = '출석완료';
 					calendar.addEvent({

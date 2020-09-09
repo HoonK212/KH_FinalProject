@@ -20,4 +20,6 @@ public interface EventService {
 	public Map<String, Object> selectQuiz(int day);
 	
 	public List<Map<String, Object>> selectAttend(String id);
+	
+	public int checkWeekAttend(String id);
 }

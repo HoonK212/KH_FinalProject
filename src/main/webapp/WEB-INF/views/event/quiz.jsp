@@ -76,7 +76,7 @@ const submitAnswer = () => {
 	var checkAnswer = document.querySelector("#real").value;
 	
 	if(checkAnswer == answer) {
-		alert("맞췄습니다!")
+		alert("정답입니다!\n10포인트를 얻었습니다!");
 		sendResult();
 	} else {
 		alert("틀렸습니다!")

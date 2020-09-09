@@ -57,5 +57,8 @@ public class EventDao {
 		return sqlSession.selectList("Event.selectAttend", id);
 	}
 	
+	public int checkWeekAttend(String id) {
+		return sqlSession.selectOne("Event.checkWeekAttend", id);
+	}
 
 }

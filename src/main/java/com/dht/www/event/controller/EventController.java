@@ -277,16 +277,24 @@ public class EventController {
 	
 	@RequestMapping("/check")
 	@ResponseBody
-	public void check(HttpSession session, String id, String today) {
+	public int check(HttpSession session, String id, String today) {
 		Users login = (Users) session.getAttribute("logInInfo");
 		
 		Compensation com = new Compensation();
 		com.setId(login.getId());
 		com.setEvent(1);
-		com.setInc(10);
+		
+		int check = eventService.checkWeekAttend(id);
+		
+		if(check == 6) {
+			com.setInc(5);
+		} else {
+			com.setInc(3);
+		}
 		
 		insertPoint(com);
 		
+		return com.getInc();
 	}
 	
 }

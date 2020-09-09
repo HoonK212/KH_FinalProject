@@ -50,5 +50,10 @@ public class EventServiceImpl implements EventService {
 	public List<Map<String, Object>> selectAttend(String id) {
 		return eventDao.selectAttend(id);
 	}
+
+	@Override
+	public int checkWeekAttend(String id) {
+		return eventDao.checkWeekAttend(id);
+	}
 	
 }

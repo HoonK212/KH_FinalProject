@@ -59,4 +59,11 @@
 		where type = 1 and event = 1 and id = #{id}
 		order by dates desc
 	</select>
+	
+	<select id="checkWeekAttend" parameterType="string" resultType="int">
+		select count(dates) from (select distinct to_char(dates, 'yy/mm/dd') dates from compensation
+		where event = 1 and type = 1 and id = #{value} and
+		to_char(dates, 'yy/mm/dd') between to_char(sysdate - to_char(sysdate, 'D') +2, 'yy/mm/dd') 
+		and to_char(sysdate - to_char(sysdate, 'D') + 7, 'yy/mm/dd'))
+	</select>
 </mapper>
