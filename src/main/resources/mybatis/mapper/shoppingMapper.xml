@@ -64,22 +64,31 @@
 	</select>
 	
 	<select id="selectCnt" parameterType="int" resultType="int">
-	
-    		select count(*) from product 
-    		where sell = 1 and stock > 0
-    		<if test="value == 1">
-    			
-    		</if>
-    		<if test="value == 4">
-    			and code like 'A%'
-    		</if>
-    		<if test="value == 5">
-    			and code like 'B%'
-    		</if>
-    		<if test="value == 6">
-    			and code like 'C%'
+    		select count(*) from product p, files f
+    		
+    		<if test="value == 2">
+    			, (select o.code, sum(amount) as tcnt 
+    			from order_product o group by o.code order by tcnt desc) s
     		</if>
     		
+    		where p.code = f.ref and p.sell = 1 and p.stock > 0
+    		and thumbnail = 1
+    		
+    		<if test="value == 1">
+    			and p.code in (select code from product_initial)
+    		</if>
+    		<if test="value == 2">
+    			and p.code = s.code(+)
+    		</if>
+    		<if test="value == 4">
+    			and p.code like 'A%'
+    		</if>
+    		<if test="value == 5">
+    			and p.code like 'B%'
+    		</if>
+    		<if test="value == 6">
+    			and p.code like 'C%'
+    		</if>
 	</select>
 	
 	<select id="selectList" resultMap="homeItem">
@@ -95,7 +104,7 @@
     		and thumbnail = 1
     		
     		<if test="listno == 1">
-    			and p.code = (select code from product_initial)
+    			and p.code in (select code from product_initial)
     		</if>
     		<if test="listno == 2">
     			and p.code = s.code(+)
@@ -110,7 +119,7 @@
     			and p.code like 'C%'
     		</if>
     		
-    		<if test="listno != 2">
+    		<if test="listno != 2 and listno != 1">
 	    		order by substr(p.code,2) desc
     		</if>
     		
