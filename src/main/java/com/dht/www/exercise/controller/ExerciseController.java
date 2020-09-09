@@ -48,20 +48,27 @@ public class ExerciseController {
 	
 	// 등급선택 VIEW
 	@RequestMapping(value="/level", method=RequestMethod.GET)
-	public String exercise2( HttpSession session ) {
-		return "exercise/exercise2";
+	public String exercise2(HttpSession session, Model model, HttpServletRequest req) {
+		
+		model.addAttribute("alertMsg", "비정상적인 접근입니다.");
+		model.addAttribute("url", req.getContextPath()+"/main");
+		return "common/result";
 	}
 	
 	// 운동선택 VIEW
 	@RequestMapping(value="/select", method=RequestMethod.GET)
-	public String exercise3( HttpSession session) {
-		return "exercise/exercise3";
+	public String exercise3( HttpSession session, Model model, HttpServletRequest req) {
+		model.addAttribute("alertMsg", "비정상적인 접근입니다.");
+		model.addAttribute("url", req.getContextPath()+"/main");
+		return "common/result";
 	}
 	
 	// 운동시작 VIEW
 	@RequestMapping(value="/trainning", method=RequestMethod.GET)
-	public String exercise4( HttpSession session) {
-		return "exercise/exercise4";
+	public String exercise4( HttpSession session, Model model, HttpServletRequest req) {
+		model.addAttribute("alertMsg", "비정상적인 접근입니다.");
+		model.addAttribute("url", req.getContextPath()+"/main");
+		return "common/result";
 	}
 
 	
@@ -80,8 +87,10 @@ public class ExerciseController {
 		System.out.println(session.getAttribute("exerType"));
 		System.out.println(level);
 		
+		
 		// 로그인 세션 얻기
 		Users user = (Users) session.getAttribute("logInInfo");
+		System.out.println(user);
 		model.addAttribute("user", user);
 		
 		session.setAttribute("level", level);
@@ -113,9 +122,6 @@ public class ExerciseController {
 		
 		// 새로운 목표 설정 시
 		if(exerType == null) {
-			
-			
-			
 			
 			// 설정한 운동 종류 모델값 지정 / 세션 등록
 			String[] newExerArr = exerciseName.split(",");
