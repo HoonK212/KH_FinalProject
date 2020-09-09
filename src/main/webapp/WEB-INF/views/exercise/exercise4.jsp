@@ -86,15 +86,17 @@ function countUpdate(count, set) {
 			
 			
 			// 운동 끝
-			if($(".progress-bar-count")[0].ariaValueMax == set) {
+			if($(".progress-bar-set")[0].ariaValueMax == set) {
 				
     			exerCnt++;
     			
 				if(window.exerArrList[exerCnt] != "") {
 	    			window.set = 0;
 					set = 0;
+					
 					console.log("엑설엑설 : " + exerCnt);
 	    			exerChange(window.exerArrList[exerCnt]);
+	    			
 	    			
 				} else {
 					alert("운동끝입니다다다");
@@ -113,11 +115,14 @@ function countUpdate(count, set) {
 function leftCountUpdate(progressCnt,exArr) {
 	
 	var delay = 1000;
+	
 	$("div[id='"+ exArr + "']").animate( {
 		width:  Math.floor(progressCnt / ( $(".progress-bar-set")[0].ariaValueMax * $(".progress-bar-count")[0].ariaValueMax )  * 100) + "%"
 	}, delay, 'swing' );
 	
 	$("div[id='"+ exArr + "']").html( Math.floor(progressCnt / ( $(".progress-bar-set")[0].ariaValueMax * $(".progress-bar-count")[0].ariaValueMax )  * 100) + "%")
+	
+
 }
 
 // AJAX 통신 - 운동정보 변경
@@ -139,10 +144,13 @@ function exerChange(exerName) {
 		
 		document.querySelector('#right').innerHTML = data;
 		
-		// 다음 운동이 안 넘어감
-// 		document.querySelector('.progress-bar-count').ariaValueMax = exerCountArr[exerCnt];
+		// 운동 바뀔 때마다 횟수 적용
+		document.querySelector('.progress-bar-count').ariaValueMax = exerCountArr[exerCnt];
 
+		// 운동 바뀔 때마다 왼쪽 프로그레바 변수 0으로 초기화
+		window.progressCnt = 0; 
 		
+		// 다음 운동 실행
 		eval(exerArrList[exerCnt]+"();");
 		
 		console.log("새로로로로로로로로로로로")
@@ -390,6 +398,50 @@ function drawPose(pose) {
 		}
 	}
 };
+
+/* 플랭크 시작 */
+var plank_predict = async function predict() {
+    var { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
+    prediction = await model.predict(posenetOutput);
+
+    var start=0;
+    var end=0;
+    var runningTime=0;
+    
+    if(prediction[0].probability.toFixed(2) >= 0.80) {
+    	start = Date.now();
+    	
+    	
+    	
+    	status = 'plank';
+    	
+    	
+    	
+    } else {
+    	if(status == 'plank') {
+    		end = Date.now();
+    		
+    		console.dir("start : " + start);
+    		console.dir("end : " + end);
+    		console.dir("status : " + status);
+    		
+        	runningTime = runningTime + end - start;
+        	
+        	console.dir("runningTime : " + runningTime);
+    	}
+    	status = 'unplank';
+    }
+    
+    
+    for (let i = 0; i < maxPredictions; i++) {
+        classPrediction =
+        prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+        labelContainer.childNodes[i].innerHTML = classPrediction;
+    }
+
+    drawPose(pose);
+}
+/* 플랭크 끝 */
 
 /* 점핑잭 시작 */
 var jumpingjack_predict = async function predict() {
@@ -771,6 +823,14 @@ var lunge_predict = async function predict() {
 
 
 /* 진짜 실행할 함수 영역 */
+function plank() {
+	URL = "<%=request.getContextPath() %>/resources/motionmodel/plank/";
+	predict = plank_predict;
+	init();
+	audio = new Audio('<%=request.getContextPath() %>/resources/audio/face.mp3');
+    audio.play();
+}
+
 function jumpingjack() {
 	URL = "<%=request.getContextPath() %>/resources/motionmodel/jumpingjack/";
 	predict = jumpingjack_predict;

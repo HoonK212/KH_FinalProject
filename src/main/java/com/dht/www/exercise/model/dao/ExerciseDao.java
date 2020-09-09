@@ -67,6 +67,8 @@ public class ExerciseDao {
 		return sqlSession.selectOne("EXERCISE.selectUserCoinCnt", userid);
 	}
 	
+	
+	// 수정 필요
 	// 보유 코인 조회
 	public int selectUserCoin(String userid) {
 		return sqlSession.selectOne("EXERCISE.selectUserCoin", userid);

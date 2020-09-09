@@ -78,9 +78,7 @@ public class ExerciseServiceImpl implements ExerciseService {
 		
 		userInfo.put("birth", birth);
 		
-		
 		return exerciseDao.selectUserAge(userInfo);
-		
 	}
 
 	// 포인트지급 - 운동개수 * 10P * 운동등급
@@ -108,12 +106,13 @@ public class ExerciseServiceImpl implements ExerciseService {
 	}
 
 	
-	
+	// 코인지급
 	@Override
 	public int insertRewardCoin(Map<String, Object> rewardMap) {
 		
 		int coin = 0; // 지급 코인 수 
 		int maxCoin = 3; // 일 최대 코인 지급 수
+		int todayUserCoin = 0; // 당일 지급받은 코인 횟수
 		int exerciseLength = (int) rewardMap.get("exerciseLength");
 		
 		String userid = (String) rewardMap.get("userid");
@@ -123,7 +122,6 @@ public class ExerciseServiceImpl implements ExerciseService {
 		int todayUserCoinCnt = exerciseDao.selectUserCoinCnt(userid);
 		
 		System.out.println("당일 지급받은 코인 횟수 : " + todayUserCoinCnt);
-		int todayUserCoin = 0;
 		
 		// 0보다 크면 코인 보유개수 조회한 값으로 저장
 		if(todayUserCoinCnt > 0) {
@@ -139,12 +137,13 @@ public class ExerciseServiceImpl implements ExerciseService {
 			coin = maxCoin - todayUserCoin;
 			rewardMap.put("coin", coin);
 			exerciseDao.insertRewardCoin(rewardMap);
+		} else if(calcCoin == 0) {
+			coin = 0;
 		} else {
 			coin = exerciseLength;
 			rewardMap.put("coin", coin);
 			exerciseDao.insertRewardCoin(rewardMap);
 		}
-			
 		
 		return coin;
 	}

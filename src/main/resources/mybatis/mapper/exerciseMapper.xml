@@ -104,9 +104,9 @@
 			and to_char(dates, 'YY/MM/DD') = to_char(sysdate, 'YY/MM/DD')
 	</select>
 	
-	<!-- 보유 코인 조회 -->
+	<!-- 당일 보유 코인 조회 -->
 	<select id="selectUserCoin" resultType="int">
-		SELECT inc FROM compensation
+		SELECT sum(inc) FROM compensation
 		WHERE id = #{userid}
 			and type = 2
 			and to_char(dates, 'YY/MM/DD') = to_char(sysdate, 'YY/MM/DD')

@@ -80,6 +80,10 @@ public class ExerciseController {
 		System.out.println(session.getAttribute("exerType"));
 		System.out.println(level);
 		
+		// 로그인 세션 얻기
+		Users user = (Users) session.getAttribute("logInInfo");
+		model.addAttribute("user", user);
+		
 		session.setAttribute("level", level);
 		
 		return "exercise/exercise3";
@@ -264,11 +268,13 @@ public class ExerciseController {
 		int coin = 0;
 		
 		// 포인트지급 - 운동개수 * 운동등급
+		// 코인지급
 		if(exerciseLength != 0 && exerciseLevel != 0) {
 			point = exerciseService.insertRewardPoint(rewardMap);
 			coin = exerciseService.insertRewardCoin(rewardMap);
 		}
 
+		System.out.println("포인트 코인지급 완료");
 		
 		// 세션에 있는 운동종류만큼 String, int ArrayList 생성
 		
@@ -286,6 +292,8 @@ public class ExerciseController {
 		// 운동기록 저장
 		exerciseService.insertEventRecord(recordMap);
 		
+		System.out.println("기록저장완료");
+		
 		// 세션지우기
 		session.removeAttribute("exerType");
 		session.removeAttribute("level");
@@ -293,9 +301,17 @@ public class ExerciseController {
 		session.removeAttribute("exerciseLength");
 		session.removeAttribute("exerciseCount");
 		
+		System.out.println(session.getAttribute("exerType"));
+		System.out.println(session.getAttribute("level"));
+		System.out.println(session.getAttribute("exerciseInfo"));
+		System.out.println(session.getAttribute("exerciseLength"));
+		System.out.println(session.getAttribute("exerciseCount"));
+		
+		System.out.println("세션삭제완료");
+		
 		// 안내 msg
-		String msg = "적립 포인트: " + point + "\n적립 코인: " + coin + "\n※ 코인은 하루 3개까지 받을 수 있습니다.";
-		model.addAttribute("alertMsg", msg);
+		String msg = "적립 포인트: " + point + "\\n적립 코인: " + coin + "\\n※ 코인은 하루 3개까지 받을 수 있습니다.";
+		model.addAttribute("alertMsg", "적립 포인트: " + point + "\\n적립 코인: " + coin + "\\n※ 코인은 하루 3개까지 받을 수 있습니다.");
 		model.addAttribute("url", req.getContextPath()+"/main");
 
 		return "/common/result";
