@@ -52,14 +52,14 @@
 				          <th class="bg-gray-800 text-white py-3 px-4 uppercase font-semibold text-base">상품명</th>
 				          <td class="border py-3 px-4 text-center">
 				          <input class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight 
-				          focus:outline-none focus:bg-white focus:border-indigo-500" type="text" name="name" required>
+				          focus:outline-none focus:bg-white focus:border-indigo-500" type="text" name="name" >
 				          </td>
 				        </tr> 
 				       
 				         <tr> 
 				          <th class="bg-gray-800 text-white py-3 px-4 uppercase font-semibold text-base">상품설명</th>
 				          <td class="border py-3 px-4 text-center">
-				          <textarea name="describe" id="content" class="w-full" required></textarea>
+				          <textarea name="describe" id="content" class="w-full" ></textarea>
 							<!-- 스마트 에디터 적용하는 코드 -->
 							<!-- <textarea>에 스마트 에디터의 스킨을 입히는 코드 -->
 							<script type="text/javascript">
@@ -80,7 +80,7 @@
 				          <th class="bg-gray-800 text-white py-3 px-4 uppercase font-semibold text-base">썸네일<br>이미지<br><br>
 				          <button type="button" class="bg-white text-gray-800 py-2 px-3 rounded font-bold" id="clickUpForThumb">업로드</button></th>
 				          <td class="grid grid-flow-row grid-cols-4 grid-rows-auto gap-4 border py-3 px-4" id="thumbbox" style="min-height: 21rem; min-width: 82rem;">
-						  	<input type="file" id="filesforthumb" name="files" multiple style="display:none;"/>
+						  	<input type="file" id="filesforthumb" name="files" style="display:none;"/>
 						  </td>
 				         </tr> 
 
@@ -95,28 +95,28 @@
 				         <tr>  
 				          <th class="bg-gray-800 text-white py-3 px-4 uppercase font-semibold text-base">가격</th>
 				          <td class="border py-3 px-4 text-center">
-				          <input name="price" class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-indigo-500" type="text" required>
+				          <input name="price" class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-indigo-500" type="text" >
 				          </td>
 				        </tr>
 				         
 				    	<tr>  
 				          <th class="bg-gray-800 text-white py-3 px-4 uppercase font-semibold text-base">재고</th>
 				          <td class="border py-3 px-4 text-center">
-				          <input name="stock" class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-indigo-500" type="text" required>
+				          <input name="stock" class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-indigo-500" type="text" >
 				          </td>
 				        </tr>
 				        
 				        <tr>  
 				          <th class="bg-gray-800 text-white py-3 px-4 uppercase font-semibold text-base">제조사</th>
 				          <td class="border py-3 px-4 text-center">
-				          <input name="company" class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-indigo-500" type="text" required>
+				          <input name="company" class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-indigo-500" type="text" >
 				          </td>
 				        </tr>
 				        
 				        <tr>  
 				          <th class="bg-gray-800 text-white py-3 px-4 uppercase font-semibold text-base">제조일</th>
 				          <td class="border py-3 px-4 text-center">
-				          <input name="dates" class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-indigo-500" type="date" required>
+				          <input name="dates" class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-indigo-500" type="date" >
 				          </td>
 				        </tr>
 				        <input name="thumbArr" id="thumbArr" type="hidden" />
@@ -293,10 +293,40 @@ window.onload = function() {
 
 		// 작성버튼 동작
 		$("#btnWrite").click(function() {
-			
 			//스마트에디터의 내용을 <textarea>에 적용하는 함수를 호출한다
 			submitContents( $("#btnWrite") );
 			
+			var special_pattern = /[~!@#$%^&*()_+|<>?:{}]/;
+
+			if($('input[name="name"]').val() == ""){
+				alert('상품명을 입력해 주세요');
+				return false;
+			}else if(special_pattern.test($('input[name="name"]').val())){
+				alert('상품명에 특수문자가 들어갈 수 없습니다');
+				return false;
+			}else if($('#filesforthumb').val() == ""){
+				alert('썸네일 이미지를 등록해 주세요');
+				return false;
+			}else if($('#files').val() == ""){
+				alert('상세 이미지를 등록해 주세요');
+				return false;
+			}else if($('input[name="price"]').val() == ""){
+				alert('가격을 입력해 주세요');
+				return false;
+			}else if($('input[name="stock"]').val() == ""){
+				alert('재고를 입력해 주세요');
+				return false;
+			}else if($('input[name="company"]').val() == ""){
+				alert('제조사를 입력해 주세요');
+				return false;
+			}else if(special_pattern.test($('input[name="company"]').val())){
+				alert('제조사명에 특수문자가 들어갈 수 없습니다');
+				return false;
+			}else if($('input[name="dates"]').val() == ""){
+				alert('제조일을 입력해 주세요');
+				return false;
+			}
+
 			// 실제 <form>의 submit 수행
 			$("form").submit();
 		});

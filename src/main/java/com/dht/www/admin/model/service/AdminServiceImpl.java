@@ -387,6 +387,11 @@ public class AdminServiceImpl implements AdminService {
 
 			    try {
 			    	
+			    	//파일 두번째 인덱스가 빈 값일때 배열 삭제
+			    	if(files.get(1).getOriginalFilename().equals("")) {
+			    		files.remove(1);
+			    	}
+			    	
 			    	//실제로 이미지 업로드
 			    	fileData = new FileUtil().fileUpload(files, path);
 					
