@@ -10,4 +10,10 @@ INSERT INTO GOAL
 VALUES ( #{id}, #{days}, #{exercise}, #{grade} ) 
 </insert>
 
+<update id="updateGoal">
+UPDATE GOAL
+SET DAYS = #{days}, EXERCISE = #{exercise}, GRADE = #{grade}
+WHERE ID = #{id}
+</update>
+
 </mapper>  

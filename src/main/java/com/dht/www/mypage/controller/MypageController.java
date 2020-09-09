@@ -27,7 +27,7 @@ public class MypageController {
       return "mypage/goalSetting";
    }
    
-   //목표 설정 적용
+   //목표 설정
    @RequestMapping(value = "/setgoal", method = RequestMethod.POST)
    public String setGaol(String exercise, String days, String grade, HttpSession session) {
 	   
@@ -48,6 +48,30 @@ public class MypageController {
 	   
 	   int res = mypageService.setGoal(goal);
 	   
+	   return "mypage/goalSetting";
+   }
+   
+   //목표 설정 수정
+   @RequestMapping(value = "/updategoal", method = RequestMethod.POST)
+   public String updateGoal(String exercise, String days, String grade, HttpSession session) {
+	   
+	   String d = "";
+	   String str = days;
+	   String[] daysArr = str.split(",");
+	   for(int i=0; i<daysArr.length; i++) {
+		   d += daysArr[i]; 
+	   }
+	   
+	   Users user = (Users)session.getAttribute("logInInfo");
+	   
+	   Map<String, Object> goal = new HashMap<>();
+	   goal.put("id", user.getId());
+	   goal.put("days", d);
+	   goal.put("exercise", exercise);
+	   goal.put("grade", grade);
+	   
+	   int res = mypageService.updateGoal(goal);
+
 	   return "mypage/goalSetting";
    }
 

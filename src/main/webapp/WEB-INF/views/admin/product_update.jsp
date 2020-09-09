@@ -78,7 +78,7 @@
 				          <th class="bg-gray-800 text-white py-3 px-4 uppercase font-semibold text-base">썸네일<br>이미지<br><br>
 				          <button type="button" class="bg-white text-gray-800 py-2 px-3 rounded font-bold" id="clickUpForThumb">업로드</button></th>
 				          <td class="grid grid-flow-row grid-cols-4 grid-rows-auto gap-4 border py-3 px-4" id="thumbbox" style="min-height: 21rem; min-width: 82rem;">
-						  	<input type="file" id="filesforthumb" name="files" multiple style="display:none;"/>
+						  	<input type="file" id="filesforthumb" name="files" style="display:none;"/>
 								<c:forEach items="${thumblist }" var="thumb" varStatus="status">
 									<div class="product-img" id="${thumb.no }">
 									<div class="shadow-lg">
@@ -182,6 +182,11 @@
 	var lengthForThumb = null;
 	
 	document.getElementById('clickUpForThumb').onclick = function(e) {
+		
+		if($('.originThumb').length){
+			alert('썸네일이 이미 등록되었습니다. 썸네일은 1개만 등록가능합니다.');
+			return false;
+		}
 		
 		document.getElementById('filesforthumb').click();
 		

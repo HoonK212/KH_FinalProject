@@ -17,4 +17,9 @@ public class MypageDao {
 		return sqlSession.insert("MYPAGE.setGoal", goal);
 	}
 
+	public int updateGoal(Map<String, Object> goal) {
+
+		return sqlSession.update("MYPAGE.updateGoal", goal);
+	}
+
 }

@@ -19,4 +19,10 @@ public class MypageServiceImpl implements MypageService {
 		return mypageDao.setGoal(goal);
 	}
 
+	@Override
+	public int updateGoal(Map<String, Object> goal) {
+
+		return mypageDao.updateGoal(goal);
+	}
+
 }
