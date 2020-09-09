@@ -17,7 +17,7 @@
 							</div>
 							<div
 								class="rounded-full w-12 h-12 text-xl text-teal-100 bg-teal-700 font-black flex justify-center items-center absolute top-0 right-0 mt-16 shadow-lg mr-2">1</div>
-							<img alt="step1" class="w-56 h-56 shadow my-5 object-scale-down" src="<%=request.getContextPath() %>/resources/image/exercise/kneepushup1-1.png">
+							<img alt="step1" class="w-56 h-56 shadow my-5 object-scale-down" src="<%=request.getContextPath() %>/resources/image/exercise/Kneepushup1-1.png">
 							<div class="w-56 h-12 hidden justify-center">
 								<div class="h-full border-r-4 border-teal-300 border-dashed"></div>
 							</div>
@@ -34,7 +34,7 @@
 								<div class="h-full border-r-4 border-orange-300 border-dashed"></div>
 							</div>
 							<div class="rounded-full w-12 h-12 text-xl text-orange-100 bg-orange-700 font-black flex justify-center items-center absolute top-0 right-0 mt-16 shadow-lg mr-2">2</div>
-							<img alt="step2" class="w-56 h-56 shadow my-5 object-scale-down" src="<%=request.getContextPath() %>/resources/image/exercise/kneepushup1-2.png">
+							<img alt="step2" class="w-56 h-56 shadow my-5 object-scale-down" src="<%=request.getContextPath() %>/resources/image/exercise/Kneepushup1-2.png">
 							<div class="w-56 h-12 hidden justify-center">
 								<div class="h-full border-r-4 border-orange-300 border-dashed"></div>
 							</div>
@@ -51,7 +51,7 @@
 								<div class="h-full border-r-4 border-indigo-300 border-dashed"></div>
 							</div>
 							<div class="rounded-full w-12 h-12 text-xl text-indigo-100 bg-indigo-700 font-black flex justify-center items-center absolute top-0 right-0 mt-16 shadow-lg mr-2">3</div>
-							<img alt="step3" class="w-56 h-56 shadow my-5 object-scale-down" src="<%=request.getContextPath() %>/resources/image/exercise/kneepushup1-1.png">
+							<img alt="step3" class="w-56 h-56 shadow my-5 object-scale-down" src="<%=request.getContextPath() %>/resources/image/exercise/Kneepushup1-1.png">
 							<div class="w-56 h-12 hidden justify-center">
 								<div class="h-full border-r-4 border-indigo-300 border-dashed"></div>
 							</div>
