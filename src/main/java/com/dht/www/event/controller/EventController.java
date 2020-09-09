@@ -176,9 +176,6 @@ public class EventController {
 //			}
 //		}
 //		model.addAttribute("list",list);
-		
-		
-
 
 		list1 = map.get(1);
 		list2 = map.get(2);
@@ -190,14 +187,12 @@ public class EventController {
 		list8 = map.get(8);
 		list9 = map.get(9);
 		
-		
 //		for(int i=1; i<=map.size(); i++) {
 //			
 //			model.addAttribute(""+i+"", map.get(i));
 //			System.out.println("숫자"+i);
 //			System.out.println("모델"+model);
 //		}
-		
 		
 		model.addAttribute("list1",list1);
 		model.addAttribute("list2",list2);
@@ -255,4 +250,9 @@ public class EventController {
 		return "redirect:/event/quiz";
 	}
 	
+	// 출석체크 VIEW
+	@RequestMapping(value="/inji", method=RequestMethod.GET)
+	public void eventAttendancecheckinji(Model model) {
+		
+	}
 }

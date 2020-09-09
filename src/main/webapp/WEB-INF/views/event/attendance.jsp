@@ -65,7 +65,7 @@
 
 					<div class="flex flex-wrap border-t border-l">
 						<template x-for="blankday in blankdays">
-							<div id="stamp"
+							<div id="x-text=date"
 								style="width: 14.28%; height: 120px"
 								class="text-center border-r border-b px-4 pt-2"	
 							></div>
@@ -73,6 +73,7 @@
 						<template x-for="(date, dateIndex) in no_of_days" :key="dateIndex">	
 							<div style="width: 14.28%; height: 120px" class="px-4 pt-2 border-r border-b relative">
 								<div
+									x-bind:id=":dateIndex.date"
 									x-text="date"
 									class="inline-flex w-6 h-6 items-center justify-center text-center leading-none rounded-full transition ease-in-out duration-100"
 									s:class="{'bg-blue-500 text-white': isToday(date) == true, 'text-gray-700 hover:bg-blue-200': isToday(date) == false }"	
@@ -297,6 +298,7 @@ $("#attendanceButton").click( function(){
 					
 					for ( var i=1; i <= dayOfWeek; i++) {
 						blankdaysArray.push(i);
+						
 						console.log("지난배열"+i+" :"+blankdaysArray)
 					}
 
@@ -304,6 +306,7 @@ $("#attendanceButton").click( function(){
 					console.log("실제"+daysArray)
 					for ( var i=1; i <= daysInMonth; i++) {
 						daysArray.push(i);
+						
 						console.log("배열"+i+" : "+daysArray)
 					}
 					
