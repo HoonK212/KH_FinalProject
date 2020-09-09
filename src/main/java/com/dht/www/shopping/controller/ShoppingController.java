@@ -159,9 +159,9 @@ public class ShoppingController {
 			} else {
 				shoppingService.insertBasket(insert);
 			}
-			// ----------------------------------------------------------
+		// ----------------------------------------------------------
 
-			// ------------------------ 비로그인 ------------------------
+		// ------------------------ 비로그인 ------------------------
 		} else {
 			List<Map<String, Object>> sessionBasket = (List<Map<String, Object>>) session.getAttribute("sessionBasket");
 
@@ -319,10 +319,11 @@ public class ShoppingController {
 
 	// 결제페이지
 	@RequestMapping(value = "/payment", method = RequestMethod.GET, produces = "application/text; charset=UTF-8")
-	public String shoppingPayment(Model model, HttpSession session, @RequestParam String userId, String codes) {
+	public String shoppingPayment(Model model, HttpSession session, 
+			@RequestParam(required = false, defaultValue = "0") int amount, String userId, String codes) {
 
-		if (session.getAttribute("logInInfo") == null) {
-			return "user/login";
+		if (amount > 0) {
+			
 		} else {
 
 			System.out.println(userId);
@@ -341,8 +342,8 @@ public class ShoppingController {
 			model.addAttribute("product", shoppingService.selectProuct(map));
 			model.addAttribute("point", shoppingService.selectPoint(userId));
 
-			return "shopping/payment";
 		}
+		return "shopping/payment";
 	}
 
 	//결제 완료

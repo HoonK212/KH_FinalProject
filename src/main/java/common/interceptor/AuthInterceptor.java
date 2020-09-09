@@ -29,6 +29,9 @@ public class AuthInterceptor implements HandlerInterceptor{
 		} else if(req.getRequestURI().contains("event/") && req.getSession().getAttribute("logInInfo") == null) {
 			auth(req, resp);
 			return false;
+		} else if(req.getRequestURI().contains("shopping/payment") && req.getSession().getAttribute("logInInfo") == null) {
+			auth(req, resp);
+			return false;
 		} else {
 			return true;
 		}
