@@ -52,11 +52,12 @@ async function predict() {
     const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
     const prediction = await model.predict(posenetOutput);
 
-    if(prediction[0].probability.toFixed(2) >= 0.80) {
+    if(prediction[0].probability.toFixed(2) >= 0.10) {
     	
-    	setInterval(function(){
+    	var plankCnt = setInterval (function(){
     		console.log("하하");
-    	},20000)
+    		    		
+    	}, 2000)
     	
     	
     }
