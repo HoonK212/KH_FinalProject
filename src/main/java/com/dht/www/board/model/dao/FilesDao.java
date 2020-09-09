@@ -23,7 +23,7 @@ public class FilesDao {
 	}
 
 	// 파일 업로드
-	public int insertBoardFile(Map<String, String> fileInfo) {
+	public int insertBoardFile(Map<String, Object> fileInfo) {
 		return sqlSession.insert("FILES.insertBoardFile", fileInfo);
 	}
 

@@ -220,9 +220,10 @@ public class EventController {
 		
 		String today = format.format(new Date());
 		
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", login.getId());
 		map.put("dates", today);
+		map.put("event", 2);
 		
 		
 		int day = cal.get(Calendar.DAY_OF_WEEK);
@@ -232,7 +233,7 @@ public class EventController {
 		quiz.put("words", words);
 		quiz.put("length", words.length);
 		
-		model.addAttribute("attend", eventService.checkQuiz(map));
+		model.addAttribute("attend", eventService.checkAtt(map));
 		model.addAttribute("quiz", quiz);
 		
 	}
@@ -250,9 +251,5 @@ public class EventController {
 		return "redirect:/event/quiz";
 	}
 	
-	// 출석체크 VIEW
-	@RequestMapping(value="/inji", method=RequestMethod.GET)
-	public void eventAttendancecheckinji(Model model) {
-		
-	}
+
 }

@@ -41,9 +41,19 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public int checkQuiz(Map<String, String> map) {
-		return eventDao.checkQuiz(map);
+	public int checkAtt(Map<String, Object> map) {
+		return eventDao.checkAtt(map);
 
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAttend(String id) {
+		return eventDao.selectAttend(id);
+	}
+
+	@Override
+	public int checkWeekAttend(String id) {
+		return eventDao.checkWeekAttend(id);
 	}
 	
 }

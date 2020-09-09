@@ -7,7 +7,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%@include file="../layout/shopping_header.jsp" %>
-<%@include file="../layout/shopping_cart.jsp" %>
 
 <link href="https://tailwindcomponents.com/css/component.ecommerce-product.css" rel="stylesheet">
 <link href="https://tailwindcomponents.com/css/component.checkboxes.css" rel="stylesheet">
@@ -52,7 +51,7 @@
 						</td>
 						<td class="hidden pb-4 md:table-cell">
 							<a href="<%= request.getContextPath()%>/shopping/detail?code=${item.code }">
-							<img src="https://limg.app/i/Calm-Cormorant-Catholic-Pinball-Blaster-yM4oub.jpeg" class="w-20 rounded" alt="Thumbnail">
+							<img src="<%=request.getContextPath() %>/resources/${item.path }/${item.renamed }.${item.ext }" class="w-20 rounded" alt="Thumbnail">
 							</a>
 						</td>
 						<td>

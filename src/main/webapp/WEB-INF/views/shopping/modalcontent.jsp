@@ -6,7 +6,7 @@
    
 <div class="md:flex md:items-center">
 	<div class="w-full h-64 md:w-1/2 lg:h-96">
-		<img class="h-full w-full rounded-md object-cover max-w-lg mx-auto" src="https://images.unsplash.com/photo-1578262825743-a4e402caab76?ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80" alt="Nike Air">
+		<img class="h-full w-full rounded-md object-cover max-w-lg mx-auto" src="<%=request.getContextPath() %>/resources/${detail.path }/${detail.renamed }.${detail.ext }" alt="thumbnail">
 	</div>
 	<div class="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
 		<h3 class="text-2xl text-gray-700 uppercase text-lg">${detail.name }</h3>

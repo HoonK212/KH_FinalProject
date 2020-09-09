@@ -5,7 +5,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@include file="../layout/shopping_header.jsp" %>
-<%@include file="../layout/shopping_cart.jsp" %>
 
 <link href="https://tailwindcomponents.com/css/component.ecommerce-products-list.css" rel="stylesheet">
 
@@ -29,7 +28,7 @@
 			<c:forEach items="${list}" var="list">
 				<div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
 	                <a href="/shopping/detail?code=${list.code }">
-	                  	<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('https://images.unsplash.com/photo-1495856458515-0637185db551?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')"></div>
+	                  	<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('<%=request.getContextPath() %>/resources/${list.path }/${list.renamed }.${list.ext }')"></div>
 	                </a>
 	                <div class="py-2" style="text-align: right;">
 	                	<!-- 장바구니 버튼 -->

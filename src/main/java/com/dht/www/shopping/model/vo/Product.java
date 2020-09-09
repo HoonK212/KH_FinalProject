@@ -8,7 +8,7 @@ public class Product {
 	private String name;
 	private String company;
 	private int price;
-	private String desc;
+	private String describe;
 	private Date dates;
 	private int stock;
 	private int sell;
@@ -38,10 +38,10 @@ public class Product {
 		this.price = price;
 	}
 	public String getDesc() {
-		return desc;
+		return describe;
 	}
 	public void setDesc(String desc) {
-		this.desc = desc;
+		this.describe = desc;
 	}
 	public Date getDates() {
 		return dates;
@@ -64,8 +64,8 @@ public class Product {
 	
 	@Override
 	public String toString() {
-		return "Product [code=" + code + ", name=" + name + ", company=" + company + ", price=" + price + ", desc="
-				+ desc + ", dates=" + dates + ", stock=" + stock + ", sell=" + sell + "]";
+		return "Product [code=" + code + ", name=" + name + ", company=" + company + ", price=" + price + ", describe="
+				+ describe + ", dates=" + dates + ", stock=" + stock + ", sell=" + sell + "]";
 	}
 	
 }

@@ -9,7 +9,6 @@
 <link href="https://tailwindcomponents.com/css/component.ecommerce-home.css" rel="stylesheet">    
 
 <%@include file="../layout/shopping_header.jsp" %>
-<%@include file="../layout/shopping_cart.jsp" %>
 
 <style>
 		.animated {
@@ -111,7 +110,7 @@
 					<c:forEach items="${list1}" var="list" begin="0" end="3">
 						<div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
 							<a href="/shopping/detail?code=${list.code }">
-								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('https://images.unsplash.com/photo-1495856458515-0637185db551?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')"></div>
+								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('<%=request.getContextPath() %>/resources/${list.path }/${list.renamed }.${list.ext }')"></div>
 							</a>
 							<div class="py-2" style="text-align: right;">
 								<button onclick="loadBody('${list.code}');" class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
@@ -135,7 +134,7 @@
 					<c:forEach items="${list2}" var="list" begin="0" end="3">
 						<div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
 							<a href="/shopping/detail?code=${list.code }">
-								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('https://images.unsplash.com/photo-1495856458515-0637185db551?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')"></div>
+								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('<%=request.getContextPath() %>/resources/${list.path }/${list.renamed }.${list.ext }')"></div>
 							</a>
 							<div class="py-2" style="text-align: right;">
 								<button onclick="loadBody('${list.code}');" class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
@@ -159,7 +158,7 @@
 					<c:forEach items="${list3}" var="list" begin="0" end="3">
 						<div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
 							<a href="/shopping/detail?code=${list.code }">
-								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('https://images.unsplash.com/photo-1495856458515-0637185db551?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')"></div>
+								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('<%=request.getContextPath() %>/resources/${list.path }/${list.renamed }.${list.ext }')"></div>
 							</a>
 							<div class="py-2" style="text-align: right;">
 								<button onclick="loadBody('${list.code}');" class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">

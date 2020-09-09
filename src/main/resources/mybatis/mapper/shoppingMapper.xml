@@ -226,4 +226,10 @@
 		) b order by rnum ) t where rnum between #{start} and #{end}
 	</select>
 	
+	<select id="selectFiles" parameterType="string" resultType="Files">
+		select * from files
+		where thumbnail = 0 and ref = #{value}
+		order by no desc
+	</select>
+	
 </mapper>

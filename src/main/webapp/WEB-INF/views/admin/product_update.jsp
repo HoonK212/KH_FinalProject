@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>        
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>     
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>     
 <script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 <!-- HEAD -->
 <%@include file="/WEB-INF/views/layout/admin_head.jsp" %>
@@ -20,7 +21,7 @@
 	<div class="section-container">
 	
 			<!-- 상단제목 -->
-			<span class="font-semibold text-4xl">상품 등록</span>
+			<span class="font-semibold text-4xl">상품 상세 및 수정</span>
 		
 		
 			<!-- 상단 버튼 영역 -->
@@ -31,35 +32,32 @@
 			
 			<!-- 테이블 영역 -->
 			<!-- 다중 파일 form 형성  -->
-			<form action="<%=request.getContextPath()%>/admin/productregister" method="POST" enctype="multipart/form-data" >
+			<form action="<%=request.getContextPath()%>/admin/productupdate" method="POST" enctype="multipart/form-data" >
 			<div class="shadow overflow-hidden rounded border-b border-gray-200">
 					
 					<!-- 테이블  -->
 				    <table class="bg-gray-200 table-fixed">
 				    
 				        <tr>
-				          <th class="bg-gray-800 text-white py-3 px-4 uppercase font-semibold text-base">상품카테고리</th>
+				          <th class="bg-gray-800 text-white py-3 px-4 uppercase font-semibold text-base">상품코드</th>
 				          <td class="border py-3 px-4 text-center">
-				          <select id="select" class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight 
+				          <input readonly value="${product.code}" id="select" class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight 
 				          focus:outline-none focus:bg-white focus:border-indigo-500" name="code" >
-					          <option value="A">기구</option>
-					          <option value="B">보조제</option>
-					          <option value="C">식품</option>
-					      </select></td>
+					      </td>
 				        </tr>
 				        
 				        <tr>  
 				          <th class="bg-gray-800 text-white py-3 px-4 uppercase font-semibold text-base">상품명</th>
 				          <td class="border py-3 px-4 text-center">
 				          <input class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight 
-				          focus:outline-none focus:bg-white focus:border-indigo-500" type="text" name="name" required>
+				          focus:outline-none focus:bg-white focus:border-indigo-500" type="text" name="name" value="${product.name}">
 				          </td>
 				        </tr> 
 				       
 				         <tr> 
 				          <th class="bg-gray-800 text-white py-3 px-4 uppercase font-semibold text-base">상품설명</th>
 				          <td class="border py-3 px-4 text-center">
-				          <textarea name="describe" id="content" class="w-full" required></textarea>
+				          <textarea name="describe" id="content" class="w-full" >${product.describe}</textarea>
 							<!-- 스마트 에디터 적용하는 코드 -->
 							<!-- <textarea>에 스마트 에디터의 스킨을 입히는 코드 -->
 							<script type="text/javascript">
@@ -76,12 +74,20 @@
 				         </tr> 
 				         
 
-				        <tr style="min-height: 22rem;"> 
+				       <tr style="min-height: 22rem;"> 
 				          <th class="bg-gray-800 text-white py-3 px-4 uppercase font-semibold text-base">썸네일<br>이미지<br><br>
 				          <button type="button" class="bg-white text-gray-800 py-2 px-3 rounded font-bold" id="clickUpForThumb">업로드</button></th>
 				          <td class="grid grid-flow-row grid-cols-4 grid-rows-auto gap-4 border py-3 px-4" id="thumbbox" style="min-height: 21rem; min-width: 82rem;">
 						  	<input type="file" id="filesforthumb" name="files" multiple style="display:none;"/>
-						  </td>
+								<c:forEach items="${thumblist }" var="thumb" varStatus="status">
+									<div class="product-img" id="${thumb.no }">
+									<div class="shadow-lg">
+										<img src="<%=request.getContextPath()%>/resources/upload_product/${thumb.renamed }.${thumb.ext}" style="width: 16rem; height: 15rem;"/>
+									</div>
+									<div onclick="deletefile(${thumb.no})" class="text-gray-800 text-center text-sm">X</div>
+									</div>
+								</c:forEach> 
+						  	</td>
 				         </tr> 
 
 				        <tr style="min-height: 22rem;"> 
@@ -89,34 +95,44 @@
 				          <button type="button" class="bg-white text-gray-800 py-2 px-3 rounded font-bold" id="clickUp">업로드</button></th>
 				          <td class="grid grid-flow-row grid-cols-4 grid-rows-auto gap-4 border py-3 px-4" id="imgbox" style="min-height: 21rem; min-width: 82rem;">
 							<input type="file" id="files" name="files" multiple style="display:none;"/>
+								<c:forEach items="${filelist }" var="file" varStatus="status">
+									<div class="product-img" id="${file.no }">
+									<div class="shadow-lg">
+										<img src="<%=request.getContextPath()%>/resources/upload_product/${file.renamed }.${file.ext}" style="width: 16rem; height: 15rem;"/>
+									</div>
+									<div onclick="deletefile(${file.no})" class="text-gray-800 text-center">X</div>
+									</div>
+								</c:forEach> 
 						  </td>
 				         </tr> 
 				         
 				         <tr>  
 				          <th class="bg-gray-800 text-white py-3 px-4 uppercase font-semibold text-base">가격</th>
 				          <td class="border py-3 px-4 text-center">
-				          <input name="price" class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-indigo-500" type="text" required>
+				          <input value="${product.price }" name="price" class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 
+				          leading-tight focus:outline-none focus:bg-white focus:border-indigo-500" type="text">
 				          </td>
 				        </tr>
 				         
 				    	<tr>  
 				          <th class="bg-gray-800 text-white py-3 px-4 uppercase font-semibold text-base">재고</th>
 				          <td class="border py-3 px-4 text-center">
-				          <input name="stock" class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-indigo-500" type="text" required>
+				          <input readonly value="${product.stock}" name="stock" class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-indigo-500" type="text">
 				          </td>
 				        </tr>
 				        
 				        <tr>  
 				          <th class="bg-gray-800 text-white py-3 px-4 uppercase font-semibold text-base">제조사</th>
 				          <td class="border py-3 px-4 text-center">
-				          <input name="company" class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-indigo-500" type="text" required>
+				          <input value="${product.company }"  name="company" class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-indigo-500" type="text">
 				          </td>
 				        </tr>
 				        
 				        <tr>  
 				          <th class="bg-gray-800 text-white py-3 px-4 uppercase font-semibold text-base">제조일</th>
 				          <td class="border py-3 px-4 text-center">
-				          <input name="dates" class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-indigo-500" type="date" required>
+				          <fmt:formatDate pattern = "yyyy-MM-dd" value = "${product.dates}" var="productDate" />
+				          <input value="${productDate }" name="dates" class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-indigo-500" type="date">
 				          </td>
 				        </tr>
 				        <input name="thumbArr" id="thumbArr" type="hidden" />
@@ -131,7 +147,7 @@
 				    <button type="button" id="btnWrite" class='bg-gray-800 text-white py-2 px-3 rounded font-bold mr-5'>
 				      저장
 				  	</button>
-				    <button type="button" id="btnCancel" class='bg-gray-800 text-white py-2 px-3 rounded font-bold'>
+				    <button type="button" class='bg-gray-800 text-white py-2 px-3 rounded font-bold'>
 				      <a href="<%=request.getContextPath()%>/admin/productlist">취소</a>
 				  	</button>
 					</div>
@@ -145,7 +161,23 @@
 </div>
 
 <script type="text/javascript">
-window.onload = function() {
+
+
+	function deletefile(idx){
+		
+		console.log(idx);
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', '<%=request.getContextPath()%>/admin/deletefile?no=' + idx );
+	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+	    xhr.send();
+		xhr.addEventListener('load', function(){
+			
+			var cssSelector = xhr.response;
+			$("#" + cssSelector).remove();
+			
+		});
+
+	}
 	
 	var lengthForThumb = null;
 	
@@ -274,7 +306,7 @@ window.onload = function() {
 		console.log(document.getElementById('thumbArr'));
 	};
 
-}
+
 
 </script>
 <script type="text/javascript">

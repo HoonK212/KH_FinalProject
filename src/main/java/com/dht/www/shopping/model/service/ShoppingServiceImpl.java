@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dht.www.mypage.model.vo.Files;
 import com.dht.www.shopping.model.dao.ShoppingDao;
 import com.dht.www.shopping.model.vo.Basket;
 import com.dht.www.shopping.model.vo.OrderProduct;
@@ -149,6 +150,11 @@ public class ShoppingServiceImpl implements ShoppingService {
 			commandMap.put("list", list);
 			
 			return commandMap;
+		}
+
+		@Override
+		public List<Files> selectFiles(String code) {
+			return shoppingDao.selectFiles(code);
 		}
 
 

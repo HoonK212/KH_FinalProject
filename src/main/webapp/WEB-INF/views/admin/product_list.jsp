@@ -22,177 +22,200 @@
 	<div class="section-container">
 		
 		<!-- 상단제목 -->
-		<span class="font-semibold text-4xl">상품목록</span>
+		<span class="font-semibold text-4xl"><a href="<%=request.getContextPath()%>/admin/productlist">상품목록</a></span>
 		
 		
 		<!-- 상단 버튼 영역 -->
-		<div class="flex justify-end">
+		<form action="<%=request.getContextPath()%>/admin/productlist" method="get"> 
+		<div class="flex justify-end" style=" margin-bottom:3px;">
 		  <div class="mr-3">
-		      <select id="select">
-		          <option value="1">상품번호</option>
+		      <select name="type" id="select">
+		          <option value="1">상품코드</option>
 		          <option value="2">상품명</option>
 		      </select>
 		  </div>
-		 
-          <input type="text" class="mr-3" placeholder="입력하세요"/>
-		  <button class='bg-gray-100 text-gray-800 py-2 px-3 rounded font-bold'>
+		  
+          <input name="data" type="text" class="mr-3" placeholder="입력하세요" />
+          <input name="searchType" value="search" type="hidden" />
+		  <button type="submit" class='bg-gray-100 text-gray-800 py-2 px-3 rounded font-bold'>
 		    조회하기
 		  </button>
+			<!-- 상품등록 페이지로 이동하는 버튼   -->
+			<button type="button" class='product-register-btn bg-gray-600 text-white py-2 px-3 rounded font-bold ml-4' >
+			    상품등록
+			</button>
 		</div>
-		
-		
-		
+	
 		
 		<!-- 테이블 영역 -->		
-		  <div class="shadow overflow-hidden rounded border-b border-gray-200">
-		    <table class="table-fixed bg-white">
-		      <thead class="bg-gray-800 text-white">
-		        <tr>
-		          <th class="w-1/12 py-3 px-4 uppercase font-semibold text-sm">상품번호</th>
-		          <th class="w-2/12 py-3 px-4 uppercase font-semibold text-sm">상품명</th>
-		          <th class="w-1/12 py-3 px-4 uppercase font-semibold text-sm">판매가</td>
-		          <th class="w-4/12 py-3 px-4 uppercase font-semibold text-sm">상품설명</td>
-		          <th class="w-2/12 py-3 px-4 uppercase font-semibold text-sm">제조사</th>
-		          <th class="w-1/12 py-3 px-4 uppercase font-semibold text-sm">제조일</th>
-		          <th class="w-1/12 py-3 px-4 uppercase font-semibold text-sm">재고</th>
-		        </tr>
-		      </thead>
-		    <tbody class="text-gray-700">
-		      <tr>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500">A1002</a></td>
-		        <td class="w-2/12 py-3 px-4 text-center"><a class="hover:text-blue-500">닭가슴살</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500">35000</a></td>
-		        <td class="w-4/12 py-3 px-4 text-center"><a class="hover:text-blue-500">불러 동력은 것은듣는다.</a></td>
-		        <td class="w-2/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >하림</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >2020.08.17</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >300</a></td>
-		      </tr>
-		      <tr class="bg-gray-100">
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500">A1002</a></td>
-		        <td class="w-2/12 py-3 px-4 text-center"><a class="hover:text-blue-500">닭가슴살</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500">35000</a></td>
-		        <td class="w-4/12 py-3 px-4 text-center"><a class="hover:text-blue-500">불러 동력은 것은듣는다.</a></td>
-		        <td class="w-2/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >하림</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >2020.08.17</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >300</a></td>
-		      </tr>
-		      <tr>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500">A1002</a></td>
-		        <td class="w-2/12 py-3 px-4 text-center"><a class="hover:text-blue-500">닭가슴살</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500">35000</a></td>
-		        <td class="w-4/12 py-3 px-4 text-center"><a class="hover:text-blue-500">불러 동력은 것은듣는다.</a></td>
-		        <td class="w-2/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >하림</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >2020.08.17</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >300</a></td>
-		      </tr>
-		      <tr class="bg-gray-100">
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500">A1002</a></td>
-		        <td class="w-2/12 py-3 px-4 text-center"><a class="hover:text-blue-500">닭가슴살</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500">35000</a></td>
-		        <td class="w-4/12 py-3 px-4 text-center"><a class="hover:text-blue-500">불러 동력은 것은듣는다.</a></td>
-		        <td class="w-2/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >하림</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >2020.08.17</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >300</a></td>
-		      </tr>
-		      <tr>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500">A1002</a></td>
-		        <td class="w-2/12 py-3 px-4 text-center"><a class="hover:text-blue-500">닭가슴살</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500">35000</a></td>
-		        <td class="w-4/12 py-3 px-4 text-center"><a class="hover:text-blue-500">불러 동력은 것은듣는다.</a></td>
-		        <td class="w-2/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >하림</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >2020.08.17</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >300</a></td>
-		      </tr>
-		      <tr class="bg-gray-100">
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500">A1002</a></td>
-		        <td class="w-2/12 py-3 px-4 text-center"><a class="hover:text-blue-500">닭가슴살</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500">35000</a></td>
-		        <td class="w-4/12 py-3 px-4 text-center"><a class="hover:text-blue-500">불러 동력은 것은듣는다.</a></td>
-		        <td class="w-2/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >하림</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >2020.08.17</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >300</a></td>
-		      </tr>
-		      <tr>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500">A1002</a></td>
-		        <td class="w-2/12 py-3 px-4 text-center"><a class="hover:text-blue-500">닭가슴살</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500">35000</a></td>
-		        <td class="w-4/12 py-3 px-4 text-center"><a class="hover:text-blue-500">불러 동력은 것은듣는다.</a></td>
-		        <td class="w-2/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >하림</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >2020.08.17</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >300</a></td>
-		      </tr>
-		      <tr class="bg-gray-100">
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500">A1002</a></td>
-		        <td class="w-2/12 py-3 px-4 text-center"><a class="hover:text-blue-500">닭가슴살</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500">35000</a></td>
-		        <td class="w-4/12 py-3 px-4 text-center"><a class="hover:text-blue-500">불러 동력은 것은듣는다.</a></td>
-		        <td class="w-2/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >하림</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >2020.08.17</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >300</a></td>
-		      </tr>
-		      <tr>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500">A1002</a></td>
-		        <td class="w-2/12 py-3 px-4 text-center"><a class="hover:text-blue-500">닭가슴살</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500">35000</a></td>
-		        <td class="w-4/12 py-3 px-4 text-center"><a class="hover:text-blue-500">불러 동력은 것은듣는다.</a></td>
-		        <td class="w-2/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >하림</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >2020.08.17</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >300</a></td>
-		      </tr>
-		      <tr class="bg-gray-100">
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500">A1002</a></td>
-		        <td class="w-2/12 py-3 px-4 text-center"><a class="hover:text-blue-500">닭가슴살</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500">35000</a></td>
-		        <td class="w-4/12 py-3 px-4 text-center"><a class="hover:text-blue-500">불러 동력은 것은듣는다.</a></td>
-		        <td class="w-2/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >하림</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >2020.08.17</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >300</a></td>
-		      </tr>
-		      <tr>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500">A1002</a></td>
-		        <td class="w-2/12 py-3 px-4 text-center"><a class="hover:text-blue-500">닭가슴살</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500">35000</a></td>
-		        <td class="w-4/12 py-3 px-4 text-center"><a class="hover:text-blue-500">불러 동력은 것은듣는다.</a></td>
-		        <td class="w-2/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >하림</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >2020.08.17</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >300</a></td>
-		      </tr>
-		      <tr class="bg-gray-100">
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500">A1002</a></td>
-		        <td class="w-2/12 py-3 px-4 text-center"><a class="hover:text-blue-500">닭가슴살</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500">35000</a></td>
-		        <td class="w-4/12 py-3 px-4 text-center"><a class="hover:text-blue-500">불러 동력은 것은듣는다.</a></td>
-		        <td class="w-2/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >하림</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >2020.08.17</a></td>
-		        <td class="w-1/12 py-3 px-4 text-center"><a class="hover:text-blue-500" >300</a></td>
-		      </tr>
-		    </tbody>
-		    </table>
-		  </div>
-
+		<div class="shadow overflow-hidden rounded border-b border-gray-200">
+			    <table class="table-fixed bg-white w-full">
+			      <thead class="bg-gray-800 text-white">
+			        <tr>
+			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">No</th>
+			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">상품코드</th>
+			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">상품명</th>
+			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">판매가</td>
+			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">상품설명</td>
+			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">제조사</td>
+			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">제조일</td>
+			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">재고</td>
+			        </tr>
+			      </thead>
+			    <tbody class="text-gray-700">
+			    <c:forEach items="${plist}" var="product" varStatus="status">
+			      <tr class="${status.count % 2 == 1 ? '' : 'bg-gray-100'}">
+			        <td class="w-1/4 py-3 px-4 text-center">${product.rnum  }</td>
+			        <td class="w-1/4 py-3 px-4 text-center hover:text-blue-500"><a href="<%=request.getContextPath()%>/admin/productdetail?code=${product.code}">${product.code }</a></td>
+			        <td class="w-1/4 py-3 px-4 text-center">${product.name }</td>
+			        <td class="w-1/4 py-3 px-4 text-center">${product.price }</td>
+			        <td class="w-1/4 py-3 px-4 text-center">${product.describe }</td>
+			        <td class="w-1/4 py-3 px-4 text-center">${product.company }</td>
+			        <td class="w-1/4 py-3 px-4 text-center">${product.dates}</td>
+			        <td class="w-1/4 py-3 px-4 text-center">${product.stock }</td>
+			      </tr>
+			     </c:forEach> 
+			    </tbody>
+			    </table>
+			  </div>
 		
-		
-		<!-- 하단 페이지네이션 영역  -->	
-			<div class="flex justify-center">
-				<nav class="space-y-2">
-					<div class="text-sm bg-gray-800 hover:bg-gray-400 hover:text-gray-800 text-white font-semibold py-1 px-3 rounded-l inline-block">이전</div>				
-					<div class="text-sm bg-gray-800 hover:bg-gray-400 hover:text-gray-800 text-white font-semibold py-1 px-3 rounded inline-block">1</div>				
-					<div class="text-sm bg-gray-800 hover:bg-gray-400 hover:text-gray-800 text-white font-semibold py-1 px-3 rounded inline-block"">2</div>				
-					<div class="text-sm bg-gray-800 hover:bg-gray-400 hover:text-gray-800 text-white font-semibold py-1 px-3 rounded inline-block">3</div>				
-					<div class="text-sm bg-gray-800 hover:bg-gray-400 hover:text-gray-800 text-white font-semibold py-1 px-3 rounded inline-block">4</div>				
-					<div class="text-sm bg-gray-800 hover:bg-gray-400 hover:text-gray-800 text-white font-semibold py-1 px-3 rounded inline-block">5</div>				
-					<button class="text-sm bg-gray-800 hover:bg-gray-400 hover:text-gray-800 text-white font-semibold py-1 px-3 rounded-r inline-block">다음</button>				
-				</nav>
-			</div>
 
+			<!-- 하단 페이지네이션 영역 -->
+			<!-- section pagination -->
+			<div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between" style="background-color: #edf2f7;">
+			<div class="inline-flex mt-2 xs:mt-0">
+			<div class="flex flex-col items-center">	
+			<div class="flex text-gray-700">	
+		        
+		        <c:choose>
+		        	<c:when test="${page.blockStart > 1 }">
+		        		<c:if test="${not empty search}">
+		         		<a href="<%= request.getContextPath() %>/admin/productlist?cPage=${page.blockStart-1}&type=${search.type}&data=${search.data}" class="nav prev">
+		        		</c:if>
+		        		<c:if test="${empty search }">
+		         		<a href="<%= request.getContextPath() %>/admin/productlist?cPage=${page.blockStart-1}" class="nav prev">
+		         		</c:if>
+		         			<div class="h-8 w-8 mr-1 flex justify-center items-center  cursor-pointer">
+					            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" 
+					            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+					            class="feather feather-chevron-left w-4 h-4">
+					                <polyline points="15 18 9 12 15 6"></polyline>
+					            </svg>
+							</div>
+		         		</a>
+		        	</c:when>
+		        	<c:otherwise>
+		        		<c:if test="${not empty search}">
+		         		<a href="<%= request.getContextPath() %>/admin/productlist?cPage=${page.blockStart}&type=${search.type}&data=${search.data}" class="nav prev">
+		        		</c:if>
+		        		<c:if test="${empty search }">
+		         		<a href="<%= request.getContextPath() %>/admin/productlist?cPage=${page.blockStart}" class="nav prev">
+		         		</c:if>
+							<div class="h-8 w-8 mr-1 flex justify-center items-center  cursor-pointer">
+					            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" 
+					            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+					            class="feather feather-chevron-left w-4 h-4">
+					                <polyline points="15 18 9 12 15 6"></polyline>
+					            </svg>
+							</div>	        		
+		        		</a>
+		        	</c:otherwise>
+		        </c:choose>
+		       
+		        <div class="flex h-8 font-medium">
+		        <c:forEach begin="${page.blockStart}" end="${page.blockEnd}" var="pagenation">
+		        
+		        <c:if test="${not empty search}">
+         		<a href="<%= request.getContextPath() %>/admin/productlist?cPage=${pagenation}&type=${search.type}&data=${search.data}" class="nav prev">
+        		</c:if>
+        		<c:if test="${empty search }">
+         		<a href="<%= request.getContextPath() %>/admin/productlist?cPage=${pagenation}" class="nav prev">
+         		</c:if>
+	         		<c:choose>
+		       	   		<c:when test="${page.currentPage eq pagenation }">
+			       	    	<div class="w-8 md:flex justify-center items-center hidden cursor-pointer 
+			       	    	leading-5 transition duration-150 ease-in border-t-2 border-orange-600">${pagenation}</div>
+		       	   		</c:when>
+			       	    <c:otherwise>
+			       	    	<div class="w-8 md:flex justify-center items-center hidden cursor-pointer 
+			       	    	leading-5 transition duration-150 ease-in border-t-2 border-transparent">${pagenation}</div>
+			       	    </c:otherwise>
+		       	 	</c:choose>
+		         </a>
+		        
+		        </c:forEach> 
+	        	</div>
+	        	
+	        	
+		        <c:choose>
+		        	<c:when test="${page.blockEnd+1 > page.lastPage }">
+		        		<c:if test="${not empty search}">
+		         		<a href="<%= request.getContextPath() %>/admin/productlist?cPage=${page.blockEnd}&type=${search.type}&data=${search.data}" class="nav prev">
+		        		</c:if>
+		        		<c:if test="${empty search }">
+		         		<a href="<%= request.getContextPath() %>/admin/productlist?cPage=${page.blockEnd}" class="nav prev">
+		         		</c:if>
+		         			<div class="h-8 w-8 ml-1 flex justify-center items-center  cursor-pointer">
+					            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" 
+					            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+					            class="feather feather-chevron-right w-4 h-4">
+					                <polyline points="9 18 15 12 9 6"></polyline>
+					            </svg>
+							</div>
+		         		</a>
+		        	</c:when>
+		        	<c:otherwise>
+		        		<c:if test="${not empty search}">
+		         		<a href="<%= request.getContextPath() %>/admin/productlist?cPage=${page.blockEnd+1}&type=${search.type}&data=${search.data}" class="nav prev">
+		        		</c:if>
+		        		<c:if test="${empty search }">
+		         		<a href="<%= request.getContextPath() %>/admin/productlist?cPage=${page.blockEnd+1}" class="nav prev">
+		         		</c:if>
+					        <div class="h-8 w-8 ml-1 flex justify-center items-center  cursor-pointer">
+					            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" 
+					            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+					            class="feather feather-chevron-right w-4 h-4">
+					                <polyline points="9 18 15 12 9 6"></polyline>
+					            </svg>
+					        </div>	         		
+		         		</a>
+		        	</c:otherwise>
+		   	   	</c:choose>
+	 	   	 
+	   	  	</div>
+	   	  	</div>
+	   	  	</div>
+	   	  	</div>
+   	  		<!-- // section pagination -->
+   	   
+   	   
+   	   
 		
 	</div> <!-- CONTENT 끝!  -->
 
 </div> <!-- SECTION 끝!  -->
+
+
 	
 <!-- FOOTER -->
 <%@include file="/WEB-INF/views/layout/admin_footer.jsp" %>
 
 </div> <!-- ADMIN-CONTAINER 끝! -->
+
+<script type="text/javascript">
+
+	/* Product_Register_Button */
+	var prb = document.querySelector('.product-register-btn');
+	
+	
+	/*prb 버튼 클릭시 상품등록 페이지로 이동   */
+	prb.onclick=function(){
+				
+		location.href="<%=request.getContextPath()%>/admin/productregister";
+		
+	}
+</script>
+
+
 
 </html>

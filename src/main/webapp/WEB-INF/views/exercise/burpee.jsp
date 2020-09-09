@@ -142,8 +142,8 @@
 				<!-- 프로그래스바 템플릿 끝 -->
 					
 				</div>
-				<a class="block flex items-center justify-center bg-blue-800 hover:bg-blue-700 p-4 text-md font-semibold text-gray-300 uppercase mt-8 complete"
-					href="#" > <span>운동 보상 받기</span> <span class="font-medium text-gray-300 ml-2">➔</span>
+				<a href="<%=request.getContextPath()%>/exercise/exercisefinish" class="block flex items-center justify-center bg-blue-800 hover:bg-blue-700 p-4 text-md font-semibold text-gray-300 uppercase mt-8 complete">
+					<span>운동 보상 받기</span> <span class="font-medium text-gray-300 ml-2">➔</span>
 				</a>
 			</div>
 		</div>
