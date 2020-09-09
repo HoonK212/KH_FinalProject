@@ -123,7 +123,7 @@ aside {
 			</div>
 		</div>
 		
- 		<span class="text-gray-700 mt-3">${detail.price }원</span>
+ 		<span class="text-gray-700 mt-3"><fmt:formatNumber pattern="#,###" value="${detail.price }" /> 원</span>
 		<hr class="my-3">
 		<div class="mt-2">
 			<div class="flex items-center mt-1 py-2">
@@ -156,8 +156,11 @@ aside {
             <aside id="one" class="py-3">
             <div>
             	<c:forEach items="${files }" var="file">
-				<img width="70%" src="<%=request.getContextPath() %>/resources/${file.PATH }/${file.RENAMED }.${file.EXT }" />            	
+            	<div class="py-2 justify-center mx-auto">
+				<img width="100%" src="<%=request.getContextPath() %>/resources/${file.PATH }/${file.RENAMED }.${file.EXT }" />            	
+            	</div>
             	</c:forEach>
+            	
 	            <p>${detail.describe }</p>
             </div>
             </aside>

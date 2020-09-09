@@ -51,7 +51,7 @@
 						</td>
 						<td class="hidden pb-4 md:table-cell">
 							<a href="<%= request.getContextPath()%>/shopping/detail?code=${item.code }">
-							<img src="<%=request.getContextPath() %>/resources/${item.path }/${item.renamed }.${item.ext }" class="w-20 rounded" alt="Thumbnail">
+							<img src="<%=request.getContextPath() %>/resources/${item.path }/${item.renamed }.${item.ext }" class="h-20 w-20 object-cover rounded" alt="Thumbnail">
 							</a>
 						</td>
 						<td>
@@ -62,7 +62,7 @@
 						</td>
 						<td class="hidden text-right md:table-cell">
 							<span class="text-sm lg:text-base font-medium" id="price${stat.index }">
-							${item.price }
+							<fmt:formatNumber pattern="#,###" value="${item.price }" /> 원
 							</span>
 						</td>
 						<td class="justify-center md:justify-end md:flex mt-6">
@@ -75,7 +75,7 @@
 						</td>
 						<td class="text-right">
 							<span class="text-sm lg:text-base font-medium" id="total${stat.index }">
-							${item.price * item.amount }
+							<fmt:formatNumber pattern="#,###" value="${item.price * item.amount }" /> 원
 							</span>
 						</td>
 					</tr>
@@ -109,7 +109,7 @@
 							배송비(+)
 						</div>
 						<div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-							3000 원
+							3,000 원
 						</div>
 					</div>
 					<div class="flex justify-between pt-4 border-b">
@@ -125,7 +125,7 @@
 							총 주문금액
 						</div>
 						<div id="totalPrice" class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-							${subTotal + 3000 } 원
+							<fmt:formatNumber pattern="#,###" value="${subTotal + 3000 }" /> 원
 						</div>
 					</div>
 					<div class="flex mx-auto justify-center">

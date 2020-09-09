@@ -119,7 +119,7 @@
 							</div>
 							<div class="px-5 py-3">
 								<h3 class="text-gray-700 uppercase"><a href="/shopping/detail?code=${list.code }">${list.name}</a></h3>
-								<span class="text-gray-500 mt-2">${list.price}</span>
+								<span class="text-gray-500 mt-2"><fmt:formatNumber pattern="#,###" value="${list.price }" /> 원</span>
 							</div>
 						</div>
 					</c:forEach>
@@ -143,7 +143,7 @@
 							</div>
 							<div class="px-5 py-3">
 								<h3 class="text-gray-700 uppercase"><a href="/shopping/detail?code=${list.code }">${list.name}</a></h3>
-								<span class="text-gray-500 mt-2">${list.price}</span>
+								<span class="text-gray-500 mt-2"><fmt:formatNumber pattern="#,###" value="${list.price }" /> 원</span>
 							</div>
 						</div>
 					</c:forEach>
@@ -167,7 +167,7 @@
 							</div>
 							<div class="px-5 py-3">
 								<h3 class="text-gray-700 uppercase"><a href="/shopping/detail?code=${list.code }">${list.name}</a></h3>
-								<span class="text-gray-500 mt-2">${list.price}</span>
+								<span class="text-gray-500 mt-2"><fmt:formatNumber pattern="#,###" value="${list.price }" /> 원</span>
 							</div>
 						</div>
 					</c:forEach>

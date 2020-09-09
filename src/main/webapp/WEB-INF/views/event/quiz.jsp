@@ -29,19 +29,19 @@
 		</svg>
 		
 		<div class="flex flex-row rounded">
-	  		<div class="relative z-2 max-w-sm rounded overflow-hidden shadow-lg">
+	  		<div class="relative z-2 max-w-sm rounded overflow-hidden shadow-lg" style="min-width: 600px; min-height: 300px;">
 	   		<div class="px-6 py-4">
-	    	<div class="relative text-teal-900 font-bold text-xl mb-2">주제 설명</div>
-	    	<p class="text-gray-700 text-base z-234 ">
+	    	<div class="relative text-teal-900 font-bold text-xl my-2">주제 설명</div>
+	    	<p class="text-gray-700 text-base z-234 mt-3">
 	      	설명 설명 설명 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
 	    	</p>
 	   	
 	   	<c:if test="${attend gt 0 }">
-			<div class="text-blue-700 font-bold text-xl mt-2 mb-2">정답 : <span>${quiz.NAME }</span></div>
+			<div class="text-blue-700 font-bold text-xl mt-8 mb-2">정답 : <span>${quiz.NAME }</span></div>
 		</c:if>
 	   	
 		<c:if test="${attend lt 1 }">
-			<div class=" flex flex-wrap  justify-center my-2">
+			<div class=" flex flex-wrap  justify-center mt-3 my-2">
 		   	<c:forEach items="${quiz.words }" var="word" begin="0" end="${quiz.length }">
 		 		<div class="rounded w-auto flex-1 text-gray-700 text-center bg-teal-400 hover:bg-teal-600 px-4 py-2 m-2">${word }</div>
 		   	</c:forEach>

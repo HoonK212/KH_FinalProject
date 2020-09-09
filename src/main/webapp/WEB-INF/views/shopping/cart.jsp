@@ -22,7 +22,7 @@
 		                    </div>
 		                </div>
 		            </div>
-		            <span class="text-gray-600">${item.price }</span>
+		            <span class="text-gray-600"><fmt:formatNumber pattern="#,###" value="${item.price }" /> 원</span>
 		        </div><!-- 장바구니 아이템 end -->
 			</c:forEach>
 		</c:if>		
