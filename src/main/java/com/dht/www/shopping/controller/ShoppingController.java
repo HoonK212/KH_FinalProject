@@ -1,6 +1,7 @@
 package com.dht.www.shopping.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -386,7 +387,7 @@ public class ShoppingController {
 	         int point=0;
 	         int mount =0;
 	         
-	         if(another.get("point") != null && another.get("point") != "") {
+	         if(another.get("point") != null && !"".equals(another.get("point"))) {
 	            point = Integer.parseInt(another.get("point"));
 	         }
 	         
@@ -397,6 +398,7 @@ public class ShoppingController {
 	         
 	         point = point / result.size();
 	         
+	         StringBuilder sb = new StringBuilder();
 	         for(int i=0; i<result.size(); i++) {
 	            
 	            OrderProduct orderProduct = new OrderProduct();
@@ -408,8 +410,14 @@ public class ShoppingController {
 	            orderProduct.setCode(result.get(i).get("code"));
 	            orderProduct.setOrdersNo(ordersNo);
 	            orderProductList.add(orderProduct);
+	            sb.append(result.get(i).get("code")+",");
 	         }
 	         shoppingService.insertOrderProduct(orderProductList);
+	         
+	         Map<String, Object> delete = new HashMap<String, Object>();
+	         delete.put("userId", user.getId());
+	         delete.put("array", sb.toString().split(","));
+	         shoppingService.deleteList(delete);
 	   }
 
 	@RequestMapping(value = "/paymentComplete", method = RequestMethod.GET)
