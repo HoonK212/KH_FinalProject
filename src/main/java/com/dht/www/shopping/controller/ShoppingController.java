@@ -322,27 +322,22 @@ public class ShoppingController {
 	public String shoppingPayment(Model model, HttpSession session, 
 			@RequestParam(required = false, defaultValue = "0") int amount, String userId, String codes) {
 
+		Map<String, Object> map = new HashMap<String, Object>();
+
 		if (amount > 0) {
-			
+			map = shoppingService.sessionBasket(codes);
+			map.put("amount", amount);
+			List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+			list.add(map);
+			model.addAttribute("product", list);
 		} else {
-
-			System.out.println(userId);
-			System.out.println(codes);
-
 			String[] array = codes.split(",");
-
-			for (int i = 0; i < array.length; i++) {
-				System.out.println(array[i]);
-			}
-
-			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("userId", userId);
 			map.put("array", array);
-
+			//장바구니에서 정보 가져오기
 			model.addAttribute("product", shoppingService.selectProuct(map));
-			model.addAttribute("point", shoppingService.selectPoint(userId));
-
 		}
+		model.addAttribute("point", shoppingService.selectPoint(userId));
 		return "shopping/payment";
 	}
 

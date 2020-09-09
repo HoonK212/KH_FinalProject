@@ -42,10 +42,13 @@
 	</resultMap>
 	
 	<resultMap type="map" id="detailReview">
-		<result column="id" property="id"/>
+		<result column="nick" property="nick"/>
 		<result column="score" property="score"/>
 		<result column="review" property="review"/>
 		<result column="dates" property="dates"/>
+		<result column="path" property="path"/>
+		<result column="renamed" property="renamed"/>
+		<result column="ext" property="ext"/>
 	</resultMap>
 	
 	<select id="selectHome" parameterType="string" resultMap="homeItem">
@@ -116,14 +119,14 @@
 	
 	<select id="selectBasket" parameterType="map" resultMap="basketItem">
 		select p.code, name, amount, price, path, renamed, ext from product p, files f, basket b
-		where p.code = f.ref and p.sell = 1 and b.code = p.code 
+		where p.code = f.ref and p.sell = 1 and b.code = p.code and thumbnail = 1
 		and p.stock > 0 and b.id = #{id}
 		order by b.dates desc
 	</select>
 	
 	<!-- 세션 장바구니에 추가할 item 정보 추출 -->
 	<select id="sessionBasket" parameterType="string" resultMap="basketItem">
-		select p.code, name, price, path, renamed, ext from product p, files f
+		select p.code, name, price, company, path, renamed, ext from product p, files f
 		where p.code = f.ref and p.sell = 1 and thumbnail = 1
 		and p.stock > 0 and p.code = #{value}
 	</select>
@@ -151,8 +154,8 @@
 	</select>
 	
 	<select id="selectReview" resultMap="detailReview">
-		select o.id, score, review, r.dates from review r, order_product op, product p, orders o
-		where r.op_no = op.no and p.code = op.code and op.orders_no = o.no
+		select u.nick, score, review, to_char(r.dates, 'yyyy-mm-dd') dates, path, renamed, ext from review r, order_product op, product p, orders o, users u, files f
+		where r.op_no = op.no and p.code = op.code and op.orders_no = o.no and o.id = u.id and f.ref = u.id
 		and p.code = #{value}
 		order by r.dates desc
 	</select>
@@ -226,8 +229,8 @@
 		) b order by rnum ) t where rnum between #{start} and #{end}
 	</select>
 	
-	<select id="selectFiles" parameterType="string" resultType="Files">
-		select * from files
+	<select id="selectFiles" parameterType="string" resultType="map">
+		select path, renamed, ext from files
 		where thumbnail = 0 and ref = #{value}
 		order by no desc
 	</select>
