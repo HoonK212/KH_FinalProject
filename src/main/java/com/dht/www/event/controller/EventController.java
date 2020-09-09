@@ -176,9 +176,6 @@ public class EventController {
 //			}
 //		}
 //		model.addAttribute("list",list);
-		
-		
-
 
 		list1 = map.get(1);
 		list2 = map.get(2);
@@ -190,14 +187,12 @@ public class EventController {
 		list8 = map.get(8);
 		list9 = map.get(9);
 		
-		
 //		for(int i=1; i<=map.size(); i++) {
 //			
 //			model.addAttribute(""+i+"", map.get(i));
 //			System.out.println("숫자"+i);
 //			System.out.println("모델"+model);
 //		}
-		
 		
 		model.addAttribute("list1",list1);
 		model.addAttribute("list2",list2);
@@ -256,45 +251,5 @@ public class EventController {
 		return "redirect:/event/quiz";
 	}
 	
-	// 출석체크 VIEW
-	@RequestMapping(value="/attend", method=RequestMethod.GET)
-	public void jooyi(HttpSession session, Model model) {
-		
-		Users login = (Users) session.getAttribute("logInInfo");
-		SimpleDateFormat format1 = new SimpleDateFormat("yy/MM/dd");
-		
-		String today = format1.format(new Date());
-		
-		Map<String, Object> check = new HashMap<String, Object>();
-		check.put("id", login.getId());
-		check.put("dates", today);
-		check.put("event", 1);
-		
-		model.addAttribute("attend", eventService.checkAtt(check));
-		model.addAttribute("attList", eventService.selectAttend(login.getId()));
-		
-	}
-	
-	@RequestMapping("/check")
-	@ResponseBody
-	public int check(HttpSession session, String id, String today) {
-		Users login = (Users) session.getAttribute("logInInfo");
-		
-		Compensation com = new Compensation();
-		com.setId(login.getId());
-		com.setEvent(1);
-		
-		int check = eventService.checkWeekAttend(id);
-		
-		if(check == 6) {
-			com.setInc(5);
-		} else {
-			com.setInc(3);
-		}
-		
-		insertPoint(com);
-		
-		return com.getInc();
-	}
-	
+
 }
