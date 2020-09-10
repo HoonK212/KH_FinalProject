@@ -31,7 +31,7 @@
 				</div>
 			
 				  <div class="mr-3">
-				      <select id="select">
+				      <select id="select" style="height: 40px;">
 				          <option value="1">게시글번호</option>
 				          <option value="2">작성자</option>
 				          <option value="3">신고여부</option>

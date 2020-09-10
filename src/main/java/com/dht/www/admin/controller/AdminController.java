@@ -271,6 +271,25 @@ public class AdminController {
 		
 	}
 	
+	//회원관리
+	@RequestMapping(value="/memberlist", method=RequestMethod.GET)
+	public String memberList(@RequestParam(required=false, defaultValue="1") int cPage,
+			@RequestParam(required=false, defaultValue="15") int cntPerPage,
+			@RequestParam Map<String, Object> search,
+			Model model) {
+	
+		Map<String,Object> result = adminService.selectMemberList(cPage, cntPerPage, search);
+		
+		model.addAttribute("mlist", result.get("mlist"));
+		model.addAttribute("page", result.get("page"));
+		
+		//검색한 경우 검색정보를 담기
+		if(search.get("data") != null && search.get("data") != "") {
+			model.addAttribute("search", search);
+		}
+		
+		return "admin/member_list";
+	}
 
 	
 }

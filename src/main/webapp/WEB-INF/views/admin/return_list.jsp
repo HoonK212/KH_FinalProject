@@ -31,7 +31,7 @@
 				</div>
 			
 				  <div class="mr-3">
-				      <select name="type" id="select">
+				      <select name="type" id="select" style="height: 40px;">
 				          <option value="1">상품코드</option>
 				          <option value="2">상품명</option>
 				          <option value="3">수리여부</option>

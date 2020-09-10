@@ -422,7 +422,54 @@ public class AdminServiceImpl implements AdminService {
 			
 		}
 
+		//회원관리
+		@Override
+		public Map<String, Object> selectMemberList(int cPage, int cntPerPage, Map<String,Object> search) {
 		
+			Map<String, Object> commandMap = new HashMap<>();
 
+			//검색어가 있는 경우
+			if(search.get("data") != null && search.get("data") != "") {
+
+				//회원아이디로 검색한 경우
+				if( Integer.valueOf((String) search.get("type")) == 1 ) {
+					//페이징 객체
+					Paging p = new Paging(adminDao.selectMemberCntOfSearchType1(search), cPage, cntPerPage);
+					//파라미터 만들기
+					Map<String, Object> m = new HashMap<>();
+					m.put("paging", p);
+					m.put("search", search);
+					//조회 결과
+					List<Map<String,Object>> plist = adminDao.selectMemberListBySearchDataType1(m);
+					//맵 저장
+					commandMap.put("mlist", plist);
+					commandMap.put("page", p);
+				}else {
+				//회원이름으로 검색한 경우
+					//페이징 객체
+					Paging p = new Paging(adminDao.selectMemberCntOfSearchType2(search), cPage, cntPerPage);
+					//파라미터 만들기
+					Map<String, Object> m = new HashMap<>();
+					m.put("paging", p);
+					m.put("search", search);
+					//조회 결과
+					List<Map<String,Object>> plist = adminDao.selectMemberListBySearchDataType2(m);
+					//맵 저장
+					commandMap.put("mlist", plist);
+					commandMap.put("page", p);
+				}
+			}else {
+				//검색어가 없는 경우
+				//페이징 객체
+				Paging p = new Paging(adminDao.selectMemberCnt(), cPage, cntPerPage);
+				//결과 조회
+				List<Map<String,Object>> plist = adminDao.selectMemberList(p);
+				//맵 저장
+				commandMap.put("mlist", plist);
+				commandMap.put("page", p);
+			}
+			
+			return commandMap;
+		}
 	
 }

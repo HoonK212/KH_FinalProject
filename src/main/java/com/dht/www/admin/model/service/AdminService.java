@@ -47,7 +47,7 @@ public interface AdminService {
 	public void updateProductData(List<MultipartFile> files, Map<String, Object> product, String path,
 			List<String> thumbList);
 
-
-
+	//회원관리
+	public Map<String, Object> selectMemberList(int cPage, int cntPerPage, Map<String,Object> search);
 
 }

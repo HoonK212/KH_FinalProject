@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>product-TEST</title>
+<title>ADMIN PAGE</title>
 <!-- FAVICON -->
 <link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/image/logo.png">
 
