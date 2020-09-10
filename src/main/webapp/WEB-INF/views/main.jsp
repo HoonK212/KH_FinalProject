@@ -121,19 +121,20 @@
     </div>
     <div class="sm:px-12 flex flex-col sm:flex-row">
         <div class="sm:w-1/2 sm:pr-16">
-            <img src="http://placehold.it/552x300" class="rounded-lg">
+            <img src="<%=request.getContextPath() %>/resources/image/why.png" class="rounded-lg" style="width: 543px; height: 296px;">
         </div>
         <div class="sm:w-1/2 pt-4">
             <h3 class="text-2xl text-gray-800 mb-4">
-               
+               운동을 해야하는 이유
             </h3>
             <p class="text-gray-600 leading-relaxed text-lg mb-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-                at ipsum eu nunc commodo posuere et sit amet ligula.
+                세계 보건 기구는, "건강이란 단순히 질병이 없거나 허약하지 않다는 것을 말하는 것이 아니라. 신체적.정신적.사회적 안녕의 완전한 상태이다." 라고 정의하고 있습니다.
+
+				하지만 대부분의 사람들은 건강이 나빠지고 나서야 비로소 건강의 소중한 가치를 깨닫게 됩니다.
             </p>
-            <button class="mx-auto bg-blue-500 hover:bg-blue-300 text-white rounded py-2 px-8 shadow-lg">
-                Action
-            </button>
+<!--             <button class="mx-auto bg-blue-500 hover:bg-blue-300 text-white rounded py-2 px-8 shadow-lg"> -->
+<!--                 Action -->
+<!--             </button> -->
         </div>
     </div>
 </div>
