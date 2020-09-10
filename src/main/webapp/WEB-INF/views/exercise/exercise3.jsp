@@ -10,8 +10,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<section>
-
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -133,6 +131,8 @@ $(document).ready(function() {
 	}
 }
 </style>
+
+<section style="min-height:73vh;">
 
 	<!-- MODAL START -->
 	<div class="plank fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster">

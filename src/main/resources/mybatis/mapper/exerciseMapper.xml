@@ -89,7 +89,6 @@
 		WHERE name = #{exerName}
 	</select>
 	
-	
 	<!-- 포인트 지급 -->
 	<insert id="insertRewardPoint">
 		INSERT INTO compensation(id, dates, type, inc)
@@ -117,8 +116,6 @@
 		INSERT INTO compensation(id, dates, type, inc)
 		VALUES(#{userid}, sysdate, 2, #{coin})
 	</insert> 
-	
-	
 	
 	<!-- 운동이름으로 운동번호 조회 -->
 	<select id="selectExerciseNo" resultType="int">
