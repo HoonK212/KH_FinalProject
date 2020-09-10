@@ -9,6 +9,7 @@
 <title>Daily Home Training</title>
 <link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/image/logo.png">
 <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/layout/footer.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bebas+Neue|Montserrat:400,900&display=swap">
 </head>
 <body>
@@ -137,41 +138,18 @@
     </div>
 </div>
     
-<div class="bg-gray-100 py-20">
+<div class="py-20">
     <div class="container mx-auto px-6 flex flex-col items-center">
-        <h3 class="text-center font-bold text-4xl text-gray-800 mb-4">Lorem ipsum dolor sit amet</h3>
+        <h3 class="text-center font-bold text-4xl text-gray-800 mb-4">Daily Home Tranning Event</h3>
         <p class="text-gray-600 leading-relaxed text-lg mb-8 text-center">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-            at ipsum eu nunc commodo posuere et sit amet ligula.
+            출석 이벤트, 가위바위보, 룰렛돌리기, 초성퀴즈, 신기록 랭킹을 통해 포인트를 획득하세요.
         </p>
         <button class="mx-auto bg-blue-500 hover:bg-blue-300 text-white rounded py-3 px-8 shadow-lg text-xl">
-            Action
+            <a href="<%=request.getContextPath() %>/event/attend">Going to Event</a> 
         </button>
     </div>
 </div>
 
-<footer class="bg-gray-800 pt-16">
-    <div class="container mx-auto px-6">
-        <div class="flex flex-col sm:flex-row items-center justify-end">
-            <div class="sm:w-2/3">
-                <h4 class="text-3xl text-white leading-tight text-center sm:text-left">Nulla mollis, odio ac imperdiet <br class="hidden sm:block"> aliquet, nulla <span class="font-bold underline">ante vulputate elit</span></h4>
-            </div>
-            <div class="sm:w-1/3 mt-12 sm:mt-0 flex justify-end">
-                <button class="bg-blue-500 hover:bg-blue-300 text-white rounded py-3 px-8 shadow-lg text-xl">Contact us</button>
-            </div>
-        </div>
-        <div class="flex justify-center sm:justify-end border-t border-gray-700 py-10 mt-16 ">
-            <a href="#" class="text-white mx-2">Home</a>
-            <a href="#" class="text-white mx-2">Link1</a>
-            <a href="#" class="text-white mx-2">Link2</a>
-            <a href="#" class="text-white mx-2">Link3</a>
-            <a href="#" class="text-white mx-2">Link4</a>
-        </div>
-    </div>
-</footer>
 
-
-
-
-</body>
-</html>
+<!-- FOOTER -->
+<%@include file="./layout/footer.jsp"%>
