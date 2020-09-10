@@ -19,13 +19,10 @@
     <header class="h-24 sm:h-32 flex items-center z-30 absolute top-0 left-0 w-full">
         <div class="container mx-auto px-6 flex items-center justify-between">
             <div class="text-white font-black text-2xl">
-				<a href="<%=request.getContextPath() %>/"><img src="<%=request.getContextPath() %>/resources/image/logo.png" style="width:80px; height:80px;">Daily Home Training</a>
+				<a href="<%=request.getContextPath() %>/"><img src="<%=request.getContextPath() %>/resources/image/logo.png" style="width:70px; height:70px; display: inline-block;">Daily Home Training</a>
             </div>
             <div class="flex items-center">
                 <nav class="font-sen text-white uppercase text-lg lg:flex items-center hidden font-extrabold">
-                    <a href="<%=request.getContextPath() %>/" class="py-2 px-6 flex">
-                        Home
-                    </a>
                     <a href="<%=request.getContextPath() %>/shopping/home" class="py-2 px-6 flex">
                         Shop
                     </a>
@@ -38,13 +35,16 @@
                     <a href="<%=request.getContextPath() %>/board/list" class="py-2 px-6 flex">
                         Board
                     </a>
+             
                     <c:if test="${logInInfo == null}">
                     <a href="<%=request.getContextPath() %>/user/login" class="py-2 px-6 flex">
                         Login
                     </a>
                     </c:if>
                     <c:if test="${logInInfo != null}">
-                    
+              	      	<a href="<%=request.getContextPath() %>/mypage/myMain" class="py-2 px-6 flex">
+                        MyPage
+                   		</a>
                     	<c:set var="TextValue" value="${logInInfo.id}"/>
                     	<c:set var="kakaoid" value="${fn:substring(TextValue,0,5)}" scope="session"/>
                     
@@ -61,6 +61,9 @@
 	                    </c:if> 
 	                    
                     </c:if>
+                	       <a href="<%=request.getContextPath() %>/shopping/basket" class="py-2 px-6 flex">
+                        Cart
+                    </a>
                 </nav>
                 <button class="lg:hidden flex flex-col ml-4">
                     <span class="w-6 h-1 bg-white mb-1"></span>
@@ -72,12 +75,13 @@
     </header>
     <div class="flex relative z-20">
         <div class="container mx-auto px-6 flex relative">
-            <div class="sm:w-1/2 lg:w-2/5 flex flex-col relative z-20 pt-32 lg:pt-48 pb-20 lg:pb-40">
-                <h1 class="font-bebas-neue uppercase text-6xl sm:text-8xl font-black flex flex-col leading-none text-white">Get git <span class="text-5xl sm:text-7xl">Running</span></h1>
-                <p class="text-sm sm:text-base text-white">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat</p>
+            <div class="sm:w-1/2 lg:w-2/5 flex flex-col relative z-20 pt-32 lg:pt-48 pb-20 lg:pb-20">
+                <h1 class="font-bebas-neue uppercase text-6xl sm:text-8xl font-black flex flex-col leading-none text-white"><span class="text-5xl sm:text-7xl">Do not give up</span></h1>
+                <p class="text-sm sm:text-base text-white mt-8">Physical fitness is not only one of the most important keys to a healthy body, it is the basis of dynamic and creative intellectual activity.</p>
+                <p class="text-sm sm:text-base text-white mt-4"> - John F.Kennedy - </p>
                 <div class="flex mt-8">
-                    <a href="#" class="uppercase py-2 px-5 sm:px-8 rounded-full bg-blue-500 border-2 border-transparent text-white text-sm mr-4 hover:bg-blue-300">Get started</a>
-                    <a href="#" class="uppercase py-2 px-5 sm:px-8 rounded-full bg-transparent border-2 border-blue-500 text-white hover:bg-blue-300 hover:border-blue-400 hover:text-white text-sm">Read more</a>
+                    <a href="<%=request.getContextPath()%>/exercise/type" class="uppercase py-2 px-5 sm:px-8 rounded-full bg-blue-500 border-2 border-transparent text-white text-sm mr-4 hover:bg-blue-300">Start Of Exercise</a>
+                    <a href="<%=request.getContextPath()%>/mypage/goalSetting" class="uppercase py-2 px-5 sm:px-8 rounded-full bg-transparent border-2 border-blue-500 text-white hover:bg-blue-300 hover:border-blue-400 hover:text-white text-sm">Goal Setting</a>
                 </div>
             </div>
             <div class="hidden sm:block sm:w-1/2 lg:w-3/5 relative">
@@ -92,25 +96,25 @@
         <div class="relative sm:w-1/3">
             <span class="text-6xl font-black text-gray-200 absolute top-0 left-0">1</span>
             <div class="mt-8 ml-6 relative z-10 flex flex-col">
-                <h4 class="font-bold text-gray-400 uppercase font-xs leading-none">Getting started</h4>
-                <p class="text-3xl text-gray-800 leading-none mt-2">Lorem ipsum dolor</p>
-                <a href="#" class="text-blue-500 mt-2">See more</a>
+                <h4 class="font-bold text-gray-400 uppercase font-xs leading-none">Kinetic Supplement</h4>
+                <p class="text-3xl text-gray-800 leading-none mt-2">운동 보조제</p>
+                <a href="<%=request.getContextPath()%>/shopping/list?listno=4" class="text-blue-500 mt-2">Going To Buy</a>
             </div>
         </div>
         <div class="relative sm:w-1/3">
             <span class="text-6xl font-black text-gray-200 absolute top-0 left-0">2</span>
             <div class="mt-8 ml-6 relative z-10 flex flex-col">
-                <h4 class="font-bold text-gray-400 uppercase font-xs leading-none">Getting started</h4>
-                <p class="text-3xl text-gray-800 leading-none mt-2">Lorem ipsum dolor</p>
-                <a href="#" class="text-blue-500 mt-2">See more</a>
+                <h4 class="font-bold text-gray-400 uppercase font-xs leading-none">Sports Equipment</h4>
+                <p class="text-3xl text-gray-800 leading-none mt-2">운동 기구</p>
+                <a href="<%=request.getContextPath()%>/shopping/list?listno=5" class="text-blue-500 mt-2">Going To Buy</a>
             </div>
         </div>
         <div class="relative sm:w-1/3">
             <span class="text-6xl font-black text-gray-200 absolute top-0 left-0">3</span>
             <div class="mt-8 ml-6 relative z-10 flex flex-col">
-                <h4 class="font-bold text-gray-400 uppercase font-xs leading-none">Getting started</h4>
-                <p class="text-3xl text-gray-800 leading-none mt-2">Lorem ipsum dolor</p>
-                <a href="#" class="text-blue-500 mt-2">See more</a>
+                <h4 class="font-bold text-gray-400 uppercase font-xs leading-none">Diet Food</h4>
+                <p class="text-3xl text-gray-800 leading-none mt-2">다이어트 식품</p>
+                <a href="<%=request.getContextPath()%>/shopping/list?listno=6" class="text-blue-500 mt-2">Going To Buy</a>
             </div>
         </div>
     </div>
@@ -120,7 +124,7 @@
         </div>
         <div class="sm:w-1/2 pt-4">
             <h3 class="text-2xl text-gray-800 mb-4">
-                Lorem ipsum dolor sit amet.
+               
             </h3>
             <p class="text-gray-600 leading-relaxed text-lg mb-4">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
@@ -156,7 +160,7 @@
                 <button class="bg-blue-500 hover:bg-blue-300 text-white rounded py-3 px-8 shadow-lg text-xl">Contact us</button>
             </div>
         </div>
-        <div class="flex justify-center sm:justify-end border-t border-gray-700 py-10 mt-16 mb-8">
+        <div class="flex justify-center sm:justify-end border-t border-gray-700 py-10 mt-16 ">
             <a href="#" class="text-white mx-2">Home</a>
             <a href="#" class="text-white mx-2">Link1</a>
             <a href="#" class="text-white mx-2">Link2</a>
@@ -165,6 +169,9 @@
         </div>
     </div>
 </footer>
+
+
+
 
 </body>
 </html>

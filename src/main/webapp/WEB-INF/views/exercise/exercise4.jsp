@@ -112,7 +112,7 @@ function countUpdate(count, set, exer) {
 					
 	    			
 				} else {
-					alert("선택한 운동이 끝났습니다.\n운동 보상 받기 버튼을 클릭해 보상을 받으세요!");
+					setTimeout("alert('선택한 운동이 끝났습니다.\n운동 보상 받기 버튼을 클릭해 보상을 받으세요!')", 2000);
 					$(".complete").css({'pointer-events':'all'});
 	    			$(".complete").css({'cursor':'pointer'});
 				}
