@@ -32,7 +32,7 @@
 				</div>
 			
 				  <div class="mr-3">
-				      <select id="select" name="search">
+				      <select id="select" name="search" style="height: 40px;">
 				          <option value="code">상품번호</option>
 				          <option value="name">상품명</option>
 				      </select>

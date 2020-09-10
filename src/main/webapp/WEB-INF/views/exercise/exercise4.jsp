@@ -106,11 +106,13 @@ function countUpdate(count, set, exer) {
 					set = 0;
 					
 					console.log("엑설엑설 : " + exerCnt);
-	    			exerChange(window.exerArrList[exerCnt]);
-	    			
+					setTimeout("alert('충분한 휴식을 취한 후 다음 운동을 진행하려면 확인 버튼을 누르세요.')", 2000);
+					setTimeout("exerChange(window.exerArrList[exerCnt]);", 2000);
+					
+					
 	    			
 				} else {
-					alert("운동끝입니다다다");
+					setTimeout("alert('선택한 운동이 끝났습니다.\n운동 보상 받기 버튼을 클릭해 보상을 받으세요!')", 2000);
 					$(".complete").css({'pointer-events':'all'});
 	    			$(".complete").css({'cursor':'pointer'});
 				}
@@ -199,7 +201,7 @@ $(".complete").click(function() {
 
 
 <!-- section 시작 -->
-<section>
+<section style="min-height:73vh;">
 
 	<!-- div wrap 시작 -->
 	<div id="wrap">

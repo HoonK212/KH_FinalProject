@@ -71,6 +71,9 @@
                         </span>
                     </button>
 
+                    <div x-show="open" class="bg-gray-700">
+                        <a class="py-2 px-16 block text-sm text-gray-100 hover:bg-blue-500 hover:text-white" href="<%=request.getContextPath()%>/admin/memberlist">회원관리</a>
+                    </div>
                 </div>
                 
                 <div x-data="{ open: false }">
