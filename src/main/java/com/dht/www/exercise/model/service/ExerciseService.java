@@ -20,7 +20,6 @@ public interface ExerciseService {
 	// 해당 운동으로 전신,상체,하체 조회하기
 	public List<Exercise> leftExerInfo(List<String> exerciseList);
 	
-	
 	// DB에 저장되어있는 운동개수 알아와서 등급과 계산
 	public int[] selectCalcExerCnt(String[] userExer, int userLevel);
 
@@ -35,11 +34,4 @@ public interface ExerciseService {
 	
 	// 운동 기록
 	public void insertEventRecord(Map<String, Object> recordMap);
-
-	
-
-
-
-
-	
 }

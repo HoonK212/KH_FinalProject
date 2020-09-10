@@ -123,7 +123,7 @@ public class ExerciseServiceImpl implements ExerciseService {
 		
 		System.out.println("당일 지급받은 코인 횟수 : " + todayUserCoinCnt);
 		
-		// 0보다 크면 코인 보유개수 조회한 값으로 저장
+		// 0보다 크면 코인 보유개수 조회
 		if(todayUserCoinCnt > 0) {
 			todayUserCoin = exerciseDao.selectUserCoin(userid);
 		}
@@ -137,7 +137,7 @@ public class ExerciseServiceImpl implements ExerciseService {
 			coin = maxCoin - todayUserCoin;
 			rewardMap.put("coin", coin);
 			exerciseDao.insertRewardCoin(rewardMap);
-		} else if(calcCoin == 0) {
+		} else if(calcCoin == maxCoin) {
 			coin = 0;
 		} else {
 			coin = exerciseLength;

@@ -107,8 +107,8 @@
 			<div class="mt-8 border border-blue-800 mx-8 lg:mx-16 flex flex-wrap">
 			
 				<!-- 프로그래스바 템플릿 시작 -->
-				<div class="" style="margin: 10px 15px; width: 100%;">
-					<div class="" style="width: 100%;">
+				<div style="margin: 10px 15px; width: 100%;">
+					<div style="width: 100%;">
 						<h5>세트</h5>
 						<div class="progress">
 							<div class="progress-bar-set" role="progressbar"
