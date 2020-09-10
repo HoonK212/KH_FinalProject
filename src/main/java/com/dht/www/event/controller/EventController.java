@@ -225,7 +225,7 @@ public class EventController {
 	
 	// 출석체크 VIEW
 	@RequestMapping(value = "/attend", method = RequestMethod.GET)
-	public void jooyi(HttpSession session, Model model) {
+	public void eventAttend(HttpSession session, Model model) {
 
 		Users login = (Users) session.getAttribute("logInInfo");
 		SimpleDateFormat format1 = new SimpleDateFormat("yy/MM/dd");
@@ -244,7 +244,7 @@ public class EventController {
 
 	@RequestMapping("/check")
 	@ResponseBody
-	public int check(HttpSession session, String id, String today) {
+	public int checkAttend(HttpSession session, String id, String today) {
 		Users login = (Users) session.getAttribute("logInInfo");
 
 		Compensation com = new Compensation();
