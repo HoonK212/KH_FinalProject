@@ -15,7 +15,7 @@ public interface EventService {
 
 	public int checkAtt(Map<String, Object> map);
 	
-
+	public List<List<Map<String, Object>>> selectRecord(int day);
 
 	public Map<String, Object> selectQuiz(int day);
 	

@@ -30,7 +30,11 @@ public class EventServiceImpl implements EventService {
 		return eventDao.insertCoin(com);
 	}
 
-
+	@Override
+	public List<List<Map<String, Object>>> selectRecord(int day) {
+		return eventDao.selectRecord(day);
+	}
+	
 	@Override
 	public Map<String, Object> selectQuiz(int day) {
 		return eventDao.selectQuiz(day);

@@ -53,7 +53,7 @@
 	</select>
 	
 	<select id="selectAttend" parameterType="string" resultType="map">
-		select to_char(dates, 'yyyy-mm-dd') dates from compensation
+	 	select to_char(dates, 'yyyy-mm-dd') dates from compensation
 		where type = 1 and event = 1 and id = #{id}
 		order by dates desc
 	</select>
@@ -63,5 +63,40 @@
 		where event = 1 and type = 1 and id = #{value} and
 		to_char(dates, 'yy/mm/dd') between to_char(sysdate - to_char(sysdate, 'D') +2, 'yy/mm/dd') 
 		and to_char(sysdate - to_char(sysdate, 'D') + 7, 'yy/mm/dd'))
+	</select>
+	
+	<select id="selectRecord" resultMap="exerRecord">
+		select e.name, r.id, r.record, RANK() OVER (order by r.record desc ) as rk
+		
+		<if test="day lte 4">
+			, to_char(sysdate - to_char(sysdate, 'D') -2, 'yy/mm/dd') sdate
+			,to_char(sysdate - to_char(sysdate, 'D') + 4, 'yy/mm/dd') edate
+		</if>
+		<if test="day gt 4">
+			,to_char(sysdate - to_char(sysdate, 'D') +5, 'yy/mm/dd') sdate
+			,to_char(sysdate - to_char(sysdate, 'D') + 11, 'yy/mm/dd') edate
+		</if>
+		
+		from exercise e, record r where e.no = r.ex_no and 
+		
+		<if test="no lt 6">
+			no = #{no}
+		</if>
+		<if test="no eq 6">
+			no in (6, 7)
+		</if>
+		<if test="no gt 6">
+			no = #{no} + 1
+		</if>
+		
+		and
+		<if test="day lte 4">
+			to_char(r.dates, 'yy/mm/dd') between to_char(sysdate - to_char(sysdate, 'D') -2, 'yy/mm/dd') 
+			and to_char(sysdate - to_char(sysdate, 'D') + 4, 'yy/mm/dd')
+		</if>
+		<if test="day gt 4">
+			to_char(r.dates, 'yy/mm/dd') between to_char(sysdate - to_char(sysdate, 'D') +5, 'yy/mm/dd') 
+			and to_char(sysdate - to_char(sysdate, 'D') + 11, 'yy/mm/dd')
+		</if>
 	</select>
 </mapper>

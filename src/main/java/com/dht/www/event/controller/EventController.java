@@ -129,8 +129,17 @@ public class EventController {
 	}
 	
 	// 신기록 VIEW
-	@RequestMapping(value="/record", method=RequestMethod.GET)
+	@RequestMapping(value = "/record", method = RequestMethod.GET)
 	public void eventRecordfinal(Model model) {
+		// 요일을 1-7으로 반환
+		GregorianCalendar cal = new GregorianCalendar();
+		int day = cal.get(Calendar.DAY_OF_WEEK);
+		
+		List<List<Map<String, Object>>> list = eventService.selectRecord(day);
+		model.addAttribute("list", list);
+		model.addAttribute("start", list.get(0).get(0).get("sdate"));
+		model.addAttribute("end", list.get(0).get(0).get("edate"));
+		model.addAttribute("event", 4);
 
 	}
 	
