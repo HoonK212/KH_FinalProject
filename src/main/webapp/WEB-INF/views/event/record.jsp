@@ -27,7 +27,7 @@ $("#recordrow1").html
 		</span>
 	</div>
 	<div class="py-3">
-		<p class="text-xl font-bold text-indigo-600">${list1[0].sdate } ~ ${list1[0].edate }</p>
+		<p class="text-xl font-bold text-indigo-600">${start } ~ ${end }</p>
 	</div>
 	
 	<div id="recordrow1">

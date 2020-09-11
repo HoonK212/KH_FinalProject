@@ -67,6 +67,7 @@ public class EventController {
 		
 		//현재 포인트, 코인
 		model.addAttribute("pointcoin", checkPC(com));
+		model.addAttribute("event", 2);
 	}
 	
 	@RequestMapping(value="/roulette", method=RequestMethod.POST)
@@ -106,13 +107,11 @@ public class EventController {
 		//요일을 1-7으로 반환
 		GregorianCalendar cal = new GregorianCalendar();
 		int day = cal.get(Calendar.DAY_OF_WEEK);
-		
 		List<List<Map<String, Object>>> list = eventService.selectRecord(day);
-		
-		for (int i = 1; i <= list.size(); i++) {
-			model.addAttribute("list", list);
-			model.addAttribute("list"+i, list.get(i-1));
-		}
+		model.addAttribute("list", list);
+		model.addAttribute("start", list.get(0).get(0).get("sdate"));
+		model.addAttribute("end", list.get(0).get(0).get("edate"));
+		model.addAttribute("event", 4);
 		
 	}
 	
@@ -141,7 +140,7 @@ public class EventController {
 		
 		model.addAttribute("attend", eventService.checkAtt(map));
 		model.addAttribute("quiz", quiz);
-		
+		model.addAttribute("event", 3);
 	}
 	
 	@RequestMapping(value="/quiz", method=RequestMethod.POST)
@@ -173,6 +172,7 @@ public class EventController {
 
 		model.addAttribute("attend", eventService.checkAtt(check));
 		model.addAttribute("attList", eventService.selectAttend(login.getId()));
+		model.addAttribute("event", 0);
 
 	}
 
