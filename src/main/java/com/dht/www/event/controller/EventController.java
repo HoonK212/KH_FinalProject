@@ -54,8 +54,35 @@ public class EventController {
 	
 	// 가위바위보 VIEW
 	@RequestMapping(value="/rockpaper", method=RequestMethod.GET)
-	public String eventRockPaperScissorsfinal() {
-		return "event/rockpaper";
+	public void eventRockPaperScissorsfinal(HttpSession session, Model model) {
+		Map<String, Object> coin;
+		Users user = (Users) session.getAttribute("logInInfo");
+		
+		Compensation com = new Compensation();
+		
+		com.setId(user.getId());
+		
+		coin = eventService.checkPC(com);
+		int num = Integer.parseInt( String.valueOf( coin.get("coin") ) );
+		
+		System.out.println("코인 나오니"+num);
+		model.addAttribute("coin",num);
+		model.addAttribute("event", 1);
+	}
+	
+	@RequestMapping(value="/rockpaper", method=RequestMethod.POST)
+	@ResponseBody
+	public void eventRockPaperScissorsfinalCompensation(HttpSession session) {
+		Users user = (Users) session.getAttribute("logInInfo");
+		
+		Compensation com = new Compensation();
+		
+		com.setId(user.getId());
+		com.setInc(5);
+		com.setEvent(4);
+		
+		insertPoint(com);
+		insertCoin(com);
 	}
 	
 	// 룰렛 VIEW
@@ -104,15 +131,7 @@ public class EventController {
 	// 신기록 VIEW
 	@RequestMapping(value="/record", method=RequestMethod.GET)
 	public void eventRecordfinal(Model model) {
-		//요일을 1-7으로 반환
-		GregorianCalendar cal = new GregorianCalendar();
-		int day = cal.get(Calendar.DAY_OF_WEEK);
-		List<List<Map<String, Object>>> list = eventService.selectRecord(day);
-		model.addAttribute("list", list);
-		model.addAttribute("start", list.get(0).get(0).get("sdate"));
-		model.addAttribute("end", list.get(0).get(0).get("edate"));
-		model.addAttribute("event", 4);
-		
+
 	}
 	
 	// 초성퀴즈 VIEW - event : 2, 하루 한 번 참여 가능
