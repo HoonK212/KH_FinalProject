@@ -153,7 +153,7 @@ public class ShoppingServiceImpl implements ShoppingService {
 		}
 
 		@Override
-		public List<Files> selectFiles(String code) {
+		public List<Map<String, Object>> selectFiles(String code) {
 			return shoppingDao.selectFiles(code);
 		}
 

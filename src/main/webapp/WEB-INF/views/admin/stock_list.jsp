@@ -27,7 +27,7 @@
 			<!-- 상단 버튼 영역 -->
 			<form action="<%=request.getContextPath()%>/admin/stocklist" method="GET" class="flex justify-end">
 				  <div class="mr-3">
-				      <select name="type" id="select">
+				      <select name="type" id="select" style="height: 40px;">
 				          <option value="1">상품코드</option>
 				          <option value="2">상품명</option>
 				      </select>

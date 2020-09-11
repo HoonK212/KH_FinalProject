@@ -20,6 +20,8 @@
 		<result column="id" property="id"/>
 		<result column="record" property="record"/>
 		<result column="rk" property="rank"/>
+		<result column="sdate" property="sdate"/>
+		<result column="edate" property="edate"/>
 	</resultMap>
 	
 	<select id="checkPC" resultMap="pointcoin">
@@ -35,17 +37,7 @@
 	<insert id="insertCoin">
 		insert into compensation values (#{id}, sysdate, 2, #{event}, 0, 1)
 	</insert>
-	
-	<select id="selectRecord" parameterType="map" resultMap="exerRecord">
-		select e.name, r.id, r.record , RANK() OVER (order by r.record desc ) as rk 
-		from exercise e, record r where e.no = r.ex_no and r.dates between #{firstRange} and #{lastRange}
-		<if test="value == 8">
-			and ex_no in(#{num},10)
-		</if>
-		<if test="value != 8">
-			and ex_no = #{num} 
-		</if>
-	</select>
+
 	
 	<select id="selectQuiz" parameterType="int" resultType="map">
 		select name, product_initial ini from ( select rownum rnum, b.* from (

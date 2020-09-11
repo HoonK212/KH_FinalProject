@@ -73,10 +73,8 @@
 		<div
 			class="bg-blue-900 text-white rounded-b md:rounded-b-none md:rounded-r shadow-lg overflow-hidden">
 			<div class="text-lg font-medium text-white-500 uppercase p-8 text-center border-b border-gray-200 tracking-wide">
-<!-- 									<button type="button" onclick="init()">운동 Start</button> -->
 				운동 촬영 영상
 			</div>
-			
 			
     					<!-- 진짜 웹캠 공간 -->
 
@@ -85,30 +83,24 @@
 								<div><canvas id="canvas" style="display: inline;"></canvas></div>
 								<div id="label-container"></div>
 								
-								
-							
-							
 							</div>
 							
 							<!-- 진짜 웹캠 공간끝 -->
 			
-			
-			
-			
 			<div class="mt-8 border border-blue-800 mx-8 lg:mx-16 flex flex-wrap">
 			
 				<!-- 프로그래스바 템플릿 시작 -->
-				<div class="" style="margin: 10px 15px; width: 100%;">
-					<div class="" style="width: 100%;">
+				<div style="margin: 10px 15px; width: 100%;">
+					<div style="width: 100%;">
 						<h5>세트</h5>
 						<div class="progress">
 							<div class="progress-bar-set" role="progressbar"
-								aria-valuenow="0" aria-valuemin="0" aria-valuemax="2">0</div>
+								aria-valuenow="0" aria-valuemin="0" aria-valuemax="3"></div>
 						</div>
 						<h5>횟수</h5>
 						<div class="progress" >
 							<div class="progress-bar-count" role="progressbar"
-								aria-valuenow="0" aria-valuemin="0" aria-valuemax="2">0</div>
+								aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
 						</div>
 					</div>
 				</div>
@@ -124,5 +116,4 @@
 	</div>
 	
 </div>
-<!-- 캠 레이아웃 끝 -->
-							
+<!-- 캠 레이아웃 끝 -->	

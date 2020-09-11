@@ -15,115 +15,6 @@
 #wrap{
   font-size:70%;
 }
-
-#product_layout_3 .product_image{
-  display:block;
-  box-sizing:border-box;
-  width:40%;
-  float:left;
-}
-#product_layout_3 .product_image .main_image img{
-  margin:0 auto;
-  border-radius:2px;
-}
-#product_layout_3 .product_desc{
-  width:50%;
-  float:left;
-  margin-left:10%;
-  min-height:660px;
-}
-#product_layout_3 .product_desc h1{
-  font-size:3.6em;
-  font-weight:500;
-}
-#product_layout_3 .product_desc .price{
-  display:block;
-  font-size:2.4em;
-  color:#ccc;
-  text-decoration:line-through;
-}
-#product_layout_3 .product_desc .sale_price{
-  display:block;
-  font-size:2.8em;
-  color:crimson;
-  font-weight:700;
-}
-#product_layout_3 .product_desc .stars{
-  display:block;
-  font-size:2em;
-  color:goldenrod;
-  margin-top:5px;
-}
-#product_layout_3 .product_options .select{
-  width: 100%;
-  max-width:300px;
-  height: 40px;
-  overflow: hidden;
-  background: url('https://i.imgur.com/10e9Roz.png') no-repeat right #FFF;
-  border: 1px solid #ccc;
-  border-radius:2px;
-  margin-top:15px;  
-}
-#product_layout_3 .product_options select{
-  background: transparent;
-  display:block;
-  width: 268px;
-  padding: 5px;
-  font-size: 2em;
-  line-height: 1;
-  border: 0;
-  border-radius:0;
-  height: 40px;
-  -webkit-appearance: none;
-}
-#product_layout_3 .buying{
-  max-width:300px;
-  width:100%;
-  display:block;
-}
-#product_layout_3 .buying .quantity{
-  font-size:2em;
-  margin-top:15px;
-  width:35%;
-  float:left;
-  display:block;
-}
-#product_layout_3 .buying .quantity [type="text"]{
-  width:40px;
-  height:40px;
-  border:1px solid #ccc;
-  border-radius:2px;
-  padding:10px;
-  box-sizing:border-box;
-  font-size:1em;
-}
-#product_layout_3 .buying .cart{
-  margin-top:25px;
-  width:65%;
-  float:left;
-  margin-bottom:20px;
-}
-#product_layout_3 .buying .cart a.add{
-  font-size:2em;
-  float:right;
-  color:#FFF;
-  background:skyblue;
-  text-decoration:none;
-  padding:10px 20px;
-  margin-top:-10px;
-  border-radius:2px;
-}
-#product_layout_3 .product_desc .other_options{
-  color:#aaa;
-  display:block;
-  float:left;
-  width:100%;
-  min-height:30px;
-  margin-bottom:15px;
-}
-#product_layout_3 .product_desc .other_options span{
-  display:block;
-}
 #product_layout_3 .product_desc .description{
   font-size:1.4em;
   display:block;
@@ -141,12 +32,6 @@
 #product_layout_3 .product_desc .social .share{
   margin-top:-5px;
   margin-bottom:15px;
-}
-#product_layout_3 .product_desc .buttons{
-  margin-top:20px;
-  margin-left:10px;
-  display:inline-block;
-  width:30%;
 }
 #product_layout_3 .tabular{
   display:block;
@@ -195,17 +80,14 @@
 }
 #product_layout_3 .tabular #content {
   width: 100%;
-  min-height: 200px;
+  margin-top: -10px;
   background: #white;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
   border-top-right-radius:3px;
   padding:2em;
-  float:left;
-  margin-top:-10px;
   border:1px solid #808080;
   border-top:0;
-  margin-bottom:30px;
   box-sizing:border-box;
   -moz-box-sizing:border-box;
 }
@@ -213,96 +95,10 @@
   color: #black;
   font-weight:500;
   font-size: 1.4em;
-  margin: 10px;
 }
-#product_layout_3 .tabular #content #one .images{
-  width:45%;
-  float:left;  
+aside {
+	min-height: 150px;
 }
-#product_layout_3 .tabular #content #one{
-  -webkit-columns: 2;
-  -moz-columns: 2;
-}
-#product_layout_3 .tabular #content #two .author{
-  font-size:1.6em;
-  font-weight:700;
-  color:#FFF;
-  display:inline-block;
-  margin:10px;
-}
-#product_layout_3 .tabular #content #two .stars{
-  font-size:1.8em;
-  color:goldenrod;
-  display:inline-block;
-  margin:10px;
-}
-#product_layout_3 .tabular #content #two span.full_review a{
-  font-size:1.4em;
-  display:block;
-  color:skyblue;
-  text-align:center;
-}
-#product_layout_3 .tabular #content #two span.write_review a{
-  font-size:1.4em;
-  color:skyblue;
-  text-align:center;
-  display:block;
-  margin-top:10px;
-}
-#product_layout_3 .tabular #content #three .images{
-  width:45%;
-  float:left;
-  display:block;
-  margin-right:5%;
-  -moz-columns:2;
-  -webkit-columns:2;
-  height:auto;
-}
-#product_layout_3 .tabular #content #three .images img{
-  width:100px;
-  margin-top:20px;
-  margin-left:auto;
-  margin-right:auto;
-  display:block;
-}
-#product_layout_3 .tabular #content #three .details{
-  width:45%;
-  float:left;
-  margin-left:5%;
-  height:auto;
-}
-@media (max-width:500px){
-  #product_layout_3 .product_image{
-    width:100%;
-    margin-left:0;
-    margin-right:0;
-  }
-   #product_layout_3 .product_desc{
-     width:100%;
-     margin-left:0;
-     margin-right:0;
-   }
-  #product_layout_3 .tabular ul.tabs {
-	width: 100%;
-  }
-  #product_layout_3 .tabular #content #three{
-     height:auto;
-    display:block;
-  }
-  #product_layout_3 .tabular #content #one,
-  #product_layout_3 .tabular #content #three .images,
-  #product_layout_3 .tabular #content #three .details{
-  width:100%;
-  float:none;
-  -moz-columns:1;
-  -webkit-columns:1;
-}
-  #product_layout_3 .buying .quantity{
-    width:35%;
-  }
-  #product_layout_3 .buying .cart{
-    width:65%;
-  }
 </style>
 
     <main class="my-5 py-3">
@@ -317,17 +113,17 @@
 		<div class="flex items-center">
 			<div class="flex items-center mt-2 mb-4">
 				<c:if test="${avg ne 0 }">
-					<c:forEach begin="0" end="${avg }">
-						<svg class="mx-1 w-4 h-4 fill-current text-yellow-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+					<c:forEach begin="1" end="${avg }">
+					<svg class="w-4 h-4 fill-current text-yellow-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
 					</c:forEach>
 				</c:if>
-				<c:forEach begin="0" end="${4-avg }">
-					<svg class="mx-1 w-4 h-4 fill-current text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+				<c:forEach begin="1" end="${5-avg }">
+					<svg class="w-4 h-4 fill-current text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
 				</c:forEach>
 			</div>
 		</div>
 		
- 		<span class="text-gray-700 mt-3">${detail.price }원</span>
+ 		<span class="text-gray-700 mt-3"><fmt:formatNumber pattern="#,###" value="${detail.price }" /> 원</span>
 		<hr class="my-3">
 		<div class="mt-2">
 			<div class="flex items-center mt-1 py-2">
@@ -348,47 +144,70 @@
 		</div>
 	</div>
 </div>
-${files }            
 <div id="wrap" class="py-3">
   <div id="product_layout_3">
       <div class="tabular">
         <ul class="tabs group">
-          <li><a href="#/one" class="hover:bg-gray-500">상세정보</a></li>
-          <li><a href="#/two" class="hover:bg-gray-500">리뷰</a></li>
-          <li><a href="#/three" class="active">Q&A</a></li>
+          <li><a href="#/one" class="hover:bg-indigo-300">상세정보</a></li>
+          <li><a href="#/two" class="hover:bg-indigo-300">리뷰</a></li>
         </ul>
           <div id="content">
           
-            <aside id="one">
+            <aside id="one" class="py-3">
             <div>
+            	<c:forEach items="${files }" var="file">
+            	<div class="py-2 justify-center mx-auto">
+				<img width="100%" src="<%=request.getContextPath() %>/resources/${file.PATH }/${file.RENAMED }.${file.EXT }" />            	
+            	</div>
+            	</c:forEach>
+            	
 	            <p>${detail.describe }</p>
             </div>
             </aside>
-            
-            <aside id="two"><!-- 리뷰 리스트명 reviews -->
+            <aside id="two" class="py-3"><!-- 리뷰 리스트명 reviews -->
+            	<div>
             	<c:if test="${empty reviews }">
-					<p class="py-2 text-center font-semibold text-blue-700">리뷰가 없습니다</p>
+					<p class="py-2 text-center text-blue-700" style="font-weight: bold;">리뷰가 없습니다</p>
 				</c:if>
 				<c:if test="${not empty reviews }">
 				<c:forEach items="${reviews }" var="review">
-					<div>
-					
-					
+					<!-- 리뷰 -->
+					<hr>
+					<div class="flex items-start my-4">
+					  <div class="flex-shrink-0">
+					    <div class="inline-block relative">
+					      <div class="relative w-16 h-16 rounded-full overflow-hidden">
+					        <img class="absolute top-0 left-0 w-full h-full bg-cover object-fit object-cover" src="<%=request.getContextPath() %>/resources/${review.path }/${review.renamed }.${review.ext }" alt="Profile picture">
+					        <div class="absolute top-0 left-0 w-full h-full rounded-full shadow-inner"></div>
+					      </div>
+					    </div>
+					  </div>
+					  <div class="ml-6">
+					    <p class="flex items-baseline">
+					      <span class="text-gray-600 font-bold">${review.nick }</span>
+					    </p>
+					    <div class="flex items-center mt-1">
+							<c:if test="${review.score ne 0 }">
+							<c:forEach begin="1" end="${review.score }">
+								<svg class="w-4 h-4 fill-current text-yellow-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+							</c:forEach>
+							</c:if>
+							<c:forEach begin="1" end="${5-review.score }">
+								<svg class="w-4 h-4 fill-current text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+							</c:forEach>
+					    </div>
+					    <div class="mt-3">
+					      <span class="font-bold">상품명 : ${detail.name } | ${review.dates }</span>
+					      <p class="mt-1">${review.review }</p>
+					    </div>
+					  </div>
 					</div>
 				</c:forEach>
 				</c:if>
+				</div>
+
             </aside>
             
-            <aside id="three">
-              <div class="images">
-<!--                 <img src="사진"/> -->
-              </div>
-              <div class="details">
-              <p>Excuse me. I'll call you tonight. Right. Yeah, I think maybe you do. Wait a minute, wait a minute, Doc, are you telling me that you built a time machine out of a delorean.</p>
-              <p>Um, well it's a delorean, right? Yeah okay. Wow, ah Red, you look great. Everything looks great. 1:24, I still got time. Oh my god. No, no not again, c'mon, c'mon. Hey. Libyans. Yeah, well uh, lets keep this brain melting stuff to ourselves, okay? Yeah, yeah what are you wearing, Dave</p>
-              </div>
-              </aside>
-              
           </div>
       </div>
     </div>
@@ -396,13 +215,13 @@ ${files }
             
             
             <div class="mt-16">
-				<h3 class="text-gray-600 text-2xl font-medium">더 보기</h3>
+				<h3 class="text-gray-600 font-medium">더 보기</h3>
 				<div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
                 
 					<c:forEach items="${list}" var="item" begin="0" end="3">
 						<div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
 							<a href="/shopping/detail?code=${item.code }">
-								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('https://images.unsplash.com/photo-1495856458515-0637185db551?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')"></div>
+								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('<%=request.getContextPath() %>/resources/${item.path }/${item.renamed }.${item.ext }')"></div>
 							</a>
 							<div class="px-5 py-3">
 								<h3 class="text-gray-700 uppercase"><a href="/shopping/detail?code=${item.code }">${item.name}</a></h3>

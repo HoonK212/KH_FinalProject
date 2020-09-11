@@ -29,7 +29,7 @@
 		<form action="<%=request.getContextPath()%>/admin/productlist" method="get"> 
 		<div class="flex justify-end" style=" margin-bottom:3px;">
 		  <div class="mr-3">
-		      <select name="type" id="select">
+		      <select name="type" id="select" style="height: 40px;">
 		          <option value="1">상품코드</option>
 		          <option value="2">상품명</option>
 		      </select>

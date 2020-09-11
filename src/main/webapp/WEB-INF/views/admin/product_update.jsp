@@ -78,11 +78,11 @@
 				          <th class="bg-gray-800 text-white py-3 px-4 uppercase font-semibold text-base">썸네일<br>이미지<br><br>
 				          <button type="button" class="bg-white text-gray-800 py-2 px-3 rounded font-bold" id="clickUpForThumb">업로드</button></th>
 				          <td class="grid grid-flow-row grid-cols-4 grid-rows-auto gap-4 border py-3 px-4" id="thumbbox" style="min-height: 21rem; min-width: 82rem;">
-						  	<input type="file" id="filesforthumb" name="files" multiple style="display:none;"/>
+						  	<input type="file" id="filesforthumb" name="files" style="display:none;"/>
 								<c:forEach items="${thumblist }" var="thumb" varStatus="status">
 									<div class="product-img" id="${thumb.no }">
 									<div class="shadow-lg">
-										<img src="<%=request.getContextPath()%>/resources/upload_product/${thumb.renamed }.${thumb.ext}" style="width: 16rem; height: 15rem;"/>
+										<img src="<%=request.getContextPath()%>/resources/upload_product/${thumb.renamed }.${thumb.ext}" style="width: 16rem; height: 15rem;" class="originThumb"/>
 									</div>
 									<div onclick="deletefile(${thumb.no})" class="text-gray-800 text-center text-sm">X</div>
 									</div>
@@ -98,7 +98,7 @@
 								<c:forEach items="${filelist }" var="file" varStatus="status">
 									<div class="product-img" id="${file.no }">
 									<div class="shadow-lg">
-										<img src="<%=request.getContextPath()%>/resources/upload_product/${file.renamed }.${file.ext}" style="width: 16rem; height: 15rem;"/>
+										<img src="<%=request.getContextPath()%>/resources/upload_product/${file.renamed }.${file.ext}" style="width: 16rem; height: 15rem;" class="originFile"/>
 									</div>
 									<div onclick="deletefile(${file.no})" class="text-gray-800 text-center">X</div>
 									</div>
@@ -182,6 +182,11 @@
 	var lengthForThumb = null;
 	
 	document.getElementById('clickUpForThumb').onclick = function(e) {
+		
+		if($('.originThumb').length){
+			alert('썸네일이 이미 등록되었습니다. 썸네일은 1개만 등록가능합니다.');
+			return false;
+		}
 		
 		document.getElementById('filesforthumb').click();
 		
@@ -322,12 +327,46 @@
 			} catch(e) {
 			}
 		}
-
+		
 		// 작성버튼 동작
 		$("#btnWrite").click(function() {
 			
 			//스마트에디터의 내용을 <textarea>에 적용하는 함수를 호출한다
 			submitContents( $("#btnWrite") );
+			
+			var special_pattern = /[~!@#$%^&*()_+|<>?:{}]/;
+			
+		//	var thumbLength = '<c:out value="${fn:length(thumblist)}"/>';
+		//	var fileLength = '<c:out value="${fn:length(filelist)}"/>';
+			
+			if($('input[name="name"]').val() == ""){
+				alert('상품명을 입력해 주세요');
+				return false;
+			}else if(special_pattern.test($('input[name="name"]').val())){
+				alert('상품명에 특수문자가 들어갈 수 없습니다');
+				return false;
+			}else if( !($('.originThumb').length) && ($('#filesforthumb').val() == "") ){
+				alert('썸네일 이미지를 등록해 주세요');
+				return false;
+			}else if( !($('.originFile').length) && ($('#files').val() == "") ){
+				alert('상세 이미지를 등록해 주세요');
+				return false;
+			}else if($('input[name="price"]').val() == ""){
+				alert('가격을 입력해 주세요');
+				return false;
+			}else if($('input[name="stock"]').val() == ""){
+				alert('재고를 입력해 주세요');
+				return false;
+			}else if($('input[name="company"]').val() == ""){
+				alert('제조사를 입력해 주세요');
+				return false;
+			}else if(special_pattern.test($('input[name="company"]').val())){
+				alert('제조사명에 특수문자가 들어갈 수 없습니다');
+				return false;
+			}else if($('input[name="dates"]').val() == ""){
+				alert('제조일을 입력해 주세요');
+				return false;
+			}
 			
 			// 실제 <form>의 submit 수행
 			$("form").submit();

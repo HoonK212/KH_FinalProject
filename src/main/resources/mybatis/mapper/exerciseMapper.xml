@@ -89,7 +89,6 @@
 		WHERE name = #{exerName}
 	</select>
 	
-	
 	<!-- 포인트 지급 -->
 	<insert id="insertRewardPoint">
 		INSERT INTO compensation(id, dates, type, inc)
@@ -104,9 +103,9 @@
 			and to_char(dates, 'YY/MM/DD') = to_char(sysdate, 'YY/MM/DD')
 	</select>
 	
-	<!-- 보유 코인 조회 -->
+	<!-- 당일 보유 코인 조회 -->
 	<select id="selectUserCoin" resultType="int">
-		SELECT inc FROM compensation
+		SELECT sum(inc) FROM compensation
 		WHERE id = #{userid}
 			and type = 2
 			and to_char(dates, 'YY/MM/DD') = to_char(sysdate, 'YY/MM/DD')
@@ -117,8 +116,6 @@
 		INSERT INTO compensation(id, dates, type, inc)
 		VALUES(#{userid}, sysdate, 2, #{coin})
 	</insert> 
-	
-	
 	
 	<!-- 운동이름으로 운동번호 조회 -->
 	<select id="selectExerciseNo" resultType="int">

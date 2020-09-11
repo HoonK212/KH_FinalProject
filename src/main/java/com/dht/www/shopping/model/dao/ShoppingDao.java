@@ -117,7 +117,7 @@ public class ShoppingDao {
 		return sqlSession.selectList("Shopping.selectSearch", paging);
 	}
 	
-	public List<Files> selectFiles(String code) {
+	public List<Map<String, Object>> selectFiles(String code) {
 		return sqlSession.selectList("Shopping.selectFiles", code);
 	}
 

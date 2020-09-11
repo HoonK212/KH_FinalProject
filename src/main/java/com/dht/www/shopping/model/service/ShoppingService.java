@@ -55,6 +55,6 @@ public interface ShoppingService {
 	
 	public int scoreAvg(String code);
 	
-	public List<Files> selectFiles(String code);
+	public List<Map<String, Object>> selectFiles(String code);
 
 }

@@ -234,6 +234,29 @@ public class AdminDao {
 			return sqlSession.selectOne("ADMIN.selectFileWifhFileNo", no);
 		}
 
+		//회원관리
+		public int selectMemberCnt() {
+			return sqlSession.selectOne("ADMIN.selectMemberCnt");
+		}
 
+		public List<Map<String, Object>> selectMemberList(Paging paging) {
+			return sqlSession.selectList("ADMIN.selectMemberList", paging);
+		}
+		
+		public int selectMemberCntOfSearchType1(Map<String, Object> search) {
+			return sqlSession.selectOne("ADMIN.selectMemberCntOfSearchType1", search);
+		}
 
+		public int selectMemberCntOfSearchType2(Map<String, Object> search) {
+			return sqlSession.selectOne("ADMIN.selectMemberCntOfSearchType2", search);
+		}
+
+		public List<Map<String, Object>> selectMemberListBySearchDataType1(Map<String, Object> m) {
+			return sqlSession.selectList("ADMIN.selectMemberListBySearchDataType1", m);
+		}
+
+		public List<Map<String, Object>> selectMemberListBySearchDataType2(Map<String, Object> m) {
+			return sqlSession.selectList("ADMIN.selectMemberListBySearchDataType2", m);
+		}
+		
 }

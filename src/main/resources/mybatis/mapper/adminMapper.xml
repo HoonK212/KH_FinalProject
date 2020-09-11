@@ -42,6 +42,20 @@
 		<result column="sizes" property="sizes" />
 		<result column="thumbnail" property="thumbnail" />
 	</resultMap>
+	
+	<resultMap type="map" id="memberdata">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="nick" property="nick" />
+		<result column="age" property="age" />
+		<result column="gender" property="gender" />
+		<result column="training" property="training" />
+		<result column="shopping" property="shopping" />
+		<result column="point" property="point" />
+		<result column="coin" property="coin" />
+		<result column="dates" property="dates" />
+		<result column="report" property="report" />
+	</resultMap>
 
 	<select id="selectProductCnt" resultType="int">
 		SELECT COUNT(*) FROM PRODUCT
@@ -407,15 +421,76 @@
 			WHERE CODE = #{code}
 		</update>
 		
-		
+	<!-- 회원관리 -->
+	<select id="selectMemberCnt" resultType="int">
+		SELECT COUNT(*) FROM USERS
+	</select>
+	
+	<select id="selectMemberList" resultMap="memberdata" parameterType="int">
+		select *
+		from
+		    (select rownum rnum, M.*
+		    from
+		       (select
+		        U.id, U.name, U.nick,
+		        trunc(months_between(trunc(sysdate),U.birth)/12) as age,
+		        U.gender,
+		        nvl((select count(*) from record R where R.id=U.id group by id), 0) as training,
+		        nvl((select sum(amount) from orders O, order_product OP where O.no=OP.orders_no and O.id=U.id group by id), 0) as shopping,
+		        nvl(pc.point, 0) as point,
+		        nvl(pc.coin, 0) as coin,
+		        U.dates, U.report
+		        from users U, point_coin PC where U.id=PC.id order by U.dates desc ) M
+			)
+		where rnum between #{start} and #{end}
+	</select>
+	
+	<select id="selectMemberCntOfSearchType1" resultType="int">
+		SELECT COUNT(*) FROM USERS
+		WHERE ID LIKE '%' ||  #{data} || '%'
+	</select>
+	
+	<select id="selectMemberCntOfSearchType2" resultType="int">
+		SELECT COUNT(*) FROM USERS
+		WHERE NAME LIKE '%' ||  #{data} || '%'
+	</select>
+	
+	<select id="selectMemberListBySearchDataType1" resultMap="memberdata">
+		select *
+		from
+		    (select rownum rnum, M.*
+		    from
+		       (select
+		        U.id, U.name, U.nick,
+		        trunc(months_between(trunc(sysdate),U.birth)/12) as age,
+		        U.gender,
+		        nvl((select count(*) from record R where R.id=U.id group by id), 0) as training,
+		        nvl((select sum(amount) from orders O, order_product OP where O.no=OP.orders_no and O.id=U.id group by id), 0) as shopping,
+		        nvl(pc.point, 0) as point,
+		        nvl(pc.coin, 0) as coin,
+		        U.dates, U.report
+		        from users U, point_coin PC where U.id=PC.id and U.id like '%' ||  #{search.data} || '%' order by U.dates desc ) M
+			)
+		where rnum between #{paging.start} and #{paging.end}
+	</select>
+	
+	<select id="selectMemberListBySearchDataType2" resultMap="memberdata">
+		select *
+		from
+		    (select rownum rnum, M.*
+		    from
+		       (select
+		        U.id, U.name, U.nick,
+		        trunc(months_between(trunc(sysdate),U.birth)/12) as age,
+		        U.gender,
+		        nvl((select count(*) from record R where R.id=U.id group by id), 0) as training,
+		        nvl((select sum(amount) from orders O, order_product OP where O.no=OP.orders_no and O.id=U.id group by id), 0) as shopping,
+		        nvl(pc.point, 0) as point,
+		        nvl(pc.coin, 0) as coin,
+		        U.dates, U.report
+		        from users U, point_coin PC where U.id=PC.id and U.name like '%' ||  #{search.data} || '%' order by U.dates desc ) M
+			)
+		where rnum between #{paging.start} and #{paging.end}
+	</select>
+	
 </mapper>
-
-
-
-
-
-
-
-
-
-

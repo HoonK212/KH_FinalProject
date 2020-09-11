@@ -1,10 +1,5 @@
 package com.dht.www.exercise.controller;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dht.www.exercise.model.service.ExerciseService;
 import com.dht.www.exercise.model.vo.Exercise;
@@ -33,39 +27,52 @@ public class ExerciseController {
 	public ExerciseService exerciseService;
 	
 	
-	// 종류선택 VIEW
+	// 종류선택 GET
 	@RequestMapping(value="/type", method=RequestMethod.GET)
 	public String exerciseTypeForm( HttpSession session ,  Model model , HttpServletRequest req) {
+		
+		// 로그인 세션 얻기
 		Users user = (Users)session.getAttribute("logInInfo");
 		
 		//설정한 목표있는지 찾기
 		int goal = exerciseService.selectGoalInfo(user);
+		
 		//목표값
 		model.addAttribute("goal", goal);
 			
 		return "exercise/exercise1";
 	}
 	
-	// 등급선택 VIEW
+	// 등급선택 GET
 	@RequestMapping(value="/level", method=RequestMethod.GET)
-	public String exercise2( HttpSession session ) {
+	public String exercise2(HttpSession session, Model model, HttpServletRequest req) {
+
+		// 비정상적인 접근 예외처리
+		if(session.getAttribute("level") == null && session.getAttribute("level").equals("")) {
+			model.addAttribute("alertMsg", "비정상적인 접근입니다.");
+			model.addAttribute("url", req.getContextPath()+"/main");
+			return "common/result";
+		}
+		
 		return "exercise/exercise2";
 	}
 	
-	// 운동선택 VIEW
+	// 운동선택 GET - 비정상적인 접근 예외처리
 	@RequestMapping(value="/select", method=RequestMethod.GET)
-	public String exercise3( HttpSession session) {
-		return "exercise/exercise3";
+	public String exercise3( HttpSession session, Model model, HttpServletRequest req) {
+		model.addAttribute("alertMsg", "비정상적인 접근입니다.");
+		model.addAttribute("url", req.getContextPath()+"/main");
+		return "common/result";
 	}
 	
-	// 운동시작 VIEW
+	// 운동시작 GET - 비정상적인 접근 예외처리
 	@RequestMapping(value="/trainning", method=RequestMethod.GET)
-	public String exercise4( HttpSession session) {
-		return "exercise/exercise4";
+	public String exercise4( HttpSession session, Model model, HttpServletRequest req) {
+		model.addAttribute("alertMsg", "비정상적인 접근입니다.");
+		model.addAttribute("url", req.getContextPath()+"/main");
+		return "common/result";
 	}
 
-	
-	
 	@RequestMapping(value="/level", method=RequestMethod.POST)
 	public String exerciseTypeToLevel(@RequestParam String exerType, HttpSession session, Model model) {
 		session.setAttribute("exerType", exerType);
@@ -80,11 +87,15 @@ public class ExerciseController {
 		System.out.println(session.getAttribute("exerType"));
 		System.out.println(level);
 		
+		// 로그인 세션 얻기
+		Users user = (Users) session.getAttribute("logInInfo");
+		System.out.println(user);
+		model.addAttribute("user", user);
+		
 		session.setAttribute("level", level);
 		
 		return "exercise/exercise3";
 	}
-	
 	
 	@RequestMapping(value="/trainning", method=RequestMethod.POST)
 	public String exerciseSelectToTrainning(@RequestParam(value="exerType", required=false) String exerType , @RequestParam(value="exercise", required=false) String exerciseName, HttpSession session, Model model) {
@@ -110,9 +121,6 @@ public class ExerciseController {
 		// 새로운 목표 설정 시
 		if(exerType == null) {
 			
-			
-			
-			
 			// 설정한 운동 종류 모델값 지정 / 세션 등록
 			String[] newExerArr = exerciseName.split(",");
 			model.addAttribute("exerciseInfo", newExerArr);
@@ -122,7 +130,6 @@ public class ExerciseController {
 				exerciseList.add(newExerArr[i]);
 			}
 			session.setAttribute("exerciseInfo", exerciseList);
-			
 			
 			// 운동 개수 세션에 저장
 			session.setAttribute("exerciseLength", newExerArr.length);
@@ -165,7 +172,6 @@ public class ExerciseController {
 			
 			session.setAttribute("exerciseInfo", exerciseList);
 			
-			
 			// 운동 개수 세션에 저장
 			session.setAttribute("exerciseLength", goalExerArr.length);
 
@@ -183,13 +189,10 @@ public class ExerciseController {
 			session.setAttribute("exerciseCount", newExerCnt);
 		}
 		
-		
-		
-		
 		return "exercise/exercise4";
 	}
 	
-	
+	// 다음 운동 진행 Ajax
 	@RequestMapping(value="/nextexer", method=RequestMethod.GET)
 	public String nextExer(@RequestParam String exerName, Model model) {
 		
@@ -199,42 +202,8 @@ public class ExerciseController {
 		
 		return "exercise/"+exerName;
 	}
-	
-	@RequestMapping(value="/nextexerjs", method=RequestMethod.GET , produces = "application/text;charset=utf8")
-	@ResponseBody
-	public String nextExerjs(@RequestParam String exerName, Model model ,  HttpServletRequest req) {
-		System.out.println(exerName);
-		
-		
-		String temp;
-		File fileName = new File(req.getServletContext().getRealPath("WEB-INF/resources/"+exerName));
-		BufferedReader br = null;
-		String test = "";
-		  
-		try {
-			br = new BufferedReader(new FileReader(fileName));
-			while ((temp = br.readLine()) != null) {
-				test += temp;
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (br != null)	br.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		  
-		System.out.println("디디디디디");
-		System.out.println(test);
-		  
-		return test;
-	}
-	
+			
+	// 운동 완료 후 보상
 	@RequestMapping(value="/exercisefinish", method=RequestMethod.GET)
 	public String exerciseFinish(Model model, HttpSession session, HttpServletRequest req) {
 		
@@ -260,16 +229,17 @@ public class ExerciseController {
 		rewardMap.put("exerciseLength", exerciseLength);
 		rewardMap.put("exerciseLevel", exerciseLevel);
 		
+		// 안내 msg을 위한 point, coin 변수 생성
 		int point = 0;
 		int coin = 0;
 		
-		// 포인트지급 - 운동개수 * 운동등급
 		if(exerciseLength != 0 && exerciseLevel != 0) {
+			// 포인트지급
 			point = exerciseService.insertRewardPoint(rewardMap);
+			// 코인지급
 			coin = exerciseService.insertRewardCoin(rewardMap);
 		}
 
-		
 		// 세션에 있는 운동종류만큼 String, int ArrayList 생성
 		
 		ArrayList<String> exerciseList = (ArrayList) session.getAttribute("exerciseInfo");
@@ -293,14 +263,12 @@ public class ExerciseController {
 		session.removeAttribute("exerciseLength");
 		session.removeAttribute("exerciseCount");
 		
+		
 		// 안내 msg
-		String msg = "적립 포인트: " + point + "\n적립 코인: " + coin + "\n※ 코인은 하루 3개까지 받을 수 있습니다.";
+		String msg = "적립 포인트: " + point + "\\n적립 코인: " + coin + "\\n※ 코인은 하루 3개까지 받을 수 있습니다.";
 		model.addAttribute("alertMsg", msg);
 		model.addAttribute("url", req.getContextPath()+"/main");
 
 		return "/common/result";
 	}
-	
-	
-	
 }

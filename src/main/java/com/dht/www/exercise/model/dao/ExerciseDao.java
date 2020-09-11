@@ -53,10 +53,6 @@ public class ExerciseDao {
 		return sqlSession.selectOne("EXERCISE.leftExerInfo", exerName);
 	}
 	
-	
-	
-	
-	
 	// 포인트지급 - 운동개수 * 운동등급
 	public int insertRewardPoint(Map<String, Object> map) {
 		return sqlSession.insert("EXERCISE.insertRewardPoint", map);
@@ -73,16 +69,11 @@ public class ExerciseDao {
 		
 	}
 	
-	
-	
 	// 코인지급
 	public int insertRewardCoin(Map<String, Object> rewardMap) {
 		return sqlSession.insert("EXERCISE.insertRewardCoin", rewardMap);
 	}
 	
-	
-	
-
 	// 운동이름으로 운동번호 조회
 	public int selectExerciseNo(String exerciseName) {
 		return sqlSession.selectOne("EXERCISE.selectExerciseNo", exerciseName);
@@ -92,8 +83,4 @@ public class ExerciseDao {
 	public int insertEventRecord(Map<String, Object> exerciseInfo) {
 		return sqlSession.insert("EXERCISE.insertEventRecord", exerciseInfo);
 	}
-
-	
-
-	
 }

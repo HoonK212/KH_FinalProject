@@ -8,7 +8,7 @@
 <!-- HEADER -->
 <%@include file="../layout/header.jsp" %>
 
-<section>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script type="text/javascript">
 
@@ -61,6 +61,12 @@ $(document).ready(function() {
 
 .exer-pushup {
 	background-image: url( "<%=request.getContextPath() %>/resources/image/exercise/Push-Up.jpg");
+	background-size: cover;
+	background-repeat: round;
+}
+
+.exer-kneepushup {
+	background-image: url( "<%=request.getContextPath() %>/resources/image/exercise/Kneepushup.png");
 	background-size: cover;
 	background-repeat: round;
 }
@@ -126,6 +132,8 @@ $(document).ready(function() {
 }
 </style>
 
+<section style="min-height:73vh;">
+
 	<!-- MODAL START -->
 	<div class="plank fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster">
 		<div
@@ -143,12 +151,14 @@ $(document).ready(function() {
 				</div>
 				<!--Body-->
 				<div class="my-5">
-					<p>1. 견갑골(날개뼈)과 쇄골은 전체적으로 뒤로 밀리지 않도록 단단히 고정시켜준다.</p>
-					<p>2. 어깨는 방향이 지면과 수직을 이루도록 한다.</p>
-					<p>3. 허리는 일직선을 만들고 고개도 들지 않는다.</p>
-					<p>4. 엉덩이는 허리가 아래쪽으로 처지지 않도록 지속적으로 엉덩이 근육을 수축시키면서 긴장 상태를 유지해야 한다. 그래서 머리부터 발끝까지 일직선을 유지해야 한다.</p>
-					<p>5. 허벅지는 안쪽을 강하게 조여 내전근의 긴장을 유도한다.</p>
-					<p>6. 발끝은 가지런히 모아주며 발뒤꿈치도 붙인다.</p>
+					<p>운동부위 : 전신</p>
+					<p>소모칼로리 : 0.1kcal(초)</p>
+					<p>운동세트 : 3세트</p>
+					<p>운동개수 : 15개 / 23개 / 30개 / 38개 / 45개</p>
+				</div>
+				<div class="my-5">
+					<p>1. 견갑골(날개뼈)과 쇄골은 전체적으로 뒤로 밀리지 않도록 단단히 고정시켜준다. 어깨는 방향이 지면과 수직을 이루도록 한다. 허리는 일직선을 만들고 고개도 들지 않는다.</p>
+					<p>2. 엉덩이는 허리가 아래쪽으로 처지지 않도록 지속적으로 엉덩이 근육을 수축시키면서 긴장 상태를 유지해야 한다. 그래서 머리부터 발끝까지 일직선을 유지해야 한다.</p>
 				</div>
 			</div>
 		</div>
@@ -169,12 +179,17 @@ $(document).ready(function() {
 				</div>
 				<!--Body-->
 				<div class="my-5">
+					<p>운동부위 : 전신</p>
+					<p>소모칼로리 : 0.3kcal(개)</p>
+					<p>운동세트 : 3세트</p>
+					<p>운동개수 : 10개 / 15개 / 20개 / 25개 / 30개</p>
+				</div>
+				<div class="my-5">
 					<p>1. 차렷 자세를 취합니다.</p>
 					<p>2. 두 팔을 양옆으로 올리면서 두 발을 점프해서 벌립니다.</p>
 					<p>3. 다시 차렷 자세로 돌아갑니다.</p>
 					<p>4. 두 발을 점프해서 더 넓게 벌리면서 두 손은 머리 위로 올려 박수를 칩니다.</p>
 					<p>5. 다시 차렷 자세로 돌아갑니다.</p>
-					<p>6. ‘하나둘, 하나둘’ 박자에 맞춰 리듬감 있게 이 동작들을 반복합니다.</p>
 				</div>
 			</div>
 		</div>
@@ -195,11 +210,16 @@ $(document).ready(function() {
 				</div>
 				<!--Body-->
 				<div class="my-5">
-					<p>1. 차렷 자세를 취합니다.</p>
-					<p>2. 무릎을 굽혀 바닥에 손을 집고 상체를 숙여줍니다.</p>
-					<p>3. 다리를 뒤쪽으로 길게 뻗어 푸쉬업 자세를 만듭니다.</p>
-					<p>4. 다리를 가슴쪽으로 다시 당깁니다.</p>
-					<p>5. 차렷자세 또는 점프 후  이 동작들을 반복합니다.</p>
+					<p>운동부위 : 전신</p>
+					<p>소모칼로리 : 2.5kcal(회)</p>
+					<p>운동세트 : 3세트</p>
+					<p>운동개수 : 5개 / 8개 / 10개 / 13개 / 15개</p>
+				</div>
+				<div class="my-5">
+					<p>1. 무릎을 굽혀 바닥에 손을 집고 상체를 숙여줍니다.</p>
+					<p>2. 다리를 뒤쪽으로 길게 뻗어 푸쉬업 자세를 만듭니다.</p>
+					<p>3. 다리를 가슴쪽으로 다시 당깁니다.</p>
+					<p>4. 차렷자세에서 점프를 합니다.</p>
 				</div>
 			</div>
 		</div>
@@ -220,10 +240,15 @@ $(document).ready(function() {
 				</div>
 				<!--Body-->
 				<div class="my-5">
-					<p>1. 누워서 위와같이 몸통과 다리가 직각이 되도록 자세를 취합니다.</p>
+					<p>운동부위 : 상체</p>
+					<p>소모칼로리 : 0.5kcal(개)</p>
+					<p>운동세트 : 3세트</p>
+					<p>운동개수 : 5개 / 8개 / 10개 / 13개 / 15개</p>
+				</div>
+				<div class="my-5">
+					<p>1. 무릎을 굽혀 바닥에 손을 집고 상체를 숙여줍니다.</p>
 					<p>2. 다리를 들어올렸다면 숨을 들이마셔 복부에 공기를 채운다는 느낌으로 배에 힘을 줍니다.</p>
-					<p>3. 배에 힘을 주었다면, 호흡을 참고 다리를 내립니다.</p>
-					<p>4. 다리를 내린 다음 다시 몸통과 같이 직각이 되도록 다리를 들어올립니다. 이 때 다리를 들어올리면서 숨을 천천히 뱉고, 다리를 다시 뻗어올렸다면 복부에 공기를 채운다는 느낌으로 배에 힘을 줍니다.</p>
+					<p>3. 다시 몸통과 같이 직각이 되도록 다리를 들어올립니다.</p>
 				</div>
 			</div>
 		</div>
@@ -244,8 +269,15 @@ $(document).ready(function() {
 				</div>
 				<!--Body-->
 				<div class="my-5">
+					<p>운동부위 : 상체</p>
+					<p>소모칼로리 : 0.3kcal(개)</p>
+					<p>운동세트 : 3세트</p>
+					<p>운동개수 : 5개 / 8개 / 10개 / 13개 / 15개</p>
+				</div>
+				<div class="my-5">
 					<p>1. 손은 머리 뒤로 가져간상태에서 천장을 보고 눕는다.</p>
-					<p>2. 바닥에서 어깨가 살짝 떨어질 정도로만 상체를 일으켜 세우면서 호흡을 내쉰다.</p>
+					<p>2. 바닥에서 어깨가 살짝 떨어질 정도로만 왼쪽으로 상체를 일으켜 세우면서 호흡을 내쉰다.</p>
+					<p>3. 바닥에서 어깨가 살짝 떨어질 정도로만 오른쪽으로 상체를 일으켜 세우면서 호흡을 내쉰다.</p>
 				</div>
 			</div>
 		</div>
@@ -266,20 +298,26 @@ $(document).ready(function() {
 				</div>
 				<!--Body-->
 				<div class="my-5">
+					<p>운동부위 : 상체</p>
+					<p>소모칼로리 : 0.3kcal(개)</p>
+					<p>운동세트 : 3세트</p>
+					<p>운동개수 : 7개 / 11개 / 15개 / 18개 / 21개</p>
+				</div>
+				<div class="my-5">
 					<p>1. 팔을 어깨보다 살짝 넓게 벌려 바닥을 짚는다.</p>
-					<p>2. 머리부터 발끝까지 일자를 유지한 채 가슴에 바닥이 닿을 정도로 내려갔다 올라온다.</p>
-					<p>3. 복근을 포함한 코어 의 긴장감을 유지한다.</p>
+					<p>2. 머리부터 발끝까지 일자를 유지한 채 가슴에 바닥이 닿을 정도로 내려간다.</p>
+					<p>3. 복근을 포함한 코어 의 긴장감을 유지하면서 올라온다.</p>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="mountain fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster">
+	<div class="knee-push-up fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster">
 		<div
 			class="border border-teal-500 shadow-lg modal-container bg-white w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
 			<div class="modal-content py-4 text-left px-6">
 				<!--Title-->
 				<div class="flex justify-between items-center pb-3">
-					<p class="text-2xl font-bold">마운틴 클라이머</p>
+					<p class="text-2xl font-bold">니 푸쉬업</p>
 					<div class="modal-close7 cursor-pointer z-50">
 						<svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
 							<path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
@@ -289,9 +327,45 @@ $(document).ready(function() {
 				</div>
 				<!--Body-->
 				<div class="my-5">
-					<p>1. 엎드려뻗쳐 상태에서 상체는 지면과 평행하게 유지합니다.</p>
-					<p>2. 다리는 곧게 뻗어서 바닥을 디디고, 발은 골반 넓이 정도로 벌려줍니다.</p>
-					<p>3. 양 무릎을 리듬감있게 번갈아 가면서 가슴 앞으로 당겨 올려 바닥을 디딥니다.</p>
+					<p>운동부위 : 상체</p>
+					<p>소모칼로리 : 0.2kcal(개)</p>
+					<p>운동세트 : 3세트</p>
+					<p>운동개수 : 아직 데이터 없음 수정해야함</p>
+				</div>
+				<div class="my-5">
+					<p>1. 양 팔을 어깨넓이의 두 배 정도로 벌려 바닥을 짚습니다.</p>
+					<p>2. 팔을 굽혀 가슴이 바닥에 닿을 정도로 내려갑니다.</p>
+					<p>3. 두 팔을 밀며 천천히 올라옵니다.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="sidelunge fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster">
+		<div
+			class="border border-teal-500 shadow-lg modal-container bg-white w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
+			<div class="modal-content py-4 text-left px-6">
+				<!--Title-->
+				<div class="flex justify-between items-center pb-3">
+					<p class="text-2xl font-bold">사이드 런지</p>
+					<div class="modal-close8 cursor-pointer z-50">
+						<svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+							<path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
+							</path>
+						</svg>
+					</div>
+				</div>
+				<!--Body-->
+				<div class="my-5">
+					<p>운동부위 : 하체</p>
+					<p>소모칼로리 : 0.1kcal(개)</p>
+					<p>운동세트 : 3세트</p>
+					<p>운동개수 : 10개 / 15개 / 20개 / 25개 / 30개</p>
+				</div>
+				<div class="my-5">
+					<p>1. 골반너비의 약 2~3배 정도로 발을 벌려 양쪽 발끝은 정면을 향하여 11자가 되게 섭니다.</p>
+					<p>2. 오른쪽 다리는 무릎을 굽히지 않고 다리를 곧게 피며 발바닥을 바닥에 밀착합니다. 남은 다리는 스쿼트를 하듯이 골반을 뒤로 빼며 앉습니다.</p>
+					<p>3. 왼쪽 다리는 무릎을 굽히지 않고 다리를 곧게 피며 발바닥을 바닥에 밀착합니다. 남은 다리는 스쿼트를 하듯이 골반을 뒤로 빼며 앉습니다.</p>
+					<p>4. 양쪽다리 모두 지탱하며 일어섭니다.</p>
 				</div>
 			</div>
 		</div>
@@ -303,7 +377,7 @@ $(document).ready(function() {
 				<!--Title-->
 				<div class="flex justify-between items-center pb-3">
 					<p class="text-2xl font-bold">스쿼트</p>
-					<div class="modal-close8 cursor-pointer z-50">
+					<div class="modal-close9 cursor-pointer z-50">
 						<svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
 							<path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
 							</path>
@@ -312,9 +386,14 @@ $(document).ready(function() {
 				</div>
 				<!--Body-->
 				<div class="my-5">
-					<p>1. 발 각도는 대략 120도 정도로 고정시킵니다.</p>
-					<p>2. 견갑골을 고정시켜 가슴을 폅니다.</p>
-					<p>3. 엉덩이부터 천천히 내빼면서 서서히 내려갔다가 무릎까지 90도를 만든 다음에 올라옵니다.</p>
+					<p>운동부위 : 하체</p>
+					<p>소모칼로리 : 0.2kcal(개)</p>
+					<p>운동세트 : 3세트</p>
+					<p>운동개수 : 6개 / 9개 / 12개 / 15개 / 18개</p>
+				</div>
+				<div class="my-5">
+					<p>1. 발 각도는 대략 120도 정도로 고정시킵니다. 견갑골을 고정시켜 가슴을 폅니다.</p>
+					<p>2. 엉덩이부터 천천히 내빼면서 서서히 내려갔다가 무릎까지 90도를 만든 다음에 올라옵니다.</p>
 				</div>
 			</div>
 		</div>
@@ -326,7 +405,7 @@ $(document).ready(function() {
 				<!--Title-->
 				<div class="flex justify-between items-center pb-3">
 					<p class="text-2xl font-bold">런지</p>
-					<div class="modal-close9 cursor-pointer z-50">
+					<div class="modal-close10 cursor-pointer z-50">
 						<svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
 							<path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
 							</path>
@@ -335,9 +414,14 @@ $(document).ready(function() {
 				</div>
 				<!--Body-->
 				<div class="my-5">
-					<p>1. 골반너비로 두 발을 벌리고 허리에 손을 대고 바로 서줍니다.</p>
-					<p>2. 한쪽 발을 70~100cm 가량 앞으로 벌려 내밀고, 왼발의 뒤꿈치를 세워줍니다.(이 때 시선은 앞을 보도록 해야합니다.)</p>
-					<p>3. 허리와 등을 똑바로 편 채로 오른편 무릎을 90도로 구부리고 반대편 무릎은 바닥에 닿는 느낌으로 몸을 내려줍니다.</p>
+					<p>운동부위 : 하체</p>
+					<p>소모칼로리 : 0.3kcal(개)</p>
+					<p>운동세트 : 3세트</p>
+					<p>운동개수 : 6개 / 9개 / 12개 / 15개 / 18개</p>
+				</div>
+				<div class="my-5">
+					<p>1. 골반너비로 두 발을 벌리고 허리에 손을 대고 바로 서줍니다. 한쪽 발을 70~100cm 가량 앞으로 벌려 내밀고, 왼발의 뒤꿈치를 세워줍니다.</p>
+					<p>2. 허리와 등을 똑바로 편 채로 오른편 무릎을 90도로 구부리고 반대편 무릎은 바닥에 닿는 느낌으로 몸을 내려줍니다. 하체 힘을 써서 처음 자세로 천천히 돌아오고 동작으로 반복합니다.</p>
 				</div>
 			</div>
 		</div>
@@ -520,7 +604,7 @@ $(document).ready(function() {
 		}
 		/* MODAL6 END */
 		/* MODAL7 START */
-		const modal7 = document.querySelector('.mountain');
+		const modal7 = document.querySelector('.knee-push-up');
 		const closeButton7 = document.querySelectorAll('.modal-close7');
 
 		const modalClose7 = () => {
@@ -532,7 +616,7 @@ $(document).ready(function() {
 		}
 
 		const openModal7 = () => {
-			if($("input:checkbox[id='exer7']").is(":checked") == true) {
+			if($("input:checkbox[id='exer6']").is(":checked") == true) {
 				modal7.classList.remove('fadeOut');
 				modal7.classList.add('fadeIn');
 				modal7.style.display = 'flex';
@@ -549,7 +633,7 @@ $(document).ready(function() {
 		}
 		/* MODAL7 END */
 		/* MODAL8 START */
-		const modal8 = document.querySelector('.squat');
+		const modal8 = document.querySelector('.sidelunge');
 		const closeButton8 = document.querySelectorAll('.modal-close8');
 
 		const modalClose8 = () => {
@@ -561,7 +645,7 @@ $(document).ready(function() {
 		}
 
 		const openModal8 = () => {
-			if($("input:checkbox[id='exer8']").is(":checked") == true) {
+			if($("input:checkbox[id='exer7']").is(":checked") == true) {
 				modal8.classList.remove('fadeOut');
 				modal8.classList.add('fadeIn');
 				modal8.style.display = 'flex';
@@ -578,7 +662,7 @@ $(document).ready(function() {
 		}
 		/* MODAL8 END */
 		/* MODAL9 START */
-		const modal9 = document.querySelector('.lunge');
+		const modal9 = document.querySelector('.squat');
 		const closeButton9 = document.querySelectorAll('.modal-close9');
 
 		const modalClose9 = () => {
@@ -590,7 +674,7 @@ $(document).ready(function() {
 		}
 
 		const openModal9 = () => {
-			if($("input:checkbox[id='exer9']").is(":checked") == true) {
+			if($("input:checkbox[id='exer8']").is(":checked") == true) {
 				modal9.classList.remove('fadeOut');
 				modal9.classList.add('fadeIn');
 				modal9.style.display = 'flex';
@@ -606,6 +690,35 @@ $(document).ready(function() {
 			}
 		}
 		/* MODAL9 END */
+		/* MODAL10 START */
+		const modal10 = document.querySelector('.lunge');
+		const closeButton10 = document.querySelectorAll('.modal-close10');
+
+		const modalClose10 = () => {
+			modal10.classList.remove('fadeIn');
+			modal10.classList.add('fadeOut');	
+			setTimeout(() => {
+				modal10.style.display = 'none';
+			}, 500);
+		}
+
+		const openModal10 = () => {
+			if($("input:checkbox[id='exer9']").is(":checked") == true) {
+				modal10.classList.remove('fadeOut');
+				modal10.classList.add('fadeIn');
+				modal10.style.display = 'flex';
+			}
+		}
+
+		for (let i = 0; i < closeButton10.length; i++) {
+			const elements = closeButton10[i];
+			elements.onclick = (e) => modalClose10();
+			modal10.style.display = 'none';
+			window.onclick = function (event) {
+				if (event.target == modal10) modalClose10();
+			}
+		}
+		/* MODAL10 END */
 	</script>
 	
 	<!-- div wrap 시작 -->
@@ -694,6 +807,7 @@ $(document).ready(function() {
 		
 		<form class="form-exercies cf" action="<%=request.getContextPath() %>/exercise/trainning" method="post">
 			<section class="plan cf">
+																													<!-- 다 끝나고 모달 1~10 onclick에 등록 -->
 				<input type="checkbox" name="exercise" id="exer1" value="plank" onclick="">
 				<label class="basic-label four col image-plank" for="exer1"></label>
 				<input type="checkbox" name="exercise" id="exer2" value="jumpingjack" onclick="">
@@ -706,8 +820,14 @@ $(document).ready(function() {
 				<label class="free-label four col exer-legraise" for="exer4"></label>
 				<input type="checkbox" name="exercise" id="exer5" value="crunch" onclick="">
 				<label class="basic-label four col exer-crunch" for="exer5"></label>
+				<c:if test="${user.gender eq 'Male'}">
 				<input type="checkbox" name="exercise" id="exer6" value="pushup" onclick="">
 				<label class="premium-label four col exer-pushup" for="exer6"></label>
+				</c:if>
+				<c:if test="${user.gender eq 'Female'}">
+				<input type="checkbox" name="exercise" id="exer6" value="kneepushup" onclick="">
+				<label class="premium-label four col exer-kneepushup" for="exer6"></label>
+				</c:if>
 			</section><section class="plan cf">
 				<input type="checkbox" name="exercise" id="exer7" value="sidelunge" onclick="">
 				<label class="free-label four col exer-mountain" for="exer7"></label>

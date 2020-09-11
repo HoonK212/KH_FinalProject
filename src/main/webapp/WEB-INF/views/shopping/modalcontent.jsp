@@ -10,7 +10,7 @@
 	</div>
 	<div class="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
 		<h3 class="text-2xl text-gray-700 uppercase text-lg">${detail.name }</h3>
- 		<span class="text-gray-700 mt-3">${detail.price }원</span>
+ 		<span class="text-gray-700 mt-3"><fmt:formatNumber pattern="#,###" value="${detail.price }" /> 원</span>
 		<hr class="my-3">
 		<div class="mt-2">
 			<div class="flex items-center mt-1">

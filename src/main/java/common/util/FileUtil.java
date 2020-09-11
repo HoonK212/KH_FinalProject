@@ -17,9 +17,6 @@ public class FileUtil {
 
 	public List<Map<String, Object>> fileUpload(List<MultipartFile> files, String path) throws FileException {
 		
-		System.out.println(files.get(0));
-		System.out.println(files.get(1));
-		
 		// 파일 관련 정보를 반환할 list 생성
 		List<Map<String, Object>> fileData = new ArrayList<Map<String,Object>>();
 		
@@ -27,7 +24,7 @@ public class FileUtil {
 		int idx = 0;
 		
 		for (MultipartFile mf : files) {
-			
+
 			// 사용자가 올린 파일 이름
 			String ofn = mf.getOriginalFilename();
 			int pos = ofn.lastIndexOf(".");
