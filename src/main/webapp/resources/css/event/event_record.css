@@ -5,6 +5,7 @@
 }
 
 .content-table {
+  min-width: 250px;
   border-collapse: collapse;
 /*   margin: 0 auto; */
   font-size: 0.9em;
@@ -46,16 +47,16 @@
 
 #recordrow1{
 	display: flex;	
-	margin: 10px 0;
+	margin: 20px;
 	justify-content: center;
 }
 #recordrow2{
 	display: flex;
-	margin: 10px 0;
+	margin: 20px;
 	justify-content: center;
 }
 #recordrow3{
 	display: flex;	
-	margin: 10px 0;
+	margin: 20px;
 	justify-content: center;
 }

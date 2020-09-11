@@ -31,8 +31,8 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public Map<Integer, List> selectRecord() {
-		return eventDao.selectRecord();
+	public List<List<Map<String, Object>>> selectRecord(int day) {
+		return eventDao.selectRecord(day);
 	}
 	
 	@Override
