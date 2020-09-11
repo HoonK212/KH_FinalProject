@@ -39,10 +39,12 @@
 					<c:if test="${empty basket }">
 					<tr><td colspan="6" class="py-2 text-center font-semibold text-blue-700">장바구니가 비어있습니다</td></tr>
 					</c:if>
+					
 					<c:if test="${not empty basket }">
 					<c:set var="subTotal" />
 					<c:forEach items="${basket }" var="item" varStatus="stat">
 					<c:set var="subTotal" value="${subTotal + item.price * item.amount }" />
+					
 					<tr id="b${stat.index }">
 						<td class="text-left pl-5">
 							<label class="inline-flex items-center mt-3">
@@ -61,9 +63,18 @@
 							</button>
 						</td>
 						<td class="hidden text-right md:table-cell">
-							<span class="text-sm lg:text-base font-medium" id="price${stat.index }">
-							<fmt:formatNumber pattern="#,###" value="${item.price }" /> 원
-							</span>
+							
+							<c:if test="${item.event eq 0 }">
+							<span class="text-sm lg:text-base font-medium" id="price${stat.index }">${item.price }</span><span class="discount${stat.index }"></span> 원
+							</c:if>
+
+							<c:if test="${item.event eq 1 }">
+							<span class="text-sm lg:text-base font-medium text-red-500">
+							<fmt:formatNumber pattern="###" value="${item.price * 0.95 }" /></span> 원
+							<br>
+							<span id="price${stat.index }" class="discount${stat.index } text-sm lg:text-base font-medium line-through">${item.price }</span> 원
+							</c:if>
+							
 						</td>
 						<td class="justify-center md:justify-end md:flex mt-6">
 							<div class="w-20 h-10">
@@ -74,9 +85,16 @@
 							</div>
 						</td>
 						<td class="text-right">
+							<c:if test="${item.event eq 0 }">
 							<span class="text-sm lg:text-base font-medium" id="total${stat.index }">
-							<fmt:formatNumber pattern="#,###" value="${item.price * item.amount }" /> 원
-							</span>
+							${item.price * item.amount }</span>원
+							
+							</c:if>
+
+							<c:if test="${item.event eq 1 }">
+							<span class="text-sm lg:text-base font-medium" id="total${stat.index }">
+							<fmt:formatNumber pattern="###" value="${item.price * item.amount * 0.95 }" /></span> 원
+							</c:if>
 						</td>
 					</tr>
 					</c:forEach>
@@ -100,8 +118,8 @@
 						<div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
 							총 상품금액
 						</div>
-						<div id="subTotal" class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-							<fmt:formatNumber pattern="#,###" value="${subTotal }" /> 원
+						<div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
+							<span id="subTotal">${subTotal }</span> 원
 						</div>
 					</div>
                 	<div class="flex justify-between border-b">
@@ -109,23 +127,30 @@
 							배송비(+)
 						</div>
 						<div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-							3,000 원
+							3000 원
 						</div>
 					</div>
 					<div class="flex justify-between pt-4 border-b">
 						<div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
 							할인금액(-)
 						</div>
-						<div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-							0 원
+						<div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-red-500">
+							<c:set var="sale" />
+							<c:forEach items="${basket }" var="item">
+							<c:if test="${item.event eq 1 }">
+							<c:set var="sale" value="${sale + item.price * item.amount * 0.05 }" />
+							</c:if>
+							</c:forEach>
+							<span id="sale"><fmt:formatNumber pattern="###" value="${sale }" /></span> 원
 						</div>
 					</div>
 					<div class="flex justify-between pt-4 border-b">
 						<div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
 							총 주문금액
 						</div>
-						<div id="totalPrice" class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-							<fmt:formatNumber pattern="#,###" value="${subTotal + 3000 }" /> 원
+						<div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-green-500">
+							<span id="totalPrice">
+							<fmt:formatNumber pattern="###" value="${subTotal + 3000 - sale }" /></span> 원
 						</div>
 					</div>
 					<div class="flex mx-auto justify-center">
@@ -172,7 +197,7 @@ function deleteBasket(num){
 }
 
 function calcPrice(num) {
-	
+
 	var amount = document.querySelector("#amount"+num).value;
 	var code = document.querySelector("#check"+num).value;
 	var userId = document.querySelector("#userId").value;
@@ -187,19 +212,22 @@ function calcPrice(num) {
 		
 		//수량 변경한 물품 총 가격 업데이트
 		document.querySelector("#total"+num).innerText = 
-			document.querySelector("#amount"+num).value * document.querySelector("#price"+num).innerText
+			document.querySelector("#amount"+num).value * document.querySelector("#price"+num).innerText - document.querySelector(".discount"+num).innerText * 0.05;
 		
 		//전체 가격 총 합 업데이트
 		var length = ${fn:length(basket)};
 		var subTotal = 0;
 		for(var i=0; i<length; i++) {
-			var total = parseInt(document.querySelector("#total"+i).innerText);
+			var total = document.querySelector("#amount"+i).value * document.querySelector("#price"+i).innerText;
 			subTotal += total;
 			
 		}
+		if(document.querySelector(".discount"+num).innerText != "") {
+			document.querySelector("#sale").innerText = document.querySelector(".discount"+num).innerText * 0.05 * document.querySelector("#amount"+num).value;
+		}
 		
 		document.querySelector("#subTotal").innerText = subTotal;
-		document.querySelector("#totalPrice").innerText = subTotal + 3000;
+		document.querySelector("#totalPrice").innerText = subTotal + 3000 - document.querySelector("#sale").innerText;
 	})
 }
 

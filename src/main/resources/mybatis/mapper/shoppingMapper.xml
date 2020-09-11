@@ -14,6 +14,7 @@
 		<result column="path" property="path"/>
 		<result column="renamed" property="renamed"/>
 		<result column="ext" property="ext"/>
+		<result column="event" property="event"/>
 	</resultMap>
 	
 	<!-- 쇼핑 장바구니 출력 아이템 정보 -->
@@ -26,6 +27,7 @@
 		<result column="path" property="path"/>
 		<result column="renamed" property="renamed"/>
 		<result column="ext" property="ext"/>
+		<result column="event" property="event"/>
 	</resultMap>
 
 	<!-- 쇼핑 상세페이지 출력 정보 -->
@@ -39,6 +41,7 @@
 		<result column="company" property="company"/>
 		<result column="describe" property="describe"/>
 		<result column="stock" property="stock"/>
+		<result column="event" property="event"/>
 	</resultMap>
 	
 	<resultMap type="map" id="detailReview">
@@ -49,12 +52,14 @@
 		<result column="path" property="path"/>
 		<result column="renamed" property="renamed"/>
 		<result column="ext" property="ext"/>
+		<result column="event" property="event"/>
 	</resultMap>
 	
 	<select id="selectHome" parameterType="string" resultMap="homeItem">
 		select * from ( select rownum rnum, b.* from (
-    		select p.code, name, company, price, path, renamed, ext from product p, files f
-    		where p.code = f.ref and p.sell = 1 and p.stock > 0
+    		select p.code, name, company, price, path, renamed, ext, nvl2(e.code, 1, 0) event from product p, files f,
+    		(select product.code from product, product_initial where product.code = product_initial.code) e
+    		where p.code = f.ref and p.code = e.code(+) and p.sell = 1 and p.stock > 0
     		and thumbnail = 1
     		
     		and p.code like #{cate} || '%'
@@ -93,14 +98,15 @@
 	
 	<select id="selectList" resultMap="homeItem">
 		select * from ( select rownum rnum, b.* from (
-    		select p.code, name, company, price, path, renamed, ext from product p, files f
+    		select p.code, name, company, price, path, renamed, ext, nvl2(e.code, 1, 0) event from product p, files f,
+    		(select product.code from product, product_initial where product.code = product_initial.code) e
     		
     		<if test="listno == 2">
     			, (select o.code, sum(amount) as tcnt 
     			from order_product o group by o.code order by tcnt desc) s
     		</if>
     		
-    		where p.code = f.ref and p.sell = 1 and p.stock > 0
+    		where p.code = f.ref and p.code = e.code(+) and p.sell = 1 and p.stock > 0
     		and thumbnail = 1
     		
     		<if test="listno == 1">
@@ -127,16 +133,18 @@
 	</select>
 	
 	<select id="selectBasket" parameterType="map" resultMap="basketItem">
-		select p.code, name, amount, price, path, renamed, ext from product p, files f, basket b
-		where p.code = f.ref and p.sell = 1 and b.code = p.code and thumbnail = 1
-		and p.stock > 0 and b.id = #{id}
+		select p.code, name, amount, price, path, renamed, ext, nvl2(e.code, 1, 0) event from product p, files f, basket b,
+		(select product.code from product, product_initial where product.code = product_initial.code) e
+		where p.code = f.ref and p.sell = 1 and b.code = p.code and p.code = e.code(+) 
+		and thumbnail = 1 and p.stock > 0 and b.id = #{id}
 		order by b.dates desc
 	</select>
 	
 	<!-- 세션 장바구니에 추가할 item 정보 추출 -->
 	<select id="sessionBasket" parameterType="string" resultMap="basketItem">
-		select p.code, name, price, company, path, renamed, ext from product p, files f
-		where p.code = f.ref and p.sell = 1 and thumbnail = 1
+		select p.code, name, price, company, path, renamed, ext, nvl2(e.code, 1, 0) event from product p, files f,
+		(select product.code from product, product_initial where product.code = product_initial.code) e
+		where p.code = f.ref and p.code = e.code(+) and p.sell = 1 and thumbnail = 1
 		and p.stock > 0 and p.code = #{value}
 	</select>
 	
@@ -156,8 +164,9 @@
 	</select>
 
 	<select id="selectItem" resultMap="detailItem">
-		select p.code, name, price, path, renamed, ext, company, describe, stock from product p, files f
-		where p.code = f.ref and p.sell = 1 and p.stock > 0 and thumbnail = 1
+		select p.code, name, price, path, renamed, ext, company, describe, stock, nvl2(e.code, 1, 0) event from product p, files f,
+		(select product.code from product, product_initial where product.code = product_initial.code) e
+		where p.code = f.ref and p.code = e.code(+) and p.sell = 1 and p.stock > 0 and thumbnail = 1
 		and p.code = #{value}
 		order by substr(p.code,2) desc
 	</select>
@@ -231,8 +240,9 @@
 	
 	<select id="selectSearch" resultMap="homeItem">
 		select * from ( select rownum rnum, b.* from (
-	    	select p.code, name, company, price, path, renamed, ext from product p, files f
-	    	where p.code = f.ref and p.sell = 1 and p.stock > 0 and thumbnail = 1
+	    	select p.code, name, company, price, path, renamed, ext, nvl2(e.code, 1, 0) event from product p, files f,
+	    	(select product.code from product, product_initial where product.code = product_initial.code) e
+	    	where p.code = f.ref and p.code = e.code(+) and p.sell = 1 and p.stock > 0 and thumbnail = 1
 	    	and name like '%' || #{search} || '%'
 	    	order by substr(p.code,2) desc
 		) b order by rnum ) t where rnum between #{start} and #{end}

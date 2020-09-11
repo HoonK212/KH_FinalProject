@@ -9,8 +9,15 @@
 		<img class="h-full w-full rounded-md object-cover max-w-lg mx-auto" src="<%=request.getContextPath() %>/resources/${detail.path }/${detail.renamed }.${detail.ext }" alt="thumbnail">
 	</div>
 	<div class="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
-		<h3 class="text-2xl text-gray-700 uppercase text-lg">${detail.name }</h3>
- 		<span class="text-gray-700 mt-3"><fmt:formatNumber pattern="#,###" value="${detail.price }" /> 원</span>
+		<h3 class="text-2xl text-gray-700 uppercase text-lg">
+		<c:if test="${detail.event eq 1 }"><span class="bg-yellow-500 text-base">event</span></c:if>
+        ${detail.name}</h3>
+        
+        <c:if test="${detail.event eq 0 }"><span class="text-gray-500 mt-2"><fmt:formatNumber pattern="#,###" value="${detail.price}" />원</span></c:if>
+        <c:if test="${detail.event eq 1 }">
+        <span class="text-gray-500 mt-2 line-through"><fmt:formatNumber pattern="#,###" value="${detail.price}" />원</span>
+        <span class="text-red-500 mt-2 pl-1"><fmt:formatNumber pattern="#,###" value="${detail.price * 0.95}" />원</span>
+        </c:if>
 		<hr class="my-3">
 		<div class="mt-2">
 			<div class="flex items-center mt-1">

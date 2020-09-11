@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerToolbar: {
         left: 'title',
         center: '',
-        right: 'custom prev next'
+        right: 'custom'
       }
       , customButtons: {
     	  custom: {
