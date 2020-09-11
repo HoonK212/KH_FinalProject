@@ -114,8 +114,6 @@ public class EventController {
 			model.addAttribute("list"+i, list.get(i-1));
 		}
 		
-		System.out.println(cal.get(Calendar.DATE));
-		
 	}
 	
 	// 초성퀴즈 VIEW - event : 2, 하루 한 번 참여 가능
