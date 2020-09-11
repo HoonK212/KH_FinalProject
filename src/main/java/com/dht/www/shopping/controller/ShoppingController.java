@@ -350,11 +350,15 @@ public class ShoppingController {
 	   @RequestMapping(value="/paymentCheck", method = RequestMethod.POST)
 	   @ResponseBody
 	   public void shoppingPaymentCheck(@RequestBody String uid, HttpSession session) {
-	      
+	      System.out.println("1");
 	      Gson gson = new GsonBuilder().create();
+	      System.out.println("2");
 	      Map<String, String> another =gson.fromJson(uid, new TypeToken<Map<String, String>>(){}.getType());
+	      System.out.println("3");
+	      System.out.println(another);
+	      System.out.println(another.get("product"));
 	      List<Map<String,String>> result = gson.fromJson(another.get("product"), new TypeToken<List<Map<String,String>>>(){}.getType());
-
+	      System.out.println("4");
 	         Orders order = new Orders();
 	         
 	         Users user = (Users)session.getAttribute("logInInfo");

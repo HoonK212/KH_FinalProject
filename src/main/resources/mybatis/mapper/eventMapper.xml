@@ -36,9 +36,15 @@
 		insert into compensation values (#{id}, sysdate, 2, #{event}, 0, 1)
 	</insert>
 	
-	<select id="selectRecord" resultMap="exerRecord">
+	<select id="selectRecord" parameterType="map" resultMap="exerRecord">
 		select e.name, r.id, r.record , RANK() OVER (order by r.record desc ) as rk 
-		from exercise e, record r where e.no = r.ex_no and ex_no = #{no} 
+		from exercise e, record r where e.no = r.ex_no and r.dates between #{firstRange} and #{lastRange}
+		<if test="value == 8">
+			and ex_no in(#{num},10)
+		</if>
+		<if test="value != 8">
+			and ex_no = #{num} 
+		</if>
 	</select>
 	
 	<select id="selectQuiz" parameterType="int" resultType="map">

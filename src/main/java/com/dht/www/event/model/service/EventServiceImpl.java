@@ -31,8 +31,8 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public Map<Integer, List> selectRecord() {
-		return eventDao.selectRecord();
+	public Map<Integer, List> selectRecord(String firstRange, String lastRange) {
+		return eventDao.selectRecord(firstRange,lastRange);
 	}
 	
 	@Override

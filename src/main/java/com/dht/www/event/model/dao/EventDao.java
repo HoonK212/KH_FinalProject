@@ -29,14 +29,20 @@ public class EventDao {
 		return sqlSession.insert("Event.insertCoin", com);
 	}
 	
-	public Map<Integer, List> selectRecord(){
+	public Map<Integer, List> selectRecord(String firstRange, String lastRange){
 		
 		Map<Integer, List> map = new HashMap<Integer, List>();
 		
 		for(int i=1; i<10; i++) {
 			List rank = new ArrayList(); 
+			
+			Map<String, Object> param = new HashMap();
 			System.out.println("돌아야지 왜 안돌아 " + i);
-			rank = sqlSession.selectList("Event.selectRecord",i);
+			param.put("num",i );
+			param.put("first",firstRange );
+			param.put("last",lastRange );
+			
+			rank = sqlSession.selectList("Event.selectRecord",param);
 			System.out.println("이건 한번?" + rank);
 			map.put(i, rank);
 		}

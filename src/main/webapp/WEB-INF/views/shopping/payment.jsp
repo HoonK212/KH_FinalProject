@@ -132,7 +132,7 @@
                         <br><br><br>
 							<div class="mt-6 inline-flex text-sm mr-6 ml-6">
 								사용 포인트 </div>
-							<input id="usePoint" type="number" max="${point}" min="0"  class=" w-1/6 mr-6 text-sm text-gray-700 lex items-center justify-between 
+							<input id="usePoint" type="number" max="${point}" min="0" value="0" class=" w-1/6 mr-6 text-sm text-gray-700 lex items-center justify-between 
 									bg-white rounded-md border-2 border-blue-500 p-2 focus:outline-none float-right" placeholder="포인트">
                        	</div>
                     </form>

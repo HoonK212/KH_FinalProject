@@ -54,8 +54,35 @@ public class EventController {
 	
 	// 가위바위보 VIEW
 	@RequestMapping(value="/rockpaper", method=RequestMethod.GET)
-	public String eventRockPaperScissorsfinal() {
-		return "event/rockpaper";
+	public void eventRockPaperScissorsfinal(HttpSession session, Model model) {
+		Map<String, Object> coin;
+		Users user = (Users) session.getAttribute("logInInfo");
+		
+		Compensation com = new Compensation();
+		
+		com.setId(user.getId());
+		
+		coin = eventService.checkPC(com);
+		int num = Integer.parseInt( String.valueOf( coin.get("coin") ) );
+		
+		System.out.println("코인 나오니"+num);
+		model.addAttribute("coin",num);
+		model.addAttribute("event", 1);
+	}
+	
+	@RequestMapping(value="/rockpaper", method=RequestMethod.POST)
+	@ResponseBody
+	public void eventRockPaperScissorsfinalCompensation(HttpSession session) {
+		Users user = (Users) session.getAttribute("logInInfo");
+		
+		Compensation com = new Compensation();
+		
+		com.setId(user.getId());
+		com.setInc(5);
+		com.setEvent(4);
+		
+		insertPoint(com);
+		insertCoin(com);
 	}
 	
 	// 룰렛 VIEW
@@ -108,22 +135,91 @@ public class EventController {
 	@RequestMapping(value="/record", method=RequestMethod.GET)
 	public void eventRecordfinal(Model model) {
 	
-//		//매주 수요일 최고기록 정산
-//		Calendar wed = Calendar.getInstance();
-//		
-//		int hour = wed.get(Calendar.HOUR);
-//		int minute = wed.get(Calendar.MINUTE);
-//		int second = wed.get(Calendar.SECOND);
-//				
-//		if(wed.get(Calendar.DAY_OF_WEEK) == 4) {
-//			if(hour == 0 && minute == 0 && second == 0 ) {
-//				
-//				
-//			}
-//		}
+		//매주 수요일 최고기록 정산
+		Calendar wed = Calendar.getInstance();
+		Calendar cal = Calendar.getInstance();
+			cal.add(cal.MONTH,-1);
+		int calLastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+		
+		int lastDay = wed.getActualMaximum(Calendar.DAY_OF_MONTH);
+		int year = wed.get(Calendar.YEAR);
+		int month = wed.get(Calendar.MONTH) + 1;
+		int day = wed.get(Calendar.DATE);
+		int range = wed.get(Calendar.DATE) + 6;
+		int yo = wed.get(Calendar.DAY_OF_WEEK);
+		
+		String firstRange = "";
+		String lastRange = "";
+		String totalRange = "";
+		
+		if(yo == 1) {
+			if(day <= 4) {
+				int num = day-4-1;
+				day = calLastDay - num;
+			}else {
+				day = day-4;
+			}
+		}else if(yo == 2) {
+			if(day <= 5) {
+				int num = day-5-1;
+				day = calLastDay - num;
+			}else {
+				day = day-5;
+			}
+		}else if(yo == 3) {
+			if(day <= 6) {
+				int num = day-6-1;
+				day = calLastDay - num;
+			}else {
+				day = day-6;
+			}
+		}else if(yo == 5) {
+			if(day <= 1) {
+				int num = day-1-1;
+				day = calLastDay - num;
+			}else {
+				day = day-1;
+			}
+		}else if(yo == 6) {
+			if(day <= 2) {
+				int num = day-2-1;
+				day = calLastDay - num;
+			}else {
+				day = day-2;
+			}
+		}else if(yo == 7) {
+			if(day <= 3) {
+				int num = day-3-1;
+				day = calLastDay - num;
+			}else {
+				day = day-3;
+			}
+		}
+		
+		if(range <= lastDay) {
+			
+			firstRange = year + "/" + month + "/" + day;
+			lastRange = year + "/" + month + "/" + range;
+			
+		}else {
+			int daynum = range%lastDay;
+			int monthnum = 0;
+			int yearnum = 0;
+			
+			if( (month+1) > 12 ) {
+				monthnum = (month+1)%12;
+				yearnum = year + 1;
+			}else {
+				monthnum = month + 1 ;
+			}
+			
+			firstRange = year + "/" + monthnum + "/" + day;
+			lastRange = year + "/" + monthnum + "/" + daynum;
+		}
+		
 		
 		Map<Integer, List> map = new HashMap<Integer, List>();
-		map = eventService.selectRecord();
+		map = eventService.selectRecord(firstRange, lastRange);
 				
 		System.out.println("최종"+ map);
 

@@ -5,6 +5,10 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/event/event_rockpaper.css">
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/layout/footer.css">
 
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <style type="text/css">
 /* 	  body { */
 /*     	background: #e2e8f0; */
@@ -14,9 +18,6 @@
 /*     } */
 
 /* $("#mybox").css("height", "480"); */
-
-$("#webcamcontainer").css("border","1px solid black");
-
 </style>
 
 <%@include file="../layout/header.jsp" %>
@@ -36,8 +37,10 @@ $("#webcamcontainer").css("border","1px solid black");
 		<div class="relative block md:flex items-center h-full">
       	<div class="w-full h-full md:w-1/2 relative z-1 bg-gray-100 rounded shadow-lg overflow-hidden">
         	<div id="aibox" class="text-lg font-medium text-green-500 uppercase  text-center border-b border-gray-200 tracking-wide">AI</div>
-        	<div class="block sm:flex md:block lg:flex items-center justify-center">
-        			AI 화면
+        	<div class="block sm:flex md:block lg:flex items-center justify-center w-full h-64">
+
+        			<img id="aiscreen" alt="image" src="<%=request.getContextPath()%>/resources/image/rockpaper/total.png">
+
         	</div>
         <div class="flex justify-center">
           <ul>
@@ -69,8 +72,7 @@ $("#webcamcontainer").css("border","1px solid black");
      
      <div class="w-full h-full md:w-1/2 relative z-1 bg-gray-100 rounded shadow-lg overflow-hidden">
         	<div id="mybox" class="text-lg font-medium text-green-500 uppercase  text-center border-b border-gray-200 tracking-wide">도전 상대</div>
-        	<div class="block sm:flex md:block lg:flex items-center justify-center"  id="webcam-container">
-        			나의 화면
+        	<div class="block sm:flex md:block lg:flex items-center justify-center w-full"  id="webcam-container">
         	</div>
         <div class="flex justify-center">
           <ul>
@@ -78,7 +80,7 @@ $("#webcamcontainer").css("border","1px solid black");
               <div class="bg-green-200 rounded-full p-2 fill-current text-green-700">
                 <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path class="primary" d="M11 3.05V2a1 1 0 0 1 2 0v1.05A10 10 0 0 1 22 13c0 1.33-2 1.33-2 0a2 2 0 1 0-4 0c0 1.33-2 1.33-2 0a2 2 0 1 0-4 0c0 1.33-2 1.33-2 0a2 2 0 1 0-4 0c0 1.33-2 1.33-2 0a10 10 0 0 1 9-9.95z"></path><path class="secondary" d="M11 14a1 1 0 0 1 2 0v5a3 3 0 0 1-6 0 1 1 0 0 1 2 0 1 1 0 0 0 2 0v-5z"></path></svg>
               </div>
-              <span class="text-gray-700 text-lg ml-3" id="label-container">No setup, monthly, or hidden fees</span>
+              <span class="text-gray-700 text-lg ml-3" id="label-container"></span>
             </li>
             
           </ul>
@@ -106,11 +108,6 @@ $("#webcamcontainer").css("border","1px solid black");
 
 </div>
 
-
-<!-- <div>Teachable Machine Image Model</div> -->
-<!-- <button type="button" onclick="init()">Start</button> -->
-<!-- <div id="webcam-container"></div> -->
-<div id="label-container"></div>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
 <script type="text/javascript">
@@ -120,10 +117,18 @@ $("#webcamcontainer").css("border","1px solid black");
     // the link to your model provided by Teachable Machine export panel
     const URL = "<%=request.getContextPath() %>/resources/imagemodel/";
 
-    let model, webcam, labelContainer, maxPredictions;
-
+    let model, webcam, labelContainer, maxPredictions ;
+    
+    var status = "start";
     // Load the image model and setup the webcam
     async function init() {
+    	
+    	console.log(${coin})
+    	if(${coin} < 0){
+    		alert("보유 COIN이 부족합니다.")
+    		return;
+    	}
+    	
         const modelURL = URL + "model.json";
         const metadataURL = URL + "metadata.json";
 
@@ -139,8 +144,9 @@ $("#webcamcontainer").css("border","1px solid black");
         webcam = new tmImage.Webcam(512, 480, flip); // width, height, flip
         await webcam.setup(); // request access to the webcam
         await webcam.play();
+        console.log("여기까지도1?")
         window.requestAnimationFrame(loop);
-
+        console.log("여기까지도2?")
         // append elements to the DOM
         document.getElementById("webcam-container").appendChild(webcam.canvas);
         labelContainer = document.getElementById("label-container");
@@ -149,38 +155,120 @@ $("#webcamcontainer").css("border","1px solid black");
         }
     }
 
+    
     async function loop() {
-        webcam.update(); // update the webcam frame
-        await predict();
-        window.requestAnimationFrame(loop);
+       	 webcam.update(); // update the webcam frame
+	     await predict();
+       	 window.requestAnimationFrame(loop);
     }
 
     // run the webcam image through the image model
+    
     async function predict() {
         // predict can take in an image, video or canvas html element
         const prediction = await model.predict(webcam.canvas);
-        
-        if(prediction[0].className == rock && prediction[0].probability.toFixed(2) > 0.8){
-        
-        	labelContainer.childNodes[0].innerHTML = "가위로 이겼다";
-        }else if(prediction[1].className == rock && prediction[1].probability.toFixed(2) > 0.8){
-        	
-        	labelContainer.childNodes[1].innerHTML = "가위로 이겼다";
-        }else if(prediction[2].className == rock && prediction[2].probability.toFixed(2) > 0.8){
-        	labelContainer.childNodes[2].innerHTML = "가위로 이겼다";
-        }else{
-        	labelContainer.childNodes[0].innerHTML = "가위로 이겼다";
+        var num=0;
+	        if(prediction[0].probability.toFixed(2) == 1.0){
+        		if(status == "start"){
+	        		labelContainer.childNodes[0].innerHTML = "바위"
+		        	status="complete";
+	        		num=1;
+        		}
+	        }else if(prediction[1].probability.toFixed(2) == 1.0){
+	        	if(status == "start"){
+	        		labelContainer.childNodes[0].innerHTML = "가위"
+		        	status="complete";
+	        		num=2;
+	        	}
+	        }else if(prediction[2].probability.toFixed(2) == 1.0){
+	        	if(status == "start"){
+	        		labelContainer.childNodes[0].innerHTML = "보"
+		    		status="complete";
+	        		num=3;
+	        	}
+	        }else if(prediction[3].probability.toFixed(2) == 1.0){
+	        	if(status == "start"){
+	        		labelContainer.childNodes[0].innerHTML = "알수없음"
+	        	}
+	        }else{
+	        	if(status == "start"){
+	        	labelContainer.childNodes[0].innerHTML = "알수없음"
+	        	}
+	        }
+	        
+
+	        if(status=="complete"){
+	        	aiscreen_info(num);
+	        	status="end";
+	        	console.log("안넘어가니"+num)
+	        	webcam.pause();
+	        }
+	        
         }
-        
-        
-        
-        for (let i = 0; i < maxPredictions; i++) {
-            const classPrediction =
-                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-            labelContainer.childNodes[i].innerHTML = classPrediction;
-        }
-    }
+    
+	function aiscreen_info(num){
+		console.log("함수는 실행되네")
+		
+		console.log(num)
+		var ran= parseInt(Math.random()*3+1); 
+		console.log(ran)
+			
+		if(ran==1){
+			$("#aiscreen").attr("src","<%=request.getContextPath()%>/resources/image/rockpaper/rock.png");
+			setTimeout(function() {
+				if(num==1){
+					alert("비겼습니다.")
+					console.log("비겼습니다.")
+				}else if(num==2){
+					alert("졌습니다.")
+					console.log("졌습니다.")
+				}else if(num==3){
+					compensation();
+					alert("이겼습니다. \n 5포인트가 지급되었습니다.")
+					console.log("이겼습니다.")
+				}
+			
+			}, 1000);
+		}else if(ran==2){
+			$("#aiscreen").attr("src","<%=request.getContextPath()%>/resources/image/rockpaper/scissors.png");
+			setTimeout(function() {
+				if(num==1){
+					compensation();
+					alert("이겼습니다.\n 5포인트가 지급되었습니다.")
+					console.log("이겼습니다.")
+				}else if(num==2){
+					alert("비겼습니다.")
+					console.log("비겼습니다.")
+				}else if(num==3){
+					alert("졌습니다.")
+					console.log("졌습니다.")
+				}
+			}, 1000);
+		}else if(ran==3){
+			$("#aiscreen").attr("src","<%=request.getContextPath()%>/resources/image/rockpaper/paper.png");
+			setTimeout(function() {
+				if(num==1){
+					alert("졌습니다.")
+					console.log("졌습니다.")
+				}else if(num==2){
+					compensation();
+					alert("이겼습니다. \n 5포인트가 지급되었습니다.")
+					console.log("이겼습니다.")
+				}else if(num==3){
+					alert("비겼습니다.")
+					console.log("비겼습니다.")
+				}
+			}, 1000);
+		}
+	}
+	
+function compensation(){
+	jQuery.ajax({
+		url: "/event/rockpaper",
+		type:"POST"
+	})
+}
+
 </script>
-
-
+</section>
 <%@include file="../layout/footer.jsp" %>
