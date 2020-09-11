@@ -101,7 +101,7 @@
 							총 상품금액
 						</div>
 						<div id="subTotal" class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-							${subTotal } 원
+							<fmt:formatNumber pattern="#,###" value="${subTotal }" /> 원
 						</div>
 					</div>
                 	<div class="flex justify-between border-b">
