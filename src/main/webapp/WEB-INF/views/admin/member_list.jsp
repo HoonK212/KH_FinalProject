@@ -29,8 +29,8 @@
 		<div class="flex justify-end" style=" margin-bottom:3px;">
 		  <div class="mr-3">
 		      <select name="type" id="select" style="height: 40px;">
-		          <option value="1">회원아이디</option>
-		          <option value="2">회원이름</option>
+		          <option value="1">아이디</option>
+		          <option value="2">이름</option>
 		      </select>
 		  </div>
 		  
@@ -46,13 +46,13 @@
 			    <table class="table-fixed bg-white w-full">
 			      <thead class="bg-gray-800 text-white">
 			        <tr>
-			          <th class="w-1/9 py-3 px-4 uppercase font-semibold text-sm">회원아이디</th>
+			          <th class="w-1/9 py-3 px-4 uppercase font-semibold text-sm">아이디</th>
 			          <th class="w-1/9 py-3 px-4 uppercase font-semibold text-sm">이름</th>
 			          <th class="w-1/9 py-3 px-4 uppercase font-semibold text-sm">닉네임</th>
-			          <th class="w-1/9 py-3 px-4 uppercase font-semibold text-sm">성별 / 나이</td>
-			          <th class="w-1/9 py-3 px-4 uppercase font-semibold text-sm">운동한날</th>
-			          <th class="w-1/9 py-3 px-4 uppercase font-semibold text-sm">쇼핑건수</th>
-			          <th class="w-1/9 py-3 px-4 uppercase font-semibold text-sm">포인트 / 코인</th>
+			          <th class="w-1/9 py-3 px-4 uppercase font-semibold text-sm">성별/나이</td>
+			          <th class="w-1/9 py-3 px-4 uppercase font-semibold text-sm">운동</th>
+			          <th class="w-1/9 py-3 px-4 uppercase font-semibold text-sm">쇼핑</th>
+			          <th class="w-1/9 py-3 px-4 uppercase font-semibold text-sm">포인트/코인</th>
 			          <th class="w-1/9 py-3 px-4 uppercase font-semibold text-sm">가입날짜</th>
 			          <th class="w-1/9 py-3 px-4 uppercase font-semibold text-sm">계정정지</th>
 			        </tr>
@@ -64,8 +64,8 @@
 			        <td class="w-1/4 py-3 px-4 text-center">${member.name }</td>
 			        <td class="w-1/4 py-3 px-4 text-center">${member.nick }</td>
 			        <td class="w-1/4 py-3 px-4 text-center">${member.gender } / ${member.age }</td>
-			        <td class="w-1/4 py-3 px-4 text-center">${member.training }</td>
-			        <td class="w-1/4 py-3 px-4 text-center">${member.shopping }</td>
+			        <td class="w-1/4 py-3 px-4 text-center">${member.training }일</td>
+			        <td class="w-1/4 py-3 px-4 text-center">${member.shopping }건</td>
 			        <td class="w-1/4 py-3 px-4 text-center">${member.point } / ${member.coin }</td>
 			        <td class="w-1/4 py-3 px-4 text-center">
 			        	<fmt:formatDate value="${member.dates }" pattern="yyyy.MM.dd"/>

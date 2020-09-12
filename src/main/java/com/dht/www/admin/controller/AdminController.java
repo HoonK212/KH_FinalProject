@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -271,7 +273,7 @@ public class AdminController {
 		
 	}
 	
-	//회원관리
+	//회원 관리
 	@RequestMapping(value="/memberlist", method=RequestMethod.GET)
 	public String memberList(@RequestParam(required=false, defaultValue="1") int cPage,
 			@RequestParam(required=false, defaultValue="15") int cntPerPage,
@@ -289,6 +291,49 @@ public class AdminController {
 		}
 		
 		return "admin/member_list";
+	}
+	
+	//신고 관리
+	@RequestMapping(value = "/reportlist")
+	public String selectReportList(
+			@RequestParam(required=false, defaultValue="1") int cPage,
+			@RequestParam(required=false, defaultValue="15") int cntPerPage,
+			@RequestParam Map<String, Object> search,
+			Model model) {
+		
+		Map<String,Object> result = adminService.selectReturnList(cPage, cntPerPage, search);
+		
+		model.addAttribute("rlist", result.get("plist"));
+		model.addAttribute("page", result.get("page"));
+		
+		//검색한 경우 검색정보를 담기
+		if( (search.get("data") != null && search.get("data") != "") || 
+			(search.get("fromdate")!=null && search.get("fromdate")!= "" && search.get("todate")!=null && search.get("todate")!= "") ) {
+			model.addAttribute("search", search);
+		}
+		
+		return "admin/report_list";
+	}
+	
+	//신고 내용
+	@RequestMapping(value = "/reportdetail", method = RequestMethod.GET)
+	@ResponseBody
+	public Object selectReportDetail(@RequestParam String op_no, Model model) {
+		
+		List<Object> result = adminService.selectReturnDetail(op_no);
+		
+		return result;
+	}
+	
+	//신고 처리
+	@RequestMapping(value = "/reportmodify", method = RequestMethod.POST)
+	public String modifyReportData(@RequestParam Map<String, Object> data) {
+		
+		System.out.println(data);
+		
+		int res = adminService.modifyReturnData(data);
+		
+		return "redirect:reportlist";
 	}
 
 	
