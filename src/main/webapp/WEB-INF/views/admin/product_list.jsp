@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>        
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>     
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>     
 
 <!-- HEAD -->
 <%@include file="/WEB-INF/views/layout/admin_head.jsp" %>
@@ -71,7 +72,7 @@
 			        <td class="w-1/4 py-3 px-4 text-center">${product.price }</td>
 			        <td class="w-1/4 py-3 px-4 text-center">${product.describe }</td>
 			        <td class="w-1/4 py-3 px-4 text-center">${product.company }</td>
-			        <td class="w-1/4 py-3 px-4 text-center">${product.dates}</td>
+			        <td class="w-1/4 py-3 px-4 text-center"><fmt:formatDate value="${product.dates }" pattern="yyyy-MM-dd"/></td>
 			        <td class="w-1/4 py-3 px-4 text-center">${product.stock }</td>
 			      </tr>
 			     </c:forEach> 

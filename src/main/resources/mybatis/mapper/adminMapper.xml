@@ -17,18 +17,17 @@
 		<result column="sell" property="sell"/>
 	</resultMap>
 
-	<resultMap type="map" id="returndata">
+	<resultMap type="map" id="statusdata">
 		<result column="rnum" property="rnum"/>
-		<result column="op_no" property="op_no"/>
-		<result column="reason" property="reason"/>
-		<result column="dates" property="dates"/>
-		<result column="accept" property="accept"/>
-		<result column="status" property="status"/>
+		<result column="no" property="op_no"/>
 		<result column="code" property="code"/>
 		<result column="amount" property="amount"/>
-		<result column="id" property="id"/>
-		<result column="to_name" property="to_name"/>
+		<result column="status" property="status"/>
 		<result column="name" property="name"/>
+		<result column="id" property="id"/>
+		<result column="dates" property="dates"/>
+		<result column="orders_no" property="o_no"/>
+		<result column="reason" property="reason"/>
 	</resultMap>
 	
 	<resultMap type="map" id="filedata">
@@ -56,318 +55,303 @@
 		<result column="dates" property="dates" />
 		<result column="report" property="report" />
 	</resultMap>
+	
+	
+	<resultMap type="map" id="orders">
+		<result column="no" property="no" />
+		<result column="type" property="type" />
+		<result column="dates" property="dates" />
+		<result column="muid" property="muid" />
+		<result column="id" property="id" />
+		<result column="to_name" property="to_name" />
+		<result column="to_tel" property="to_tel" />
+		<result column="to_addr" property="to_addr" />
+		<result column="to_post" property="to_post" />
+	</resultMap>
 
+	
+	
+	
+	<!-- 상품 조회 -->
+		
+	<select id="selectProductCntOfSearchType1" resultType="int">
+		SELECT COUNT(*) FROM PRODUCT
+		WHERE CODE LIKE '%' ||  #{data} || '%'
+	</select>
+	
+	<select id="selectProductListOfSearchType1" resultMap="productdata">
+		SELECT * FROM (SELECT ROWNUM RNUM, P.* FROM(
+		SELECT * FROM PRODUCT WHERE CODE LIKE '%' ||  #{search.data} || '%' )P
+		)WHERE RNUM BETWEEN #{paging.start} and #{paging.end}
+	</select>
+	
+	<select id="selectProductCntOfSearchType2" resultType="int">
+		SELECT COUNT(*) FROM PRODUCT
+		WHERE NAME LIKE '%' ||  #{data} || '%'
+	</select>
+	
+	<select id="selectProductListOfSearchType2" resultMap="productdata">
+		SELECT * FROM (SELECT ROWNUM RNUM, P.* FROM(
+		SELECT * FROM PRODUCT WHERE NAME LIKE '%' ||  #{search.data} || '%' )P
+		)WHERE RNUM BETWEEN #{paging.start} and #{paging.end}
+	</select>
+	
 	<select id="selectProductCnt" resultType="int">
 		SELECT COUNT(*) FROM PRODUCT
 	</select>
 	
-	<select id="selectProductList2" resultMap="productdata" parameterType="int">
+	<select id="selectProductList" resultMap="productdata">
 		select * from ( select rownum rnum, p.* from(
-            select * from product order by dates desc) p		
+            select * from product order by substr(code,2) desc) p		
 		)where rnum between #{start} and #{end}
 	</select>
+	
+	<!-- 상품 조회 끝 -->
+	
+	
+	
+	
+	<!-- 재고 상세 -->
 	
 	<select id="selectStockDetail" resultMap="productdata">
 		SELECT * FROM PRODUCT 
 		WHERE CODE = #{code}
 	</select>
 	
+	<!-- 재고 업데이트 -->
+	
 	<update id="modifyStockData">
 		UPDATE PRODUCT SET STOCK = #{stock}, SELL = #{sell} 
 		WHERE CODE = #{code}
 	</update>
 	
-	<select id="selectStockSearchList" resultMap="productdata">
-		SELECT * FROM (SELECT ROWNUM RNUM, P.* FROM(
-			SELECT * FROM PRODUCT WHERE CODE LIKE '%' ||  #{data.searchdata} || '%' )P
-		)WHERE RNUM BETWEEN #{paging.start} and #{paging.end}
-	</select>
 	
-	<select id="selectProductListBySearchDataType1" resultMap="productdata">
-		SELECT * FROM (SELECT ROWNUM RNUM, P.* FROM(
-		SELECT * FROM PRODUCT WHERE CODE LIKE '%' ||  #{search.data} || '%' )P
-		)WHERE RNUM BETWEEN #{paging.start} and #{paging.end}
-	</select>
 	
-	<select id="selectProductListBySearchDataType2" resultMap="productdata">
-		SELECT * FROM (SELECT ROWNUM RNUM, P.* FROM(
-		SELECT * FROM PRODUCT WHERE NAME LIKE '%' ||  #{search.data} || '%' )P
-		)WHERE RNUM BETWEEN #{paging.start} and #{paging.end}
-	</select>
 	
-	<select id="selectProductCntOfStockSearchType1" resultType="int">
-		SELECT COUNT(*) FROM PRODUCT
-		WHERE CODE LIKE '%' ||  #{data} || '%'
-	</select>
+	<!-- 배송 상태 조회 -->
 	
-	<select id="selectProductCntOfStockSearchType2" resultType="int">
-		SELECT COUNT(*) FROM PRODUCT
-		WHERE NAME LIKE '%' ||  #{data} || '%'
-	</select>
 	
-	<!-- 코드검색(총개수) -->
-	<select id="selectReturnCntOfReturnSearchType1" resultType="int">
+	<!-- 1-1. 코드로 검색 : 전체 목록 개수 -->
+	<select id="selectStatusCntOfSearchType1" resultType="int">
 		SELECT COUNT(*) FROM (
-		SELECT R.*, OP.CODE, OP.AMOUNT, O.ID, O.TO_NAME, P.NAME
-		FROM RETURN R, ORDER_PRODUCT OP, ORDERS O, PRODUCT P
-		WHERE R.OP_NO = OP.NO
+		SELECT ROWNUM RNUM, A.* FROM (
+		SELECT OP.NO, OP.CODE, OP.AMOUNT, OP.STATUS, P.NAME, O.ID, O.DATES, OP.ORDERS_NO, R.REASON   
+		FROM ORDER_PRODUCT OP, PRODUCT P, ORDERS O, RETURN R
+		WHERE OP.CODE = P.CODE
 		AND OP.ORDERS_NO = O.NO
-		AND OP.CODE = P.CODE
-		AND OP.CODE LIKE '%' || #{data} || '%' )
+		AND OP.NO = R.OP_NO(+) 
+		AND OP.CODE LIKE '%' || #{data} || '%' )A )
 	</select>
 	
-	<!-- 코드검색(페이징) -->	
-	<select id="selectReturnListBySearchDataType1" resultMap="returndata">
-		SELECT * FROM (SELECT ROWNUM RNUM, A.* FROM
-		(SELECT R.*, OP.CODE, OP.AMOUNT, O.ID, O.TO_NAME, P.NAME
-		FROM RETURN R, ORDER_PRODUCT OP, ORDERS O, PRODUCT P
-		WHERE R.OP_NO = OP.NO
+	<!-- 1-2. 코드로 검색 : 페이징 적용 -->	
+	<select id="selectStatusListOfSearchType1" resultMap="statusdata">
+		SELECT * FROM (
+		SELECT ROWNUM RNUM, A.* FROM (
+		SELECT OP.NO, OP.CODE, OP.AMOUNT, OP.STATUS, P.NAME, O.ID, O.DATES, OP.ORDERS_NO, R.REASON   
+		FROM ORDER_PRODUCT OP, PRODUCT P, ORDERS O, RETURN R
+		WHERE OP.CODE = P.CODE
 		AND OP.ORDERS_NO = O.NO
-		AND OP.CODE = P.CODE
-		AND OP.CODE LIKE '%' || #{search.data} || '%' )A 
-		) WHERE RNUM BETWEEN #{paging.start} AND #{paging.end} 
-	</select>
-	
-	<!-- 코드검색(총개수+날짜) -->
-	<select id="selectReturnCntOfReturnSearchType1WithDate" resultType="int">
-		SELECT COUNT(*) FROM (
-		SELECT R.*, OP.CODE, OP.AMOUNT, O.ID, O.TO_NAME, P.NAME
-		FROM RETURN R, ORDER_PRODUCT OP, ORDERS O, PRODUCT P
-		WHERE R.OP_NO = OP.NO
-		AND OP.ORDERS_NO = O.NO
-		AND OP.CODE = P.CODE
-		AND OP.CODE LIKE '%' || #{data} || '%'
-		AND R.DATES BETWEEN to_date(#{fromdate}, 'yyyy-mm-dd') AND to_date(#{todate}, 'yyyy-mm-dd')+0.99999 )	
-	</select>
-	
-	<!-- 코드검색(페이징+날짜) -->
-	<select id="selectReturnListBySearchDataType1WithDate" resultMap="returndata">
-		SELECT * FROM (SELECT ROWNUM RNUM, A.* FROM
-		(SELECT R.*, OP.CODE, OP.AMOUNT, O.ID, O.TO_NAME, P.NAME
-		FROM RETURN R, ORDER_PRODUCT OP, ORDERS O, PRODUCT P
-		WHERE R.OP_NO = OP.NO
-		AND OP.ORDERS_NO = O.NO
-		AND OP.CODE = P.CODE
-		AND OP.CODE LIKE '%' || #{search.data} || '%'
-		AND R.DATES BETWEEN to_date(#{search.fromdate}, 'yyyy-mm-dd') AND to_date(#{search.todate}, 'yyyy-mm-dd')+0.99999 )A )
+		AND OP.NO = R.OP_NO(+) 
+		AND OP.CODE LIKE '%' || #{search.data} || '%' )A )
 		WHERE RNUM BETWEEN #{paging.start} AND #{paging.end}
 	</select>
 	
-	<!-- 상품명검색(총개수) -->
-	<select id="selectReturnCntOfReturnSearchType2" resultType="int">
+	<!-- 1-3. 코드와 날짜로 검색 : 전체 목록 개수 -->
+	<select id="selectStatusCntOfSearchType1WithDate" resultType="int">
 		SELECT COUNT(*) FROM (
-		SELECT R.*, OP.CODE, OP.AMOUNT, O.ID, O.TO_NAME, P.NAME
-		FROM RETURN R, ORDER_PRODUCT OP, ORDERS O, PRODUCT P
-		WHERE R.OP_NO = OP.NO
+		SELECT ROWNUM RNUM, A.* FROM (
+		SELECT OP.NO, OP.CODE, OP.AMOUNT, OP.STATUS, P.NAME, O.ID, O.DATES, OP.ORDERS_NO, R.REASON   
+		FROM ORDER_PRODUCT OP, PRODUCT P, ORDERS O, RETURN R
+		WHERE OP.CODE = P.CODE
 		AND OP.ORDERS_NO = O.NO
-		AND OP.CODE = P.CODE
-		AND P.NAME LIKE '%' || #{data} || '%' )
+		AND OP.NO = R.OP_NO(+) 
+		AND OP.CODE LIKE '%' || #{data} || '%' 
+		AND O.DATES BETWEEN to_date(#{fromdate}, 'yyyy-mm-dd') AND to_date(#{todate}, 'yyyy-mm-dd')+0.99999)A )
 	</select>
 	
-	<!-- 상품명검색(페이징) -->
-	<select id="selectReturnListBySearchDataType2" resultMap="returndata">
-		SELECT * FROM (SELECT ROWNUM RNUM, A.* FROM
-		(SELECT R.*, OP.CODE, OP.AMOUNT, O.ID, O.TO_NAME, P.NAME
-		FROM RETURN R, ORDER_PRODUCT OP, ORDERS O, PRODUCT P
-		WHERE R.OP_NO = OP.NO
+	<!-- 1-4. 코드와 날짜로 검색 : 페이징 적용 -->
+	<select id="selectStatusListOfSearchType1WithDate" resultMap="statusdata">
+		SELECT * FROM (
+		SELECT ROWNUM RNUM, A.* FROM (
+		SELECT OP.NO, OP.CODE, OP.AMOUNT, OP.STATUS, P.NAME, O.ID, O.DATES, OP.ORDERS_NO, R.REASON   
+		FROM ORDER_PRODUCT OP, PRODUCT P, ORDERS O, RETURN R
+		WHERE OP.CODE = P.CODE
 		AND OP.ORDERS_NO = O.NO
-		AND OP.CODE = P.CODE
+		AND OP.NO = R.OP_NO(+) 
+		AND OP.CODE LIKE '%' || #{search.data} || '%' 
+		AND O.DATES BETWEEN to_date(#{search.fromdate}, 'yyyy-mm-dd') AND to_date(#{search.todate}, 'yyyy-mm-dd')+0.99999)A )
+		WHERE RNUM BETWEEN #{paging.start} AND #{paging.end}
+	</select>
+	
+	<!-- 2-1. 상품명으로 검색 : 전체 목록 개수 -->
+	<select id="selectStatusCntOfSearchType2" resultType="int">
+		SELECT COUNT(*) FROM (
+		SELECT ROWNUM RNUM, A.* FROM (
+		SELECT OP.NO, OP.CODE, OP.AMOUNT, OP.STATUS, P.NAME, O.ID, O.DATES, OP.ORDERS_NO, R.REASON   
+		FROM ORDER_PRODUCT OP, PRODUCT P, ORDERS O, RETURN R
+		WHERE OP.CODE = P.CODE
+		AND OP.ORDERS_NO = O.NO
+		AND OP.NO = R.OP_NO(+) 
+		AND P.NAME LIKE '%' || #{data} || '%' )A )
+	</select>
+	
+	<!-- 2-2. 상품명으로 검색 : 페이징 적용 -->
+	<select id="selectStatusListOfSearchType2" resultMap="statusdata">
+		SELECT * FROM (
+		SELECT ROWNUM RNUM, A.* FROM (
+		SELECT OP.NO, OP.CODE, OP.AMOUNT, OP.STATUS, P.NAME, O.ID, O.DATES, OP.ORDERS_NO, R.REASON   
+		FROM ORDER_PRODUCT OP, PRODUCT P, ORDERS O, RETURN R
+		WHERE OP.CODE = P.CODE
+		AND OP.ORDERS_NO = O.NO
+		AND OP.NO = R.OP_NO(+) 
 		AND P.NAME LIKE '%' || #{search.data} || '%' )A )
 		WHERE RNUM BETWEEN #{paging.start} AND #{paging.end}
 	</select>
 	
-	<!-- 상품명검색(총개수+날짜) -->
-	<select id="selectReturnCntOfReturnSearchType2WithDate" resultType="int">
+	<!-- 2-3. 상품명과 날짜로 검색 : 전체 목록 개수 -->
+	<select id="selectStatusCntOfSearchType2WithDate" resultType="int">
 		SELECT COUNT(*) FROM (
-		SELECT R.*, OP.CODE, OP.AMOUNT, O.ID, O.TO_NAME, P.NAME
-		FROM RETURN R, ORDER_PRODUCT OP, ORDERS O, PRODUCT P
-		WHERE R.OP_NO = OP.NO
+		SELECT ROWNUM RNUM, A.* FROM (
+		SELECT OP.NO, OP.CODE, OP.AMOUNT, OP.STATUS, P.NAME, O.ID, O.DATES, OP.ORDERS_NO, R.REASON   
+		FROM ORDER_PRODUCT OP, PRODUCT P, ORDERS O, RETURN R
+		WHERE OP.CODE = P.CODE
 		AND OP.ORDERS_NO = O.NO
-		AND OP.CODE = P.CODE
-		AND P.NAME LIKE '%' || #{data} || '%'
-		AND R.DATES BETWEEN to_date(#{fromdate}, 'yyyy-mm-dd') AND to_date(#{todate}, 'yyyy-mm-dd')+0.99999 )	
+		AND OP.NO = R.OP_NO(+) 
+		AND P.NAME LIKE '%' || #{data} || '%' 
+		AND O.DATES BETWEEN to_date(#{fromdate}, 'yyyy-mm-dd') AND to_date(#{todate}, 'yyyy-mm-dd')+0.99999)A )
 	</select>
 	
-	<!-- 상품명검색(페이징+날짜) -->
-	<select id="selectReturnListBySearchDataType2WithDate" resultMap="returndata">
-		SELECT * FROM (SELECT ROWNUM RNUM, A.* FROM
-		(SELECT R.*, OP.CODE, OP.AMOUNT, O.ID, O.TO_NAME, P.NAME
-		FROM RETURN R, ORDER_PRODUCT OP, ORDERS O, PRODUCT P
-		WHERE R.OP_NO = OP.NO
+	<!-- 2-4. 상품명과 날짜로 검색 : 페이징 적용 -->
+	<select id="selectStatusListOfSearchType2WithDate" resultMap="statusdata">
+		SELECT * FROM (
+		SELECT ROWNUM RNUM, A.* FROM (
+		SELECT OP.NO, OP.CODE, OP.AMOUNT, OP.STATUS, P.NAME, O.ID, O.DATES, OP.ORDERS_NO, R.REASON   
+		FROM ORDER_PRODUCT OP, PRODUCT P, ORDERS O, RETURN R
+		WHERE OP.CODE = P.CODE
 		AND OP.ORDERS_NO = O.NO
-		AND OP.CODE = P.CODE
-		AND P.NAME LIKE '%' || #{search.data} || '%'
-		AND R.DATES BETWEEN to_date(#{search.fromdate}, 'yyyy-mm-dd') AND to_date(#{search.todate}, 'yyyy-mm-dd')+0.99999 )A )
+		AND OP.NO = R.OP_NO(+) 
+		AND P.NAME LIKE '%' || #{search.data} || '%' 
+		AND O.DATES BETWEEN to_date(#{search.fromdate}, 'yyyy-mm-dd') AND to_date(#{search.todate}, 'yyyy-mm-dd')+0.99999)A )
 		WHERE RNUM BETWEEN #{paging.start} AND #{paging.end}
 	</select>
 	
-	<!-- 수리여부검색(총개수) -->
-	<select id="selectReturnCntOfReturnSearchType3" resultType="int">
+	<!-- 3-1. 배송상태로 검색 : 전체 목록 개수 -->
+	<select id="selectStatusCntOfSearchType3" resultType="int">
 		SELECT COUNT(*) FROM (
-		SELECT R.*, OP.CODE, OP.AMOUNT, O.ID, O.TO_NAME, P.NAME
-		FROM RETURN R, ORDER_PRODUCT OP, ORDERS O, PRODUCT P
-		WHERE R.OP_NO = OP.NO
+		SELECT ROWNUM RNUM, A.* FROM (
+		SELECT OP.NO, OP.CODE, OP.AMOUNT, OP.STATUS, P.NAME, O.ID, O.DATES, OP.ORDERS_NO, R.REASON   
+		FROM ORDER_PRODUCT OP, PRODUCT P, ORDERS O, RETURN R
+		WHERE OP.CODE = P.CODE
 		AND OP.ORDERS_NO = O.NO
-		AND OP.CODE = P.CODE
-		AND R.ACCEPT = #{data} )
+		AND OP.NO = R.OP_NO(+) 
+		AND OP.STATUS = #{data} )A )
 	</select>
 	
-	<!-- 수리여부검색(페이징) -->
-	<select id="selectReturnListBySearchDataType3" resultMap="returndata">
-		SELECT * FROM (SELECT ROWNUM RNUM, A.* FROM
-		(SELECT R.*, OP.CODE, OP.AMOUNT, O.ID, O.TO_NAME, P.NAME
-		FROM RETURN R, ORDER_PRODUCT OP, ORDERS O, PRODUCT P
-		WHERE R.OP_NO = OP.NO
+	<!-- 3-2. 배송상태로 검색 : 페이징 적용 -->
+	<select id="selectStatusListOfSearchType3" resultMap="statusdata">
+		SELECT * FROM (
+		SELECT ROWNUM RNUM, A.* FROM (
+		SELECT OP.NO, OP.CODE, OP.AMOUNT, OP.STATUS, P.NAME, O.ID, O.DATES, OP.ORDERS_NO, R.REASON   
+		FROM ORDER_PRODUCT OP, PRODUCT P, ORDERS O, RETURN R
+		WHERE OP.CODE = P.CODE
 		AND OP.ORDERS_NO = O.NO
-		AND OP.CODE = P.CODE
-		AND  R.ACCEPT = #{search.data} )A )
+		AND OP.NO = R.OP_NO(+) 
+		AND OP.STATUS = #{search.data} )A )
 		WHERE RNUM BETWEEN #{paging.start} AND #{paging.end}	
 	</select>
 	
-	<!-- 수리여부검색(총개수+날짜) -->
-	<select id="selectReturnCntOfReturnSearchType3WithDate" resultType="int">
+	<!-- 3-3. 배송상태와 날짜로 검색 : 전체 목록 개수 -->
+	<select id="selectStatusCntOfSearchType3WithDate" resultType="int">
 		SELECT COUNT(*) FROM (
-		SELECT R.*, OP.CODE, OP.AMOUNT, O.ID, O.TO_NAME, P.NAME
-		FROM RETURN R, ORDER_PRODUCT OP, ORDERS O, PRODUCT P
-		WHERE R.OP_NO = OP.NO
+		SELECT ROWNUM RNUM, A.* FROM (
+		SELECT OP.NO, OP.CODE, OP.AMOUNT, OP.STATUS, P.NAME, O.ID, O.DATES, OP.ORDERS_NO,  R.REASON   
+		FROM ORDER_PRODUCT OP, PRODUCT P, ORDERS O, RETURN R
+		WHERE OP.CODE = P.CODE
 		AND OP.ORDERS_NO = O.NO
-		AND OP.CODE = P.CODE
-		AND R.ACCEPT = #{data}
-		AND R.DATES BETWEEN to_date(#{fromdate}, 'yyyy-mm-dd') AND to_date(#{todate}, 'yyyy-mm-dd')+0.99999 )	
+		AND OP.NO = R.OP_NO(+) 
+		AND OP.STATUS = #{data} 
+		AND O.DATES BETWEEN to_date(#{fromdate}, 'yyyy-mm-dd') AND to_date(#{todate}, 'yyyy-mm-dd')+0.99999)A )	
 	</select>
 	
-	<!-- 수리여부검색(페이징+날짜) -->
-	<select id="selectReturnListBySearchDataType3WithDate" resultMap="returndata">
-		SELECT * FROM (SELECT ROWNUM RNUM, A.* FROM
-		(SELECT R.*, OP.CODE, OP.AMOUNT, O.ID, O.TO_NAME, P.NAME
-		FROM RETURN R, ORDER_PRODUCT OP, ORDERS O, PRODUCT P
-		WHERE R.OP_NO = OP.NO
+	<!-- 3-4. 배송상태와 날짜로 검색 : 페이징 적용 -->
+	<select id="selectStatusListOfSearchType3WithDate" resultMap="statusdata">
+		SELECT * FROM (
+		SELECT ROWNUM RNUM, A.* FROM (
+		SELECT OP.NO, OP.CODE, OP.AMOUNT, OP.STATUS, P.NAME, O.ID, O.DATES, OP.ORDERS_NO, R.REASON   
+		FROM ORDER_PRODUCT OP, PRODUCT P, ORDERS O, RETURN R
+		WHERE OP.CODE = P.CODE
 		AND OP.ORDERS_NO = O.NO
-		AND OP.CODE = P.CODE
-		AND R.ACCEPT = #{search.data}
-		AND R.DATES BETWEEN to_date(#{search.fromdate}, 'yyyy-mm-dd') AND to_date(#{search.todate}, 'yyyy-mm-dd')+0.99999 )A )
-		WHERE RNUM BETWEEN #{paging.start} AND #{paging.end}	
-	</select>
-	
-	<!-- 판매완료검색(총개수) -->
-	<select id="selectReturnCntOfReturnSearchType4" resultType="int">
-		SELECT COUNT(*) FROM (
-		SELECT R.*, OP.CODE, OP.AMOUNT, O.ID, O.TO_NAME, P.NAME
-		FROM RETURN R, ORDER_PRODUCT OP, ORDERS O, PRODUCT P
-		WHERE R.OP_NO = OP.NO
-		AND OP.ORDERS_NO = O.NO
-		AND OP.CODE = P.CODE
-		AND R.STATUS = #{data} )
-	</select>
-	<!-- 판매완료검색(페이징) -->
-	<select id="selectReturnListBySearchDataType4" resultMap="returndata">
-		SELECT * FROM (SELECT ROWNUM RNUM, A.* FROM
-		(SELECT R.*, OP.CODE, OP.AMOUNT, O.ID, O.TO_NAME, P.NAME
-		FROM RETURN R, ORDER_PRODUCT OP, ORDERS O, PRODUCT P
-		WHERE R.OP_NO = OP.NO
-		AND OP.ORDERS_NO = O.NO
-		AND OP.CODE = P.CODE
-		AND R.STATUS = #{search.data} )A )
+		AND OP.NO = R.OP_NO(+) 
+		AND OP.STATUS = #{search.data}
+		AND O.DATES BETWEEN to_date(#{search.fromdate}, 'yyyy-mm-dd') AND to_date(#{search.todate}, 'yyyy-mm-dd')+0.99999)A )
 		WHERE RNUM BETWEEN #{paging.start} AND #{paging.end}
 	</select>
-	<!-- 판매완료검색(총개수+날짜) -->
-	<select id="selectReturnCntOfReturnSearchType4WithDate" resultType="int">
+	
+	<!-- 4-1. 날짜로만 검색 : 전체 목록 개수  -->
+	<select id="selectStatusCntWithDate" resultType="int">
 		SELECT COUNT(*) FROM (
-		SELECT R.*, OP.CODE, OP.AMOUNT, O.ID, O.TO_NAME, P.NAME
-		FROM RETURN R, ORDER_PRODUCT OP, ORDERS O, PRODUCT P
-		WHERE R.OP_NO = OP.NO
+		SELECT ROWNUM RNUM, A.* FROM (
+		SELECT OP.NO, OP.CODE, OP.AMOUNT, OP.STATUS, P.NAME, O.ID, O.DATES, OP.ORDERS_NO, R.REASON   
+		FROM ORDER_PRODUCT OP, PRODUCT P, ORDERS O, RETURN R
+		WHERE OP.CODE = P.CODE
 		AND OP.ORDERS_NO = O.NO
-		AND OP.CODE = P.CODE
-		AND R.STATUS = #{data}
-		AND R.DATES BETWEEN to_date(#{fromdate}, 'yyyy-mm-dd') AND to_date(#{todate}, 'yyyy-mm-dd')+0.99999 )		
+		AND OP.NO = R.OP_NO(+) 
+		AND O.DATES BETWEEN to_date(#{fromdate}, 'yyyy-mm-dd') AND to_date(#{todate}, 'yyyy-mm-dd')+0.99999 )A )
 	</select>
-	<!-- 판매완료검색(페이징+날짜) -->
-	<select id="selectReturnListBySearchDataType4WithDate" resultMap="returndata">
-		SELECT * FROM (SELECT ROWNUM RNUM, A.* FROM
-		(SELECT R.*, OP.CODE, OP.AMOUNT, O.ID, O.TO_NAME, P.NAME
-		FROM RETURN R, ORDER_PRODUCT OP, ORDERS O, PRODUCT P
-		WHERE R.OP_NO = OP.NO
+	
+	<!-- 4-2. 날짜로만 검색 : 페이징 적용 -->
+	<select id="selectStatusListWithDate" resultMap="statusdata">
+		SELECT * FROM (
+		SELECT ROWNUM RNUM, A.* FROM (
+		SELECT OP.NO, OP.CODE, OP.AMOUNT, OP.STATUS, P.NAME, O.ID, O.DATES, OP.ORDERS_NO, R.REASON   
+		FROM ORDER_PRODUCT OP, PRODUCT P, ORDERS O, RETURN R
+		WHERE OP.CODE = P.CODE
 		AND OP.ORDERS_NO = O.NO
-		AND OP.CODE = P.CODE
-		AND R.STATUS = #{search.data}
-		AND R.DATES BETWEEN to_date(#{search.fromdate}, 'yyyy-mm-dd') AND to_date(#{search.todate}, 'yyyy-mm-dd')+0.99999 )A )
+		AND OP.NO = R.OP_NO(+)
+		AND O.DATES BETWEEN to_date(#{search.fromdate}, 'yyyy-mm-dd') AND to_date(#{search.todate}, 'yyyy-mm-dd')+0.99999)A )
 		WHERE RNUM BETWEEN #{paging.start} AND #{paging.end}	
 	</select>
 	
-	<!-- 반품 총개수 -->
-	<select id="selectReturnCnt" resultType="int">
+	<!-- 5-1. 일반 조회 : 전체 목록 개수 -->
+	<select id="selectStatusCnt" resultType="int">
 		SELECT COUNT(*) FROM (
-		SELECT R.*, OP.CODE, OP.AMOUNT, O.ID, O.TO_NAME, P.NAME
-		FROM RETURN R, ORDER_PRODUCT OP, ORDERS O, PRODUCT P
-		WHERE R.OP_NO = OP.NO
+		SELECT ROWNUM RNUM, A.* FROM (
+		SELECT OP.NO, OP.CODE, OP.AMOUNT, OP.STATUS, P.NAME, O.ID, O.DATES, OP.ORDERS_NO, R.REASON   
+		FROM ORDER_PRODUCT OP, PRODUCT P, ORDERS O, RETURN R
+		WHERE OP.CODE = P.CODE
 		AND OP.ORDERS_NO = O.NO
-		AND OP.CODE = P.CODE)
+		AND OP.NO = R.OP_NO(+) ) A )
 	</select>
 
-	<!-- 반품 목록 조회 (페이징) -->
-	<select id="selectReturnList" resultMap="returndata">
-		SELECT * FROM (SELECT ROWNUM RNUM, A.* FROM
-		(SELECT R.*, OP.CODE, OP.AMOUNT, O.ID, O.TO_NAME, P.NAME
-		FROM RETURN R, ORDER_PRODUCT OP, ORDERS O, PRODUCT P
-		WHERE R.OP_NO = OP.NO
+	<!-- 5-2. 일반 조회 : 페이징 -->
+	<select id="selectStatusList" resultMap="statusdata">
+		SELECT * FROM (
+		SELECT ROWNUM RNUM, A.* FROM (
+		SELECT OP.NO, OP.CODE, OP.AMOUNT, OP.STATUS, P.NAME, O.ID, O.DATES, OP.ORDERS_NO, R.REASON   
+		FROM ORDER_PRODUCT OP, PRODUCT P, ORDERS O, RETURN R
+		WHERE OP.CODE = P.CODE
 		AND OP.ORDERS_NO = O.NO
-		AND OP.CODE = P.CODE 
-		ORDER BY R.DATES DESC)A )
-		WHERE RNUM BETWEEN #{start} AND #{end}
+		AND OP.NO = R.OP_NO(+) ) A )
+		WHERE RNUM BETWEEN #{start} AND #{end}	
 	</select>
 	
-	<!-- 반품 총개수(날짜)  -->
-	<select id="selectReturnCntOfByDate" resultType="int">
-		SELECT COUNT(*) FROM (
-		SELECT R.*, OP.CODE, OP.AMOUNT, O.ID, O.TO_NAME, P.NAME
-		FROM RETURN R, ORDER_PRODUCT OP, ORDERS O, PRODUCT P
-		WHERE R.OP_NO = OP.NO
-		AND OP.ORDERS_NO = O.NO
-		AND OP.CODE = P.CODE
-		AND R.DATES BETWEEN to_date(#{fromdate}, 'yyyy-mm-dd') AND to_date(#{todate}, 'yyyy-mm-dd')+0.99999 )
-	</select>
 	
-	<!-- 반품 목록 조회 (페이징+날짜) -->
-	<select id="selectReturnListByDate" resultMap="returndata">
-		SELECT * FROM (SELECT ROWNUM RNUM, A.* FROM
-		(SELECT R.*, OP.CODE, OP.AMOUNT, O.ID, O.TO_NAME, P.NAME
-		FROM RETURN R, ORDER_PRODUCT OP, ORDERS O, PRODUCT P
-		WHERE R.OP_NO = OP.NO
-		AND OP.ORDERS_NO = O.NO
-		AND OP.CODE = P.CODE
-		AND R.DATES BETWEEN to_date(#{search.fromdate}, 'yy/mm/dd') AND to_date(#{search.todate}, 'yy/mm/dd')+0.99999 )A )
-		WHERE RNUM BETWEEN #{paging.start} AND #{paging.end}	
-	</select>
-	
-	<select id="selectReturnDetail" resultMap="returndata">
-		SELECT R.OP_NO, R.REASON, TO_CHAR(R.DATES, 'YYYY-MM-DD HH24:MI:SS') DATES, R.ACCEPT, R.STATUS, 
-		OP.CODE, OP.AMOUNT, O.ID, O.TO_NAME, P.NAME
-		FROM RETURN R, ORDER_PRODUCT OP, ORDERS O, PRODUCT P
-		WHERE R.OP_NO = OP.NO
-		AND OP.ORDERS_NO = O.NO
-		AND OP.CODE = P.CODE
-		AND OP_NO = #{op_no}
-	</select>
+	<!-- 배송 상태 조회 끝 -->
 
-	<update id="modifyReturnData">
-		UPDATE RETURN
-		SET ACCEPT = #{accept}, STATUS = #{status}
-		WHERE OP_NO = #{op_no}
-	</update>
-	
-	
-	<!-- 상품관련 & 매출관련 -->
 
-	<resultMap type="map" id="Sales">
-			<id column="no" property="no" />
-			<result column="name" property="name" />
-			<result column="company" property="company" />
-			<result column="price" property="price" />
-			<result column="dates" property="dates" />
-			<result column="amount" property="amount" />
-			<result column="point" property="point" />
-			<result column="code" property="code" />
-		</resultMap>
+	
+	
+	<!-- 주문 내역 상세 -->
+	<select id="selectOrdersDetail" resultMap="orders">
+		SELECT * FROM ORDERS
+		WHERE NO = #{o_no}
+	</select>
+	
+	
+	
+	
+	
+	<!-- 상품 등록 , 상세 , 수정 관련 -->
 	   
 	   <!-- product의 code를 rename하는 쿼리 -->
 	   <select id="renameCode" resultType="String">
@@ -420,6 +404,9 @@
 			SET NAME = #{name}, DESCRIBE = #{describe}, PRICE = #{price}, COMPANY = #{company}, DATES = #{dates}
 			WHERE CODE = #{code}
 		</update>
+		
+		
+		
 		
 	<!-- 회원관리 -->
 	<select id="selectMemberCnt" resultType="int">
@@ -492,5 +479,6 @@
 			)
 		where rnum between #{paging.start} and #{paging.end}
 	</select>
+	
 	
 </mapper>

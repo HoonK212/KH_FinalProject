@@ -1,248 +1,1222 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+<!--모달  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet"  href="<%=request.getContextPath() %>/resources/css/orderList.css" />
+
+<style type="text/css">
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Droid Sans', sans-serif;
+  outline: none;
+}
+::-webkit-scrollbar {
+  background: transparent;
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+/* body {background-color: #2a2b3d} */
+body {background-color:#eee}
+#contents {
+  position: relative;
+  transition: .3s;
+  margin-left: 290px;
+  background-color: #2a2b3d;
+}
+.margin {
+  margin-left: 0 !important;
+}
+/* Start side navigation bar  */
+
+.side-nav {
+  float: left;
+  height: 100%;
+  width: 290px;
+  background-color: #252636;
+  color: #CCC;
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  transform: translateX(0);
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  transition: .3s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: auto;
+  z-index: 9999999
+}
+.side-nav .close-aside {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  cursor: pointer;
+  color: #EEE;
+}
+.side-nav .heading {
+  background-color: #252636;
+  padding: 15px 15px 15px 30px;
+  overflow: hidden;
+  border-bottom: 1px solid #2a2b3c
+}
+.side-nav .heading > img {
+  border-radius: 50%;
+  float: left;
+  width: 28%;
+}
+.side-nav .info {
+  float: left;
+  width: 69%;
+  margin-left: 3%;
+}
+.side-nav .heading .info > h3 {margin: 0 0 5px}
+.side-nav .heading .info > h3 > a {
+  color: #EEE;
+  font-weight: 100;
+  margin-top: 4px;
+  display: block;
+  text-decoration: none;
+  font-size: 18px;
+}
+.side-nav .heading .info > h3 > a:hover {
+  color: #FFF;
+}
+.side-nav .heading .info > p {
+  color: #BBB;
+  font-size: 13px;
+}
+/* End heading */
+/* Start search */
+.side-nav .search {
+  text-align: center;
+  padding: 15px 30px;
+  margin: 15px 0;
+  position: relative;
+}
+.side-nav .search > input {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #23262d;
+  padding: 7px 0 7px;
+  color: #DDD
+}
+.side-nav .search > input ~ i {
+  position: absolute;
+  top: 22px;
+  right: 40px;
+  display: block;
+  color: #2b2f3a;
+  font-size: 19px;
+}
+/* End search */
+
+.side-nav .categories > li {
+  padding: 17px 40px 17px 30px;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+  cursor: pointer;
+}
+.side-nav .categories > li > a {
+  color: #AAA;
+  text-decoration: none;
+}
+/* Start num: there are three options primary, danger and success like Bootstrap */
+.side-nav .categories > li > a > .num {
+  line-height: 0;
+  border-radius: 3px;
+  font-size: 14px;
+  color: #FFF;
+  padding: 0px 5px
+}
+.dang {background-color: #f35959}
+.prim {background-color: #0275d8}
+.succ {background-color: #5cb85c}
+/* End num */
+.side-nav .categories > li > a:hover {
+  color: #FFF
+}
+.side-nav .categories > li > i {
+  font-size: 18px;
+  margin-right: 5px
+}
+
+.side-nav .categories .opend > a:after {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+/* End categories */
+/* Start dropdown menu */
+.side-nav .categories .side-nav-dropdown {
+  padding-top: 10px;
+  padding-left: 30px;
+  list-style: none;
+  display: none;
+}
+.side-nav .categories .side-nav-dropdown > li > a {
+  color: #AAA;
+  text-decoration: none;
+  padding: 7px 0;
+  display: block;
+}
+.side-nav .categories p {
+  margin-left: 30px;
+  color: #535465;
+  margin-top: 10px;
+}
+
+/* End dropdown menu */
+
+.show-side-nav {
+  -webkit-transform: translateX(-290px);
+  -moz-transform: translateX(-290px);
+  transform: translateX(-290px);
+}
+
+
+/* Start media query */
+/* @media (max-width: 767px) {
+  .side-nav .categories > li {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  .side-nav .search {
+    padding: 10px 0 10px 30px
+  }
+} */
+
+/* End side navigation bar  */
+/* Start welcome */
+
+.welcome {
+  color: #CCC;
+}
+.welcome .content {
+  background-color: #313348;
+  padding: 15px;
+  margin-top: 25px;
+}
+.welcome h2 {
+  font-family: Calibri;
+  font-weight: 100;
+  margin-top: 0
+}
+.welcome p {
+  color: #999;
+}
+
+
+/* Start statistics */
+
+
+/* Start users */
+
+.admins {
+  margin-top: 25px;
+}
+.admins .box {
+
+}
+.admins .box > h3 {
+  color: #ccc;
+  font-family: Calibri;
+  font-weight: 300;
+  margin-top: 0;
+}
+.admins .box .admin {
+  margin-bottom: 20px;
+  overflow: hidden;
+  background-color: #313348;
+  padding: 10px;
+}
+.admins .box .admin .img {
+  width: 20%;
+  margin-right: 5%;
+  float: left;
+}
+.admins .box .admin .img img {
+  border-radius: 50%;
+}
+.admins .box .info {
+  width: 75%;
+  color: #EEE;
+  float: left;
+}
+.admins .box .info h3 {font-size: 19px}
+.admins .box .info p {color: #BBB}
+
+/* End users */
+/* Start statis */
+
+.statis {
+  color: #EEE;
+  margin-top: 15px;
+}
+.statis .box {
+  position: relative;
+  padding: 15px;
+  overflow: hidden;
+  border-radius: 3px;
+  margin-bottom: 25px;
+}
+.statis .box h3:after {
+  content: "";
+  height: 2px;
+  width: 70%;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.12);
+  display: block;
+  margin-top: 10px;
+}
+.statis .box i {
+  position: absolute;
+  height: 70px;
+  width: 70px;
+  font-size: 22px;
+  padding: 15px;
+  top: -25px;
+  left: -25px;
+  background-color: rgba(255, 255, 255, 0.15);
+  line-height: 60px;
+  text-align: right;
+  border-radius: 50%;
+}
+
+
+
+.main-color {
+  color: #ffc107
+}
+.warning {background-color: #f0ad4e}
+.danger {background-color: #d9534f}
+.success {background-color: #5cb85c}
+.inf {background-color: #5bc0de}
+
+/* Start bootstrap */
+.navbar-right .dropdown-menu {
+  right: auto !important;
+  left: 0 !important;
+}
+.navbar-default {
+  background-color: #6f6486 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  margin: 0 !important
+}
+.navbar-default .navbar-nav>li>a {
+  color: #EEE !important;
+  line-height: 55px !important;
+  padding: 0 10px !important;
+}
+.navbar-default .navbar-brand {color:#FFF !important}
+.navbar-default .navbar-nav>li>a:focus,
+.navbar-default .navbar-nav>li>a:hover {color: #EEE !important}
+
+.navbar-default .navbar-nav>.open>a,
+.navbar-default .navbar-nav>.open>a:focus,
+.navbar-default .navbar-nav>.open>a:hover {background-color: transparent !important; color: #FFF !important}
+
+.navbar-default .navbar-brand {line-height: 55px !important; padding: 0 !important}
+.navbar-default .navbar-brand:focus,
+.navbar-default .navbar-brand:hover {color: #FFF !important}
+.navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {margin: 0 !important}
+
+.navbar-default .navbar-nav>li>a {
+  float: left !important;
+}
+.navbar-default .navbar-nav>li>a>span:not(.caret) {
+  background-color: #e74c3c !important;
+  border-radius: 50% !important;
+  height: 25px !important;
+  width: 25px !important;
+  padding: 2px !important;
+  font-size: 11px !important;
+  position: relative !important;
+  top: -10px !important;
+  right: 5px !important
+}
+.dropdown-menu>li>a {
+  padding-top: 5px !important;
+  padding-right: 5px !important;
+}
+.navbar-default .navbar-nav>li>a>i {
+  font-size: 18px !important;
+}
+
+/* Start media query */
+
+<!--shopping cart -->
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 12px;
+}
+
+body {
+  /* margin: 20px 0;
+  padding: 0; */
+  font-family: arial, sans-serif;
+  overflow: scroll;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: middle;
+  border-radius: 4px;
+}
+
+a {
+  text-decoration: none;
+  color: #333333;
+}
+
+a:hover {
+  color: #f58551;
+}
+
+button {
+  background-color: #16cc9b;
+  border: 2px solid #16cc9b;
+  color: #ffffff;
+  transition: all 0.25s linear;
+  cursor: pointer;
+}
+
+button::after {
+  position: relative;
+  right: 0;
+  content: " \276f";
+  transition: all 0.15s linear;
+}
+
+button:hover {
+  background-color: #f58551;
+  border-color: #f58551;
+}
+
+button:hover::after {
+  right: -5px;
+}
+
+button:focus {
+  outline: none;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+input {
+  transition: all 0.25s linear;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+input {
+  outline: none;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  overflow: auto;
+}
+
+/* --- HEADER --- */
+header.container {
+  margin-bottom: 1.5rem;
+}
+
+header .breadcrumb {
+  color: #7d7d7d;
+}
+
+header .breadcrumb li {
+  float: left;
+  padding: 0 6px; 
+  height: 20px;
+  line-height: 20px;
+}
+
+header .breadcrumb li:first-child {
+  padding-left: 2px;
+}
+
+header .breadcrumb li:not(:last-child)::after {
+   content: " \276f"; 
+  padding-left: 8px;
+}
+
+header .count {
+  float: right;
+  color: #333333;
+  height: 20px;
+  line-height: 20px;
+  background-color: yellow;
+}
+
+/* --- PRODUCT LIST --- */
+.products {
+   border-top: 1px solid #ddd; 
+   border-bottom: 1px solid #ddd; 
+}
+
+.products > li {
+  padding: 1rem 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.row {
+  position: relative;
+  overflow: auto;
+  width: 100%;
+}
+
+.col,
+.quantity,
+.remove {
+  float: left;
+}
+
+.col.left {
+  width: 70%;
+}
+
+.col.right {
+  width: 30%;
+  position: absolute;
+  right: 0;
+  top: calc(50% - 30px);
+}
+
+.detail {
+  padding: 0 0.5rem;
+  line-height: 2.2rem;
+}
+
+.detail .name {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.detail .description {
+  color: #7d7d7d;
+  font-size: 1rem;
+}
+.detail .o_no{
+  color: #7d7d7d;
+  font-size: 1rem;
+}
+
+.detail .price {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.quantity,
+.remove {
+  width: 50%;
+  text-align: center;
+}
+
+.remove svg {
+  width: 60px;
+  height: 60px;
+}
+
+.quantity > input {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  position: relative;
+  left: calc(50% - 30px);
+  background: #fff;
+  border: 2px solid #ddd;
+  color: #7f7f7f;
+  text-align: center;
+  font: 600 1.5rem Helvetica, Arial, sans-serif;
+}
+
+.quantity > input:hover,
+.quantity > input:focus {
+  border-color: #f58551;
+}
+
+.close {
+  fill: #7d7d7d;
+  transition: color 150ms linear, background-color 150ms linear,
+    fill 150ms linear, 150ms opacity linear;
+  cursor: pointer;
+}
+
+.close:hover {
+  fill: #f58551;
+}
+
+/* --- SUMMARY --- */
+.promotion,
+.summary,
+.checkout {
+  float: left;
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+.promotion > label {
+  float: left;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.promotion > input {
+  float: left;
+  width: 80%;
+  font-size: 1rem;
+  padding: 0.5rem 0 0.5rem 1.8rem;
+  border: 2px solid #16cc9b;
+  border-radius: 2rem 0 0 2rem;
+}
+
+.promotion:hover > input {
+  border-color: #f58551;
+}
+
+.promotion > button {
+  float: left;
+  width: 20%;
+  height: 2.4rem;
+  border-radius: 0 2rem 2rem 0;
+}
+
+.promotion:hover > button {
+  border-color: #f58551;
+  background-color: #f58551;
+}
+
+.promotion > button::after {
+  content: "\276f";
+  font-size: 1rem;
+}
+
+.summary {
+  font-size: 1.2rem;
+  /* text-align: right; */
+}
+
+.summary ul li {
+  padding: 0.5rem 0;
+}
+
+.summary ul li span {
+  /* display: inline-block; */
+  width: 30%;
+}
+
+.summary ul li.total {
+  font-weight: bold;
+}
+
+.checkout {
+  text-align: right;
+}
+
+.checkout > button {
+  font-size: 1.2rem;
+  padding: 0.8rem 2.8rem;
+  border-radius: 1.5rem;
+}
+
+/* .empty-product {
+  text-align: center;
+}
+
+.empty-product > button {
+  font-size: 1.3rem;
+  padding: 10px 30px;
+  border-radius: 5px;
+}
+ */
+
+/* /* --- MEDIUM & LARGE SCREEN --- */
+@media all and (min-width: 600px) {
+  html {
+    font-size: 14px;
+  }
+
+  .container {
+    width: 75%;
+   /*  max-width: 960px; */
+  }
+
+  .thumbnail,
+  .detail {
+    float: left;
+  }
+
+  .thumbnail {
+/*     width: 35%; */
+  }
+
+  .detail {
+    width: 65%;
+  }
+
+  .promotion,
+  .summary {
+    width: 50%;
+  }
+
+  .checkout {
+    width: 100%;
+  }
+
+  .checkout,
+  .summary {
+    text-align: right;
+  }
+  
+  .summary{
+     padding-left: 760px;
+  }
+}
+
+/* --- LARGE SCREEN --- */
+/* @media all and (min-width: 992px) {
+  html {
+    font-size: 16px;
+  }
+} */
+ 
+
+/* button  */
+/* Button */
+    .button {
+      display: inline-block;
+      position: relative;
+      width: 120px;
+      height: 32px;
+      line-height: 32px;
+      border-radius: 2px;
+      font-size: 0.9em;
+      background-color: #fff;
+      color: #646464;
+    }
+    
+    .button > paper-ripple {
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    
+  
+   .button.green {
+      background-color: #0f9d58;
+      color: #fff;
+    }
+    
+    .button.raised {
+      transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      transition-delay: 0.2s;
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    }
+    
+    .button.raised:active {
+      box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+      transition-delay: 0s;
+    }
+    
+  
+     /* Misc */
+    .modal-btn {
+      text-align: center;
+    }
+    
+    
+/*modal  */   
+ 
+body {
+/*   padding: 30px; */
+}
+#leftSide {
+  background-color: #dbe3ff;
+  height: 600px;
+}
+#mainContent {
+  background-color: #fff5d4;
+  height: 600px;
+  padding-top: 20px;
+}
+.rsButtons {
+  padding-top: 30px;
+}
+/* custom style for  validation method required. See ditails and classes name in developers tool */
+.error {
+  color: red;
+  font-size: 0.8em;
+}
+
+
+
+
+
+
+
+
+
+
+.star-box {
+	/* 별과 별 사이 공백 제거 */
+    font-size: 0;
+}
+
+.star {
+	/* width,height 적용가능하도록 변경 */
+	display: inline-block;
+
+	/* 별이 표현되는 영역 크기 */
+	width: 25px;
+    height: 55px;
+
+	/* 투명한 별 표현 */
+	background-image: url("/resources/image/mypage/star33.gif");
+	background-repeat: no-repeat;
+}
+
+.star_left {
+	/* 왼쪽 별 */
+	background-position: 0 0;
+	background-size: 200%;
+}
+
+.star_right {
+	/* 오른쪽 별 */
+	background-position: 100% 0;
+	background-size: 200%;
+}
+
+.on {
+	/* 채워진 별로 이미지 변경 */
+	background-image: url("/resources/image/mypage/star44.gif");
+}
+
+</style>
 </head>
+
+
 <body>
-<aside class="side-nav" id="show-side-navigation1">
-  <i class="fa fa-bars close-aside hidden-sm hidden-md hidden-lg" data-close="show-side-navigation1"></i>
-  <div class="heading">
-    <img src="https://uniim1.shutterfly.com/ng/services/mediarender/THISLIFE/021036514417/media/23148907008/medium/1501685726/enhance" alt="">
-    <div class="info">
-      <h3><a href="#">Mostafa Omar</a></h3>
-      <p>Lorem ipsum dolor sit amet consectetur.</p>
-    </div>
-  </div>
-  <div class="search">
-    <input type="text" placeholder="Type here"><i class="fa fa-search"></i>
-  </div>
-  <ul class="categories">
-    <li><i class="fa fa-home fa-fw"></i><a href="#">회원정보</a>
-      <ul class="side-nav-dropdown">
-        <li><a href="#">내 회원정보</a></li>
-        <li><a href="#">포인트&코인 관리</a></li>
-        <li><a href="#">내가 쓴 글 조회</a></li>
-      </ul>
-    </li>
-    <li><i class="fa fa-support fa-fw"></i><a href="#">운동관리</a>
-      <ul class="side-nav-dropdown">
-        <li><a href="#">내 목표설정</a></li>
-        <li><a href="#">내 운동관리</a></li>
-      </ul>
-    </li>
-    <li><i class="fa fa-envelope fa-fw"></i><a href="#">구매내역</a>
-      <ul class="side-nav-dropdown">
-        <li><a href="#">내 구매내역</a></li>
-      </ul>
-    </li>
-  </ul>
-</aside>
-<section id="contents">
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-    	<!-- navar-header -->
-     
-      <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1"></div>
-    </div>
-  </nav>
-</section>
+
+<!-- 사이드 네비 메뉴 -->
+<%@include file="/WEB-INF/views/mypage/navi.jsp" %>
+
 
 <div id="app" style="padding-left:150">
 <!-- Header -->
   <header class="container">
     <h1>구매목록</h1>
-    <ul class="breadcrumb">
+    <ul class="breadcrumb" style="padding: 0px 0px;">
       <li>마이페이지</li>
       <li>구매목록</li>
     </ul>
-    <span class="count">{{ itemCount }} items in the bag</span>
+<%--     <c:set var="totalamount" value="0" /> --%>
+<%--     <c:forEach items="${olist }" var="order"> --%>
+<%--     	<c:set var="totalamount" value = "${totalamount + order.amount }" /> --%>
+<%--     </c:forEach> --%>
+    <span class="count"> 총 ${totalamount }개 구매 </span>
   </header>
   <!-- End Header -->
-
+  
+  
+  
   <!-- Product List -->
   <section class="container">
+    
     <div v-if="products.length > 0">
       <ul class="products">
-      <li class="row" v-for="(product, index) in products" style="width:70%; margin-left:160;">
+      	
+	    <c:forEach items="${olist }" var="order">
+      	<li class="row" v-for="(product, index) in products" >
+        
         <div class="col left">
+          
           <div class="thumbnail">
-            <a href="#">
-              <img src="<%=request.getContextPath() %>/resources/image/Plank.jpg" alt="product.name" />
-            </a>
+              <img src="<%=request.getContextPath()%>/resources/upload_product/${order.renamed }.${order.ext}" style="height:19%;"/>
           </div>
+          
           <div class="detail">
-            <div class="name"><a href="#">product.name</a></div>
-            <div class="description">product.date</div>
-            <div class="price">product.price won</div>
+			<div class="o_no">주문번호 : ${order.o_no }</div>
+            <div class="description">주문일자 : ${order.dates }</div>
+            <div class="name">${order.name }</div>
+            <div class="price">${order.price * order.amount }</div>
+            
+            <!-- ### 숨겨놓은 데이터 ### -->
+            <!-- 상품코드  -->
+            <div class="code" style="display:none">${order.code }</div>
+            <!-- 상품주문 번호 -->
+            <div class="op_no" style="display:none">${order.op_no }</div>
+            <!-- 주문 번호 -->
+            <div class="o_no"  style="display:none">${order.o_no }</div>
+			
+			<!-- 후기 작성 모달 -->
+			<div  class="button raised btnModal1" data-toggle="modal" style="width:30%;  margin-top:10px; color: white; background-color: #48bb78;">
+               <div class="modal-btn" >후기</div>
+			</div> 
           </div>
+
         </div>
 
-        <div class="col right">
+        <div class="col right" style="display:flex; justify-content: end; align-items: center;">
           <div class="quantity">
-            <input type="number" class="quantity" step="1" value="1" @input="updateQuantity(index, $event)" @blur="checkQuantity(index, $event)" readonly />
+            <input type="number" class="quantity" step="1" value="${order.amount }" @input="updateQuantity(index, $event)" @blur="checkQuantity(index, $event)" readonly />
           </div>
           
           <div class="remove">
-          	<span style="line-height:4;">배송중</span>
+			 <c:if test="${order.status eq 1 }">
+             <span style="line-height:4;">상품준비</span>
+          	 </c:if>
+			 <c:if test="${order.status eq 2 }">
+             <span style="line-height:4;">배송중</span>
+          	 </c:if>
+			 <c:if test="${order.status eq 3 }">
+             <span style="line-height:4;">배송완료</span>
+          	 </c:if>
+			 <c:if test="${order.status eq 4 }">
+             <span style="line-height:4; color: red;">주문취소</span>
+          	 </c:if>
+			 <c:if test="${order.status eq 5 }">
+             <span style="line-height:4; color: red;">반품접수</span>
+          	 </c:if>
+			 <c:if test="${order.status eq 6 }">
+             <span style="line-height:4;">반품완료</span>
+          	 </c:if>
           </div>
-          </div>
-          	
-          	<!--버튼  -->
-    		<div class="button raised green" style="width:10%; margin-left:115;">
-			     <!--  <div class="center" fit id="modBtn" class="modal-btn">OK</div> -->
-			      <div  fit id="modBtn" class="modal-btn">OK</div>
-			      <paper-ripple fit></paper-ripple>
-    		</div>
-          	
-          	
-      </li>
-    </ul>
-    </div>
-    <div v-else class="empty-product">
-      <h3 style="padding:30;">There are products in your cart.</h3>
-      <button>Shopping now</button>
-    </div>
+          
+          <c:choose>
+          <c:when test="${order.status eq 1 }">
+          	<div id="info" class=" info btnModal2 button raised" data-toggle="modal" style="width:30%; margin-left: 20; color: white;  background-color: #48bb78;" >
+             <div  fit class="modal-btn" >주문취소</div>
+          	</div>
+          </c:when>
+          <c:when test="${order.status eq 3 }">
+          	 <div id="info" class=" info btnModal3 button raised" data-toggle="modal" style="width:30%; margin-left: 20; color: white; background-color: #48bb78;" >
+             <div  fit class="modal-btn" >반품</div>
+          	 </div>
+          </c:when>
+          <c:otherwise>
+          	 <div style="width:30%; margin-left: 15" >
+             <div></div>
+          	 </div>
+          </c:otherwise>
+          </c:choose> 
+        </div>
+             
+		</li>
+	  	</c:forEach>
+	
+	</ul>
+	</div>
+    
+
   </section>
   <!-- End Product List -->
   
-  <!-- Summary -->
-  <section class="container" v-if="products.length > 0">
-    <div class="summary">
-    <!--   <ul>
-        <li><span>subTotal  currencyFormatted</span></li>
-      </ul> -->
-      <!-- <span>Total  currencyFormatted</span> -->
-      Total  currencyFormatted
-    </div>
-
-    <div class="checkout">
-      <button type="button">Check Out</button>
-    </div>
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <section class="container" >
+       <div style="display: flex; justify-content: center; font-size: 2rem;"><!-- section pagination -->
+        <div style="margin-right: 20">
+        <c:choose>
+        	<c:when test="${page.blockStart > 1 }">
+         		<a href="<%= request.getContextPath() %>/mypage/orderlist?cPage=${page.blockStart-1}" class="nav prev"><i class="fa fa-angle-left"></i></a>
+        	</c:when>
+        	<c:otherwise>
+        		<a href="<%= request.getContextPath() %>/mypage/orderlist?cPage=${page.blockStart}" class="nav prev"><i class="fa fa-angle-left"></i></a>
+        	</c:otherwise>
+        </c:choose>
+        </div>
+        <div  style="margin-right: 10">
+        <c:forEach begin="${page.blockStart}" end="${page.blockEnd}" var="pagenation">
+	         		<c:choose>
+		       	   		<c:when test="${page.currentPage eq pagenation }">
+			       	    	<a href="<%= request.getContextPath() %>/mypage/orderlist?cPage=${pagenation}"><span style="color: #48bb78;">${pagenation}</span></a>
+		       	   		</c:when>
+			       	    <c:otherwise>
+			       	    	<a href="<%= request.getContextPath() %>/mypage/orderlist?cPage=${pagenation}"><span>${pagenation}</span></a>
+			       	    </c:otherwise>
+		       	 	</c:choose>
+        </c:forEach> 
+        </div>
+        <div  style="margin-left: 10">
+        <c:choose>
+        	<c:when test="${page.blockEnd+1 > page.lastPage }">
+         		<a href="<%= request.getContextPath() %>/mypage/orderlist?cPage=${page.blockEnd}" class="nav next"><i class="fa fa-angle-right"></i></a>
+        	</c:when>
+        	<c:otherwise>
+         		<a href="<%= request.getContextPath() %>/mypage/orderlist?cPage=${page.blockEnd+1}" class="nav next"><i class="fa fa-angle-right"></i></a>
+        	</c:otherwise>
+   	   	</c:choose>
+ 	   	</div> 
+   	   </div><!-- // section pagination -->
   </section>
-  <!-- End Summary -->
+
 </div>
 
+<!-- 평점모달 -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">후기작성</h4>
+      </div>
+<form class="form-horizontal" method="post" action="<%= request.getContextPath() %>/mypage/insertreview">
+      <div class="modal-body">
 
-<!-- 모달 -->
-<!-- Modal -->
-<div id="modal" class="modal">
-  <!-- Modal Content -->
-  <div class="modal-content">
-    <!-- Modal Header -->
-    <div class="modal-header">
-      <h3 class="header-title">Modal Header</h3>
-      <div class="close fa fa-close">x</div>    
-    </div>
-    <!-- Modal Body -->
-    <div class="modal-body">
-      <h3>Hello</h3>
-      <p>I'm the modal! do you see me?! Did you notice my width?</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus voluptatem amet voluptatum fuga temporibus.</p>
-      <ul>
-        <li>Phosfluorescently fashion ubiquitous schemas through.</li>
-        <li>Rapidiously empower premier initiatives whereas.</li>
-        <li>Credibly disintermediate economically sound.</li>
-        <li>Efficiently grow prospective bandwidth.</li>
-      </ul>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit natus nemo et magni soluta voluptatibus quas quasi pariatur necessitatibus, totam, officia id at praesentium fuga molestias numquam ullam iure accusamus.</p>
-    </div>
-    <div class="modal-footer">
-      <h3>Modal Footer</h3>
+   <div class="form-group">
+      <label for="productname" class="col-sm-3 control-label">상품이름</label>
+      <div class="col-sm-9">
+         <input type="text" id="productname" name="name" class="form-control" readonly/>
+      </div>
+   </div>
+   <div class="form-group">
+      <label for="productcode" class="col-sm-3 control-label">상품코드</label>
+      <div class="col-sm-9">
+         <input type="text" id="productcode" name="code" class="form-control" readonly/>
+      </div>
+   </div>
+   <div calss="form-group">
+   <label for="productscore" class="col-sm-3 control-label">상품평점</label>
+   
+   <!-- 별점을 이용한 스코어 -->
+   <input type="hidden" id="productscore" name="score" />
+   <div class="col-sm-9 star-box">
+		<span class="star star_left"></span>
+		<span class="star star_right"></span>
+		<span class="star star_left"></span>
+		<span class="star star_right"></span>
+		<span class="star star_left"></span>
+		<span class="star star_right"></span>
+		<span class="star star_left"></span>
+		<span class="star star_right"></span>
+		<span class="star star_left"></span>
+		<span class="star star_right"></span>
+   </div>
+   </div>
+   <div class="form-group"> 
+      <lable for="comments" class="col-sm-3 control-lable">후기를 작성하세요</lable>
+	  <div class="col-sm-9"> 
+	     <textarea name="review" class="form-control" rows="5" cols="40"></textarea>
+	  </div>
+   </div>
+   	
+   		<!-- 상품주문 번호  -->
+      <input type="hidden" id="op_no" name="op_no" />
+    
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary">후기 작성</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+   </form>
     </div>
   </div>
 </div>
 
-		
-	
+<!-- 취소모달 -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">구매 취소</h4>
+      </div>
+<form class="form-horizontal" method="get" action="<%= request.getContextPath() %>/mypage/cancelorder">
+      <div class="modal-body">
+   <div class="form-group"> 
+      <lable for="comments" class="col-sm-9 control-lable">정말 구매를 취소하시겠습니까?</lable>
+   </div>
+   		<!-- 주문 번호  -->
+      <input type="text" id="cancelorder" name="op_no" />
+    
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary">구매 취소</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+   </form>
+    </div>
+  </div>
+</div>
+
+<!-- 반품모달 -->
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">반품 신청</h4>
+      </div>
+<form class="form-horizontal" method="get" action="<%= request.getContextPath() %>/mypage/submitreturn">
+      <div class="modal-body">
+
+   <div class="form-group"> 
+      <lable for="comments" class="col-sm-3 control-lable">반품 사유를 작성해주세요</lable>
+	  <div class="col-sm-9"> 
+	     <textarea name="reason" class="form-control" rows="5" cols="40"></textarea>
+	  </div>
+   </div>
+   	
+   		<!-- 주문 번호  -->
+      <input type="text" id="submitreturn" name="op_no" />
+    
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary">반품 신청</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+   </form>
+    </div>
+  </div>
+</div>
+
+      
+   
 <script>
 
-	$(function () {
+$(document).ready(function(){
+    $(".btnModal1").click(function(e){
+        $("#myModal1").modal();
+		
+        $('#productname').val( $(this).closest('.detail').children('.name').text() ); 
+		$('#productcode').val( $(this).closest('.detail').children('.code').text() ); 
+		$('#op_no').val( $(this).closest('.detail').children('.op_no').text() ); 
+    });
 
-	  'use strict';
+    $(".btnModal2").click(function(e){
+        $("#myModal2").modal();
+        
+        $('#cancelorder').val( $(this).parent('.col').prev('.col').children('.detail').children('.op_no').text() );
+		
+    });
 
-	  var aside = $('.side-nav'),
-	      showAsideBtn = $('.show-side-btn'),
-	      contents = $('#contents'),
-	      _window = $(window)
+    $(".btnModal3").click(function(e){
+        $("#myModal3").modal();
+        
+        $('#submitreturn').val( $(this).parent('.col').prev('.col').children('.detail').children('.op_no').text() );
+	
+    });
+});
 
-	  showAsideBtn.on("click", function () {
-	    $("#" + $(this).data('show')).toggleClass('show-side-nav');
-	    contents.toggleClass('margin');
-	  });
+   $(function () {
 
-	  if (_window.width() <= 767) {
-	    aside.addClass('show-side-nav');
-	  }
+     'use strict';
 
-	  _window.on('resize', function () {
-	    if ($(window).width() > 767) {
-	      aside.removeClass('show-side-nav');
-	    }
-	  });
+     var aside = $('.side-nav'),
+         showAsideBtn = $('.show-side-btn'),
+         contents = $('#contents'),
+         _window = $(window)
 
-	  // dropdown menu in the side nav
-	  var slideNavDropdown = $('.side-nav-dropdown');
+     showAsideBtn.on("click", function () {
+       $("#" + $(this).data('show')).toggleClass('show-side-nav');
+       contents.toggleClass('margin');
+     });
 
-	  $('.side-nav .categories li').on('click', function () {
+     if (_window.width() <= 767) {
+       aside.addClass('show-side-nav');
+     }
 
-	    var $this = $(this)
+     _window.on('resize', function () {
+       if ($(window).width() > 767) {
+         aside.removeClass('show-side-nav');
+       }
+     });
 
-	    $this.toggleClass('opend').siblings().removeClass('opend');
+     // dropdown menu in the side nav
+     var slideNavDropdown = $('.side-nav-dropdown');
 
-	    if ($this.hasClass('opend')) {
-	      $this.find('.side-nav-dropdown').slideToggle('fast');
-	      $this.siblings().find('.side-nav-dropdown').slideUp('fast');
-	    } else {
-	      $this.find('.side-nav-dropdown').slideUp('fast');
-	    }
-	  });
+     $('.side-nav .categories li').on('click', function () {
 
-	  $('.side-nav .close-aside').on('click', function () {
-	    $('#' + $(this).data('close')).addClass('show-side-nav');
-	    contents.removeClass('margin');
-	  });
+       var $this = $(this)
 
+       $this.toggleClass('opend').siblings().removeClass('opend');
+
+       if ($this.hasClass('opend')) {
+         $this.find('.side-nav-dropdown').slideToggle('fast');
+         $this.siblings().find('.side-nav-dropdown').slideUp('fast');
+       } else {
+         $this.find('.side-nav-dropdown').slideUp('fast');
+       }
+     });
+
+     $('.side-nav .close-aside').on('click', function () {
+       $('#' + $(this).data('close')).addClass('show-side-nav');
+       contents.removeClass('margin');
+     });
+
+   });
+
+	var idx = 0;
+	var updatescore = 0;
+	
+	//별 클릭 이벤트
+	$(".star").click(function() {
+		
+		//클릭된 별이 몇 번째 칸인지 알아내기
+		idx = $(this).index();
+		
+		//모두 투명하게 만들기
+		$(".star").removeClass("on");
+		
+		//클릭이 된 곳까지 채워진 별로 만들기
+		for(var i=0; i<=idx; i++) {
+			$(".star").eq(i).addClass("on");
+		}
+		
+		console.log("클릭된 별의 위치 : " + idx)
+		console.log("점수로 변환 : " + (idx+1)/2)
+		updatescore = (idx+1)/2;
+		console.log("수정한 점수 : " + updatescore);
+		
+		$('#productscore').attr('value', updatescore);
 	});
-	
-	
-	
-	//모달
-		$(function() {
-		  
-		  // Vars
-		  var modBtn  = $('#modBtn'),
-		      modal   = $('#modal'),
-		      close   = modal.find('.close'),
-		      modContent = modal.find('.modal-content');
-		  
-		  // open modal when click on open modal button 
-		  modBtn.on('click', function() {
-		    modal.css('display', 'block');
-		    modContent.removeClass('modal-animated-out').addClass('modal-animated-in');
-		  });
-		  
-		  // close modal when click on close button or somewhere out the modal content 
-		  $(document).on('click', function(e) {
-		    var target = $(e.target);
-		    if(target.is(modal) || target.is(close)) {
-		      modContent.removeClass('modal-animated-in').addClass('modal-animated-out').delay(300).queue(function(next) {
-		        modal.css('display', 'none');
-		        next();
-		      });
-		    }
-		  });
-		  
-		});	
-	
-	
-	
-	
-	
+   
 </script>
 </body>
 </html>
