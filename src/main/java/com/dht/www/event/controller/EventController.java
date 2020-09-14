@@ -197,6 +197,8 @@ public class EventController {
 		check.put("id", login.getId());
 		check.put("dates", today);
 		check.put("event", 1);
+		
+		System.out.println(today);
 
 		model.addAttribute("attend", eventService.checkAtt(check));
 		model.addAttribute("attList", eventService.selectAttend(login.getId()));

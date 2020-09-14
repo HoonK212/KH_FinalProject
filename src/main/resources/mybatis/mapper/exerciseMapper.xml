@@ -80,7 +80,7 @@
 	
 	<!-- 만 나이 계산 -->
 	<select id="selectUserAge" resultType="int" >
-		SELECT TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE), TO_DATE(#{birth},'YYYYMMDD')) / 12)
+		SELECT TRUNC(MONTHS_BETWEEN(TRUNC(sysdate+ (INTERVAL '9' HOUR)), TO_DATE(#{birth},'YYYYMMDD')) / 12)
 		FROM users WHERE name = #{name}
 	</select>
 	
@@ -93,7 +93,7 @@
 	<!-- 포인트 지급 -->
 	<insert id="insertRewardPoint">
 		INSERT INTO compensation(id, dates, type, inc)
-		VALUES(#{userid}, sysdate, 1, #{point})
+		VALUES(#{userid}, sysdate+ (INTERVAL '9' HOUR), 1, #{point})
 	</insert>
 	
 	<!-- 당일 지급받은 코인이 있는지 조회 -->
@@ -101,7 +101,7 @@
 		SELECT count(inc) FROM compensation
 		WHERE id = #{userid}
 			and type = 2
-			and to_char(dates, 'YY/MM/DD') = to_char(sysdate, 'YY/MM/DD')
+			and to_char(dates, 'YY/MM/DD') = to_char(sysdate+ (INTERVAL '9' HOUR), 'YY/MM/DD')
 	</select>
 	
 	<!-- 당일 보유 코인 조회 -->
@@ -109,13 +109,13 @@
 		SELECT sum(inc) FROM compensation
 		WHERE id = #{userid}
 			and type = 2
-			and to_char(dates, 'YY/MM/DD') = to_char(sysdate, 'YY/MM/DD')
+			and to_char(dates, 'YY/MM/DD') = to_char(sysdate+ (INTERVAL '9' HOUR), 'YY/MM/DD')
 	</select>
 	
 	<!-- 코인지급 -->
 	<insert id="insertRewardCoin">
 		INSERT INTO compensation(id, dates, type, inc)
-		VALUES(#{userid}, sysdate, 2, #{coin})
+		VALUES(#{userid}, sysdate+ (INTERVAL '9' HOUR), 2, #{coin})
 	</insert> 
 	
 	<!-- 운동이름으로 운동번호 조회 -->
@@ -127,7 +127,7 @@
 	<!-- 운동기록 저장 -->
 	<insert id="insertEventRecord">
 		INSERT INTO record(id, dates, record, ex_no)
-		VALUES(#{userid}, sysdate, #{exerciseCount}, #{exerciseNo})
+		VALUES(#{userid}, sysdate+ (INTERVAL '9' HOUR), #{exerciseCount}, #{exerciseNo})
 	</insert>
 	
 </mapper>
