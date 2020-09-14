@@ -190,7 +190,7 @@
 
 	<insert id="insertBasket">
 		insert into basket 
-		values(#{id}, #{code}, #{amount}, sysdate)
+		values(#{id}, #{code}, #{amount}, sysdate+ (INTERVAL '9' HOUR))
 	</insert>
 	
 	<update id="updateAmount">
@@ -222,7 +222,7 @@
 	
 	<insert id="insertOrders">
 		insert into orders
-		values (#{no}, 1, 1, sysdate, #{mUid}, #{id}, #{toName}, #{toTel}, #{toAddr}, #{toPost})
+		values (#{no}, 1, 1, sysdate+ (INTERVAL '9' HOUR), #{mUid}, #{id}, #{toName}, #{toTel}, #{toAddr}, #{toPost})
 	</insert>
 	
 	<insert id="insertOrderProduct">
@@ -230,7 +230,7 @@
 	</insert>
 	
 	<insert id="insertPoint" parameterType="map">
-		insert into compensation values ( #{id}, sysdate, 1, null, 0, #{point} )
+		insert into compensation values ( #{id}, sysdate+ (INTERVAL '9' HOUR), 1, null, 0, #{point} )
 	</insert>
 	
 	<select id="selectCntSearch" parameterType="string" resultType="int">
