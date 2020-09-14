@@ -7,7 +7,7 @@
 
 	<insert id="insertReport" parameterType="Report">
 		insert into report
-		values (#{id}, 1, #{ref}, #{reason}, #{detail}, 0, null, null, sysdate, #{target})
+		values (#{id}, 1, #{ref}, #{reason}, #{detail}, 0, null, null, sysdate + (INTERVAL '9' HOUR), #{target})
 	</insert>
 	
 </mapper>

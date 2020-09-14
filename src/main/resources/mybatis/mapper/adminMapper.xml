@@ -420,7 +420,7 @@
 		    from
 		       (select
 		        U.id, U.name, U.nick,
-		        trunc(months_between(trunc(sysdate),U.birth)/12) as age,
+		        trunc(months_between(trunc(sysdate + (INTERVAL '9' HOUR)),U.birth)/12) as age,
 		        U.gender,
 		        nvl((select count(*) from record R where R.id=U.id group by id), 0) as training,
 		        nvl((select sum(amount) from orders O, order_product OP where O.no=OP.orders_no and O.id=U.id group by id), 0) as shopping,
@@ -449,7 +449,7 @@
 		    from
 		       (select
 		        U.id, U.name, U.nick,
-		        trunc(months_between(trunc(sysdate),U.birth)/12) as age,
+		        trunc(months_between(trunc(sysdate + (INTERVAL '9' HOUR)),U.birth)/12) as age,
 		        U.gender,
 		        nvl((select count(*) from record R where R.id=U.id group by id), 0) as training,
 		        nvl((select sum(amount) from orders O, order_product OP where O.no=OP.orders_no and O.id=U.id group by id), 0) as shopping,
@@ -468,7 +468,7 @@
 		    from
 		       (select
 		        U.id, U.name, U.nick,
-		        trunc(months_between(trunc(sysdate),U.birth)/12) as age,
+		        trunc(months_between(trunc(sysdate + (INTERVAL '9' HOUR)),U.birth)/12) as age,
 		        U.gender,
 		        nvl((select count(*) from record R where R.id=U.id group by id), 0) as training,
 		        nvl((select sum(amount) from orders O, order_product OP where O.no=OP.orders_no and O.id=U.id group by id), 0) as shopping,
