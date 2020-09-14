@@ -7,7 +7,7 @@
 	      <div class="p-5 w-48 ">
 	         <div class="text-xs uppercase text-gray-500 font-medium">SHOP</div>
 	         <a class="my-3 text-white block" href="<%=request.getContextPath() %>/shopping/list?listno=1">이벤트 상품<span class="text-white text-xs p-1"></span></a>
-	         <a class="my-3 text-white block" href="<%=request.getContextPath() %>/shopping/list?listno=2">인기 상품<span class="text-white text-xs p-1">Hit</span></a>
+	         <a class="my-3 text-white block" href="<%=request.getContextPath() %>/shopping/list?listno=2">인기 상품<span class="text-white text-xs p-1"></span></a>
 	         <a class="my-3 text-white block" href="<%=request.getContextPath() %>/shopping/list?listno=3">신규 상품<span class="text-white text-xs p-1"></span></a>
 	      </div>
 	      <div class="p-5 w-48 ">
@@ -35,7 +35,7 @@
 	      </div>
 	      <div class="p-5 w-48 ">
 	         <div class="text-xs uppercase text-gray-500 font-medium">Contact us</div>
-	         <span class="my-3 text-white block">서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F</span> 
+	         <span class="my-3 text-white block">서울특별시 강남구 테헤란로10길 9<br>그랑프리 빌딩 4F</span> 
 	      </div>
 	   </div>
 	</div>

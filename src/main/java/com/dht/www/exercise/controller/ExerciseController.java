@@ -73,6 +73,7 @@ public class ExerciseController {
 		return "common/result";
 	}
 
+	// 운동등급 선택
 	@RequestMapping(value="/level", method=RequestMethod.POST)
 	public String exerciseTypeToLevel(@RequestParam String exerType, HttpSession session, Model model) {
 		session.setAttribute("exerType", exerType);
@@ -82,6 +83,7 @@ public class ExerciseController {
 		return "exercise/exercise2";
 	}
 	
+	// 운동 선택
 	@RequestMapping(value="/select", method=RequestMethod.POST)
 	public String exerciseLevelToSelect(@RequestParam String level, HttpSession session, Model model) {
 		System.out.println(session.getAttribute("exerType"));
@@ -97,6 +99,7 @@ public class ExerciseController {
 		return "exercise/exercise3";
 	}
 	
+	// 운동 진행
 	@RequestMapping(value="/trainning", method=RequestMethod.POST)
 	public String exerciseSelectToTrainning(@RequestParam(value="exerType", required=false) String exerType , @RequestParam(value="exercise", required=false) String exerciseName, HttpSession session, Model model) {
 		System.out.println("= = = = = = = = = = = = = = =  = = = = = = = = = =");

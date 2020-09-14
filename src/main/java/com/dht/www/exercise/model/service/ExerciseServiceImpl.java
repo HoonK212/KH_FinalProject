@@ -18,17 +18,20 @@ public class ExerciseServiceImpl implements ExerciseService {
 	@Autowired
 	private ExerciseDao exerciseDao;
 
+	
+	// 나의 운동정보 가져오기
 	@Override
 	public String selectExerciseMyRoutine(Users user) {
 		return exerciseDao.selectExerciseMyRoutine(user);
 	}
 
+	// 나의 운동등급 가져오기
 	@Override
 	public int selectExerciseMyGrade(Users user) {
 		return exerciseDao.selectExerciseMyGrade(user);
 	}
 
-	//설정한 목표있는지 찾기
+	// 설정한 목표있는지 찾기
 	@Override
 	public int selectGoalInfo(Users user) {
 		return exerciseDao.selectGoalInfo(user);
@@ -105,7 +108,6 @@ public class ExerciseServiceImpl implements ExerciseService {
 		return point;
 	}
 
-	
 	// 코인지급
 	@Override
 	public int insertRewardCoin(Map<String, Object> rewardMap) {
@@ -128,10 +130,8 @@ public class ExerciseServiceImpl implements ExerciseService {
 			todayUserCoin = exerciseDao.selectUserCoin(userid);
 		}
 		
-		
 		// 운동길이 + 당일지급 받은 코인
 		int calcCoin = exerciseLength + todayUserCoin;
-		
 		
 		if(calcCoin > maxCoin) {
 			coin = maxCoin - todayUserCoin;
@@ -169,7 +169,6 @@ public class ExerciseServiceImpl implements ExerciseService {
 			exerciseNo[i] = exerciseDao.selectExerciseNo(exerciseList.get(i));
 		}
 		
-		
 		Map<String, Object> exerciseInfo = new HashMap<>();
 		
 		exerciseInfo.put("userid", recordMap.get("userid"));
@@ -186,5 +185,4 @@ public class ExerciseServiceImpl implements ExerciseService {
 			exerciseDao.insertEventRecord(exerciseInfo);
 		}
 	}
-	
 }
