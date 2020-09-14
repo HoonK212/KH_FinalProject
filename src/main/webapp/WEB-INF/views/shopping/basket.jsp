@@ -135,7 +135,7 @@
 							할인금액(-)
 						</div>
 						<div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-red-500">
-							<c:set var="sale" />
+							<c:set var="sale" value="0"/>
 							<c:forEach items="${basket }" var="item">
 							<c:if test="${item.event eq 1 }">
 							<c:set var="sale" value="${sale + item.price * item.amount * 0.05 }" />

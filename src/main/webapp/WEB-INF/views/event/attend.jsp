@@ -111,6 +111,9 @@ document.addEventListener('DOMContentLoaded', function() {
     		start: '2020-09-08',
     }); */
     
+    var date = new Date();
+    console.log(date);
+    
     var attend = parseInt('${attend}');
 	console.log(attend);
 
