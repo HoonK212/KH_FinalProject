@@ -272,48 +272,47 @@ public class AdminController {
 		return "admin/member_list";
 	}
 	
-	//신고 관리
-	@RequestMapping(value = "/reportlist")
-	public String selectReportList(
-			@RequestParam(required=false, defaultValue="1") int cPage,
-			@RequestParam(required=false, defaultValue="15") int cntPerPage,
-			@RequestParam Map<String, Object> search,
-			Model model) {
-		
-		Map<String,Object> result = adminService.selectReturnList(cPage, cntPerPage, search);
-		
-		model.addAttribute("rlist", result.get("plist"));
-		model.addAttribute("page", result.get("page"));
-		
-		//검색한 경우 검색정보를 담기
-		if( (search.get("data") != null && search.get("data") != "") || 
-			(search.get("fromdate")!=null && search.get("fromdate")!= "" && search.get("todate")!=null && search.get("todate")!= "") ) {
-			model.addAttribute("search", search);
-		}
-		
-		return "admin/report_list";
-	}
-	
-	//신고 내용
-	@RequestMapping(value = "/reportdetail", method = RequestMethod.GET)
-	@ResponseBody
-	public Object selectReportDetail(@RequestParam String op_no, Model model) {
-		
-		List<Object> result = adminService.selectReturnDetail(op_no);
-		
-		return result;
-	}
-	
-	//신고 처리
-	@RequestMapping(value = "/reportmodify", method = RequestMethod.POST)
-	public String modifyReportData(@RequestParam Map<String, Object> data) {
-		
-		System.out.println(data);
-		
-		int res = adminService.modifyReturnData(data);
-		
-		return "redirect:reportlist";
-	}
+//	//신고 관리
+//	@RequestMapping(value = "/reportlist")
+//	public String selectReportList(
+//			@RequestParam(required=false, defaultValue="1") int cPage,
+//			@RequestParam(required=false, defaultValue="15") int cntPerPage,
+//			@RequestParam Map<String, Object> search,
+//			Model model) {
+//		
+//		Map<String,Object> result = adminService.selectReturnList(cPage, cntPerPage, search);
+//		
+//		model.addAttribute("rlist", result.get("plist"));
+//		model.addAttribute("page", result.get("page"));
+//		
+//		//검색한 경우 검색정보를 담기
+//		if( (search.get("data") != null && search.get("data") != "") || 
+//			(search.get("fromdate")!=null && search.get("fromdate")!= "" && search.get("todate")!=null && search.get("todate")!= "") ) {
+//			model.addAttribute("search", search);
+//		}
+//		
+//		return "admin/report_list";
+//	}
+//	
+//	//신고 내용
+//	@RequestMapping(value = "/reportdetail", method = RequestMethod.GET)
+//	@ResponseBody
+//	public Object selectReportDetail(@RequestParam String op_no, Model model) {
+//		
+//		List<Object> result = adminService.selectReturnDetail(op_no);
+//		
+//		return result;
+//	}
+//	
+//	//신고 처리
+//	@RequestMapping(value = "/reportmodify", method = RequestMethod.POST)
+//	public String modifyReportData(@RequestParam Map<String, Object> data) {
+//		
+//		System.out.println(data);
+//		
+//		int res = adminService.modifyReturnData(data);
+//		
+//		return "redirect:reportlist";
+//	}
 
-	
 }
