@@ -47,8 +47,18 @@ public class ExerciseController {
 	@RequestMapping(value="/level", method=RequestMethod.GET)
 	public String exercise2(HttpSession session, Model model, HttpServletRequest req) {
 
-		// 비정상적인 접근 예외처리
-		if(session.getAttribute("level") == null && session.getAttribute("level").equals("")) {
+		boolean res = false;
+		
+		try {
+			if(session.getAttribute("level")  == null && session.getAttribute("level").equals("")) {
+				
+			}
+			
+		} catch (Exception e) {
+			res = true;
+		}
+		
+		if(res) {
 			model.addAttribute("alertMsg", "비정상적인 접근입니다.");
 			model.addAttribute("url", req.getContextPath()+"/main");
 			return "common/result";
