@@ -191,7 +191,7 @@ $(".complete").click(function() {
 
 
 <!-- section 시작 -->
-<section style="min-height:73vh;">
+<section style="min-height:120vh;">
 
 	<!-- div wrap 시작 -->
 	<div id="wrap">
