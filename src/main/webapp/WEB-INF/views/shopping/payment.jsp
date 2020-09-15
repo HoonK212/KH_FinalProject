@@ -10,7 +10,6 @@
 
 <%@include file="../layout/shopping_header.jsp" %>
 
-<!--  ㅋㅋ 메롱 -->
     <main class="my-5" style="width: 90%; margin: 0 auto;">
     	<div class="container mx-auto px-6">
         	<h3 class="text-gray-700 text-2xl font-medium">주문/결제</h3>
@@ -150,8 +149,7 @@
                             <div class="flex justify-between mt-6">
                                 <div class="flex">
                                     <img class="h-25 w-40 object-cover rounded" 
-                                    		src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?
-                                    			ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80" 
+                                    		src="<%=request.getContextPath() %>/resources/${logInPic.path}/${logInPic.renamed}.${logInPic.ext}" 
                                     			alt="">
                                     <div class="mx-8">
                                         <h3 class="text-sm text-gray-600">이름</h3>
@@ -188,7 +186,7 @@
                         			<div>
                             	<div class="flex justify-between mt-6 ">
                                 	<div class="flex w-full">
-                                    	<img class="h-25 w-40 object-cover rounded" src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80" alt="">
+                                    	<img class="h-25 w-40 object-cover rounded" src="<%=request.getContextPath() %>/resources/${product.path }/${product.renamed }.${product.ext }" alt="">
                                 		<div class="flex w-full justify-between">
                                    			<div class="mx-8">
 		                                        <h3 class="text-sm text-gray-600 ">상품정보</h3>
