@@ -60,7 +60,7 @@
 				<div class="bg-gray-900 bg-opacity-50 flex items-center h-full">
 					<div class="px-10 max-w-xl">
 						<h2 class="text-2xl text-white font-semibold">이벤트 상품</h2>
-						<p class="mt-2 text-gray-400">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore facere provident molestias ipsam sint voluptatum pariatur.</p>
+						<p class="mt-2 text-gray-400">이벤트 진행중인 상품입니다.</p>
 						<button onclick="location.href='<%= request.getContextPath()%>/shopping/list?listno=1'" class="flex items-center mt-4 px-3 py-2 bg-blue-0 text-white text-sm uppercase font-medium rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
 							<span>쇼핑 하기</span>
 							<svg class="h-5 w-5 mx-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
@@ -76,7 +76,7 @@
 					<div class="bg-gray-900 bg-opacity-50 flex items-center h-full">
 						<div class="px-10 max-w-xl">
 							<h2 class="text-2xl text-white font-semibold">인기 상품</h2>
-							<p class="mt-2 text-gray-400">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore facere provident molestias ipsam sint voluptatum pariatur.</p>
+							<p class="mt-2 text-gray-400">DHT에서 가장 인기많은 상품입니다.</p>
 							<button onclick="location.href='<%= request.getContextPath()%>/shopping/list?listno=2'" class="flex items-center mt-4 px-3 py-2 bg-blue-0 text-white text-sm uppercase font-medium rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
 								<span>쇼핑 하기</span>
 								<svg class="h-5 w-5 mx-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
@@ -90,7 +90,7 @@
 					<div class="bg-gray-900 bg-opacity-50 flex items-center h-full">
 						<div class="px-10 max-w-xl">
 							<h2 class="text-2xl text-white font-semibold">신규 상품</h2>
-							<p class="mt-2 text-gray-400">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore facere provident molestias ipsam sint voluptatum pariatur.</p>
+							<p class="mt-2 text-gray-400">새로 등록된 상품입니다.</p>
 							<button onclick="location.href='<%= request.getContextPath()%>/shopping/list?listno=3'" class="flex items-center mt-4 px-3 py-2 bg-blue-0 text-white text-sm uppercase font-medium rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
 								<span>쇼핑 하기</span>
 								<svg class="h-5 w-5 mx-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>

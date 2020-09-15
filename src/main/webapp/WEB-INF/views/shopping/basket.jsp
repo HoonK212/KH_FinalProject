@@ -36,14 +36,19 @@
 					</tr>
 				</thead>
 				<tbody>
+					<c:set var="subTotal" value="0"/>
+					<c:set var="startIdx" value="0" />
+					
+					<c:set var="endIdx" value="0" />
 					<c:if test="${empty basket }">
 					<tr><td colspan="6" class="py-2 text-center font-semibold text-blue-700">장바구니가 비어있습니다</td></tr>
 					</c:if>
 					
 					<c:if test="${not empty basket }">
-					<c:set var="subTotal" />
 					<c:forEach items="${basket }" var="item" varStatus="stat">
 					<c:set var="subTotal" value="${subTotal + item.price * item.amount }" />
+					<c:set var="startIdx" value="${stat.begin }" />
+					<c:set var="endIdx" value="${stat.end }" />
 					
 					<tr id="b${stat.index }">
 						<td class="text-left pl-5">
@@ -126,9 +131,17 @@
 						<div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
 							배송비(+)
 						</div>
+						<c:if test="${empty basket }">
+						<div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
+						0 원
+						</div>
+						</c:if>
+					
+						<c:if test="${not empty basket }">
 						<div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
 							3000 원
 						</div>
+						</c:if>
 					</div>
 					<div class="flex justify-between pt-4 border-b">
 						<div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
@@ -148,10 +161,20 @@
 						<div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
 							총 주문금액
 						</div>
+						
+						<c:if test="${empty basket }">
+						<div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-green-500">
+						0 원
+						</div>
+						</c:if>
+					
+						<c:if test="${not empty basket }">
 						<div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-green-500">
 							<span id="totalPrice">
 							<fmt:formatNumber pattern="###" value="${subTotal + 3000 - sale }" /></span> 원
 						</div>
+						</c:if>
+						
 					</div>
 					<div class="flex mx-auto justify-center">
 						<button onclick="location.href='<%= request.getContextPath()%>/shopping/home'" class="flex justify-center px-10 py-3 my-6 mx-2 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
@@ -170,6 +193,7 @@
 </main>
  
 <script type="text/javascript">
+//장바구니 개별 삭제(AJAX)
 function deleteBasket(num){
 	
 	var code = document.querySelector("#check"+num).value;
@@ -184,12 +208,11 @@ function deleteBasket(num){
 	
 	xhr.addEventListener('load', function() {
 		
-		console.dir(xhr.response)
 		var cssSelector = xhr.response;
 		
 		if( cssSelector != "fail" ) {
-			console.dir(document.querySelector(cssSelector));
 			document.querySelector(cssSelector).outerHTML = '';
+			updateTotal();
 		} else {
 			alert("장바구니 삭제에 실패했습니다.");
 		}
@@ -215,23 +238,31 @@ function calcPrice(num) {
 			document.querySelector("#amount"+num).value * document.querySelector("#price"+num).innerText - document.querySelector(".discount"+num).innerText * 0.05;
 		
 		//전체 가격 총 합 업데이트
-		var length = ${fn:length(basket)};
-		var subTotal = 0;
-		for(var i=0; i<length; i++) {
-			var total = document.querySelector("#amount"+i).value * document.querySelector("#price"+i).innerText;
-			subTotal += total;
-			
-		}
-		if(document.querySelector(".discount"+num).innerText != "") {
-			document.querySelector("#sale").innerText = document.querySelector(".discount"+num).innerText * 0.05 * document.querySelector("#amount"+num).value;
-		}
-		
-		document.querySelector("#subTotal").innerText = subTotal;
-		document.querySelector("#totalPrice").innerText = subTotal + 3000 - document.querySelector("#sale").innerText;
+		updateTotal();	
 	})
 }
 
+function updateTotal() {
+	var length = ${fn:length(basket)};
+	var subTotal = 0;
+	var sale = 0;
+	
+	for(var i=0; i<length; i++) {
+		if(document.querySelector("#amount"+i) != null) {
+			var total = document.querySelector("#amount"+i).value * document.querySelector("#price"+i).innerText;
+			subTotal += total;
+			
+			if(document.querySelector(".discount"+i).innerText != "") {
+				sale += document.querySelector(".discount"+i).innerText * 0.05 * document.querySelector("#amount"+i).value;
+			}
+		}
+	}
+	document.querySelector("#sale").innerText = sale;
+	document.querySelector("#subTotal").innerText = subTotal;
+	document.querySelector("#totalPrice").innerText = subTotal + 3000 - document.querySelector("#sale").innerText;
+}
 </script>
+
 <script type="text/javascript">
 $(document).ready(function() {
 	/* var total = 
@@ -239,6 +270,11 @@ $(document).ready(function() {
 	
 	//선택 주문하기
 	$("#orderBtn").click(function() {
+		console.log('${basket}')
+		if('${empty basket}') {
+			alert('장바구니가 비었습니다.');
+			return;
+		}
 		// 선택된 체크박스
 		var $checkboxes = $("input:checkbox[name='checkRow']:checked");
 
@@ -266,7 +302,6 @@ $(document).ready(function() {
 			);
 		$(document.body).append($form);
 		$form.submit();
-
 	});
 });
 

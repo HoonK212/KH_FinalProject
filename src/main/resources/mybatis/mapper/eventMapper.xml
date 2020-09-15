@@ -13,6 +13,7 @@
 	<resultMap type="map" id="quiz">
 		<result column="name" property="name"/>
 		<result column="ini" property="ini"/>
+		<result column="describe" property="describe"/>
 	</resultMap>
 	
 	<resultMap type="map" id="exerRecord">
@@ -39,9 +40,9 @@
 	</insert>
 
 	
-	<select id="selectQuiz" parameterType="int" resultType="map">
-		select name, product_initial ini from ( select rownum rnum, b.* from (
-		    select name, product_initial from product_initial i, product p
+	<select id="selectQuiz" parameterType="int" resultMap="quiz">
+		select name, product_initial ini, describe from ( select rownum rnum, b.* from (
+		    select name, product_initial, i.describe from product_initial i, product p
 		    where i.code = p.code
 		) b order by rnum ) t where rnum = #{value}
 	</select>
