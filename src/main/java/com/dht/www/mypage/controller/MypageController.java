@@ -96,12 +96,12 @@ public class MypageController {
 	   Map<String, Object> result = mypageService.selectOrderList(cPage, cntPerPage, user.getId());
 	   System.out.println(result);
 	   
-	   int totalAmount = mypageService.selectOrderAmountCnt(user.getId());
-	   System.out.println(totalAmount);
+	//   int totalAmount = mypageService.selectOrderAmountCnt(user.getId());
+	//   System.out.println(totalAmount);
 	   
 	   model.addAttribute("olist", result.get("olist"));
 	   model.addAttribute("page", result.get("page"));
-	   model.addAttribute("totalamount", totalAmount);
+	 //  model.addAttribute("totalamount", totalAmount);
 	   
 	   return "mypage/orderList";
    }

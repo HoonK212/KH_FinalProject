@@ -51,5 +51,8 @@ public interface AdminService {
 
 	//회원관리
 	public Map<String, Object> selectMemberList(int cPage, int cntPerPage, Map<String,Object> search);
+	
+	//매출목록조회
+	public Map<String, Object> selectSalesList(int cPage, int cntPerPage, Map<String, Object> search);
 
 }
