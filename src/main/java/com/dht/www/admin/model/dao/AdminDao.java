@@ -248,4 +248,91 @@ public class AdminDao {
 			return sqlSession.selectList("ADMIN.selectMemberListBySearchDataType2", m);
 		}
 		
+		//판매관리
+		public int selectSalesCntOfSearchType1(Map<String, Object> search) {
+
+			return sqlSession.selectOne("ADMIN.selectSalesCntOfSearchType1", search);
+		}
+
+		public List<Map<String, Object>> selectSalesListOfSearchType1(Map<String, Object> mp) {
+			
+			return sqlSession.selectList("ADMIN.selectSalesListOfSearchType1", mp);
+		}
+
+		public int selectSalesCntOfSearchType1WithDate(Map<String, Object> search) {
+			
+			return sqlSession.selectOne("ADMIN.selectSalesCntOfSearchType1WithDate", search);
+		}
+
+		public List<Map<String, Object>> selectSalesListOfSearchType1WithDate(Map<String, Object> mp) {
+			
+			return sqlSession.selectList("ADMIN.selectSalesListOfSearchType1WithDate", mp);
+		}
+
+		public int selectSalesCntOfSearchType2(Map<String, Object> search) {
+			
+			return sqlSession.selectOne("ADMIN.selectSalesCntOfSearchType2", search);
+		}
+
+		public List<Map<String, Object>> selectSalesListOfSearchType2(Map<String, Object> mp) {
+			
+			return sqlSession.selectList("ADMIN.selectSalesListOfSearchType2", mp);
+		}
+
+		public int selectSalesCntOfSearchType2WithDate(Map<String, Object> search) {
+			
+			return sqlSession.selectOne("ADMIN.selectSalesCntOfSearchType2WithDate", search);
+		}
+
+		public List<Map<String, Object>> selectSalesListOfSearchType2WithDate(Map<String, Object> mp) {
+			
+			return sqlSession.selectList("ADMIN.selectSalesListOfSearchType2WithDate", mp);
+		}
+
+		public int selectSalesCntWithDate(Map<String, Object> search) {
+			
+			return sqlSession.selectOne("ADMIN.selectSalesCntWithDate", search);
+		}
+
+		public List<Map<String, Object>> selectSalesListWithDate(Map<String, Object> mp) {
+			
+			return sqlSession.selectList("ADMIN.selectSalesListWithDate", mp);
+		}
+
+		public int selectSalesCnt() {
+			
+			return sqlSession.selectOne("ADMIN.selectSalesCnt");
+		}
+
+		public List<Map<String, Object>> selectSalesList(Paging p) {
+			
+			return sqlSession.selectList("ADMIN.selectSalesList", p);
+		}
+		
+		//--------------------------------------매출 합산 계산 결과 -------------------------------------------
+		public Map<String, Object> selectSalesTotal_SearchType1(Map<String, Object> mp) {
+			
+			return sqlSession.selectOne("ADMIN.selectSalesTotal_SearchType1", mp);
+		}
+		public Map<String, Object> selectSalesTotal_SearchType1WithDate(Map<String, Object> mp) {
+			
+			return sqlSession.selectOne("ADMIN.selectSalesTotal_SearchType1WithDate", mp);
+		}
+		public Map<String, Object> selectSalesTotal_SearchType2(Map<String, Object> mp) {
+			
+			return sqlSession.selectOne("ADMIN.selectSalesTotal_SearchType2", mp);
+		}
+		public Map<String, Object> selectSalesTotal_SearchType2WithDate(Map<String, Object> mp) {
+			
+			return sqlSession.selectOne("ADMIN.selectSalesTotal_SearchType2WithDate", mp);
+		}
+		public Map<String, Object> selectSalesTotal_WithDate(Map<String, Object> mp) {
+			
+			return sqlSession.selectOne("ADMIN.selectSalesTotal_WithDate", mp);
+		}
+		public Map<String, Object> selectSalesTotal(Paging p) {
+			
+			return sqlSession.selectOne("ADMIN.selectSalesTotal", p);
+		}
+		
 }

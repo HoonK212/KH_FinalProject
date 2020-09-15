@@ -233,20 +233,26 @@ public class AdminController {
 		return "redirect:productlist";
 	}
 	
-	//매출목록 view로 이동하는 메소드 
-	@RequestMapping(value="/salesList",method=RequestMethod.GET)
-	public String salesList(@RequestParam(required = false, defaultValue="1")int cPage, Model model) {
-			
-		//페이징 처리 
-		//매출목록 정보를 가져오는 메소드 
-		int cntPerPage = 10 ;
+	//매출목록
+	@RequestMapping(value="/saleslist",method=RequestMethod.GET)
+	public String salesList(
+			@RequestParam(required=false, defaultValue="1") int cPage,
+			@RequestParam(required=false, defaultValue="10") int cntPerPage,
+			@RequestParam Map<String, Object> search,
+			Model model) {
 		
-	//	Map<String, Object> commandMap = adminService.selectSalesList(cPage, cntPerPage);
+		System.out.println(search);
 		
-	//	System.out.println("commandMap : " + commandMap);
+		Map<String,Object> result = adminService.selectSalesList(cPage, cntPerPage, search);
 		
-	//	model.addAttribute("paging",commandMap.get("paging"));
-	//	model.addAttribute("salesData", commandMap);
+		model.addAttribute("slist", result.get("slist"));
+		model.addAttribute("page", result.get("page"));
+		model.addAttribute("total", result.get("total"));
+		
+		//검색한 경우 검색정보를 담기
+		if(search.get("data") != null && search.get("data") != "") {
+			model.addAttribute("search", search);
+		}
 		
 		return "admin/sales_list";
 		

@@ -68,30 +68,30 @@
 			    <tbody class="text-gray-700">
 			    <c:forEach items="${slist }" var="st" varStatus="status">
 			      <tr class="${status.count % 2 == 1 ? '' : 'bg-gray-100'}">
-			        <td class="w-1/4 py-3 px-4 text-center hover:text-red-500">${st.rnum }</td>
+			        <td class="w-1/4 py-3 px-4 text-center hover:text-red-500" >${st.rnum }</td>
 			        <c:choose>
 						<c:when test="${st.status eq 1 }">
-						<td class="w-1/4 py-3 px-4 text-center hover:text-red-500" onclick="getStatusModify(${status.count})" ">상품준비</td>
+						<td class="w-1/4 py-3 px-4 text-center hover:text-red-500" onclick="getStatusModify(${status.count})">상품준비</td>
 						</c:when>
 						
 						<c:when test="${st.status eq 2 }">
-						<td class="w-1/4 py-3 px-4 text-center hover:text-red-500" onclick="getStatusModify(${status.count})" ">출고완료</td>
+						<td class="w-1/4 py-3 px-4 text-center hover:text-red-500" onclick="getStatusModify(${status.count})" >출고완료</td>
 						</c:when>
 						
 						<c:when test="${st.status eq 3 }">
-						<td class="w-1/4 py-3 px-4 text-center hover:text-red-500" onclick="getStatusModify(${status.count})" ">배송완료</td>
+						<td class="w-1/4 py-3 px-4 text-center hover:text-red-500" onclick="getStatusModify(${status.count})" >배송완료</td>
 						</c:when>
 						
 						<c:when test="${st.status eq 4 }">
-						<td class="w-1/4 py-3 px-4 text-center hover:text-red-500" onclick="getStatusModify(${status.count})" ">주문취소</td>
+						<td class="w-1/4 py-3 px-4 text-center hover:text-red-500" onclick="getStatusModify(${status.count})" >주문취소</td>
 						</c:when>
 						
 						<c:when test="${st.status eq 5 }">
-						<td class="w-1/4 py-3 px-4 text-center hover:text-red-500" onclick="getStatusModify(${status.count})" ">반품접수</td>
+						<td class="w-1/4 py-3 px-4 text-center hover:text-red-500" onclick="getStatusModify(${status.count})" >반품접수</td>
 						</c:when>
 						
 						<c:when test="${st.status eq 6 }">
-						<td class="w-1/4 py-3 px-4 text-center hover:text-red-500" onclick="getStatusModify(${status.count})" ">반품완료</td>
+						<td class="w-1/4 py-3 px-4 text-center hover:text-red-500" onclick="getStatusModify(${status.count})" >반품완료</td>
 						</c:when>
 						
 					</c:choose>
@@ -371,9 +371,12 @@ function getOrdersDetail(count) {
 
 function getStatusModify(count){
 	
+	console.log('test');
 	var status = document.getElementsByTagName('tr')[count].childNodes[3].innerText;
+	var pick = document.getElementsByTagName('tr')[count].childNodes[3];
 	
 	console.log(status);
+	console.log(pick);
 	
 	if(status == '상품준비'){
 		console.log(document.getElementById('order_status_label'));
