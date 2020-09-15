@@ -54,7 +54,9 @@
 </style>
 </head>
 <body>
-
+	<div class="text-white font-black text-2xl" style="text-align: center; color: #2d3748;">
+		<a href="/"><img src="/resources/image/logo.png" style="width:70px; height:70px; display: inline-block;">Daily Home Training</a>
+	</div>
 <div class="h-screen">
 	<form action="<%= request.getContextPath() %>/user/joinemailcheck" method="post" enctype="multipart/form-data" onsubmit="return required();">
 	<div x-data="app()" x-cloak>

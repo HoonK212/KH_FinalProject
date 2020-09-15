@@ -14,7 +14,7 @@
 <!-- CSS -->
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/layout/header.css">
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/layout/footer.css">
-
+<link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/image/logo.png">
 <!-- HEADER -->
 <%@include file="../layout/header.jsp" %>
 

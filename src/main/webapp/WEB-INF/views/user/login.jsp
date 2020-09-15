@@ -5,9 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Daily Home Training</title>
 <link rel="shortcut icon" href="/resources/logo.png">
 <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css">
+<link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/image/logo.png">
 </head>
 <body>
 

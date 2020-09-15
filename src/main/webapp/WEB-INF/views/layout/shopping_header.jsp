@@ -4,9 +4,9 @@
 <!-- jstl -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <!doctype html>
 <html lang="ko">
+<title>Daily Home Training</title>
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,6 +18,12 @@
 	<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 </head>
+<style type="text/css">
+.shopcolor{
+	color: white;
+}
+</style>
+
 
 <body class="flex items-center justify-center" style="background: #edf2f7;">
 <script src="https://premium-tailwindcomponents.netlify.app/assets/build/js/main.js?id=8c11b7cf78ebea1b5aed"></script>
@@ -27,39 +33,33 @@
 <header style="background: #2d3748;">
 	<div class="container mx-auto px-6 py-8 font-extrabold">
 		<div class="items-center justify-between">
-			<div class="flex items-center justify-end w-full">
-            	
-				<!-- 장바구니 아이콘 -->
-				<button id="cartBtn" onclick="location.href='<%=request.getContextPath()%>/shopping/basket'" @mouseover="{cartOpen = !cartOpen, openCart()}" class="text-gray-600 focus:outline-none mx-4 sm:mx-0">
-				<svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-				<path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-				</svg>
-				</button>
 
-				<div class="flex sm:hidden">
-					<button @click="isOpen = !isOpen" type="button" class="text-gray-600 hover:text-gray-500 focus:outline-none focus:text-gray-500" aria-label="toggle menu">
-					<svg viewBox="0 0 24 24" class="h-6 w-6 fill-current">
-					<path fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"></path>
-					</svg>
-					</button>
-				</div>
-			</div>
+
                 
 			<div class="w-full text-gray-100 md:text-center text-2xl font-semibold">
+			
+			
 				<a href="<%=request.getContextPath() %>/">
 				<img src="<%=request.getContextPath() %>/resources/image/logo.png" style="width: 70px; height: 70px; display: inline;">
 				Daily Home Training
 				</a>
+				
+				<button id="cartBtn" onclick="location.href='<%=request.getContextPath()%>/shopping/basket'" @mouseover="{cartOpen = !cartOpen, openCart()}" class="focus:outline-none mx-4 sm:mx-0" style="float: right;">
+				<svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" style="color: white;">
+				<path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+				</svg>
+				</button>
+			
 			</div>
 		</div>
             
 		<nav :class="isOpen ? '' : 'hidden'" class="sm:flex sm:justify-center sm:items-center mt-4">
 			<div class="flex flex-col sm:flex-row">
-				<a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0 lg:mx-24" href="<%=request.getContextPath() %>/">Home</a>
-				<a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0 lg:mx-24" href="<%=request.getContextPath() %>/shopping/home">Shop</a>
-				<a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0 lg:mx-24" href="<%=request.getContextPath() %>/exercise/type">Exercise</a>
-				<a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0 lg:mx-24" href="<%=request.getContextPath() %>/event/attend">Event</a>
-				<a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0 lg:mx-24" href="#">Board</a>
+				<a class="mt-3  sm:mx-3 sm:mt-0 lg:mx-24 shopcolor" href="<%=request.getContextPath() %>/">Home</a>
+				<a class="mt-3  sm:mx-3 sm:mt-0 lg:mx-24 shopcolor" href="<%=request.getContextPath() %>/exercise/type">Exercise</a>
+				<a class="mt-3  sm:mx-3 sm:mt-0 lg:mx-24 shopcolor" href="<%=request.getContextPath() %>/shopping/home">Shop</a>
+				<a class="mt-3  sm:mx-3 sm:mt-0 lg:mx-24 shopcolor" href="<%=request.getContextPath() %>/event/attend">Event</a>
+				<a class="mt-3  sm:mx-3 sm:mt-0 lg:mx-24 shopcolor" href="<%=request.getContextPath() %>/board/list">Board</a>
 			</div>
 		</nav>
 	</div>
