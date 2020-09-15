@@ -15,10 +15,12 @@ public class ExerciseDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
+	// 나의 운동정보 가져오기
 	public String selectExerciseMyRoutine(Users user) {
 		return sqlSession.selectOne("EXERCISE.selectRoutine", user);
 	}
 
+	// 나의 운동등급 가져오기
 	public int selectExerciseMyGrade(Users user) {
 		return sqlSession.selectOne("EXERCISE.selectGrade", user);
 	}
@@ -66,7 +68,6 @@ public class ExerciseDao {
 	// 보유 코인 조회
 	public int selectUserCoin(String userid) {
 		return sqlSession.selectOne("EXERCISE.selectUserCoin", userid);
-		
 	}
 	
 	// 코인지급

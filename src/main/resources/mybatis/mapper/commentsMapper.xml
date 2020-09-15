@@ -34,7 +34,7 @@
 	
 	<insert id="insertComments" parameterType="Comments">
 		insert into comments
-		values (comments_seq.nextval, 1, #{ref}, #{content}, sysdate, #{id})
+		values (comments_seq.nextval, 1, #{ref}, #{content}, sysdate + (INTERVAL '9' HOUR), #{id})
 	</insert>
 	
 </mapper>

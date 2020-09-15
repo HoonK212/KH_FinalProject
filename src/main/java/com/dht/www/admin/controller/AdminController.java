@@ -1,33 +1,24 @@
 package com.dht.www.admin.controller;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.dht.www.admin.model.service.AdminService;
-import com.dht.www.mypage.model.vo.Files;
-import com.dht.www.shopping.model.vo.Product;
 import com.google.gson.Gson;
 
-import common.exception.FileException;
-import common.util.FileUtil;
 
 @Controller
 @RequestMapping("/admin")
@@ -40,7 +31,7 @@ public class AdminController {
 	@RequestMapping("/stocklist")
 	public String selectStockList(
 			@RequestParam(required=false, defaultValue="1") int cPage,
-			@RequestParam(required=false, defaultValue="15") int cntPerPage,
+			@RequestParam(required=false, defaultValue="10") int cntPerPage,
 			@RequestParam Map<String, Object> search,
 			Model model) {
 		
@@ -82,21 +73,21 @@ public class AdminController {
 		return "redirect:stocklist";
 	}
 	
-	//반품 목록
-	@RequestMapping(value = "/returnlist")
-	public String selectReturnList(
+	//배송상태 조회
+	@RequestMapping(value = "/statuslist")
+	public String selectStatusList(
 			@RequestParam(required=false, defaultValue="1") int cPage,
-			@RequestParam(required=false, defaultValue="15") int cntPerPage,
+			@RequestParam(required=false, defaultValue="10") int cntPerPage,
 			@RequestParam Map<String, Object> search,
 			Model model) {
 		
 		System.out.println("컨트롤러 서치 객체 : " + search);
 		
-		Map<String,Object> result = adminService.selectReturnList(cPage, cntPerPage, search);
+		Map<String,Object> result = adminService.selectStatusList(cPage, cntPerPage, search);
 		
 		System.out.println(result);
 		
-		model.addAttribute("rlist", result.get("plist"));
+		model.addAttribute("slist", result.get("slist"));
 		model.addAttribute("page", result.get("page"));
 		//검색한 경우 검색정보를 담기
 		if( (search.get("data") != null && search.get("data") != "") || 
@@ -104,33 +95,23 @@ public class AdminController {
 			model.addAttribute("search", search);
 		}
 		
-		return "admin/return_list";
+		return "admin/status_list";
 	}
 	
 	//반품 상세
-	@RequestMapping(value = "/returndetail", method = RequestMethod.GET)
+	@RequestMapping(value = "/ordersdetail", method = RequestMethod.GET)
 	@ResponseBody
-	public Object selectReturnDetail(@RequestParam String op_no, Model model) {
+	public Object selectOrdersDetail(@RequestParam String o_no, Model model) {
 		
-		System.out.println(op_no);
+		System.out.println(o_no);
 		
-		List<Object> result = adminService.selectReturnDetail(op_no);
+		List<Object> result = adminService.selectOrdersDetail(o_no);
 		
 		System.out.println(result);
 		
 		return result;
 	}
 	
-	//반품 수정
-	@RequestMapping(value = "/returnmodify", method = RequestMethod.POST)
-	public String modifyReturnData(@RequestParam Map<String, Object> data) {
-		
-		System.out.println(data);
-		
-		int res = adminService.modifyReturnData(data);
-		
-		return "redirect:returnlist";
-	}
 
 	//-------------------------------------------------------------------------------------------------------------
 	
@@ -178,7 +159,7 @@ public class AdminController {
 	//상품목록
 	@RequestMapping(value="/productlist", method=RequestMethod.GET)
 	public String productList(@RequestParam(required=false, defaultValue="1") int cPage,
-			@RequestParam(required=false, defaultValue="15") int cntPerPage,
+			@RequestParam(required=false, defaultValue="10") int cntPerPage,
 			@RequestParam Map<String, Object> search,
 			Model model) {
 	
@@ -252,29 +233,35 @@ public class AdminController {
 		return "redirect:productlist";
 	}
 	
-	//매풀목록 view로 이동하는 메소드 
-	@RequestMapping(value="/salesList",method=RequestMethod.GET)
-	public String salesList(@RequestParam(required = false, defaultValue="1")int cPage, Model model) {
-			
-		//페이징 처리 
-		//매출목록 정보를 가져오는 메소드 
-		int cntPerPage = 10 ;
+	//매출목록
+	@RequestMapping(value="/saleslist",method=RequestMethod.GET)
+	public String salesList(
+			@RequestParam(required=false, defaultValue="1") int cPage,
+			@RequestParam(required=false, defaultValue="10") int cntPerPage,
+			@RequestParam Map<String, Object> search,
+			Model model) {
 		
-	//	Map<String, Object> commandMap = adminService.selectSalesList(cPage, cntPerPage);
+		System.out.println(search);
 		
-	//	System.out.println("commandMap : " + commandMap);
+		Map<String,Object> result = adminService.selectSalesList(cPage, cntPerPage, search);
 		
-	//	model.addAttribute("paging",commandMap.get("paging"));
-	//	model.addAttribute("salesData", commandMap);
+		model.addAttribute("slist", result.get("slist"));
+		model.addAttribute("page", result.get("page"));
+		model.addAttribute("total", result.get("total"));
+		
+		//검색한 경우 검색정보를 담기
+		if(search.get("data") != null && search.get("data") != "") {
+			model.addAttribute("search", search);
+		}
 		
 		return "admin/sales_list";
 		
 	}
 	
-	//회원관리
+	//회원 관리
 	@RequestMapping(value="/memberlist", method=RequestMethod.GET)
 	public String memberList(@RequestParam(required=false, defaultValue="1") int cPage,
-			@RequestParam(required=false, defaultValue="15") int cntPerPage,
+			@RequestParam(required=false, defaultValue="10") int cntPerPage,
 			@RequestParam Map<String, Object> search,
 			Model model) {
 	
@@ -290,6 +277,48 @@ public class AdminController {
 		
 		return "admin/member_list";
 	}
-
 	
+//	//신고 관리
+//	@RequestMapping(value = "/reportlist")
+//	public String selectReportList(
+//			@RequestParam(required=false, defaultValue="1") int cPage,
+//			@RequestParam(required=false, defaultValue="15") int cntPerPage,
+//			@RequestParam Map<String, Object> search,
+//			Model model) {
+//		
+//		Map<String,Object> result = adminService.selectReturnList(cPage, cntPerPage, search);
+//		
+//		model.addAttribute("rlist", result.get("plist"));
+//		model.addAttribute("page", result.get("page"));
+//		
+//		//검색한 경우 검색정보를 담기
+//		if( (search.get("data") != null && search.get("data") != "") || 
+//			(search.get("fromdate")!=null && search.get("fromdate")!= "" && search.get("todate")!=null && search.get("todate")!= "") ) {
+//			model.addAttribute("search", search);
+//		}
+//		
+//		return "admin/report_list";
+//	}
+//	
+//	//신고 내용
+//	@RequestMapping(value = "/reportdetail", method = RequestMethod.GET)
+//	@ResponseBody
+//	public Object selectReportDetail(@RequestParam String op_no, Model model) {
+//		
+//		List<Object> result = adminService.selectReturnDetail(op_no);
+//		
+//		return result;
+//	}
+//	
+//	//신고 처리
+//	@RequestMapping(value = "/reportmodify", method = RequestMethod.POST)
+//	public String modifyReportData(@RequestParam Map<String, Object> data) {
+//		
+//		System.out.println(data);
+//		
+//		int res = adminService.modifyReturnData(data);
+//		
+//		return "redirect:reportlist";
+//	}
+
 }

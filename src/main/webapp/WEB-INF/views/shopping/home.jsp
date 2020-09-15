@@ -11,47 +11,45 @@
 <%@include file="../layout/shopping_header.jsp" %>
 
 <style>
-		.animated {
-			-webkit-animation-duration: 1s;
-			animation-duration: 1s;
-			-webkit-animation-fill-mode: both;
-			animation-fill-mode: both;
-		}
+.animated {
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+}
 
-		.animated.faster {
-			-webkit-animation-duration: 500ms;
-			animation-duration: 500ms;
-		}
+.animated.faster {
+	-webkit-animation-duration: 500ms;
+	animation-duration: 500ms;
+}
 
-		.fadeIn {
-			-webkit-animation-name: fadeIn;
-			animation-name: fadeIn;
-		}
+.fadeIn {
+	-webkit-animation-name: fadeIn;
+	animation-name: fadeIn;
+}
 
-		.fadeOut {
-			-webkit-animation-name: fadeOut;
-			animation-name: fadeOut;
-		}
+.fadeOut {
+	-webkit-animation-name: fadeOut;
+	animation-name: fadeOut;
+}
 
-		@keyframes fadeIn {
-			from {
-				opacity: 0;
-			}
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+		to {
+		opacity: 1;
+	}
+}
 
-			to {
-				opacity: 1;
-			}
-		}
-
-		@keyframes fadeOut {
-			from {
-				opacity: 1;
-			}
-
-			to {
-				opacity: 0;
-			}
-		}
+@keyframes fadeOut {
+	from {
+		opacity: 1;
+	}
+		to {
+			opacity: 0;
+	}
+}
 </style>
 	
 <main class="my-5">
@@ -118,8 +116,15 @@
 								</button>
 							</div>
 							<div class="px-5 py-3">
-								<h3 class="text-gray-700 uppercase"><a href="/shopping/detail?code=${list.code }">${list.name}</a></h3>
-								<span class="text-gray-500 mt-2"><fmt:formatNumber pattern="#,###" value="${list.price }" /> 원</span>
+								<h3 class="text-gray-700 uppercase"><a href="/shopping/detail?code=${list.code }">
+								<c:if test="${list.event eq 1 }"><span class="bg-yellow-500 text-xs">event</span></c:if>
+		                        ${list.name}</a></h3>
+		                        
+		                        <c:if test="${list.event eq 0 }"><span class="text-gray-500 mt-2"><fmt:formatNumber pattern="#,###" value="${list.price}" />원</span></c:if>
+		                        <c:if test="${list.event eq 1 }">
+		                        <span class="text-gray-500 mt-2 line-through"><fmt:formatNumber pattern="#,###" value="${list.price}" />원</span>
+		                        <span class="text-red-500 mt-2 pl-1"><fmt:formatNumber pattern="#,###" value="${list.price * 0.95}" />원</span>
+		                        </c:if>
 							</div>
 						</div>
 					</c:forEach>
@@ -142,8 +147,15 @@
 								</button>
 							</div>
 							<div class="px-5 py-3">
-								<h3 class="text-gray-700 uppercase"><a href="/shopping/detail?code=${list.code }">${list.name}</a></h3>
-								<span class="text-gray-500 mt-2"><fmt:formatNumber pattern="#,###" value="${list.price }" /> 원</span>
+								<h3 class="text-gray-700 uppercase"><a href="/shopping/detail?code=${list.code }">
+								<c:if test="${list.event eq 1 }"><span class="bg-yellow-500 text-xs">event</span></c:if>
+		                        ${list.name}</a></h3>
+		                        
+		                        <c:if test="${list.event eq 0 }"><span class="text-gray-500 mt-2"><fmt:formatNumber pattern="#,###" value="${list.price}" />원</span></c:if>
+		                        <c:if test="${list.event eq 1 }">
+		                        <span class="text-gray-500 mt-2 line-through"><fmt:formatNumber pattern="#,###" value="${list.price}" />원</span>
+		                        <span class="text-red-500 mt-2 pl-1"><fmt:formatNumber pattern="#,###" value="${list.price * 0.95}" />원</span>
+		                        </c:if>
 							</div>
 						</div>
 					</c:forEach>
@@ -166,8 +178,15 @@
 								</button>
 							</div>
 							<div class="px-5 py-3">
-								<h3 class="text-gray-700 uppercase"><a href="/shopping/detail?code=${list.code }">${list.name}</a></h3>
-								<span class="text-gray-500 mt-2"><fmt:formatNumber pattern="#,###" value="${list.price }" /> 원</span>
+								<h3 class="text-gray-700 uppercase"><a href="/shopping/detail?code=${list.code }">
+								<c:if test="${list.event eq 1 }"><span class="bg-yellow-500 text-xs">event</span></c:if>
+		                        ${list.name}</a></h3>
+		                        
+		                        <c:if test="${list.event eq 0 }"><span class="text-gray-500 mt-2"><fmt:formatNumber pattern="#,###" value="${list.price}" />원</span></c:if>
+		                        <c:if test="${list.event eq 1 }">
+		                        <span class="text-gray-500 mt-2 line-through"><fmt:formatNumber pattern="#,###" value="${list.price}" />원</span>
+		                        <span class="text-red-500 mt-2 pl-1"><fmt:formatNumber pattern="#,###" value="${list.price * 0.95}" />원</span>
+		                        </c:if>
 							</div>
 						</div>
 					</c:forEach>

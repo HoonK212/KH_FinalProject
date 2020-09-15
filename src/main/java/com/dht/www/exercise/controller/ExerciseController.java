@@ -47,8 +47,18 @@ public class ExerciseController {
 	@RequestMapping(value="/level", method=RequestMethod.GET)
 	public String exercise2(HttpSession session, Model model, HttpServletRequest req) {
 
-		// 비정상적인 접근 예외처리
-		if(session.getAttribute("level") == null && session.getAttribute("level").equals("")) {
+		boolean res = false;
+		
+		try {
+			if(session.getAttribute("level")  == null && session.getAttribute("level").equals("")) {
+				
+			}
+			
+		} catch (Exception e) {
+			res = true;
+		}
+		
+		if(res) {
 			model.addAttribute("alertMsg", "비정상적인 접근입니다.");
 			model.addAttribute("url", req.getContextPath()+"/main");
 			return "common/result";
@@ -73,6 +83,7 @@ public class ExerciseController {
 		return "common/result";
 	}
 
+	// 운동등급 선택
 	@RequestMapping(value="/level", method=RequestMethod.POST)
 	public String exerciseTypeToLevel(@RequestParam String exerType, HttpSession session, Model model) {
 		session.setAttribute("exerType", exerType);
@@ -82,6 +93,7 @@ public class ExerciseController {
 		return "exercise/exercise2";
 	}
 	
+	// 운동 선택
 	@RequestMapping(value="/select", method=RequestMethod.POST)
 	public String exerciseLevelToSelect(@RequestParam String level, HttpSession session, Model model) {
 		System.out.println(session.getAttribute("exerType"));
@@ -97,6 +109,7 @@ public class ExerciseController {
 		return "exercise/exercise3";
 	}
 	
+	// 운동 진행
 	@RequestMapping(value="/trainning", method=RequestMethod.POST)
 	public String exerciseSelectToTrainning(@RequestParam(value="exerType", required=false) String exerType , @RequestParam(value="exercise", required=false) String exerciseName, HttpSession session, Model model) {
 		System.out.println("= = = = = = = = = = = = = = =  = = = = = = = = = =");

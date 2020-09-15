@@ -7,8 +7,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dht.www.mypage.model.service.MypageService;
 import com.dht.www.user.model.vo.Users;
@@ -80,6 +82,66 @@ public class MypageController {
    public String myMain() {
       return "mypage/myMain";
    }
+   
+   //주문 내역 조회
+   @RequestMapping(value = "/orderlist" , method = RequestMethod.GET)
+   public String selectOrderList(
+		    @RequestParam(required=false, defaultValue="1") int cPage,
+			@RequestParam(required=false, defaultValue="3") int cntPerPage,
+			HttpSession session, 
+			Model model) {
+	   
+	   Users user = (Users)session.getAttribute("logInInfo");
+	   
+	   Map<String, Object> result = mypageService.selectOrderList(cPage, cntPerPage, user.getId());
+	   System.out.println(result);
+	   
+	//   int totalAmount = mypageService.selectOrderAmountCnt(user.getId());
+	//   System.out.println(totalAmount);
+	   
+	   model.addAttribute("olist", result.get("olist"));
+	   model.addAttribute("page", result.get("page"));
+	 //  model.addAttribute("totalamount", totalAmount);
+	   
+	   return "mypage/orderList";
+   }
+   
+   //리뷰 작성
+   @RequestMapping(value = "/insertreview" , method = RequestMethod.POST)
+   public String insertReview(
+		   @RequestParam Map data) {
+	   
+	   System.out.println("리뷰작성");
+	   System.out.println(data);
+	   
+	   mypageService.insertReview(data);
+	   
+	   return "redirect:orderlist";
+   }
+   
+   //구매 취소
+   @RequestMapping(value = "/cancelorder" , method = RequestMethod.GET)
+   public String cancelOrder(String op_no) {
+	   
+	   System.out.println("구매취소");
+	   System.out.println(op_no);
+	   
+	   int res = mypageService.cancelOrder(op_no);
+	   System.out.println("구매취소 업데이트 결과 : " + res);
+	   return "redirect:orderlist";
+   }
 
-
+   //반품 신청
+   @RequestMapping(value = "/submitreturn" , method = RequestMethod.GET)
+   public String submitReturn(
+		   @RequestParam Map data) {
+	   
+	   System.out.println("반품신청");
+	   System.out.println(data);
+	   
+	   int res = mypageService.submitReturn(data);
+	   System.out.println("반품신청 결과 : " + res);
+	   
+	   return "redirect:orderlist";
+   }
 }

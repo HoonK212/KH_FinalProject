@@ -8,22 +8,63 @@
 
 <link href="https://tailwindcomponents.com/css/component.ecommerce-products-list.css" rel="stylesheet">
 
+<style>
+.animated {
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+}
+
+.animated.faster {
+	-webkit-animation-duration: 500ms;
+	animation-duration: 500ms;
+}
+
+.fadeIn {
+	-webkit-animation-name: fadeIn;
+	animation-name: fadeIn;
+}
+
+.fadeOut {
+	-webkit-animation-name: fadeOut;
+	animation-name: fadeOut;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+		to {
+		opacity: 1;
+	}
+}
+
+@keyframes fadeOut {
+	from {
+		opacity: 1;
+	}
+		to {
+			opacity: 0;
+	}
+}
+</style>
+
 <main class="my-5">
-	 <div class="container mx-auto px-6">
-	 
-            <h3 class="text-gray-700 text-2xl font-medium">
-            <c:choose>
-            	<c:when test="${listno eq 0}">전체 보기</c:when>
-            	<c:when test="${listno eq 1}">이벤트 상품</c:when>
-            	<c:when test="${listno eq 2}">인기 상품</c:when>
-            	<c:when test="${listno eq 3}">신규 상품</c:when>
-            	<c:when test="${listno eq 4}">운동 보조제</c:when>
-            	<c:when test="${listno eq 5}">운동 기구</c:when>
-            	<c:when test="${listno eq 6}">다이어트 식품</c:when>
-            </c:choose>
-            </h3>
+	<div class="container mx-auto px-6">
+		<h3 class="text-gray-700 text-2xl font-medium">
+			<c:choose>
+				<c:when test="${listno eq 0}">전체 보기</c:when>
+				<c:when test="${listno eq 1}">이벤트 상품</c:when>
+				<c:when test="${listno eq 2}">인기 상품</c:when>
+				<c:when test="${listno eq 3}">신규 상품</c:when>
+				<c:when test="${listno eq 4}">운동 보조제</c:when>
+				<c:when test="${listno eq 5}">운동 기구</c:when>
+				<c:when test="${listno eq 6}">다이어트 식품</c:when>
+			</c:choose>
+		</h3>
             
-            <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
+		<div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
 
 			<c:forEach items="${list}" var="list">
 				<div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
@@ -37,8 +78,15 @@
 		                </button>
 	                </div>
                     <div class="px-5 py-3">
-                        <h3 class="text-gray-700 uppercase"><a href="/shopping/detail?code=${list.code }">${list.name}</a></h3>
-                        <span class="text-gray-500 mt-2"><fmt:formatNumber pattern="#,###" value="${list.price }" /> 원</span>
+                        <h3 class="text-gray-700 uppercase"><a href="/shopping/detail?code=${list.code }">
+                        <c:if test="${list.event eq 1 }"><span class="bg-yellow-500 text-xs">event</span></c:if>
+                        ${list.name}</a></h3>
+                        
+                        <c:if test="${list.event eq 0 }"><span class="text-gray-500 mt-2"><fmt:formatNumber pattern="#,###" value="${list.price}" />원</span></c:if>
+                        <c:if test="${list.event eq 1 }">
+                        <span class="text-gray-500 mt-2 line-through"><fmt:formatNumber pattern="#,###" value="${list.price}" />원</span>
+                        <span class="text-red-500 mt-2 pl-1"><fmt:formatNumber pattern="#,###" value="${list.price * 0.95}" />원</span>
+                        </c:if>
                     </div>
                 </div>
 			</c:forEach>            

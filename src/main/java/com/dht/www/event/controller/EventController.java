@@ -147,17 +147,13 @@ public class EventController {
 	@RequestMapping(value="/quiz", method=RequestMethod.GET)
 	public void eventQuiz(HttpSession session, Model model) {
 		Users login = (Users) session.getAttribute("logInInfo");
-		SimpleDateFormat format = new SimpleDateFormat("yy/MM/dd");
 		
 		//요일을 1-7으로 반환
 		GregorianCalendar cal = new GregorianCalendar();
 		
-		String today = format.format(new Date());
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("id", login.getId());
-		map.put("dates", today);
-		map.put("event", 2);
+		Compensation com = new Compensation();
+		com.setId(login.getId());
+		com.setEvent(2);
 		
 		int day = cal.get(Calendar.DAY_OF_WEEK);
 			
@@ -166,7 +162,7 @@ public class EventController {
 		quiz.put("words", words);
 		quiz.put("length", words.length);
 		
-		model.addAttribute("attend", eventService.checkAtt(map));
+		model.addAttribute("attend", eventService.checkAtt(com));
 		model.addAttribute("quiz", quiz);
 		model.addAttribute("event", 3);
 	}
@@ -189,16 +185,12 @@ public class EventController {
 	@RequestMapping(value = "/attend", method = RequestMethod.GET)
 	public void eventAttend(HttpSession session, Model model) {
 		Users login = (Users) session.getAttribute("logInInfo");
-		SimpleDateFormat format1 = new SimpleDateFormat("yy/MM/dd");
 
-		String today = format1.format(new Date());
+		Compensation com = new Compensation();
+		com.setId(login.getId());
+		com.setEvent(1);
 
-		Map<String, Object> check = new HashMap<String, Object>();
-		check.put("id", login.getId());
-		check.put("dates", today);
-		check.put("event", 1);
-
-		model.addAttribute("attend", eventService.checkAtt(check));
+		model.addAttribute("attend", eventService.checkAtt(com));
 		model.addAttribute("attList", eventService.selectAttend(login.getId()));
 		model.addAttribute("event", 0);
 

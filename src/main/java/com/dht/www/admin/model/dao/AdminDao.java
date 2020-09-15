@@ -18,162 +18,151 @@ public class AdminDao {
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	
+	//-------------- 상품 목록 조회 ---------------------
+	
+	public int selectProductCntOfSearchType1(Map<String, Object> search) {
 
+		return sqlSession.selectOne("ADMIN.selectProductCntOfSearchType1", search);
+	}
+	
+	public List<Map<String, Object>> selectProductListOfSearchType1(Map<String, Object> mp) {
+
+		return sqlSession.selectList("ADMIN.selectProductListOfSearchType1", mp);
+	}
+	
+	public int selectProductCntOfSearchType2(Map<String, Object> search) {
+
+		return sqlSession.selectOne("ADMIN.selectProductCntOfSearchType2", search);
+	}
+
+	public List<Map<String, Object>> selectProductListOfSearchType2(Map<String, Object> mp) {
+
+		return sqlSession.selectList("ADMIN.selectProductListOfSearchType2", mp);
+	}
+	
 	public int selectProductCnt() {
 
 		return sqlSession.selectOne("ADMIN.selectProductCnt");
 	}
 
-	public List<Map<String, Object>> selectProductList2(Paging paging) {
+	public List<Map<String, Object>> selectProductList(Paging p) {
 		
-		System.out.println(paging.getStart());
-		System.out.println(paging.getEnd());
-		
-		return sqlSession.selectList("ADMIN.selectProductList2", paging);
+		return sqlSession.selectList("ADMIN.selectProductList", p);
 	}
 
+	//---------상품 목록 조회 끝 ---------------
+	
+	
+	// 상품 재고 상세
 	public List<Object> selectStockDetail(String code) {
 
 		return sqlSession.selectList("ADMIN.selectStockDetail", code);
 	}
-
+	
+	// 상품 재고 업데이트
 	public int modifyStockData(Map<String, Object> data) {
 
 		return sqlSession.update("ADMIN.modifyStockData", data);
 	}
 
-	public List<Map<String, Object>> selectProductListBySearchDataType1(Map<String, Object> mp) {
 
-		return sqlSession.selectList("ADMIN.selectProductListBySearchDataType1", mp);
-	}
-
-	public List<Map<String, Object>> selectProductListBySearchDataType2(Map<String, Object> mp) {
-
-		return sqlSession.selectList("ADMIN.selectProductListBySearchDataType2", mp);
-	}
-
-	public int selectProductCntOfStockSearchType1(Map<String, Object> search) {
-
-		return sqlSession.selectOne("ADMIN.selectProductCntOfStockSearchType1", search);
-	}
-
-	public int selectProductCntOfStockSearchType2(Map<String, Object> search) {
-
-		return sqlSession.selectOne("ADMIN.selectProductCntOfStockSearchType2", search);
-	}
-
-	public int selectReturnCntOfReturnSearchType1(Map<String, Object> search) {
-
-		return sqlSession.selectOne("ADMIN.selectReturnCntOfReturnSearchType1", search);
-	}
-
-	public List<Map<String, Object>> selectReturnListBySearchDataType1(Map<String, Object> mp) {
-		
-		return sqlSession.selectList("ADMIN.selectReturnListBySearchDataType1", mp);
-	}
-
-	public int selectReturnCntOfReturnSearchType1WithDate(Map<String, Object> search) {
-		
-		return sqlSession.selectOne("ADMIN.selectReturnCntOfReturnSearchType1WithDate", search);
-	}
-
-	public List<Map<String, Object>> selectReturnListBySearchDataType1WithDate(Map<String, Object> mp) {
-	
-		return sqlSession.selectList("ADMIN.selectReturnListBySearchDataType1WithDate", mp);
-	}
-
-	public int selectReturnCntOfReturnSearchType2(Map<String, Object> search) {
-		
-		return sqlSession.selectOne("ADMIN.selectReturnCntOfReturnSearchType2", search);
-	}
-
-	public List<Map<String, Object>> selectReturnListBySearchDataType2(Map<String, Object> mp) {
-		
-		return sqlSession.selectList("ADMIN.selectReturnListBySearchDataType2", mp);
-	}
-
-	public int selectReturnCntOfReturnSearchType2WithDate(Map<String, Object> search) {
-		
-		return sqlSession.selectOne("ADMIN.selectReturnCntOfReturnSearchType2WithDate", search);
-	}
-
-	public List<Map<String, Object>> selectReturnListBySearchDataType2WithDate(Map<String, Object> mp) {
-
-		return sqlSession.selectList("ADMIN.selectReturnListBySearchDataType2WithDate", mp);
-	}
-
-	public int selectReturnCntOfReturnSearchType3(Map<String, Object> search) {
-		
-		return sqlSession.selectOne("ADMIN.selectReturnCntOfReturnSearchType3", search);
-	}
-
-	public List<Map<String, Object>> selectReturnListBySearchDataType3(Map<String, Object> mp) {
-		
-		return sqlSession.selectList("ADMIN.selectReturnListBySearchDataType3", mp);
-	}
-
-	public int selectReturnCntOfReturnSearchType3WithDate(Map<String, Object> search) {
-		
-		return sqlSession.selectOne("ADMIN.selectReturnCntOfReturnSearchType3WithDate", search);
-	}
-
-	public List<Map<String, Object>> selectReturnListBySearchDataType3WithDate(Map<String, Object> mp) {
-		
-		return sqlSession.selectList("ADMIN.selectReturnListBySearchDataType3WithDate", mp);
-	}
-
-	public int selectReturnCntOfReturnSearchType4(Map<String, Object> search) {
-		
-		return sqlSession.selectOne("ADMIN.selectReturnCntOfReturnSearchType4", search);
-	}
-
-	public List<Map<String, Object>> selectReturnListBySearchDataType4(Map<String, Object> mp) {
-		
-		return sqlSession.selectList("ADMIN.selectReturnListBySearchDataType4", mp);
-	}
-
-	public int selectReturnCntOfReturnSearchType4WithDate(Map<String, Object> search) {
-	
-		return sqlSession.selectOne("ADMIN.selectReturnCntOfReturnSearchType4WithDate", search);
-	}
-
-	public List<Map<String, Object>> selectReturnListBySearchDataType4WithDate(Map<String, Object> mp) {
-		
-		return sqlSession.selectList("ADMIN.selectReturnListBySearchDataType4WithDate", mp);
-	}
-
-	public int selectReturnCnt() {
-		
-		return sqlSession.selectOne("ADMIN.selectReturnCnt");
-	}
-
-	public List<Map<String, Object>> selectReturnList(Paging p) {
-		
-		return sqlSession.selectList("ADMIN.selectReturnList", p);
-	}
-
-	public int selectReturnCntOfByDate(Map<String, Object> search) {
-		
-		return sqlSession.selectOne("ADMIN.selectReturnCntOfByDate", search);
-	}
-
-	public List<Map<String, Object>> selectReturnListByDate(Map<String, Object> mp) {
-		
-		return sqlSession.selectList("ADMIN.selectReturnListByDate", mp);
-	}
-
-	public List<Object> selectReturnDetail(String op_no) {
-		
-		return sqlSession.selectList("ADMIN.selectReturnDetail", op_no);
-	}
-
-	public int modifyReturnData(Map<String, Object> data) {
-	
-		return sqlSession.update("ADMIN.modifyReturnData", data);
-	}
 
 	
-	// -------------------------------------------------------------------------------------------
+	//-------------- 배송 STATUS 관련 조회 --------------------------
+	
+
+	public int selectStatusCntOfSearchType1(Map<String, Object> search) {
+
+		return sqlSession.selectOne("ADMIN.selectStatusCntOfSearchType1", search);
+	}
+
+	public List<Map<String, Object>> selectStatusListOfSearchType1(Map<String, Object> mp) {
+		
+		return sqlSession.selectList("ADMIN.selectStatusListOfSearchType1", mp);
+	}
+
+	public int selectStatusCntOfSearchType1WithDate(Map<String, Object> search) {
+		
+		return sqlSession.selectOne("ADMIN.selectStatusCntOfSearchType1WithDate", search);
+	}
+
+	public List<Map<String, Object>> selectStatusListOfSearchType1WithDate(Map<String, Object> mp) {
+	
+		return sqlSession.selectList("ADMIN.selectStatusListOfSearchType1WithDate", mp);
+	}
+
+	public int selectStatusCntOfSearchType2(Map<String, Object> search) {
+		
+		return sqlSession.selectOne("ADMIN.selectStatusCntOfSearchType2", search);
+	}
+
+	public List<Map<String, Object>> selectStatusListOfSearchType2(Map<String, Object> mp) {
+		
+		return sqlSession.selectList("ADMIN.selectStatusListOfSearchType2", mp);
+	}
+
+	public int selectStatusCntOfSearchType2WithDate(Map<String, Object> search) {
+		
+		return sqlSession.selectOne("ADMIN.selectStatusCntOfSearchType2WithDate", search);
+	}
+
+	public List<Map<String, Object>> selectStatusListOfSearchType2WithDate(Map<String, Object> mp) {
+
+		return sqlSession.selectList("ADMIN.selectStatusListOfSearchType2WithDate", mp);
+	}
+
+	public int selectStatusCntOfSearchType3(Map<String, Object> search) {
+		
+		return sqlSession.selectOne("ADMIN.selectStatusCntOfSearchType3", search);
+	}
+
+	public List<Map<String, Object>> selectStatusListOfSearchType3(Map<String, Object> mp) {
+		
+		return sqlSession.selectList("ADMIN.selectStatusListOfSearchType3", mp);
+	}
+
+	public int selectStatusCntOfSearchType3WithDate(Map<String, Object> search) {
+		
+		return sqlSession.selectOne("ADMIN.selectStatusCntOfSearchType3WithDate", search);
+	}
+
+	public List<Map<String, Object>> selectStatusListOfSearchType3WithDate(Map<String, Object> mp) {
+		
+		return sqlSession.selectList("ADMIN.selectStatusListOfSearchType3WithDate", mp);
+	}
+
+
+	public int selectStatusCntWithDate(Map<String, Object> search) {
+		
+		return sqlSession.selectOne("ADMIN.selectStatusCntWithDate", search);
+	}
+
+	public List<Map<String, Object>> selectStatusListWithDate(Map<String, Object> mp) {
+		
+		return sqlSession.selectList("ADMIN.selectStatusListWithDate", mp);
+	}
+
+	public int selectStatusCnt() {
+		
+		return sqlSession.selectOne("ADMIN.selectStatusCnt");
+	}
+	
+	public List<Map<String, Object>> selectStatusList(Paging p) {
+		
+		return sqlSession.selectList("ADMIN.selectStatusList", p);
+	}
+	
+	// -----------배송 STATUS 관련 조회 끝---------------------------------------
+	
+	
+	
+	// 주문 내역 상세
+	public List<Object> selectOrdersDetail(String o_no) {
+		
+		return sqlSession.selectList("ADMIN.selectOrdersDetail", o_no);
+	}
+	
 	
 		
 		//상품코드를 rename하는 코드 
@@ -257,6 +246,93 @@ public class AdminDao {
 
 		public List<Map<String, Object>> selectMemberListBySearchDataType2(Map<String, Object> m) {
 			return sqlSession.selectList("ADMIN.selectMemberListBySearchDataType2", m);
+		}
+		
+		//판매관리
+		public int selectSalesCntOfSearchType1(Map<String, Object> search) {
+
+			return sqlSession.selectOne("ADMIN.selectSalesCntOfSearchType1", search);
+		}
+
+		public List<Map<String, Object>> selectSalesListOfSearchType1(Map<String, Object> mp) {
+			
+			return sqlSession.selectList("ADMIN.selectSalesListOfSearchType1", mp);
+		}
+
+		public int selectSalesCntOfSearchType1WithDate(Map<String, Object> search) {
+			
+			return sqlSession.selectOne("ADMIN.selectSalesCntOfSearchType1WithDate", search);
+		}
+
+		public List<Map<String, Object>> selectSalesListOfSearchType1WithDate(Map<String, Object> mp) {
+			
+			return sqlSession.selectList("ADMIN.selectSalesListOfSearchType1WithDate", mp);
+		}
+
+		public int selectSalesCntOfSearchType2(Map<String, Object> search) {
+			
+			return sqlSession.selectOne("ADMIN.selectSalesCntOfSearchType2", search);
+		}
+
+		public List<Map<String, Object>> selectSalesListOfSearchType2(Map<String, Object> mp) {
+			
+			return sqlSession.selectList("ADMIN.selectSalesListOfSearchType2", mp);
+		}
+
+		public int selectSalesCntOfSearchType2WithDate(Map<String, Object> search) {
+			
+			return sqlSession.selectOne("ADMIN.selectSalesCntOfSearchType2WithDate", search);
+		}
+
+		public List<Map<String, Object>> selectSalesListOfSearchType2WithDate(Map<String, Object> mp) {
+			
+			return sqlSession.selectList("ADMIN.selectSalesListOfSearchType2WithDate", mp);
+		}
+
+		public int selectSalesCntWithDate(Map<String, Object> search) {
+			
+			return sqlSession.selectOne("ADMIN.selectSalesCntWithDate", search);
+		}
+
+		public List<Map<String, Object>> selectSalesListWithDate(Map<String, Object> mp) {
+			
+			return sqlSession.selectList("ADMIN.selectSalesListWithDate", mp);
+		}
+
+		public int selectSalesCnt() {
+			
+			return sqlSession.selectOne("ADMIN.selectSalesCnt");
+		}
+
+		public List<Map<String, Object>> selectSalesList(Paging p) {
+			
+			return sqlSession.selectList("ADMIN.selectSalesList", p);
+		}
+		
+		//--------------------------------------매출 합산 계산 결과 -------------------------------------------
+		public Map<String, Object> selectSalesTotal_SearchType1(Map<String, Object> mp) {
+			
+			return sqlSession.selectOne("ADMIN.selectSalesTotal_SearchType1", mp);
+		}
+		public Map<String, Object> selectSalesTotal_SearchType1WithDate(Map<String, Object> mp) {
+			
+			return sqlSession.selectOne("ADMIN.selectSalesTotal_SearchType1WithDate", mp);
+		}
+		public Map<String, Object> selectSalesTotal_SearchType2(Map<String, Object> mp) {
+			
+			return sqlSession.selectOne("ADMIN.selectSalesTotal_SearchType2", mp);
+		}
+		public Map<String, Object> selectSalesTotal_SearchType2WithDate(Map<String, Object> mp) {
+			
+			return sqlSession.selectOne("ADMIN.selectSalesTotal_SearchType2WithDate", mp);
+		}
+		public Map<String, Object> selectSalesTotal_WithDate(Map<String, Object> mp) {
+			
+			return sqlSession.selectOne("ADMIN.selectSalesTotal_WithDate", mp);
+		}
+		public Map<String, Object> selectSalesTotal(Paging p) {
+			
+			return sqlSession.selectOne("ADMIN.selectSalesTotal", p);
 		}
 		
 }

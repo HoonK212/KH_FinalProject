@@ -36,25 +36,25 @@ public class AdminServiceImpl implements AdminService {
 			//상품코드로 검색한 경우
 			if( Integer.valueOf((String) search.get("type")) == 1 ) {
 				//페이징 객체
-				Paging p = new Paging(adminDao.selectProductCntOfStockSearchType1(search), cPage, cntPerPage);
+				Paging p = new Paging(adminDao.selectProductCntOfSearchType1(search), cPage, cntPerPage);
 				//파라미터 만들기
 				Map<String, Object> mp = new HashMap<>();
 				mp.put("paging", p);
 				mp.put("search", search);
 				//조회 결과
-				List<Map<String,Object>> plist = adminDao.selectProductListBySearchDataType1(mp);
+				List<Map<String,Object>> plist = adminDao.selectProductListOfSearchType1(mp);
 				//맵 저장
 				commandMap.put("plist", plist);
 				commandMap.put("page", p);
 			}else {
 				//페이징 객체
-				Paging p = new Paging(adminDao.selectProductCntOfStockSearchType2(search), cPage, cntPerPage);
+				Paging p = new Paging(adminDao.selectProductCntOfSearchType2(search), cPage, cntPerPage);
 				//파라미터 만들기
 				Map<String, Object> mp = new HashMap<>();
 				mp.put("paging", p);
 				mp.put("search", search);
 				//조회 결과
-				List<Map<String,Object>> plist = adminDao.selectProductListBySearchDataType2(mp);
+				List<Map<String,Object>> plist = adminDao.selectProductListOfSearchType2(mp);
 				//맵 저장
 				commandMap.put("plist", plist);
 				commandMap.put("page", p);
@@ -64,7 +64,7 @@ public class AdminServiceImpl implements AdminService {
 			//페이징 객체
 			Paging p = new Paging(adminDao.selectProductCnt(), cPage, cntPerPage);
 			//결과 조회
-			List<Map<String,Object>> plist = adminDao.selectProductList2(p);
+			List<Map<String,Object>> plist = adminDao.selectProductList(p);
 			//맵 저장
 			commandMap.put("plist", plist);
 			commandMap.put("page", p);
@@ -86,12 +86,12 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Map<String, Object> selectReturnList(int cPage, int cntPerPage, Map<String, Object> search) {
+	public Map<String, Object> selectStatusList(int cPage, int cntPerPage, Map<String, Object> search) {
 		
 		//최종반환
 		Map<String, Object> commandMap = new HashMap<>();
 		//조회결과
-		List<Map<String,Object>> plist = null;
+		List<Map<String,Object>> slist = null;
 		
 		//검색어가 있는 경우
 		if( search.get("data")!=null && search.get("data") != "") {
@@ -105,14 +105,14 @@ public class AdminServiceImpl implements AdminService {
 			if( Integer.valueOf((String)search.get("type"))== 1  ) { 
 				
 				//페이징 객체
-				p = new Paging(adminDao.selectReturnCntOfReturnSearchType1(search), cPage, cntPerPage);
+				p = new Paging(adminDao.selectStatusCntOfSearchType1(search), cPage, cntPerPage);
 				//파라미터 만들기
 				mp.put("paging", p);
 				mp.put("search", search);
 				//조회결과
-				plist = adminDao.selectReturnListBySearchDataType1(mp);
+				slist = adminDao.selectStatusListOfSearchType1(mp);
 				//맵 저장
-				commandMap.put("plist", plist);
+				commandMap.put("slist", slist);
 				commandMap.put("page", p);
 				
 				//날짜조건이 있는 경우
@@ -122,14 +122,14 @@ public class AdminServiceImpl implements AdminService {
 					System.out.println("??????????????????/ 들어왔냐?");
 					
 					//페이징 객체
-					p = new Paging(adminDao.selectReturnCntOfReturnSearchType1WithDate(search), cPage, cntPerPage);
+					p = new Paging(adminDao.selectStatusCntOfSearchType1WithDate(search), cPage, cntPerPage);
 					//파라미터 만들기
 					mp.put("paging", p);
 					mp.put("search", search);
 					//조회결과
-					plist = adminDao.selectReturnListBySearchDataType1WithDate(mp);
+					slist = adminDao.selectStatusListOfSearchType1WithDate(mp);
 					//맵 저장
-					commandMap.put("plist", plist);
+					commandMap.put("slist", slist);
 					commandMap.put("page", p);
 				}
 				
@@ -137,134 +137,104 @@ public class AdminServiceImpl implements AdminService {
 			}else if( Integer.valueOf((String)search.get("type"))== 2 ) { 
 				
 				//페이징 객체
-				p = new Paging(adminDao.selectReturnCntOfReturnSearchType2(search), cPage, cntPerPage);
+				p = new Paging(adminDao.selectStatusCntOfSearchType2(search), cPage, cntPerPage);
 				//파라미터 만들기
 				mp.put("paging", p);
 				mp.put("search", search);
 				//조회결과
-				plist = adminDao.selectReturnListBySearchDataType2(mp);
+				slist = adminDao.selectStatusListOfSearchType2(mp);
 				//맵 저장
-				commandMap.put("plist", plist);
+				commandMap.put("slist", slist);
 				commandMap.put("page", p);
 				
 				//날짜조건이 있는 경우
 				if( search.get("fromdate")!=null && search.get("fromdate")!= "" &&
 						search.get("todate")!=null && search.get("todate")!= "" ) {
 					//페이징 객체
-					p = new Paging(adminDao.selectReturnCntOfReturnSearchType2WithDate(search), cPage, cntPerPage);
+					p = new Paging(adminDao.selectStatusCntOfSearchType2WithDate(search), cPage, cntPerPage);
 					//파라미터 만들기
 					mp.put("paging", p);
 					mp.put("search", search);
 					//조회결과
-					plist = adminDao.selectReturnListBySearchDataType2WithDate(mp);
+					slist = adminDao.selectStatusListOfSearchType2WithDate(mp);
 					//맵 저장
-					commandMap.put("plist", plist);
+					commandMap.put("slist", slist);
 					commandMap.put("page", p);
 				}
 			
-			//수리여부로 검색	
-			}else if( Integer.valueOf((String)search.get("type"))== 3 ) {
+			//배송상태로 검색	
+			}else{
+				
+				String param = (String)search.get("data");
 				
 				//수리여부&반품완료 데이터처리
-				if( ((String)search.get("data")).equals("N") || ((String)search.get("data")).equals("n") ) {
-					search.put("data", 0);
-				}else if( ((String)search.get("data")).equals("Y") || ((String)search.get("data")).equals("y") ) {
+				if( param.equals("상품준비") ) {
 					search.put("data", 1);
-				}else {
+				}else if( param.equals("출고") ) {
+					search.put("data", 2);
+				}else if( param.equals("배송완료") ) {
 					search.put("data", 3);
-				}
+				}else if( param.equals("주문취소") ) {
+					search.put("data", 4);
+				}else if( param.equals("반품접수") ) {
+					search.put("data", 5);
+				}else {
+					search.put("data", 6);
+				};
 			
 				//페이징 객체
-				p = new Paging(adminDao.selectReturnCntOfReturnSearchType3(search), cPage, cntPerPage);
+				p = new Paging(adminDao.selectStatusCntOfSearchType3(search), cPage, cntPerPage);
 				//파라미터 만들기
 				mp.put("paging", p);
 				mp.put("search", search);
 				//조회결과
-				plist = adminDao.selectReturnListBySearchDataType3(mp);
+				slist = adminDao.selectStatusListOfSearchType3(mp);
 				//맵 저장
-				commandMap.put("plist", plist);
+				commandMap.put("slist", slist);
 				commandMap.put("page", p);
 				
 				//날짜조건이 있는 경우
 				if( search.get("fromdate")!=null && search.get("fromdate")!= "" &&
 						search.get("todate")!=null && search.get("todate")!= "" ) {
 					//페이징 객체
-					p = new Paging(adminDao.selectReturnCntOfReturnSearchType3WithDate(search), cPage, cntPerPage);
+					p = new Paging(adminDao.selectStatusCntOfSearchType3WithDate(search), cPage, cntPerPage);
 					//파라미터 만들기
 					mp.put("paging", p);
 					mp.put("search", search);
 					//조회결과
-					plist = adminDao.selectReturnListBySearchDataType3WithDate(mp);
+					slist = adminDao.selectStatusListOfSearchType3WithDate(mp);
 					//맵 저장
-					commandMap.put("plist", plist);
+					commandMap.put("slist", slist);
 					commandMap.put("page", p);
 				}
 				
-			//반품여부로 검색	
-			}else {
-				
-				//수리여부&반품완료 데이터처리
-				if( ((String)search.get("data")).equals("N") || ((String)search.get("data")).equals("n") ) {
-					search.put("data", 0);
-				}else if( ((String)search.get("data")).equals("Y") || ((String)search.get("data")).equals("y") ) {
-					search.put("data", 1);
-				}else {
-					search.put("data", 3);
-				}
-				
-				//페이징 객체
-				p = new Paging(adminDao.selectReturnCntOfReturnSearchType4(search), cPage, cntPerPage);
-				//파라미터 만들기
-				mp.put("paging", p);
-				mp.put("search", search);
-				//조회결과
-				plist = adminDao.selectReturnListBySearchDataType4(mp);
-				//맵 저장
-				commandMap.put("plist", plist);
-				commandMap.put("page", p);
-				
-				//날짜조건이 있는 경우
-				if( search.get("fromdate")!=null && search.get("fromdate")!= "" &&
-						search.get("todate")!=null && search.get("todate")!= "" ) {
-					//페이징 객체
-					p = new Paging(adminDao.selectReturnCntOfReturnSearchType4WithDate(search), cPage, cntPerPage);
-					//파라미터 만들기
-					mp.put("paging", p);
-					mp.put("search", search);
-					//조회결과
-					plist = adminDao.selectReturnListBySearchDataType4WithDate(mp);
-					//맵 저장
-					commandMap.put("plist", plist);
-					commandMap.put("page", p);
-				}
 			}
+		//검색어 없이 날짜로만 조회	
 		}else if( search.get("fromdate")!=null && search.get("fromdate")!= "" &&
-				search.get("todate")!=null && search.get("todate")!= ""){ //검색어 없이 날짜로만 조회
+				search.get("todate")!=null && search.get("todate")!= ""){ 
 			
 			//페이징 객체
-			Paging p = new Paging(adminDao.selectReturnCntOfByDate(search), cPage, cntPerPage);
+			Paging p = new Paging(adminDao.selectStatusCntWithDate(search), cPage, cntPerPage);
 			//파라미터 만들기
 			Map<String,Object> mp = new HashMap<>();
 			mp.put("paging", p);
 			mp.put("search", search);
 			//조회결과
-			plist = adminDao.selectReturnListByDate(mp);
+			slist = adminDao.selectStatusListWithDate(mp);
 			//맵 저장
-			commandMap.put("plist", plist);
+			commandMap.put("slist", slist);
 			commandMap.put("page", p);
 			
-		}else{	//검색어나 날짜조회 없이 일반 조회
+		}
+		//검색어나 날짜조회 없이 일반 조회
+		else{
 			
 			//페이징 객체
-			Paging p = new Paging(adminDao.selectReturnCnt(), cPage, cntPerPage);
-			//파라미터 만들기
-			Map<String,Object> mp = new HashMap<>();
-			mp.put("paging", p);
-			mp.put("search", search);
+			Paging p = new Paging(adminDao.selectStatusCnt(), cPage, cntPerPage);
 			//조회결과
-			plist = adminDao.selectReturnList(p);
+			slist = adminDao.selectStatusList(p);
 			//맵 저장
-			commandMap.put("plist", plist);
+			commandMap.put("slist", slist);
 			commandMap.put("page", p);
 			
 		}
@@ -273,19 +243,12 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Object> selectReturnDetail(String op_no) {
+	public List<Object> selectOrdersDetail(String o_no) {
 		
-		return adminDao.selectReturnDetail(op_no);
+		return adminDao.selectOrdersDetail(o_no);
 	}
 
-	@Override
-	public int modifyReturnData(Map<String, Object> data) {
-		
-		return adminDao.modifyReturnData(data);
-	}
-	
 	//---------------------------------------------------------------------------------
-	
 
 		//code를 rename 하는 코드 	
 		public String renameCode(Object code) {
@@ -470,6 +433,144 @@ public class AdminServiceImpl implements AdminService {
 			}
 			
 			return commandMap;
+		}
+		
+		//매출목록
+		@Override
+		public Map<String, Object> selectSalesList(int cPage, int cntPerPage, Map<String, Object> search) {
+						
+			//최종반환
+			Map<String, Object> commandMap = new HashMap<>();
+			//조회결과
+			List<Map<String,Object>> slist = null;
+			//매출합산계산결과
+			Map<String,Object> total = null;
+			
+			//검색어가 있는 경우
+			if( search.get("data")!=null && search.get("data") != "") {
+				
+				//페이징 객체 생성
+				Paging p = null;
+				//파라미터 객체 생성
+				Map<String,Object> mp = new HashMap<>();
+				
+				//상품코드로 검색
+				if( Integer.valueOf((String)search.get("type"))== 1  ) { 
+					
+					//페이징 객체
+					p = new Paging(adminDao.selectSalesCntOfSearchType1(search), cPage, cntPerPage);
+					//파라미터 만들기
+					mp.put("paging", p);
+					mp.put("search", search);
+					//조회결과
+					slist = adminDao.selectSalesListOfSearchType1(mp);
+					//매출합산
+					total = adminDao.selectSalesTotal_SearchType1(mp);
+					
+					//맵 저장
+					commandMap.put("slist", slist);
+					commandMap.put("page", p);
+					commandMap.put("total", total);
+					
+					//날짜조건이 있는 경우
+					if( search.get("fromdate")!=null && search.get("fromdate")!= "" &&
+							search.get("todate")!=null && search.get("todate")!= "" ) {
+						
+						//페이징 객체
+						p = new Paging(adminDao.selectSalesCntOfSearchType1WithDate(search), cPage, cntPerPage);
+						//파라미터 만들기
+						mp.put("paging", p);
+						mp.put("search", search);
+						//조회결과
+						slist = adminDao.selectSalesListOfSearchType1WithDate(mp);
+						//매출합산
+						total = adminDao.selectSalesTotal_SearchType1WithDate(mp);
+						
+						//맵 저장
+						commandMap.put("slist", slist);
+						commandMap.put("page", p);
+						commandMap.put("total", total);
+					}
+					
+				//상품명으로 검색	
+				}else{ 
+					
+					//페이징 객체
+					p = new Paging(adminDao.selectSalesCntOfSearchType2(search), cPage, cntPerPage);
+					//파라미터 만들기
+					mp.put("paging", p);
+					mp.put("search", search);
+					//조회결과
+					slist = adminDao.selectSalesListOfSearchType2(mp);
+					//매출합산
+					total = adminDao.selectSalesTotal_SearchType2(mp);
+					
+					//맵 저장
+					commandMap.put("slist", slist);
+					commandMap.put("page", p);
+					commandMap.put("total", total);
+					
+					//날짜조건이 있는 경우
+					if( search.get("fromdate")!=null && search.get("fromdate")!= "" &&
+							search.get("todate")!=null && search.get("todate")!= "" ) {
+						//페이징 객체
+						p = new Paging(adminDao.selectSalesCntOfSearchType2WithDate(search), cPage, cntPerPage);
+						//파라미터 만들기
+						mp.put("paging", p);
+						mp.put("search", search);
+						//조회결과
+						slist = adminDao.selectSalesListOfSearchType2WithDate(mp);
+						//매출합산
+						total = adminDao.selectSalesTotal_SearchType2WithDate(mp);
+						
+						//맵 저장
+						commandMap.put("slist", slist);
+						commandMap.put("page", p);
+						commandMap.put("total", total);
+					}
+				
+				//배송상태로 검색	
+				}
+			//검색어 없이 날짜로만 조회	
+			}else if( search.get("fromdate")!=null && search.get("fromdate")!= "" &&
+					search.get("todate")!=null && search.get("todate")!= ""){ 
+				
+				//페이징 객체
+				Paging p = new Paging(adminDao.selectSalesCntWithDate(search), cPage, cntPerPage);
+				//파라미터 만들기
+				Map<String,Object> mp = new HashMap<>();
+				mp.put("paging", p);
+				mp.put("search", search);
+				//조회결과
+				slist = adminDao.selectSalesListWithDate(mp);
+				//매출합산
+				total = adminDao.selectSalesTotal_WithDate(mp);
+				
+				//맵 저장
+				commandMap.put("slist", slist);
+				commandMap.put("page", p);
+				commandMap.put("total", total);
+				
+			}
+			//검색어나 날짜조회 없이 일반 조회
+			else{
+				
+				//페이징 객체
+				Paging p = new Paging(adminDao.selectSalesCnt(), cPage, cntPerPage);
+				//조회결과
+				slist = adminDao.selectSalesList(p);
+				//매출합산
+				total = adminDao.selectSalesTotal(p);
+				
+				//맵 저장
+				commandMap.put("slist", slist);
+				commandMap.put("page", p);
+				commandMap.put("total", total);
+				
+			}
+			
+			return commandMap;
+			
 		}
 	
 }

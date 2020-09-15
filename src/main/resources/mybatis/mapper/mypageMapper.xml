@@ -5,15 +5,76 @@
   
 <mapper namespace="MYPAGE">
 
-<insert id="setGoal">
-INSERT INTO GOAL 
-VALUES ( #{id}, #{days}, #{exercise}, #{grade} ) 
-</insert>
-
-<update id="updateGoal">
-UPDATE GOAL
-SET DAYS = #{days}, EXERCISE = #{exercise}, GRADE = #{grade}
-WHERE ID = #{id}
-</update>
-
+	<resultMap type="map" id="orderdata">
+		<result column="rnum" property="rnum"/>
+		<result column="no" property="op_no"/>
+		<result column="orders_no" property="o_no"/>
+		<result column="amount" property="amount"/>
+		<result column="point" property="point"/>
+		<result column="code" property="code"/>
+		<result column="id" property="id"/>
+		<result column="dates" property="dates"/>
+		<result column="status" property="status"/>
+		<result column="name" property="name"/>
+		<result column="price" property="price"/>
+		<result column="renamed" property="renamed"/>
+		<result column="ext" property="ext"/>
+		<result column="thumbnail" property="thumbnail"/>
+	</resultMap>
+	
+	<insert id="setGoal">
+		INSERT INTO GOAL 
+		VALUES ( #{id}, #{days}, #{exercise}, #{grade} ) 
+	</insert>
+	
+	<update id="updateGoal">
+		UPDATE GOAL
+		SET DAYS = #{days}, EXERCISE = #{exercise}, GRADE = #{grade}
+		WHERE ID = #{id}
+	</update>
+	
+	<select id="selectOrderList" resultMap="orderdata">
+		SELECT * FROM ( SELECT ROWNUM RNUM, A.* FROM (
+		SELECT OP.*, O.ID, O.DATES, P.NAME, P.PRICE, F.RENAMED, F.EXT, F.THUMBNAIL
+		FROM ORDER_PRODUCT OP, ORDERS O, PRODUCT P, FILES F
+		WHERE OP.ORDERS_NO = O.NO
+		AND OP.CODE = P.CODE
+		AND OP.CODE = F.REF
+		AND F.THUMBNAIL = 1
+		AND ID = #{id} 
+		ORDER BY O.DATES DESC)A
+		) WHERE RNUM BETWEEN #{page.start} AND #{page.end}
+	</select>
+	
+	<select id="selectOrderCnt" resultType="int">
+		SELECT COUNT(*) FROM (
+		SELECT OP.*, O.ID, O.DATES, P.NAME, P.PRICE, F.RENAMED, F.EXT, F.THUMBNAIL
+		FROM ORDER_PRODUCT OP, ORDERS O, PRODUCT P, FILES F
+		WHERE OP.ORDERS_NO = O.NO
+		AND OP.CODE = P.CODE
+		AND OP.CODE = F.REF
+		AND F.THUMBNAIL = 1
+		AND ID = #{id} )
+	</select>
+	
+	<update id="cancelOrder">
+		UPDATE ORDER_PRODUCT SET STATUS = 4
+		WHERE NO = #{op_no}
+	</update>
+	
+	<insert id="submitReturn">
+		INSERT INTO RETURN (OP_NO, REASON)
+		VALUES (#{op_no}, #{reason})
+	</insert>
+	
+	<insert id="insertReview">
+		INSERT INTO REVIEW (OP_NO, SCORE, REVIEW)
+		VALUES (#{op_no}, #{score}, #{review})
+	</insert>
+	
+	<select id="selectOrderAmountCnt" resultType="int">
+		SELECT sum(amount) FROM ORDER_PRODUCT
+		WHERE STATUS NOT IN (4, 6) 
+		AND ORDERS_NO in (SELECT NO FROM ORDERS WHERE ID= #{id})
+	</select>
 </mapper>  

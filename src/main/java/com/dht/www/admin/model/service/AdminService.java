@@ -12,21 +12,23 @@ import com.dht.www.mypage.model.vo.Files;
 import com.dht.www.shopping.model.vo.Product;
 
 public interface AdminService {
-
+	
+	//상품 조회
 	public Map<String, Object> selectProductList(int cPage, int cntPerPage, Map<String,Object> search);
-
+	
+	//재고 상세
 	public List<Object> selectStockDetail(String code);
-
+	
+	//재고 업데이트
 	public int modifyStockData(Map<String, Object> data);
-
-	public Map<String, Object> selectReturnList(int cPage, int cntPerPage, Map<String, Object> search);
-
-	public List<Object> selectReturnDetail(String op_no);
-
-	public int modifyReturnData(Map<String, Object> data);
 	
+	//배송 상태 조회
+	public Map<String, Object> selectStatusList(int cPage, int cntPerPage, Map<String, Object> search);
+	
+	//주문내역 상세
+	public List<Object> selectOrdersDetail(String o_no);
+
 	//--------------------------------------------------------------
-	
 	
 	//code를 rename하는 코드 
 	public String renameCode(Object object);
@@ -49,5 +51,8 @@ public interface AdminService {
 
 	//회원관리
 	public Map<String, Object> selectMemberList(int cPage, int cntPerPage, Map<String,Object> search);
+	
+	//매출목록조회
+	public Map<String, Object> selectSalesList(int cPage, int cntPerPage, Map<String, Object> search);
 
 }

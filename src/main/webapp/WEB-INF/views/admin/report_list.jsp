@@ -21,21 +21,20 @@
 	<div class="section-container">
 	
 		<!-- 상단 제목 영역 -->
-		<span class="font-semibold text-4xl"><a href="<%=request.getContextPath()%>/admin/returnlist">반품조회</a></span>
+		<span class="font-semibold text-4xl"><a href="<%=request.getContextPath()%>/admin/reportlist">신고관리</a></span>
 		
 		
 			<!-- 상단 버튼 영역 -->		
-			<form action="<%=request.getContextPath()%>/admin/returnlist" method="GET"  class="flex justify-end">
+			<form action="<%=request.getContextPath()%>/admin/reportlist" method="GET"  class="flex justify-end">
 				<div class="mr-3">
 					<input name="fromdate" type="date" /> - <input name="todate" type="date" />
 				</div>
 			
 				  <div class="mr-3">
-				      <select name="type" id="select" style="height: 40px;">
-				          <option value="1">상품코드</option>
-				          <option value="2">상품명</option>
-				          <option value="3">수리여부</option>
-				          <option value="4">반품완료</option>
+				      <select id="select" style="height: 40px;">
+				          <option value="1">게시글번호</option>
+				          <option value="2">작성자</option>
+				          <option value="3">신고여부</option>
 				      </select>
 				  </div>
 				  
@@ -54,24 +53,20 @@
 			    <table class="table-fixed bg-white w-full">
 			      <thead class="bg-gray-800 text-white">
 			        <tr>
-			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">No</th>
-			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">주문번호</th>
-			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">상품코드</th>
-			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">상품명</td>
-			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">수량</td>
-			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">반품사유</td>
-			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">신청인ID</td>
-			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">신청인이름</td>
-			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">수리여부</td>
-			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">반품완료</td>
-			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">신청날짜</td>
+		          <th class="w-1/10 py-3 px-4 uppercase font-semibold text-sm">게시글번호</th>
+		          <th class="w-1/10 py-3 px-4 uppercase font-semibold text-sm">카테고리</td>
+		          <th class="w-4/10 py-3 px-4 uppercase font-semibold text-sm">게시글제목</th>
+		          <th class="w-1/10 py-3 px-4 uppercase font-semibold text-sm">작성자</td>
+		          <th class="w-1/10 py-3 px-4 uppercase font-semibold text-sm">조회수</th>
+		          <th class="w-1/10 py-3 px-4 uppercase font-semibold text-sm">댓글수</th>
+		          <th class="w-1/10 py-3 px-4 uppercase font-semibold text-sm">신고여부</th>
 			        </tr>
 			      </thead>
 			    <tbody class="text-gray-700">
 			    <c:forEach items="${rlist }" var="rt" varStatus="status">
 			      <tr class="${status.count % 2 == 1 ? '' : 'bg-gray-100'}">
 			        <td class="w-1/4 py-3 px-4 text-center">${rt.rnum }</td>
-			        <td class="w-1/4 py-3 px-4 text-center hover:text-blue-500" onclick="getReturnDetail(${status.count})" >${rt.op_no }</td>
+			        <td class="w-1/4 py-3 px-4 text-center hover:text-blue-500" onclick="getReportDetail(${status.count})" >${rt.op_no }</td>
 			        <td class="w-1/4 py-3 px-4 text-center">${rt.code }</td>
 			        <td class="w-1/4 py-3 px-4 text-center">${rt.name }</td>
 			        <td class="w-1/4 py-3 px-4 text-center">${rt.amount }</td>
@@ -109,10 +104,10 @@
 		        <c:choose>
 		        	<c:when test="${page.blockStart > 1 }">
 		        		<c:if test="${not empty search}">
-		         		<a href="<%= request.getContextPath() %>/admin/returnlist?cPage=${page.blockStart-1}&type=${search.type}&data=${search.data}&fromdate=${search.fromdate}&todate={search.todate}" class="nav prev">
+		         		<a href="<%= request.getContextPath() %>/admin/reportlist?cPage=${page.blockStart-1}&type=${search.type}&data=${search.data}&fromdate=${search.fromdate}&todate={search.todate}" class="nav prev">
 		        		</c:if>
 		        		<c:if test="${empty search }">
-		         		<a href="<%= request.getContextPath() %>/admin/returnlist?cPage=${page.blockStart-1}" class="nav prev">
+		         		<a href="<%= request.getContextPath() %>/admin/reportlist?cPage=${page.blockStart-1}" class="nav prev">
 		         		</c:if>
 		         			<div class="h-8 w-8 mr-1 flex justify-center items-center  cursor-pointer">
 					            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" 
@@ -125,10 +120,10 @@
 		        	</c:when>
 		        	<c:otherwise>
 		        		<c:if test="${not empty search}">
-		         		<a href="<%= request.getContextPath() %>/admin/returnlist?cPage=${page.blockStart}&type=${search.type}&data=${search.data}&fromdate=${search.fromdate}&todate={search.todate}" class="nav prev">
+		         		<a href="<%= request.getContextPath() %>/admin/reportlist?cPage=${page.blockStart}&type=${search.type}&data=${search.data}&fromdate=${search.fromdate}&todate={search.todate}" class="nav prev">
 		        		</c:if>
 		        		<c:if test="${empty search }">
-		         		<a href="<%= request.getContextPath() %>/admin/returnlist?cPage=${page.blockStart}" class="nav prev">
+		         		<a href="<%= request.getContextPath() %>/admin/reportlist?cPage=${page.blockStart}" class="nav prev">
 		         		</c:if>
 							<div class="h-8 w-8 mr-1 flex justify-center items-center  cursor-pointer">
 					            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" 
@@ -145,10 +140,10 @@
 		        <c:forEach begin="${page.blockStart}" end="${page.blockEnd}" var="pagenation">
 		        
 		        <c:if test="${not empty search}">
-         		<a href="<%= request.getContextPath() %>/admin/returnlist?cPage=${pagenation}&type=${search.type}&data=${search.data}&fromdate=${search.fromdate}&todate={search.todate}" class="nav prev">
+         		<a href="<%= request.getContextPath() %>/admin/reportlist?cPage=${pagenation}&type=${search.type}&data=${search.data}&fromdate=${search.fromdate}&todate={search.todate}" class="nav prev">
         		</c:if>
         		<c:if test="${empty search }">
-         		<a href="<%= request.getContextPath() %>/admin/returnlist?cPage=${pagenation}" class="nav prev">
+         		<a href="<%= request.getContextPath() %>/admin/reportlist?cPage=${pagenation}" class="nav prev">
          		</c:if>
 	         		<c:choose>
 		       	   		<c:when test="${page.currentPage eq pagenation }">
@@ -169,10 +164,10 @@
 		        <c:choose>
 		        	<c:when test="${page.blockEnd+1 > page.lastPage }">
 		        		<c:if test="${not empty search}">
-		         		<a href="<%= request.getContextPath() %>/admin/returnlist?cPage=${page.blockEnd}&type=${search.type}&data=${search.data}&fromdate=${search.fromdate}&todate={search.todate}" class="nav prev">
+		         		<a href="<%= request.getContextPath() %>/admin/reportlist?cPage=${page.blockEnd}&type=${search.type}&data=${search.data}&fromdate=${search.fromdate}&todate={search.todate}" class="nav prev">
 		        		</c:if>
 		        		<c:if test="${empty search }">
-		         		<a href="<%= request.getContextPath() %>/admin/returnlist?cPage=${page.blockEnd}" class="nav prev">
+		         		<a href="<%= request.getContextPath() %>/admin/reportlist?cPage=${page.blockEnd}" class="nav prev">
 		         		</c:if>
 		         			<div class="h-8 w-8 ml-1 flex justify-center items-center  cursor-pointer">
 					            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" 
@@ -185,10 +180,10 @@
 		        	</c:when>
 		        	<c:otherwise>
 		        		<c:if test="${not empty search}">
-		         		<a href="<%= request.getContextPath() %>/admin/returnlist?cPage=${page.blockEnd+1}&type=${search.type}&data=${search.data}&fromdate=${search.fromdate}&todate={search.todate}" class="nav prev">
+		         		<a href="<%= request.getContextPath() %>/admin/reportlist?cPage=${page.blockEnd+1}&type=${search.type}&data=${search.data}&fromdate=${search.fromdate}&todate={search.todate}" class="nav prev">
 		        		</c:if>
 		        		<c:if test="${empty search }">
-		         		<a href="<%= request.getContextPath() %>/admin/returnlist?cPage=${page.blockEnd+1}" class="nav prev">
+		         		<a href="<%= request.getContextPath() %>/admin/reportlist?cPage=${page.blockEnd+1}" class="nav prev">
 		         		</c:if>
 					        <div class="h-8 w-8 ml-1 flex justify-center items-center  cursor-pointer">
 					            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" 
@@ -220,48 +215,48 @@
 						</div>
 						<!--Header End-->
 						<!-- Content-->
-						<form action="<%=request.getContextPath()%>/admin/returnmodify" method="POST">
+						<form action="<%=request.getContextPath()%>/admin/reportmodify" method="POST">
 						<div class="flex flex-col justify-center items-center w-full max-w-xl rounded-lg px-4 pt-2">
 							
 						 <div class="shadow w-full overflow-hidden rounded border-b border-gray-200">
 						 	<table>
 						        <tr>
 						        <th class="bg-gray-800 text-white w-1/4 py-3 px-4 uppercase font-semibold text-sm">주문번호</th>
-						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="returnDetail_op_no"></td>
+						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="reportDetail_op_no"></td>
 						        <input id="op_no" name="op_no" type="hidden" />
 								</tr>
 						        <tr>
 						        <th class="bg-gray-800 text-white w-1/4 py-3 px-4 uppercase font-semibold text-sm">상품코드</th>
-						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="returnDetail_code"></td>
+						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="reportDetail_code"></td>
 						        </tr>  
 						        <tr>
 						        <th class="bg-gray-800 text-white w-1/4 py-3 px-4 uppercase font-semibold text-sm">상품명</th>
-						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="returnDetail_name"></td>
+						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="reportDetail_name"></td>
 						        </tr>  
 						        <tr>
 						        <th class="bg-gray-800 text-white w-1/4 py-3 px-4 uppercase font-semibold text-sm">수량</th>
-						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="returnDetail_amount"></td>
+						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="reportDetail_amount"></td>
 						        </tr>  
 						        <tr>
 						        <th class="bg-gray-800 text-white w-1/4 py-3 px-4 uppercase font-semibold text-sm">반품사유</th>
-						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="returnDetail_reason"></td>
+						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="reportDetail_reason"></td>
 						        </tr>  
 						        <tr>
 						        <th class="bg-gray-800 text-white w-1/4 py-3 px-4 uppercase font-semibold text-sm">신청인ID</th>
-						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="returnDetail_id"></td>
+						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="reportDetail_id"></td>
 						        </tr>  
 						        <tr>  
 						        <th class="bg-gray-800 text-white w-1/4 py-3 px-4 uppercase font-semibold text-sm">신청인이름</td>
-								<td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="returnDetail_to_name"></td> 
+								<td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="reportDetail_to_name"></td> 
 						        </tr>
 						        <tr>  
 						        <th class="bg-gray-800 text-white w-1/4 py-3 px-4 uppercase font-semibold text-sm">신청날짜</td>
-								<td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="returnDetail_dates"></td> 
+								<td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="reportDetail_dates"></td> 
 						        </tr>
 						        <tr>
 						        <th class="bg-gray-800 text-white w-1/4 py-3 px-4 uppercase font-semibold text-sm">수리여부</td>
 						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center">
-						        	<select name="accept" id="returnDetail_accept">
+						        	<select name="accept" id="reportDetail_accept">
 						        		<option value="0" >N</option>
 						        		<option value="1" >Y</option>
 						        	</select>
@@ -270,7 +265,7 @@
 						        <tr>
 						        <th class="bg-gray-800 text-white w-1/4 py-3 px-4 uppercase font-semibold text-sm">반품완료</td>
 						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center">
-						        	<select name="status" id="returnDetail_status">
+						        	<select name="status" id="reportDetail_status">
 						        		<option value="0" >N</option>
 						        		<option value="1" >Y</option>
 						        	</select>
@@ -298,18 +293,18 @@
 </div> <!-- ADMIN-CONTAINER 끝 -->
 
 <script type="text/javascript">
-var returnDetail_op_no = null;
-var returnDetail_code = null;
-var returnDetail_name = null;
-var returnDetail_amount = null;
-var returnDetail_reason = null;
-var returnDetail_id = null;
-var returnDetail_to_name = null;
-var returnDetail_dates = null;
-var returnDetail_accept = null;
-var returnDetail_status = null;
+var reportDetail_op_no = null;
+var reportDetail_code = null;
+var reportDetail_name = null;
+var reportDetail_amount = null;
+var reportDetail_reason = null;
+var reportDetail_id = null;
+var reportDetail_to_name = null;
+var reportDetail_dates = null;
+var reportDetail_accept = null;
+var reportDetail_status = null;
 
-function getReturnDetail(count) {
+function getReportDetail(count) {
 	
 	var xhr = new XMLHttpRequest();
 	//파라미터로 보낼 상품 코드
@@ -318,7 +313,7 @@ function getReturnDetail(count) {
 	
 	console.log(op_no);
 	
-	xhr.open('GET', '<%=request.getContextPath()%>/admin/returndetail?' + param);
+	xhr.open('GET', '<%=request.getContextPath()%>/admin/reportdetail?' + param);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
     xhr.send();
     xhr.addEventListener('load', function(){
@@ -330,29 +325,29 @@ function getReturnDetail(count) {
 		console.log(result);
 		console.log(result[0].op_no);
 		
-		document.getElementById('returnDetail_op_no').innerText = result[0].op_no;
+		document.getElementById('reportDetail_op_no').innerText = result[0].op_no;
 		document.getElementById('op_no').value = result[0].op_no;
-		document.getElementById('returnDetail_code').innerText = result[0].code;
-		document.getElementById('returnDetail_name').innerText = result[0].name;
-		document.getElementById('returnDetail_amount').innerText = result[0].amount;
-		document.getElementById('returnDetail_reason').innerText = result[0].reason; 
-		document.getElementById('returnDetail_id').innerText = result[0].id;
-		document.getElementById('returnDetail_to_name').innerText = result[0].to_name;
-		document.getElementById('returnDetail_dates').innerText = result[0].dates; 
+		document.getElementById('reportDetail_code').innerText = result[0].code;
+		document.getElementById('reportDetail_name').innerText = result[0].name;
+		document.getElementById('reportDetail_amount').innerText = result[0].amount;
+		document.getElementById('reportDetail_reason').innerText = result[0].reason; 
+		document.getElementById('reportDetail_id').innerText = result[0].id;
+		document.getElementById('reportDetail_to_name').innerText = result[0].to_name;
+		document.getElementById('reportDetail_dates').innerText = result[0].dates; 
 		
 //		var date = new Date(result[0].dates);
 //		console.log(date);
 		
 		
 		if(result[0].accept == 0){
-			document.getElementById('returnDetail_accept')[0].selected = true;
+			document.getElementById('reportDetail_accept')[0].selected = true;
 		}else{
-			document.getElementById('returnDetail_accept')[1].selected = true;
+			document.getElementById('reportDetail_accept')[1].selected = true;
 		}
 		if(result[0].status == 0){
-			document.getElementById('returnDetail_status')[0].selected = true;
+			document.getElementById('reportDetail_status')[0].selected = true;
 		}else{
-			document.getElementById('returnDetail_status')[1].selected = true;
+			document.getElementById('reportDetail_status')[1].selected = true;
 		}
 		
 		

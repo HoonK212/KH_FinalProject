@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerToolbar: {
         left: 'title',
         center: '',
-        right: 'custom prev next'
+        right: 'custom'
       }
       , customButtons: {
     	  custom: {
@@ -110,6 +110,9 @@ document.addEventListener('DOMContentLoaded', function() {
     		title: '출석',
     		start: '2020-09-08',
     }); */
+    
+    var date = new Date();
+    console.log(date);
     
     var attend = parseInt('${attend}');
 	console.log(attend);

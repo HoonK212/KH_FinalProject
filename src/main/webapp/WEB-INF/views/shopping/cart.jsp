@@ -16,13 +16,18 @@
             <div class="flex">
                 <a href="<%= request.getContextPath()%>/shopping/detail?code=${item.code }"><img class="h-20 w-20 object-cover rounded" src="<%=request.getContextPath() %>/resources/${item.path }/${item.renamed }.${item.ext }" alt="Thumbnail"></a>
                 <div class="mx-3">
-                    <h3 class="text-sm text-gray-600"><a href="<%= request.getContextPath()%>/shopping/detail?code=${item.code }">${item.name }</a></h3>
+                    <h3 class="text-sm text-gray-600"><a href="<%= request.getContextPath()%>/shopping/detail?code=${item.code }">
+                    <c:if test="${item.event eq 1 }"><span class="bg-yellow-500 text-xs">event</span></c:if>
+                    ${item.name}</a></h3>
                     <div class="flex items-center mt-2">
                         <span class="text-gray-700 mx-2">${item.amount }</span>
                     </div>
                 </div>
             </div>
-            <span class="text-gray-600"><fmt:formatNumber pattern="#,###" value="${item.price }" /> 원</span>
+            <c:if test="${item.event eq 0 }"><span class="text-gray-600"><fmt:formatNumber pattern="#,###" value="${item.price}" />원</span></c:if>
+            <c:if test="${item.event eq 1 }">
+            <span class="text-red-500 pl-1"><fmt:formatNumber pattern="#,###" value="${item.price * 0.95}" /> 원</span>
+            </c:if>
         </div><!-- 장바구니 아이템 end -->
 	</c:forEach>
 </c:if>		

@@ -8,14 +8,6 @@
 <!-- HEADER -->
 <%@include file="../layout/header.jsp"%>
 
-
-<style	 type="text/css">
-#label-container{
-	color: white;
-}
-</style>
-
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
@@ -198,10 +190,8 @@ $(".complete").click(function() {
 </script>
 
 
-
-
 <!-- section 시작 -->
-<section style="min-height:73vh;">
+<section style="min-height:120vh;">
 
 	<!-- div wrap 시작 -->
 	<div id="wrap">
