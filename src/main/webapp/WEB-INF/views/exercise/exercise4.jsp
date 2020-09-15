@@ -191,7 +191,7 @@ $(".complete").click(function() {
 
 
 <!-- section 시작 -->
-<section style="min-height:120vh;">
+<section>
 
 	<!-- div wrap 시작 -->
 	<div id="wrap">
@@ -348,7 +348,7 @@ $(".complete").click(function() {
 		<!-- left layout 끝 -->
 
 		<!-- right layout 시작 -->
-		<div id="right">
+		<div id="right" style="margin-bottom: 10vh;">
 		
 				<!-- 운동설명, 캠 영역 -->
 				
