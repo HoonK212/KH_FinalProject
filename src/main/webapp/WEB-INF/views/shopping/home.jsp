@@ -277,7 +277,7 @@ const sendOrder = () => {
 	var sale = document.createElement("input"); 
 	sale.setAttribute("type", "hidden"); 
 	sale.setAttribute("name", "sale"); 
-	sale.setAttribute("value", document.querySelector("#sale").value);
+	sale.setAttribute("value", parseInt(document.querySelector("#sale").value * document.querySelector('#amount').value));
 	
 	var amount = document.createElement("input"); 
 	amount.setAttribute("type", "hidden"); 
@@ -288,7 +288,6 @@ const sendOrder = () => {
 	userId.setAttribute("type", "hidden"); 
 	userId.setAttribute("name", "userId"); 
 	userId.setAttribute("value", document.querySelector('#userId').value);
-	
 	
 	orderForm.appendChild(code);
 	orderForm.appendChild(sale);

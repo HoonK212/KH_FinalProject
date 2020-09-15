@@ -134,7 +134,7 @@ aside {
 			<div class="flex items-center mt-1 py-2">
 				<c:set var="sale" value="0" />
 				<c:if test="${detail.event eq 1 }">
-				<c:set var="sale" value="${detail.price * 0.95 }" />
+				<c:set var="sale" value="${detail.price * 0.05 }" />
 				</c:if>
 				<input type="hidden" value="${detail.code }" id="code">
 				<input type="hidden" value="${sale }" id="sale">
@@ -254,6 +254,11 @@ const sendOrder = () => {
 	code.setAttribute("type", "hidden"); 
 	code.setAttribute("name", "codes"); 
 	code.setAttribute("value", document.querySelector("#code").value);
+
+	var sale = document.createElement("input"); 
+	sale.setAttribute("type", "hidden"); 
+	sale.setAttribute("name", "sale"); 
+	sale.setAttribute("value", parseInt(document.querySelector("#sale").value * document.querySelector('#amount').value));
 	
 	var amount = document.createElement("input"); 
 	amount.setAttribute("type", "hidden"); 
@@ -266,6 +271,7 @@ const sendOrder = () => {
 	userId.setAttribute("value", document.querySelector('#userId').value);
 	
 	orderForm.appendChild(code);
+	orderForm.appendChild(sale);
 	orderForm.appendChild(amount);
 	orderForm.appendChild(userId);
 	
