@@ -132,13 +132,11 @@ public class ExerciseServiceImpl implements ExerciseService {
 		
 		// 운동길이 + 당일지급 받은 코인
 		int calcCoin = exerciseLength + todayUserCoin;
-		
+
 		if(calcCoin > maxCoin) {
 			coin = maxCoin - todayUserCoin;
 			rewardMap.put("coin", coin);
 			exerciseDao.insertRewardCoin(rewardMap);
-		} else if(calcCoin == maxCoin) {
-			coin = 0;
 		} else {
 			coin = exerciseLength;
 			rewardMap.put("coin", coin);
