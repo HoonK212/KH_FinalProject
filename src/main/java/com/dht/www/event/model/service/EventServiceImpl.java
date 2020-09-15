@@ -41,8 +41,8 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public int checkAtt(Map<String, Object> map) {
-		return eventDao.checkAtt(map);
+	public int checkAtt(Compensation com) {
+		return eventDao.checkAtt(com);
 
 	}
 

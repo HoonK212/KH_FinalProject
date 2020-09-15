@@ -13,7 +13,7 @@ public interface EventService {
 	
 	public int insertCoin(Compensation com);
 
-	public int checkAtt(Map<String, Object> map);
+	public int checkAtt(Compensation com);
 	
 	public List<List<Map<String, Object>>> selectRecord(int day);
 
