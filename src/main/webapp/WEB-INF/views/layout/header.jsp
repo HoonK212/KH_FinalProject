@@ -18,7 +18,7 @@
 <body>
 
 <header>
-        <div class="container mx-auto px-6 py-3 font-extrabold">
+        <div class="container mx-auto px-6 py-8 font-extrabold">
             <div class=" items-center justify-between">
                 <div class="hidden w-full text-white-600 md:flex md:items-center"></div>
                 <div class="w-full text-white-700 md:text-center text-2xl ">
@@ -40,8 +40,8 @@
             <nav :class="isOpen ? '' : 'hidden'" class="sm:flex sm:justify-center sm:items-center mt-4">
                 <div class="flex flex-col sm:flex-row">
                     <a class="mt-3 text-white-600 sm:mx-30 sm:mt-0 lg:mx-24" href="<%=request.getContextPath() %>/">Home</a>
-                    <a class="mt-3 text-white-600 sm:mx-30 sm:mt-0 lg:mx-24" href="<%=request.getContextPath() %>/shopping/home">Shop</a>
                     <a class="mt-3 text-white-600 sm:mx-30 sm:mt-0 lg:mx-24" href="<%=request.getContextPath() %>/exercise/type">Exercise</a>
+                    <a class="mt-3 text-white-600 sm:mx-30 sm:mt-0 lg:mx-24" href="<%=request.getContextPath() %>/shopping/home">Shop</a>
                     <a class="mt-3 text-white-600 sm:mx-30 sm:mt-0 lg:mx-24" href="<%=request.getContextPath() %>/event/attend">Event</a>
                     <a class="mt-3 text-white-600 sm:mx-30 sm:mt-0 lg:mx-24" href="<%=request.getContextPath() %>/board/list">Board</a>
                 </div>
