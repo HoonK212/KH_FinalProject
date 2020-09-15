@@ -60,7 +60,7 @@
 	
 	<insert id="insertBoard" parameterType="Board">
 		insert into board
-		values (board_seq.nextval, #{type}, #{title}, #{content}, 0, sysdate, #{id})
+		values (board_seq.nextval, #{type}, #{title}, #{content}, 0, sysdate + (INTERVAL '9' HOUR), #{id})
 	</insert>
 	
 	<insert id="insertFiles">

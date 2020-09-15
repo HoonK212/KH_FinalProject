@@ -69,6 +69,20 @@
 		<result column="to_post" property="to_post" />
 	</resultMap>
 
+	<resultMap type="map" id="sales">
+		<result column="code" property="code" />
+		<result column="name" property="name" />
+		<result column="price" property="price" />
+		<result column="amount" property="amount" />
+		<result column="point" property="point" />
+		<result column="cash" property="cash" />
+		<result column="total" property="total" />
+		<result column="chardate" property="chardate" />
+		<result column="total_amount" property="ta" />
+		<result column="total_point" property="tp" />
+		<result column="total_cash" property="tc" />
+		<result column="total_sum" property="ts" />
+	</resultMap>
 	
 	
 	
@@ -420,7 +434,7 @@
 		    from
 		       (select
 		        U.id, U.name, U.nick,
-		        trunc(months_between(trunc(sysdate),U.birth)/12) as age,
+		        trunc(months_between(trunc(sysdate + (INTERVAL '9' HOUR)),U.birth)/12) as age,
 		        U.gender,
 		        nvl((select count(*) from record R where R.id=U.id group by id), 0) as training,
 		        nvl((select sum(amount) from orders O, order_product OP where O.no=OP.orders_no and O.id=U.id group by id), 0) as shopping,
@@ -449,7 +463,7 @@
 		    from
 		       (select
 		        U.id, U.name, U.nick,
-		        trunc(months_between(trunc(sysdate),U.birth)/12) as age,
+		        trunc(months_between(trunc(sysdate + (INTERVAL '9' HOUR)),U.birth)/12) as age,
 		        U.gender,
 		        nvl((select count(*) from record R where R.id=U.id group by id), 0) as training,
 		        nvl((select sum(amount) from orders O, order_product OP where O.no=OP.orders_no and O.id=U.id group by id), 0) as shopping,
@@ -468,7 +482,7 @@
 		    from
 		       (select
 		        U.id, U.name, U.nick,
-		        trunc(months_between(trunc(sysdate),U.birth)/12) as age,
+		        trunc(months_between(trunc(sysdate + (INTERVAL '9' HOUR)),U.birth)/12) as age,
 		        U.gender,
 		        nvl((select count(*) from record R where R.id=U.id group by id), 0) as training,
 		        nvl((select sum(amount) from orders O, order_product OP where O.no=OP.orders_no and O.id=U.id group by id), 0) as shopping,
@@ -478,6 +492,305 @@
 		        from users U, point_coin PC where U.id=PC.id and U.name like '%' ||  #{search.data} || '%' order by U.dates desc ) M
 			)
 		where rnum between #{paging.start} and #{paging.end}
+	</select>
+	
+	
+	
+	<!-- 매출 조회 -->
+	
+	<select id="selectSalesCntOfSearchType1" resultType="int">
+		SELECT COUNT(*) FROM (
+		SELECT  OP.CODE , P.NAME , P.PRICE , SUM(OP.AMOUNT) AMOUNT,
+		SUM(OP.POINT) POINT, 
+		SUM(P.PRICE*AMOUNT - OP.POINT)CASH,
+		SUM(P.PRICE*AMOUNT) TOTAL, 
+		O.CHARDATE
+		FROM ORDER_PRODUCT OP, PRODUCT P, (SELECT TO_CHAR(DATES, 'YY/MM/DD') CHARDATE, NO FROM ORDERS) O
+		WHERE OP.CODE = P.CODE
+		AND OP.ORDERS_NO = O.NO
+		AND OP.CODE LIKE '%' || #{data} || '%'
+		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
+		ORDER BY O.CHARDATE DESC
+		)
+	</select>
+	
+	<select id="selectSalesListOfSearchType1" resultMap="sales">
+		SELECT * FROM (
+		SELECT ROWNUM RNUM, A.* FROM (
+		SELECT  OP.CODE , P.NAME , P.PRICE , SUM(OP.AMOUNT) AMOUNT,
+		SUM(OP.POINT) POINT, 
+		SUM(P.PRICE*AMOUNT - OP.POINT)CASH,
+		SUM(P.PRICE*AMOUNT) TOTAL, 
+		O.CHARDATE
+		FROM ORDER_PRODUCT OP, PRODUCT P, (SELECT TO_CHAR(DATES, 'YY/MM/DD') CHARDATE, NO FROM ORDERS) O
+		WHERE OP.CODE = P.CODE
+		AND OP.ORDERS_NO = O.NO
+		AND OP.CODE LIKE '%' || #{search.data} || '%'
+		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
+		ORDER BY O.CHARDATE DESC )A
+		) WHERE RNUM BETWEEN #{paging.start} AND #{paging.end}
+	</select>
+	
+	<select id="selectSalesCntOfSearchType1WithDate" resultType="int">
+		SELECT COUNT(*) FROM (
+		SELECT  OP.CODE , P.NAME , P.PRICE , SUM(OP.AMOUNT) AMOUNT,
+		SUM(OP.POINT) POINT, 
+		SUM(P.PRICE*AMOUNT - OP.POINT)CASH,
+		SUM(P.PRICE*AMOUNT) TOTAL, 
+		O.CHARDATE
+		FROM ORDER_PRODUCT OP, PRODUCT P, (SELECT TO_CHAR(DATES, 'YY/MM/DD') CHARDATE, NO FROM ORDERS) O
+		WHERE OP.CODE = P.CODE
+		AND OP.ORDERS_NO = O.NO
+		AND OP.CODE LIKE '%' || #{data} || '%'
+		AND O.CHARDATE BETWEEN TO_DATE(#{fromdate}, 'YY/MM/DD') AND TO_DATE(#{todate}, 'YY/MM/DD')+0.99999
+		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
+		ORDER BY O.CHARDATE DESC
+		)
+	</select>
+	
+	<select id="selectSalesListOfSearchType1WithDate" resultMap="sales">
+		SELECT * FROM (
+		SELECT ROWNUM RNUM, A.* FROM (
+		SELECT  OP.CODE, P.NAME, P.PRICE, SUM(OP.AMOUNT) AMOUNT,
+		SUM(OP.POINT) POINT, 
+		SUM(P.PRICE*AMOUNT - OP.POINT) CASH,
+		SUM(P.PRICE*AMOUNT) TOTAL, 
+		O.CHARDATE
+		FROM ORDER_PRODUCT OP, PRODUCT P, (SELECT TO_CHAR(DATES, 'YY/MM/DD') CHARDATE, NO FROM ORDERS) O
+		WHERE OP.CODE = P.CODE
+		AND OP.ORDERS_NO = O.NO
+		AND OP.CODE LIKE '%' || #{search.data} || '%'
+		AND O.CHARDATE BETWEEN TO_DATE(#{search.fromdate}, 'YY/MM/DD') AND TO_DATE(#{search.todate}, 'YY/MM/DD')+0.99999
+		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
+		ORDER BY O.CHARDATE DESC )A
+		) WHERE RNUM BETWEEN #{paging.start} AND #{paging.end}
+	</select>
+	
+	<select id="selectSalesCntOfSearchType2" resultType="int">
+		SELECT COUNT(*) FROM (
+		SELECT  OP.CODE , P.NAME , P.PRICE , SUM(OP.AMOUNT) AMOUNT,
+		SUM(OP.POINT) POINT, 
+		SUM(P.PRICE*AMOUNT - OP.POINT)CASH,
+		SUM(P.PRICE*AMOUNT) TOTAL, 
+		O.CHARDATE
+		FROM ORDER_PRODUCT OP, PRODUCT P, (SELECT TO_CHAR(DATES, 'YY/MM/DD') CHARDATE, NO FROM ORDERS) O
+		WHERE P.NAME = P.CODE
+		AND OP.ORDERS_NO = O.NO
+		AND P.NAME LIKE '%' || #{data} || '%'
+		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
+		ORDER BY O.CHARDATE DESC
+		)
+	</select>
+	
+	<select id="selectSalesListOfSearchType2" resultMap="sales">
+		SELECT * FROM (
+		SELECT ROWNUM RNUM, A.* FROM (
+		SELECT  OP.CODE , P.NAME , P.PRICE , SUM(OP.AMOUNT) AMOUNT,
+		SUM(OP.POINT) POINT, 
+		SUM(P.PRICE*AMOUNT - OP.POINT)CASH,
+		SUM(P.PRICE*AMOUNT) TOTAL, 
+		O.CHARDATE
+		FROM ORDER_PRODUCT OP, PRODUCT P, (SELECT TO_CHAR(DATES, 'YY/MM/DD') CHARDATE, NO FROM ORDERS) O
+		WHERE OP.CODE = P.CODE
+		AND OP.ORDERS_NO = O.NO
+		AND P.NAME LIKE '%' || #{search.data} || '%'
+		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
+		ORDER BY O.CHARDATE DESC )A
+		) WHERE RNUM BETWEEN #{paging.start} AND #{paging.end}
+	</select>
+	
+	<select id="selectSalesCntOfSearchType2WithDate" resultType="int">
+		SELECT COUNT(*) FROM (
+		SELECT  OP.CODE , P.NAME , P.PRICE , SUM(OP.AMOUNT) AMOUNT,
+		SUM(OP.POINT) POINT, 
+		SUM(P.PRICE*AMOUNT - OP.POINT)CASH,
+		SUM(P.PRICE*AMOUNT) TOTAL, 
+		O.CHARDATE
+		FROM ORDER_PRODUCT OP, PRODUCT P, (SELECT TO_CHAR(DATES, 'YY/MM/DD') CHARDATE, NO FROM ORDERS) O
+		WHERE OP.CODE = P.CODE
+		AND OP.ORDERS_NO = O.NO
+		AND P.NAME LIKE '%' || #{data} || '%'
+		AND O.CHARDATE BETWEEN TO_DATE(#{fromdate}, 'YY/MM/DD') AND TO_DATE(#{todate}, 'YY/MM/DD')+0.99999
+		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
+		ORDER BY O.CHARDATE DESC
+		)
+	</select>
+	
+	<select id="selectSalesListOfSearchType2WithDate" resultMap="sales">
+		SELECT * FROM (
+		SELECT ROWNUM RNUM, A.* FROM (
+		SELECT  OP.CODE, P.NAME, P.PRICE, SUM(OP.AMOUNT) AMOUNT,
+		SUM(OP.POINT) POINT, 
+		SUM(P.PRICE*AMOUNT - OP.POINT) CASH,
+		SUM(P.PRICE*AMOUNT) TOTAL, 
+		O.CHARDATE
+		FROM ORDER_PRODUCT OP, PRODUCT P, (SELECT TO_CHAR(DATES, 'YY/MM/DD') CHARDATE, NO FROM ORDERS) O
+		WHERE OP.CODE = P.CODE
+		AND OP.ORDERS_NO = O.NO
+		AND P.NAME LIKE '%' || #{search.data} || '%'
+		AND O.CHARDATE BETWEEN TO_DATE(#{search.fromdate}, 'YY/MM/DD') AND TO_DATE(#{search.todate}, 'YY/MM/DD')+0.99999
+		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
+		ORDER BY O.CHARDATE DESC )A
+		) WHERE RNUM BETWEEN #{paging.start} AND #{paging.end}
+	</select>
+	
+	<select id="selectSalesCntWithDate" resultType="int">
+		SELECT COUNT(*) FROM (
+		SELECT  OP.CODE , P.NAME , P.PRICE , SUM(OP.AMOUNT) AMOUNT,
+		SUM(OP.POINT) POINT, 
+		SUM(P.PRICE*AMOUNT - OP.POINT)CASH,
+		SUM(P.PRICE*AMOUNT) TOTAL, 
+		O.CHARDATE
+		FROM ORDER_PRODUCT OP, PRODUCT P, (SELECT TO_CHAR(DATES, 'YY/MM/DD') CHARDATE, NO FROM ORDERS) O
+		WHERE OP.CODE = P.CODE
+		AND OP.ORDERS_NO = O.NO
+		AND O.CHARDATE BETWEEN TO_DATE(#{fromdate}, 'YY/MM/DD') AND TO_DATE(#{todate}, 'YY/MM/DD')+0.99999
+		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
+		ORDER BY O.CHARDATE DESC
+		)
+	</select>
+	
+	<select id="selectSalesListWithDate" resultMap="sales">
+		SELECT * FROM (
+		SELECT ROWNUM RNUM, A.* FROM (
+		SELECT  OP.CODE, P.NAME, P.PRICE, SUM(OP.AMOUNT) AMOUNT,
+		SUM(OP.POINT) POINT, 
+		SUM(P.PRICE*AMOUNT - OP.POINT) CASH,
+		SUM(P.PRICE*AMOUNT) TOTAL, 
+		O.CHARDATE
+		FROM ORDER_PRODUCT OP, PRODUCT P, (SELECT TO_CHAR(DATES, 'YY/MM/DD') CHARDATE, NO FROM ORDERS) O
+		WHERE OP.CODE = P.CODE
+		AND OP.ORDERS_NO = O.NO
+		AND O.CHARDATE BETWEEN TO_DATE(#{search.fromdate}, 'YY/MM/DD') AND TO_DATE(#{search.todate}, 'YY/MM/DD')+0.99999
+		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
+		ORDER BY O.CHARDATE DESC )A
+		) WHERE RNUM BETWEEN #{paging.start} AND #{paging.end}
+	</select>
+	
+	<select id="selectSalesCnt" resultType="int">
+		SELECT COUNT(*) FROM (
+		SELECT  OP.CODE , P.NAME , P.PRICE , SUM(OP.AMOUNT) AMOUNT,
+		SUM(OP.POINT) POINT, 
+		SUM(P.PRICE*AMOUNT - OP.POINT)CASH,
+		SUM(P.PRICE*AMOUNT) TOTAL, 
+		O.CHARDATE
+		FROM ORDER_PRODUCT OP, PRODUCT P, (SELECT TO_CHAR(DATES, 'YY/MM/DD') CHARDATE, NO FROM ORDERS) O
+		WHERE OP.CODE = P.CODE
+		AND OP.ORDERS_NO = O.NO
+		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
+		ORDER BY O.CHARDATE DESC
+		)
+	</select>
+	
+	<select id="selectSalesList" resultMap="sales" >
+		SELECT * FROM (
+		SELECT ROWNUM RNUM, A.* FROM (
+		SELECT  OP.CODE, P.NAME, P.PRICE, SUM(OP.AMOUNT) AMOUNT,
+		SUM(OP.POINT) POINT, 
+		SUM(P.PRICE*AMOUNT - OP.POINT) CASH,
+		SUM(P.PRICE*AMOUNT) TOTAL, 
+		O.CHARDATE
+		FROM ORDER_PRODUCT OP, PRODUCT P, (SELECT TO_CHAR(DATES, 'YY/MM/DD') CHARDATE, NO FROM ORDERS) O
+		WHERE OP.CODE = P.CODE
+		AND OP.ORDERS_NO = O.NO
+		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
+		ORDER BY O.CHARDATE DESC)A
+		) WHERE RNUM BETWEEN #{start} AND #{end}
+	</select>
+
+	
+	
+	<!-- 매출 조회별 합산 -->
+	
+	<select id="selectSalesTotal_SearchType1" resultMap="sales">
+	select sum(amount) TOTAL_AMOUNT, sum(point)TOTAL_POINT, sum(cash)TOTAL_CASH, sum(total)TOTAL_SUM  from (
+		SELECT  OP.CODE , P.NAME , P.PRICE , SUM(OP.AMOUNT) AMOUNT,
+		SUM(OP.POINT) POINT, 
+		SUM(P.PRICE*AMOUNT - OP.POINT)CASH,
+		SUM(P.PRICE*AMOUNT) TOTAL, 
+		O.CHARDATE
+		FROM ORDER_PRODUCT OP, PRODUCT P, (SELECT TO_CHAR(DATES, 'YY/MM/DD') CHARDATE, NO FROM ORDERS) O
+		WHERE OP.CODE = P.CODE
+		AND OP.ORDERS_NO = O.NO
+		AND OP.CODE LIKE '%' || #{search.data} || '%'
+		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
+	)
+	</select>
+	
+	<select id="selectSalesTotal_SearchType1WithDate" resultMap="sales">
+	select sum(amount) TOTAL_AMOUNT, sum(point)TOTAL_POINT, sum(cash)TOTAL_CASH, sum(total)TOTAL_SUM  from (
+		SELECT  OP.CODE , P.NAME , P.PRICE , SUM(OP.AMOUNT) AMOUNT,
+		SUM(OP.POINT) POINT, 
+		SUM(P.PRICE*AMOUNT - OP.POINT)CASH,
+		SUM(P.PRICE*AMOUNT) TOTAL, 
+		O.CHARDATE
+		FROM ORDER_PRODUCT OP, PRODUCT P, (SELECT TO_CHAR(DATES, 'YY/MM/DD') CHARDATE, NO FROM ORDERS) O
+		WHERE OP.CODE = P.CODE
+		AND OP.ORDERS_NO = O.NO
+		AND OP.CODE LIKE '%' || #{search.data} || '%'
+		AND O.CHARDATE BETWEEN TO_DATE(#{search.fromdate}, 'YY/MM/DD') AND TO_DATE(#{search.todate}, 'YY/MM/DD')+0.99999
+		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
+	)
+	</select>
+	
+	<select id="selectSalesTotal_SearchType2" resultMap="sales">
+	select sum(amount) TOTAL_AMOUNT, sum(point)TOTAL_POINT, sum(cash)TOTAL_CASH, sum(total)TOTAL_SUM  from (
+		SELECT  OP.CODE , P.NAME , P.PRICE , SUM(OP.AMOUNT) AMOUNT,
+		SUM(OP.POINT) POINT, 
+		SUM(P.PRICE*AMOUNT - OP.POINT)CASH,
+		SUM(P.PRICE*AMOUNT) TOTAL, 
+		O.CHARDATE
+		FROM ORDER_PRODUCT OP, PRODUCT P, (SELECT TO_CHAR(DATES, 'YY/MM/DD') CHARDATE, NO FROM ORDERS) O
+		WHERE OP.CODE = P.CODE
+		AND OP.ORDERS_NO = O.NO
+		AND P.NAME LIKE '%' || #{search.data} || '%'
+		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
+	)
+	</select>
+	
+	<select id="selectSalesTotal_SearchType2WithDate" resultMap="sales">
+	select sum(amount) TOTAL_AMOUNT, sum(point)TOTAL_POINT, sum(cash)TOTAL_CASH, sum(total)TOTAL_SUM  from (
+		SELECT  OP.CODE , P.NAME , P.PRICE , SUM(OP.AMOUNT) AMOUNT,
+		SUM(OP.POINT) POINT, 
+		SUM(P.PRICE*AMOUNT - OP.POINT)CASH,
+		SUM(P.PRICE*AMOUNT) TOTAL, 
+		O.CHARDATE
+		FROM ORDER_PRODUCT OP, PRODUCT P, (SELECT TO_CHAR(DATES, 'YY/MM/DD') CHARDATE, NO FROM ORDERS) O
+		WHERE OP.CODE = P.CODE
+		AND OP.ORDERS_NO = O.NO
+		AND P.NAME LIKE '%' || #{search.data} || '%'
+		AND O.CHARDATE BETWEEN TO_DATE(#{search.fromdate}, 'YY/MM/DD') AND TO_DATE(#{search.todate}, 'YY/MM/DD')+0.99999
+		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
+	)
+	</select>
+	
+	<select id="selectSalesTotal_WithDate" resultMap="sales">
+	select sum(amount) TOTAL_AMOUNT, sum(point)TOTAL_POINT, sum(cash)TOTAL_CASH, sum(total)TOTAL_SUM  from (
+		SELECT  OP.CODE , P.NAME , P.PRICE , SUM(OP.AMOUNT) AMOUNT,
+		SUM(OP.POINT) POINT, 
+		SUM(P.PRICE*AMOUNT - OP.POINT)CASH,
+		SUM(P.PRICE*AMOUNT) TOTAL, 
+		O.CHARDATE
+		FROM ORDER_PRODUCT OP, PRODUCT P, (SELECT TO_CHAR(DATES, 'YY/MM/DD') CHARDATE, NO FROM ORDERS) O
+		WHERE OP.CODE = P.CODE
+		AND OP.ORDERS_NO = O.NO
+		AND O.CHARDATE BETWEEN TO_DATE(#{search.fromdate}, 'YY/MM/DD') AND TO_DATE(#{search.todate}, 'YY/MM/DD')+0.99999
+		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
+	)
+	</select>
+	
+	<select id="selectSalesTotal" resultMap="sales">
+	select sum(amount) TOTAL_AMOUNT, sum(point)TOTAL_POINT, sum(cash)TOTAL_CASH, sum(total)TOTAL_SUM  from (
+		SELECT  OP.CODE , P.NAME , P.PRICE , SUM(OP.AMOUNT) AMOUNT,
+		SUM(OP.POINT) POINT, 
+		SUM(P.PRICE*AMOUNT - OP.POINT)CASH,
+		SUM(P.PRICE*AMOUNT) TOTAL, 
+		O.CHARDATE
+		FROM ORDER_PRODUCT OP, PRODUCT P, (SELECT TO_CHAR(DATES, 'YY/MM/DD') CHARDATE, NO FROM ORDERS) O
+		WHERE OP.CODE = P.CODE
+		AND OP.ORDERS_NO = O.NO
+		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
+	)
 	</select>
 	
 	

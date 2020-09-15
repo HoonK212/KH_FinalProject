@@ -4,6 +4,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<!-- TAILWIND -->
+<link  rel="stylesheet" href="https://unpkg.com/tailwindcss@1.5.2/dist/tailwind.min.css">
+<link rel="stylesheet" href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css">
 
 <!--모달  -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -956,46 +959,74 @@ body {
 
   </section>
   <!-- End Product List -->
+  	
+  	   <div class="px-5 py-5 flex flex-col xs:flex-row items-center xs:justify-between">
+                   <div class="inline-flex mt-2 xs:mt-0" style="padding-left:190px;">
+                     <div class="flex flex-col items-center">
+                         <div class="flex text-gray-700 pb-3">
+                             <c:choose>
+                                <c:when test="${page.blockStart > 1 }">
+                                    <a href="<%= request.getContextPath() %>/mypage/myWritten?cPage=${page.blockStart-1}" class="nav prev">
+                                    <div class="h-8 w-8 mr-1 flex justify-center items-center  cursor-pointer">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left w-4 h-4">
+                                              <polyline points="15 18 9 12 15 6"></polyline>
+                                          </wsvg>
+                                      </div>
+                                 </a>
+                                </c:when>
+                                <c:otherwise>
+                                   <a href="<%= request.getContextPath() %>/mypage/myWritten?cPage=${page.blockStart}" class="nav prev">
+                                    <div class="h-8 w-8 mr-1 flex justify-center items-center  cursor-pointer">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left w-4 h-4">
+                                              <polyline points="15 18 9 12 15 6"></polyline>
+                                          </svg>
+                                      </div>
+                                 </a>
+                                </c:otherwise>
+                             </c:choose>
+                             <div class="flex h-8 font-medium ">
+                                 <c:forEach begin="${page.blockStart}" end="${page.blockEnd}" var="pagenation">
+                                 <a href="<%= request.getContextPath() %>/mypage/myWritten?cPage=${pagenation }">
+                                    <c:choose>
+                                     <c:when test="${page.currentPage eq pagenation }">
+                                      <div class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in border-t-2 border-orange-600">${pagenation}</div>
+                                     </c:when>
+                                     <c:otherwise>
+                                      <div class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in border-t-2 border-transparent">${pagenation}</div>
+                                     </c:otherwise>
+                                    </c:choose>
+                                   </a>
+                                </c:forEach>
+                             </div>
+                           <c:choose>
+                                <c:when test="${page.blockEnd+1 > page.lastPage }">
+                                    <a href="<%= request.getContextPath() %>/mypage/myWritten?cPage=${page.blockEnd}">
+                                      <div class="h-8 w-8 ml-1 flex justify-center items-center  cursor-pointer">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right w-4 h-4">
+                                              <polyline points="9 18 15 12 9 6"></polyline>
+                                          </svg>
+                                      </div>
+                                    </a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="<%= request.getContextPath() %>/mypage/myWritten?cPage=${page.blockEnd+1}">
+                                      <div class="h-8 w-8 ml-1 flex justify-center items-center  cursor-pointer">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right w-4 h-4">
+                                              <polyline points="9 18 15 12 9 6"></polyline>
+                                          </svg>
+                                      </div>
+                                  </a>
+                                </c:otherwise>
+                                 </c:choose>
+                         </div>
+                        <span class="text-xs xs:text-sm text-gray-900">
+                                  Showing ${page.blockStart } to ${page.blockEnd } of ${page.lastPage }
+                              </span>
+                     </div>
+                      </div>
+                   </div> 
   
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  <section class="container" >
-       <div style="display: flex; justify-content: center; font-size: 2rem;"><!-- section pagination -->
-        <div style="margin-right: 20">
-        <c:choose>
-        	<c:when test="${page.blockStart > 1 }">
-         		<a href="<%= request.getContextPath() %>/mypage/orderlist?cPage=${page.blockStart-1}" class="nav prev"><i class="fa fa-angle-left"></i></a>
-        	</c:when>
-        	<c:otherwise>
-        		<a href="<%= request.getContextPath() %>/mypage/orderlist?cPage=${page.blockStart}" class="nav prev"><i class="fa fa-angle-left"></i></a>
-        	</c:otherwise>
-        </c:choose>
-        </div>
-        <div  style="margin-right: 10">
-        <c:forEach begin="${page.blockStart}" end="${page.blockEnd}" var="pagenation">
-	         		<c:choose>
-		       	   		<c:when test="${page.currentPage eq pagenation }">
-			       	    	<a href="<%= request.getContextPath() %>/mypage/orderlist?cPage=${pagenation}"><span style="color: #48bb78;">${pagenation}</span></a>
-		       	   		</c:when>
-			       	    <c:otherwise>
-			       	    	<a href="<%= request.getContextPath() %>/mypage/orderlist?cPage=${pagenation}"><span>${pagenation}</span></a>
-			       	    </c:otherwise>
-		       	 	</c:choose>
-        </c:forEach> 
-        </div>
-        <div  style="margin-left: 10">
-        <c:choose>
-        	<c:when test="${page.blockEnd+1 > page.lastPage }">
-         		<a href="<%= request.getContextPath() %>/mypage/orderlist?cPage=${page.blockEnd}" class="nav next"><i class="fa fa-angle-right"></i></a>
-        	</c:when>
-        	<c:otherwise>
-         		<a href="<%= request.getContextPath() %>/mypage/orderlist?cPage=${page.blockEnd+1}" class="nav next"><i class="fa fa-angle-right"></i></a>
-        	</c:otherwise>
-   	   	</c:choose>
- 	   	</div> 
-   	   </div><!-- // section pagination -->
-  </section>
-
 </div>
 
 <!-- 평점모달 -->
