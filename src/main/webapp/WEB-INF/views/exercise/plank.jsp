@@ -80,7 +80,7 @@
 							<div class="progress-bar-set" role="progressbar"
 								aria-valuenow="0" aria-valuemin="0" aria-valuemax="3"></div>
 						</div>
-						<h5>횟수</h5>
+						<h5>시간</h5>
 						<div class="progress" >
 							<div class="progress-bar-count" role="progressbar"
 								aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>

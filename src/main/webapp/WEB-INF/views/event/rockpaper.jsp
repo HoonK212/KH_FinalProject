@@ -34,7 +34,7 @@
 
   
 	<div style="min-height: 73vh;" class="mx-10 antialiased max-w-6xl bg-gray-300 h-64">
-		<div style="min-height: 73vh;" class="relative block md:flex items-center h-64">
+		<div style="min-height: 80vh;" class="relative block md:flex items-center h-64">
       	<div class="w-full h-full md:w-1/2 relative z-1 bg-gray-100 rounded shadow-lg overflow-hidden">
         	<div id="aibox" class="text-lg font-medium text-green-500 uppercase  text-center border-b border-gray-200 tracking-wide">AI</div>
         	<div class="block sm:flex md:block lg:flex items-center justify-center w-full h-full">
@@ -72,7 +72,7 @@
     
   </div>
 
-      	<div class="my-10">
+      	<div class="my-24">
 	    <button class='relative bg-blue-500 text-white p-6 rounded text-2xl font-bold overflow-hidden' type="button" onclick="init()">
 	     	 대결!
       		<div class="ribbon bg-red-500 text-sm whitespace-no-wrap px-4">fight</div>

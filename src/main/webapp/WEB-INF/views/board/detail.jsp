@@ -29,7 +29,11 @@
 	            <button onclick="document.getElementById('writeComments').showModal();" id="btn" class="text-sm font-extrabold float-right w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
 				>댓글작성</button>
 				<c:if test="${logInInfo.id eq board.id }">
+<<<<<<< HEAD
 		            <button onclick="location.href='<%=request.getContextPath()%>/board/modify?no=${board.no }'"
+=======
+		            <button onclick="location.href='<%=request.getContextPath()%>/board/modify?ext=${board.ext }&no=${board.no }&bad=${board.bad }&count=${board.count }&dates=${board.dates }&type=${board.type }&title=${board.title }&good=${board.good }&content=<${board.content }&nick=${board.nick }&RNUM=${board.RNUM }&id=${board.id }&renamed=${board.renamed }&goodbad=${board.goodbad }'"
+>>>>>>> 22d51d6cbb448703cc173b7f8d57a953ba67d3e1
 		            	class="mx-3 text-sm font-extrabold float-right w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
 					>수정하기</button>
 				</c:if>

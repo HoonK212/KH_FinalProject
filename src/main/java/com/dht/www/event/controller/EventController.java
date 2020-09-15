@@ -158,7 +158,7 @@ public class EventController {
 		int day = cal.get(Calendar.DAY_OF_WEEK);
 			
 		Map<String, Object> quiz = eventService.selectQuiz(day);
-		String[] words = ((String) quiz.get("INI")).split("");
+		String[] words = ((String) quiz.get("ini")).split("");
 		quiz.put("words", words);
 		quiz.put("length", words.length);
 		

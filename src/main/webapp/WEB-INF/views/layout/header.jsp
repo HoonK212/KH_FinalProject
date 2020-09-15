@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Daily Home Training</title>
 <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css">
 <link href="https://fonts.googleapis.com/css?family=Bebas+Neue|Montserrat:400,900&amp;display=swap" rel="stylesheet">
 <link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/image/logo.png">

@@ -13,7 +13,6 @@
 <%@include file="./event_sidebar.jsp" %>
 
 <div id="eventcontent" class="my-8 mb-10" style="min-height: 73vh;">
-	
 	<div style=" font-size: 30px;" id="eventname">
 		<span class="font-extrabold text-black-700"> 
 		<img src="<%=request.getContextPath() %>/resources/image/event/4.png" width="40px;" style="display: inline-block;">
@@ -33,11 +32,11 @@
 	   		<div class="px-6 py-4">
 	    	<div class="relative text-teal-900 font-bold text-xl my-2">주제 설명</div>
 	    	<p class="text-gray-700 text-base z-234 mt-3">
-	      	설명 설명 설명 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+	      	${quiz.describe }
 	    	</p>
 	   	
 	   	<c:if test="${attend gt 0 }">
-			<div class="text-blue-700 font-bold text-xl mt-8 mb-2">정답 : <span>${quiz.NAME }</span></div>
+			<div class="text-blue-700 font-bold text-xl mt-8 mb-2">정답 : <span>${quiz.name }</span></div>
 		</c:if>
 	   	
 		<c:if test="${attend lt 1 }">
@@ -49,11 +48,7 @@
 			
 			<div>
 			<input id="answer" name="answer" type="text" class="shadow appearance-none border rounded py-2 px-3 text-grey-darker">
-			<button id="answerBtn" onclick="submitAnswer();">
-				<span class="tracking-wider text-white bg-blue-500 px-4 py-1 text-sm rounded leading-loose mx-2 font-semibold" title="">
-			  	<i class="fas fa-award" aria-hidden="true"></i> 정답
-				</span>
-			</button>
+			<button class="tracking-wider text-white bg-blue-500 px-4 py-1 text-sm rounded leading-loose mx-2 font-semibold" id="answerBtn" onclick="submitAnswer();">정답</button>
 			</div>
 		</c:if>
 		<c:if test="${attend gt 0 }">
@@ -68,12 +63,14 @@
 
 </div>
 </section>
-<input type="hidden" id="real" value="${quiz.NAME }" />
 
 <script type="text/javascript">
 const submitAnswer = () => {
+	document.querySelector("#answerBtn").disabled = true;
+	document.querySelector("#answerBtn").remove();
+	
 	var answer = document.querySelector("#answer").value;
-	var checkAnswer = document.querySelector("#real").value;
+	var checkAnswer = '${quiz.name}';
 	
 	if(checkAnswer == answer) {
 		alert("정답입니다!\n10포인트를 얻었습니다!");
@@ -82,6 +79,12 @@ const submitAnswer = () => {
 		alert("틀렸습니다!")
 	}
 }
+
+document.querySelector("#answer").addEventListener("keydown", function(e){
+	if(e.keyCode == 13) {
+		submitAnswer();
+	}
+}) 
 
 const sendResult = () => {
 	var quizForm = document.createElement("form");
