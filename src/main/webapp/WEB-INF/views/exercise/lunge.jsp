@@ -79,7 +79,7 @@
 						<h5>세트</h5>
 						<div class="progress">
 							<div class="progress-bar-set" role="progressbar"
-								aria-valuenow="0" aria-valuemin="0" aria-valuemax="1"></div>
+								aria-valuenow="0" aria-valuemin="0" aria-valuemax="3"></div>
 						</div>
 						<h5>횟수</h5>
 						<div class="progress" >
