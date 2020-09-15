@@ -24,12 +24,12 @@
             </div>
 		<br> 
             <div class="flex flex-col lg:flex-row">
-            	<div class="w-full lg:w-1/2 order-2">
+            	<div class="w-full lg:w-1/2 order-2 mr-8">
             	
-                    <form class="mt-8 lg:w-11/12">
+<!--                     <form class="mt-8 lg:w-11/12"> -->
                     
                     
-                    <!-- ---------------------------------------배송지 선택--------------------------------메롱 -->
+                    <!-- ---------------------------------------배송지 선택-------------------------------- -->
                     
                         <div style="margin-top: 0">
                             <h4 class="text-sm text-gray-500 font-bold">배송지 선택</h4>
@@ -120,27 +120,23 @@
                              	${point} 포인트
                             </div>
 						<br><br>
-<!-- 							<button class="flex items-center justify-between bg-white float-right rounded-md   -->
-<!-- 									border-blue-500 p-2 focus:outline-none mr-6" style="display: inline-flex;"> -->
 	                            <label class="flex items-center float-right mr-6">
 	                                <input type="checkbox" id="usePointCheck" class="form-radio h-5 w-5 text-blue-600"/>
 	                                <span class="ml-2 text-sm text-gray-700">적립포인트 전액 사용</span>
 	                            </label>
-<!--                              	<span class="text-gray-600 text-sm"></span> -->
-<!--                              </button> -->
                         <br><br><br>
 							<div class="mt-6 inline-flex text-sm mr-6 ml-6">
 								사용 포인트 </div>
 							<input id="usePoint" type="number" max="${point}" min="0" value="0" class=" w-1/6 mr-6 text-sm text-gray-700 lex items-center justify-between 
 									bg-white rounded-md border-2 border-blue-500 p-2 focus:outline-none float-right" placeholder="포인트">
                        	</div>
-                    </form>
+<!--                     </form> -->
                 </div>
                     
                     
 					<!-- ---------------------------------------주문자 정보-------------------------------- -->                    
                     
-                <div class="w-full mb-8 flex-shrink-0 order-1 lg:w-1/2 lg:mb-0 lg:order-2 mt-8">
+                <div class="w-full mb-8 flex-shrink-0 order-1 lg:w-1/2 lg:mb-0 lg:order-2 mt-8 ml-8">
                     <div class=" justify-center lg:justify-end details">
                         <div class="border rounded-md w-full px-4 py-10 ">
                             <div class="flex items-center justify-between">
@@ -190,16 +186,23 @@
                                 		<div class="flex w-full justify-between">
                                    			<div class="mx-8">
 		                                        <h3 class="text-sm text-gray-600 ">상품정보</h3>
+		                                        <br>
 		                                        <h3 class="text-sm text-gray-600">판매자 </h3>
+		                                        <br>
 		                                        <h3 class="text-sm text-gray-600">수량 </h3>
-		                                        <h3 class="text-sm text-gray-600">할인 </h3>
+		                                        <br>
+		                                        <h3 class="text-sm text-gray-600">금액 </h3>
 		                                        <div class="flex items-center mt-2">
                                         		</div>
                                     		</div>
                                     		<div class="mx-8 float-right">
 		                                        <h3 class="text-sm text-gray-600 float-right">${product.name} </h3>
+		                                        <br>
+		                                        <br>
 		                                        <h3 class="text-sm text-gray-600">${product.company}</h3>
+		                                        <br>
 		                                        <h3 class="text-sm text-gray-600">${product.amount}</h3>
+		                                        <br>
 		                                        <h3 class="text-sm text-gray-600">${product.price}원</h3>
 		                                        <div class="flex items-center mt-2">
 		                                        </div>
@@ -208,7 +211,7 @@
                                 	</div>
                             	</div>
                             	<br>
-                                <span class="text-gray-600 float-right mx-8 font-bold">주문 금액 ${price}원</span>
+                                <span class="text-gray-600 float-right mx-8 font-bold">총 주문 금액 ${price}원</span>
                                 </div>
                                 <br><br>
                         	<c:set var="total" value="${total + price}"></c:set>
@@ -260,7 +263,7 @@
 			</div>
 		<br><br>
 			<div class=" items-center justify-between">
-				<button type="button" class="flex items-center text-gray-700 text-sm font-medium rounded hover:underline focus:outline-none float-left">
+				<button type="button" onclick="javascript:history.go(-1)" class="flex items-center text-gray-700 text-sm font-medium rounded hover:underline focus:outline-none float-left">
 				    <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M7 16l-4-4m0 0l4-4m-4 4h18"></path></svg>
 				    <span class="mx-2">이전</span>
 				</button>
