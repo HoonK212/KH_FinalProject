@@ -125,7 +125,7 @@ public class ExerciseController {
 		
 		// 만 나이 모델값 지정
 		Map<String, Object> userInfo = new HashMap<>();
-		userInfo.put("name", user.getName());
+		userInfo.put("id", user.getId());
 		userInfo.put("birth", user.getBirth());
 		
 		model.addAttribute("userAge", exerciseService.selectUserAge(userInfo));
