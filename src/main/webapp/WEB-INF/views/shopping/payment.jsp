@@ -246,7 +246,7 @@
                         	<h3 id="totalLoc" class="text-sm text-gray-600">${totalPayment} 원</h3>
                             <br>
                             <h3 class="text-sm text-gray-600">3,000원</h3>
-                            <h3 class="text-sm text-gray-600">0원</h3>
+                            <h3 class="text-sm text-gray-600">${sale}원</h3>
                             <h3 id="usePointLoc" class="text-sm text-gray-600">0 포인트</h3>
                         </div>
 					</div>
@@ -399,7 +399,7 @@ function sample4_execDaumPostcode() {
 $(document).ready(function() {
 	// iamport 변수 초기화
 	var IMP = window.IMP;
-	IMP.init('imp06064630');	// 가맹점 식별코드, 회원가입해서 직접 넣어야합니다
+	IMP.init('imp56588598');	// 가맹점 식별코드, 회원가입해서 직접 넣어야합니다
 
 });
 </script>

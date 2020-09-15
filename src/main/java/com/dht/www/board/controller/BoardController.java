@@ -90,7 +90,9 @@ public class BoardController {
 	
 	// 게시글 수정 페이지
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
-	public void modify(@RequestParam Map<String, String> boardMap, Model model) {
+	public void modify(@RequestParam int no, Model model) {
+		
+		Map<String, String> boardMap = boardService.selectBoard(no);
 		model.addAttribute("board", boardMap);
 	}
 	

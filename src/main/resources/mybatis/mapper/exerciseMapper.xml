@@ -75,13 +75,13 @@
 	<!-- 생년월일 조회 -->
 	<select id="selectUserBirth" resultType="String" >
 		SELECT to_char(birth, 'YYYYMMDD') FROM users
-		WHERE name = #{name}
+		WHERE ID = #{id}
 	</select>
 	
 	<!-- 만 나이 계산 -->
 	<select id="selectUserAge" resultType="int" >
 		SELECT TRUNC(MONTHS_BETWEEN(TRUNC(sysdate+ (INTERVAL '9' HOUR)), TO_DATE(#{birth},'YYYYMMDD')) / 12)
-		FROM users WHERE name = #{name}
+		FROM users WHERE id = #{id}
 	</select>
 	
 	<!-- 해당 운동으로 전신,상체,하체 조회하기 -->

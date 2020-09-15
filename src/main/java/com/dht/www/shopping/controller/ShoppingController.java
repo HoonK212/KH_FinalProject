@@ -321,7 +321,7 @@ public class ShoppingController {
 	// 결제페이지
 	@RequestMapping(value = "/payment", method = RequestMethod.GET, produces = "application/text; charset=UTF-8")
 	public String shoppingPayment(Model model, HttpSession session, 
-			@RequestParam(required = false, defaultValue = "0") int amount, String userId, String codes) {
+			@RequestParam(required = false, defaultValue = "0") int amount, String userId, String codes, int sale) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 
@@ -339,6 +339,14 @@ public class ShoppingController {
 			model.addAttribute("product", shoppingService.selectProuct(map));
 		}
 		model.addAttribute("point", shoppingService.selectPoint(userId));
+		
+		if( sale != 0) {
+			
+			model.addAttribute("sale",sale);
+		}else {
+			model.addAttribute("sale",0);
+		}
+		
 		return "shopping/payment";
 	}
 
