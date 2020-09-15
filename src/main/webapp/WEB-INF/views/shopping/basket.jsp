@@ -354,4 +354,4 @@ order.change(function () {
 });
 
 </script>
-<%@include file="../layout/shopping_footer.jsp" %>
+<%@include file="../layout/footer.jsp" %>
