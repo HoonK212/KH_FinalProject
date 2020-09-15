@@ -222,11 +222,11 @@
 	
 	<insert id="insertOrders">
 		insert into orders
-		values (#{no}, 1, 1, sysdate+ (INTERVAL '9' HOUR), #{mUid}, #{id}, #{toName}, #{toTel}, #{toAddr}, #{toPost})
+      values (#{no}, 1, sysdate+ (INTERVAL '9' HOUR), #{mUid}, #{id}, #{toName}, #{toTel}, #{toAddr}, #{toPost})
 	</insert>
 	
 	<insert id="insertOrderProduct">
-		insert into order_product values (order_product_seq.nextval, #{amount}, #{point}, #{code}, #{ordersNo})
+		insert into order_product values (order_product_seq.nextval, #{amount}, #{point}, #{code}, #{ordersNo}, 1)
 	</insert>
 	
 	<insert id="insertPoint" parameterType="map">
