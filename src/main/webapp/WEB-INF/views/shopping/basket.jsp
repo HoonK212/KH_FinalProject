@@ -265,9 +265,6 @@ function updateTotal() {
 
 <script type="text/javascript">
 $(document).ready(function() {
-	/* var total = 
-	$("#subTotal").innerHtml(); */
-	
 	//선택 주문하기
 	$("#orderBtn").click(function() {
 		console.log('${basket}')
@@ -282,7 +279,9 @@ $(document).ready(function() {
 		var map = $checkboxes.map(function() {
 			return $(this).val();
 		});
+		
 		var codes = map.get().join(",");
+		var sale = parseInt($("#sale").text());
 
 		// 전송 폼
 		var $form = $("<form>")
@@ -299,6 +298,11 @@ $(document).ready(function() {
 					.attr("type", "hidden")
 					.attr("name", "codes")
 					.attr("value", codes)
+			.append(
+				$("<input>")
+					.attr("type", "hidden")
+					.attr("name", "sale")
+					.attr("value", sale)
 			);
 		$(document.body).append($form);
 		$form.submit();
