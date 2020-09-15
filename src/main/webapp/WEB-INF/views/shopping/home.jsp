@@ -222,6 +222,8 @@
 </main>
     
 <script>
+var sale = 0
+
 const modal = document.querySelector('.main-modal');
 const closeButton = document.querySelectorAll('.modal-close');
 
@@ -271,6 +273,11 @@ const sendOrder = () => {
 	code.setAttribute("type", "hidden"); 
 	code.setAttribute("name", "codes"); 
 	code.setAttribute("value", document.querySelector("#code").value);
+
+	var sale = document.createElement("input"); 
+	sale.setAttribute("type", "hidden"); 
+	sale.setAttribute("name", "sale"); 
+	sale.setAttribute("value", document.querySelector("#sale").value);
 	
 	var amount = document.createElement("input"); 
 	amount.setAttribute("type", "hidden"); 
@@ -282,7 +289,9 @@ const sendOrder = () => {
 	userId.setAttribute("name", "userId"); 
 	userId.setAttribute("value", document.querySelector('#userId').value);
 	
+	
 	orderForm.appendChild(code);
+	orderForm.appendChild(sale);
 	orderForm.appendChild(amount);
 	orderForm.appendChild(userId);
 	

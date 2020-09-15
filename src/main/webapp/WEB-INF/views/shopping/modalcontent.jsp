@@ -21,7 +21,12 @@
 		<hr class="my-3">
 		<div class="mt-2">
 			<div class="flex items-center mt-1">
+				<c:set var="sale" value="0" />
+				<c:if test="">
+				<c:set var="sale" value="${detail.price * 0.95 }" />
+				</c:if>
 				<input type="hidden" value="${detail.code }" id="code">
+				<input type="hidden" value="${sale }" id="sale">
 				<label class="text-gray-700 text-sm mr-3" for="count">Count:</label>
 				<input type="number" min="1" value="1" name="amount" id="amount"
 				class="text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />

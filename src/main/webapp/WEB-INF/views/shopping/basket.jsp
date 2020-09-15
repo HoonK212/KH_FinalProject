@@ -49,7 +49,7 @@
 					<c:set var="subTotal" value="${subTotal + item.price * item.amount }" />
 					<c:set var="startIdx" value="${stat.begin }" />
 					<c:set var="endIdx" value="${stat.end }" />
-					
+					<tr><td id="empty" colspan="6" class="py-2 text-center font-semibold text-blue-700"></td></tr>
 					<tr id="b${stat.index }">
 						<td class="text-left pl-5">
 							<label class="inline-flex items-center mt-3">
@@ -138,7 +138,7 @@
 						</c:if>
 					
 						<c:if test="${not empty basket }">
-						<div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
+						<div id="delivery" class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
 							3000 원
 						</div>
 						</c:if>
@@ -213,6 +213,19 @@ function deleteBasket(num){
 		if( cssSelector != "fail" ) {
 			document.querySelector(cssSelector).outerHTML = '';
 			updateTotal();
+			
+			var length = ${fn:length(basket)};
+			var codes = "";
+			for(var i=0; i<length; i++) {
+				if(document.querySelector("#amount"+i) != null) {
+					codes += "i";
+				}
+			}
+			if(codes == "") {
+				document.querySelector("#delivery").innerText = '0 원';
+				document.querySelector("#totalPrice").innerText = '0';
+				document.querySelector("#empty").innerText = '장바구니가 비어있습니다';
+			}
 		} else {
 			alert("장바구니 삭제에 실패했습니다.");
 		}
@@ -267,11 +280,6 @@ function updateTotal() {
 $(document).ready(function() {
 	//선택 주문하기
 	$("#orderBtn").click(function() {
-		console.log('${basket}')
-		if('${empty basket}') {
-			alert('장바구니가 비었습니다.');
-			return;
-		}
 		// 선택된 체크박스
 		var $checkboxes = $("input:checkbox[name='checkRow']:checked");
 
@@ -283,6 +291,10 @@ $(document).ready(function() {
 		var codes = map.get().join(",");
 		var sale = parseInt($("#sale").text());
 
+		if(${empty basket} || codes == "") {
+			alert('장바구니가 비었습니다.');
+			return;
+		}
 		// 전송 폼
 		var $form = $("<form>")
 			.attr("action", "<%= request.getContextPath()%>/shopping/payment")
@@ -298,6 +310,7 @@ $(document).ready(function() {
 					.attr("type", "hidden")
 					.attr("name", "codes")
 					.attr("value", codes)
+			)
 			.append(
 				$("<input>")
 					.attr("type", "hidden")
@@ -305,7 +318,7 @@ $(document).ready(function() {
 					.attr("value", sale)
 			);
 		$(document.body).append($form);
-		$form.submit();
+// 		$form.submit();
 	});
 });
 
