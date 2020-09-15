@@ -24,11 +24,11 @@
             </div>
             <div class="flex items-center">
                 <nav class="font-sen text-white uppercase text-lg lg:flex items-center hidden font-extrabold">
-                    <a href="<%=request.getContextPath() %>/shopping/home" class="py-2 px-6 flex">
-                        Shop
-                    </a>
                     <a href="<%=request.getContextPath() %>/exercise/type" class="py-2 px-6 flex">
                         Exercise
+                    </a>
+                    <a href="<%=request.getContextPath() %>/shopping/home" class="py-2 px-6 flex">
+                        Shop
                     </a>
                     <a href="<%=request.getContextPath() %>/event/attend" class="py-2 px-6 flex">
                         Event
