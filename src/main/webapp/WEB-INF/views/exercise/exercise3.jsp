@@ -211,7 +211,7 @@ $(document).ready(function() {
 				<!--Body-->
 				<div class="my-5">
 					<p>운동부위 : 전신</p>
-					<p>소모칼로리 : 2.5kcal(회)</p>
+					<p>소모칼로리 : 2.5kcal(개)</p>
 					<p>운동세트 : 3세트</p>
 					<p>운동개수 : 5개 / 8개 / 10개 / 13개 / 15개</p>
 				</div>
@@ -807,33 +807,32 @@ $(document).ready(function() {
 		
 		<form class="form-exercies cf" action="<%=request.getContextPath() %>/exercise/trainning" method="post">
 			<section class="plan cf">
-																													<!-- 다 끝나고 모달 1~10 onclick에 등록 -->
-				<input type="checkbox" name="exercise" id="exer1" value="plank" onclick="">
+				<input type="checkbox" name="exercise" id="exer1" value="plank" onclick="openModal1()">
 				<label class="basic-label four col image-plank" for="exer1"></label>
-				<input type="checkbox" name="exercise" id="exer2" value="jumpingjack" onclick="">
+				<input type="checkbox" name="exercise" id="exer2" value="jumpingjack" onclick="openModal2()">
 				<label class="basic-label four col image-jumping-jack" for="exer2"></label>
-				<input type="checkbox" name="exercise" id="exer3" value="burpee" onclick="">
+				<input type="checkbox" name="exercise" id="exer3" value="burpee" onclick="openModal3()">
 				<label class="premium-label four col image-burpee" for="exer3"></label>
 			</section>
 			<section class="plan cf">
-				<input type="checkbox" name="exercise" id="exer4" value="legraise" onclick="">
+				<input type="checkbox" name="exercise" id="exer4" value="legraise" onclick="openModal4()">
 				<label class="free-label four col exer-legraise" for="exer4"></label>
-				<input type="checkbox" name="exercise" id="exer5" value="crunch" onclick="">
+				<input type="checkbox" name="exercise" id="exer5" value="crunch" onclick="openModal5()">
 				<label class="basic-label four col exer-crunch" for="exer5"></label>
 				<c:if test="${user.gender eq 'Male'}">
-				<input type="checkbox" name="exercise" id="exer6" value="pushup" onclick="">
+				<input type="checkbox" name="exercise" id="exer6" value="pushup" onclick="openModal6()">
 				<label class="premium-label four col exer-pushup" for="exer6"></label>
 				</c:if>
 				<c:if test="${user.gender eq 'Female'}">
-				<input type="checkbox" name="exercise" id="exer6" value="kneepushup" onclick="">
+				<input type="checkbox" name="exercise" id="exer6" value="kneepushup" onclick="openModal7()">
 				<label class="premium-label four col exer-kneepushup" for="exer6"></label>
 				</c:if>
 			</section><section class="plan cf">
-				<input type="checkbox" name="exercise" id="exer7" value="sidelunge" onclick="">
+				<input type="checkbox" name="exercise" id="exer7" value="sidelunge" onclick="openModal8()">
 				<label class="free-label four col exer-mountain" for="exer7"></label>
-				<input type="checkbox" name="exercise" id="exer8" value="squat" onclick="">
+				<input type="checkbox" name="exercise" id="exer8" value="squat" onclick="openModal9()">
 				<label class="basic-label four col exer-squat" for="exer8"></label>
-				<input type="checkbox" name="exercise" id="exer9" value="lunge" onclick="">
+				<input type="checkbox" name="exercise" id="exer9" value="lunge" onclick="openModal10()">
 				<label class="premium-label four col exer-lunge" for="exer9"></label>
 			</section>
 			
