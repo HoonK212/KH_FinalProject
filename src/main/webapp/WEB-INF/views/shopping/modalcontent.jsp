@@ -22,7 +22,7 @@
 		<div class="mt-2">
 			<div class="flex items-center mt-1">
 				<c:set var="sale" value="0" />
-				<c:if test="">
+				<c:if test="${detail.event eq 1 }">
 				<c:set var="sale" value="${detail.price * 0.95 }" />
 				</c:if>
 				<input type="hidden" value="${detail.code }" id="code">
