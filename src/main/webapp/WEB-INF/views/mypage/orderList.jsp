@@ -934,12 +934,12 @@ body {
           <c:choose>
           <c:when test="${order.status eq 1 }">
           	<div id="info" class=" info btnModal2 button raised" data-toggle="modal" style="width:30%; margin-left: 20; color: white;  background-color: #48bb78;" >
-             <div  fit class="modal-btn" >주문취소</div>
+             <div  fit class="modal-btn" style="cursor: default;">주문취소</div>
           	</div>
           </c:when>
           <c:when test="${order.status eq 3 }">
           	 <div id="info" class=" info btnModal3 button raised" data-toggle="modal" style="width:30%; margin-left: 20; color: white; background-color: #48bb78;" >
-             <div  fit class="modal-btn" >반품</div>
+             <div  fit class="modal-btn" style="cursor: default;">반품</div>
           	 </div>
           </c:when>
           <c:otherwise>
@@ -1035,7 +1035,7 @@ body {
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">후기작성</h4>
+        <h4 class="modal-title" id="myModalLabel" style="cursor: default;">후기작성</h4>
       </div>
 <form class="form-horizontal" method="post" action="<%= request.getContextPath() %>/mypage/insertreview">
       <div class="modal-body">

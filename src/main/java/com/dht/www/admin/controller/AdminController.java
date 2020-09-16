@@ -27,6 +27,16 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
+	//관리자 메인
+	@RequestMapping("/adminmain")
+	public String adminMain() {
+		
+		
+		
+		return "admin/admin_main";
+	}
+	
+	
 	//재고 목록 조회
 	@RequestMapping("/stocklist")
 	public String selectStockList(
