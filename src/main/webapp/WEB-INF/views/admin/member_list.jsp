@@ -16,7 +16,7 @@
 <%@include file="/WEB-INF/views/layout/admin_sidebar.jsp" %>
 	
 <!-- SECTION  -->
-<div class="lay-item">
+<div class="lay-item" style="min-height: 808px;">
 	
 	<!-- CONTENT -->
 	<div class="section-container">
@@ -26,7 +26,7 @@
 		
 		<!-- 상단 버튼 영역 -->
 		<form action="<%=request.getContextPath()%>/admin/memberlist" method="get"> 
-		<div class="flex justify-end" style=" margin-bottom:3px;">
+		<div class="flex justify-end" style=" margin-bottom:10px;">
 		  <div class="mr-3">
 		      <select name="type" id="select" style="height: 40px;">
 		          <option value="1">아이디</option>
@@ -49,24 +49,24 @@
 			          <th class="w-1/9 py-3 px-4 uppercase font-semibold text-sm">아이디</th>
 			          <th class="w-1/9 py-3 px-4 uppercase font-semibold text-sm">이름</th>
 			          <th class="w-1/9 py-3 px-4 uppercase font-semibold text-sm">닉네임</th>
-			          <th class="w-1/9 py-3 px-4 uppercase font-semibold text-sm">성별/나이</td>
+			          <th class="w-1/9 py-3 px-4 uppercase font-semibold text-sm">성별 / 나이</td>
 			          <th class="w-1/9 py-3 px-4 uppercase font-semibold text-sm">운동</th>
 			          <th class="w-1/9 py-3 px-4 uppercase font-semibold text-sm">쇼핑</th>
-			          <th class="w-1/9 py-3 px-4 uppercase font-semibold text-sm">포인트/코인</th>
+			          <th class="w-1/9 py-3 px-4 uppercase font-semibold text-sm">포인트 / 코인</th>
 			          <th class="w-1/9 py-3 px-4 uppercase font-semibold text-sm">가입날짜</th>
 			          <th class="w-1/9 py-3 px-4 uppercase font-semibold text-sm">계정정지</th>
 			        </tr>
 			      </thead>
 			    <tbody class="text-gray-700">
 			    <c:forEach items="${mlist}" var="member" varStatus="status">
-			      <tr class="${status.count % 2 == 1 ? '' : 'bg-gray-100'}">
+			      <tr class="${status.count % 2 == 1 ? '' : 'bg-gray-100'} hover:bg-blue-200">
 			        <td class="w-1/4 py-3 px-4 text-center">${member.id }</td>
 			        <td class="w-1/4 py-3 px-4 text-center">${member.name }</td>
 			        <td class="w-1/4 py-3 px-4 text-center">${member.nick }</td>
 			        <td class="w-1/4 py-3 px-4 text-center">${member.gender } / ${member.age }</td>
-			        <td class="w-1/4 py-3 px-4 text-center">${member.training }일</td>
-			        <td class="w-1/4 py-3 px-4 text-center">${member.shopping }건</td>
-			        <td class="w-1/4 py-3 px-4 text-center">${member.point } / ${member.coin }</td>
+			        <td class="w-1/4 py-3 px-4 text-center"><fmt:formatNumber pattern="#,###" value="${member.training }" />일</td>
+			        <td class="w-1/4 py-3 px-4 text-center"><fmt:formatNumber pattern="#,###" value="${member.shopping }" />건</td>
+			        <td class="w-1/4 py-3 px-4 text-center"><fmt:formatNumber pattern="#,###" value="${member.point }" /> / <fmt:formatNumber pattern="#,###" value="${member.coin }" /></td>
 			        <td class="w-1/4 py-3 px-4 text-center">
 			        	<fmt:formatDate value="${member.dates }" pattern="yyyy.MM.dd"/>
 			        </td>
