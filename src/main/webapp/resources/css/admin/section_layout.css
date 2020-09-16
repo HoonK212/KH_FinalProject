@@ -12,5 +12,10 @@
 /* 	background-color: #edf2f7; */
 }
 
+#bbb{
+	width: 100%;
+}
 
-
+#bbb > tbody > tr > th {
+	width: 10%;
+}

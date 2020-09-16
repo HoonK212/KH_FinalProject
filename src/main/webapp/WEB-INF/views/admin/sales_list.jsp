@@ -26,7 +26,7 @@
 		
 		
 			<!-- 상단 버튼 영역 -->		
-			<form action="<%=request.getContextPath()%>/admin/saleslist" method="GET"  class="flex justify-end">
+			<form action="<%=request.getContextPath()%>/admin/saleslist" method="GET"  class="flex justify-end" style="margin-bottom: 10px;">
 				<div class="mr-3">
 					<input name="fromdate" type="date" /> - <input name="todate" type="date" />
 				</div>
@@ -65,15 +65,27 @@
 			      </thead>
 			    <tbody class="text-gray-700">
 			    <c:forEach items="${slist }" var="st" varStatus="status">
-			      <tr class="${status.count % 2 == 1 ? '' : 'bg-gray-100'}">
-			        <td class="w-1/4 py-3 px-4 text-center hover:text-red-500" >${st.code }</td>
+			      <tr class="${status.count % 2 == 1 ? '' : 'bg-gray-100'} hover:bg-blue-200">
+			        <td class="w-1/4 py-3 px-4 text-center " >${st.code }</td>
 			        <td class="w-1/4 py-3 px-4 text-center">${st.name }</td>
-			        <td class="w-1/4 py-3 px-4 text-center hover:text-red-500" >${st.price }</td>
-			        <td class="w-1/4 py-3 px-4 text-center">${st.amount }</td>
-			        <td class="w-1/4 py-3 px-4 text-center">${st.point }</td>
-			        <td class="w-1/4 py-3 px-4 text-center">${st.cash }</td>
-			        <td class="w-1/4 py-3 px-4 text-center">${st.total }</td>
-			        <td class="w-1/4 py-3 px-4 text-center">${st.chardate }</td>
+			        <td class="w-1/4 py-3 px-4 text-center " >
+			        <fmt:formatNumber pattern="#,###" value="${st.price}" /> 원
+			        </td>
+			        <td class="w-1/4 py-3 px-4 text-center">
+			        <fmt:formatNumber pattern="#,###" value="${st.amount }" /> EA
+			        </td>
+			        <td class="w-1/4 py-3 px-4 text-center">
+			        <fmt:formatNumber pattern="#,###" value="${st.point }" /> P
+			        </td>
+			        <td class="w-1/4 py-3 px-4 text-center">
+			        <fmt:formatNumber pattern="#,###" value="${st.cash }" /> 원
+			        </td>
+			        <td class="w-1/4 py-3 px-4 text-center">
+			        <fmt:formatNumber pattern="#,###" value="${st.total }" /> 원
+			        </td>
+			        <td class="w-1/4 py-3 px-4 text-center">
+			        ${st.chardate }
+			        </td>
 			      </tr>
 			     </c:forEach> 
 			      
@@ -81,10 +93,21 @@
 			      	<td class="w-2/4 py-3 px-4 text-center font-bold">합산</td>
 			      	<td class="w-2/4 py-3 px-4 text-center "></td>
 			      	<td class="w-2/4 py-3 px-4 text-center "></td>
-			      	<td class="w-2/4 py-3 px-4 text-center font-bold">${total.ta }</td>
-			      	<td class="w-2/4 py-3 px-4 text-center font-bold">${total.tp }</td>
-			      	<td class="w-2/4 py-3 px-4 text-center font-bold">${total.tc }</td>
-			      	<td class="w-2/4 py-3 px-4 text-center font-bold">${total.ts }</td>
+			      	<td class="w-2/4 py-3 px-4 text-center font-bold">
+			      	<fmt:formatNumber pattern="#,###" value="${total.ta }" /> EA
+			      	</td>
+			      	<td class="w-2/4 py-3 px-4 text-center font-bold">
+			      	<fmt:formatNumber pattern="#,###" value="${total.tp }" /> P
+			      	
+			      	</td>
+			      	<td class="w-2/4 py-3 px-4 text-center font-bold">
+			      	<fmt:formatNumber pattern="#,###" value="${total.tc }" /> 원
+			      	
+			      	</td>
+			      	<td class="w-2/4 py-3 px-4 text-center font-bold">
+			      	<fmt:formatNumber pattern="#,###" value="${total.ts }" /> 원
+			      	
+			      	</td>
 			      	<td class="w-2/4 py-3 px-4 text-center"></td>
 			      </tr>
 			      
@@ -96,7 +119,7 @@
 		
 		
 			<!-- 하단 페이지네이션 영역 -->
-			<div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between" style="background-color: #edf2f7;">
+			<div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between">
 			<div class="inline-flex mt-2 xs:mt-0">
 			<div class="flex flex-col items-center">	
 			<div class="flex text-gray-700">	

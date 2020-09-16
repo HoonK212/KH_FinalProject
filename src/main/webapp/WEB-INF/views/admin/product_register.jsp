@@ -35,7 +35,7 @@
 			<div class="shadow overflow-hidden rounded border-b border-gray-200">
 					
 					<!-- 테이블  -->
-				    <table class="bg-gray-200 table-fixed">
+				    <table class="bg-gray-200 table-fixed" id="bbb">
 				    
 				        <tr>
 				          <th class="bg-gray-800 text-white py-3 px-4 uppercase font-semibold text-base">상품카테고리</th>
