@@ -3,18 +3,13 @@
 
 	<div class="lay-item">
 		 <div class="flex justify-between items-center mx-auto py-4 px-6 bg-white border-b-4 border-indigo-600">
-	                <div class="flex items-center">
+	                <div class="flex items-center cursor-pointer" onclick="location.href='<%=request.getContextPath() %>/admin/productlist'">
 	                	<img class="inline-block h-12" src="<%=request.getContextPath() %>/resources/image/logo.png"/>
 	                	<span class="font-black text-2xl">통합관리시스템</span>
 	                </div>
 	
 	                <div class="flex items-center">
 						<div class="flex items-center mr-8">
-		                    <button @click="sidebarOpen = true" class="text-gray-500 focus:outline-none lg:hidden">
-		                        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-		                            <path d="M4 6H20M4 12H20M4 18H11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-		                        </svg>
-		                    </button>
 		
 		                    <div class="relative mx-4 lg:mx-0">
 		               			<span class="absolute inset-y-0 left-0 pl-3 flex items-center">

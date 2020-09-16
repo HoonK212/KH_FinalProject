@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 
 	<div class="lay-item">
-	  <div class="w-64 bg-gray-800 mt-8"> <!-- h-full 뺐음! -->
+	  <div class="w-64  mt-8"> <!-- h-full 뺐음! -->
             <nav>
-                <div x-data="{ open: false }">
+                <div x-data="{ open: false }" class="sidemenu">
                     <button @click="open = !open" class="w-full flex justify-between items-center py-3 px-6 text-gray-100 cursor-pointer hover:bg-gray-700 hover:text-gray-100 focus:outline-none">
                         <span class="flex items-center">
                             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -22,13 +22,13 @@
                         </span>
                     </button>
 
-                    <div x-show="open" class="bg-gray-700">
-                        <a class="py-2 px-16 block text-sm text-gray-100 hover:bg-blue-500 hover:text-white" href="<%=request.getContextPath()%>/admin/productlist">상품관리</a>
+                    <div x-show="open" >
+                        <a class="py-2 px-16 block text-sm text-gray-100 hover:bg-blue-500 hover:text-white" href="<%=request.getContextPath()%>/admin/productlist">상품목록</a>
                         <a class="py-2 px-16 block text-sm text-gray-100 hover:bg-blue-500 hover:text-white" href="<%=request.getContextPath()%>/admin/saleslist">매출조회</a>
                     </div>
                 </div>
 
-                <div x-data="{ open: false }">
+                <div x-data="{ open: false }" class="sidemenu">
                     <button @click="open = !open" class="w-full flex justify-between items-center py-3 px-6 text-gray-100 cursor-pointer hover:bg-gray-700 hover:text-gray-100 focus:outline-none">
                         <span class="flex items-center">
                             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -47,13 +47,13 @@
                         </span>
                     </button>
 
-                    <div x-show="open" class="bg-gray-700">
+                    <div x-show="open" >
                         <a class="py-2 px-16 block text-sm text-gray-100 hover:bg-blue-500 hover:text-white" href="<%=request.getContextPath()%>/admin/stocklist">재고관리</a>
                         <a class="py-2 px-16 block text-sm text-gray-100 hover:bg-blue-500 hover:text-white" href="<%=request.getContextPath()%>/admin/statuslist">배송관리</a>
                     </div>
                 </div>
 
-                <div x-data="{ open: false }">
+                <div x-data="{ open: false }" class="sidemenu">
                     <button @click="open = !open" class="w-full flex justify-between items-center py-3 px-6 text-gray-100 cursor-pointer hover:bg-gray-700 hover:text-gray-100 focus:outline-none">
                         <span class="flex items-center">
                             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -71,12 +71,12 @@
                         </span>
                     </button>
 
-                    <div x-show="open" class="bg-gray-700">
+                    <div x-show="open">
                         <a class="py-2 px-16 block text-sm text-gray-100 hover:bg-blue-500 hover:text-white" href="<%=request.getContextPath()%>/admin/memberlist">회원관리</a>
                     </div>
                 </div>
                 
-                <div x-data="{ open: false }">
+                <div x-data="{ open: false }" class="sidemenu">
                     <button @click="open = !open" class="w-full flex justify-between items-center py-3 px-6 text-gray-100 cursor-pointer hover:bg-gray-700 hover:text-gray-100 focus:outline-none">
                         <span class="flex items-center">
                             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -94,7 +94,7 @@
                         </span>
                     </button>
                     
-                    <div x-show="open" class="bg-gray-700">
+                    <div x-show="open">
                         <a class="py-2 px-16 block text-sm text-gray-100 hover:bg-blue-500 hover:text-white" href="<%=request.getContextPath()%>/admin/reportlist">신고관리</a>
                     </div>
 

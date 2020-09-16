@@ -25,7 +25,7 @@
       <div class="w-full md:w-3/5 h-full flex items-center bg-gray-100 rounded-lg">
            <div class="p-12 md:pr-24 md:pl-16 md:py-12">
           <p class="text-gray-600"><span class="text-gray-900">결제완료</span></p>
-          <a class="flex items-baseline mt-3 text-indigo-600 hover:text-indigo-900 focus:text-indigo-900" href="">
+          <a class="flex items-baseline mt-3 text-indigo-600 hover:text-indigo-900 focus:text-indigo-900" href="<%=request.getContextPath() %>/mypage/orderlist">
             <span>마이페이지 결제 내역 확인하기</span>
             <span class="text-xs ml-1">&#x279c;</span>
           </a>
@@ -51,6 +51,5 @@
       <button class="px-2 opacity-100 hover:opacity-100 focus:opacity-100"><img class="w-full" src="https://stripe.com/img/v3/payments/overview/logos/missguided.svg" alt="" style="max-height: 60px;"></button>
     </div> -->
     
-<%@include file="../layout/shopping_footer.jsp" %>
 </div>
   <!-- Display Container (not part of component) END -->

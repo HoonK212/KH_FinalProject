@@ -30,7 +30,7 @@
 .lay-item:nth-child(3){
 	grid-column: 2/3;
 	grid-row: 2/3;
-	background-color: #edf2f7;
+/* 	background-color: #edf2f7; */
 }
 
 /* 하단 레이아웃 */
@@ -42,7 +42,9 @@
 
 
 
-
+.sidemenu{
+	line-height: 3.5rem;
+}
 
 
 

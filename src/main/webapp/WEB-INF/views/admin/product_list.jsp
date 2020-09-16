@@ -28,7 +28,7 @@
 		
 		<!-- 상단 버튼 영역 -->
 		<form action="<%=request.getContextPath()%>/admin/productlist" method="get"> 
-		<div class="flex justify-end" style=" margin-bottom:3px;">
+		<div class="flex justify-end" style=" margin-bottom:10px;">
 		  <div class="mr-3">
 		      <select name="type" id="select" style="height: 40px;">
 		          <option value="1">상품코드</option>
@@ -38,7 +38,7 @@
 		  
           <input name="data" type="text" class="mr-3" placeholder="입력하세요" />
           <input name="searchType" value="search" type="hidden" />
-		  <button type="submit" class='bg-gray-100 text-gray-800 py-2 px-3 rounded font-bold'>
+		  <button type="submit" class='text-white py-2 px-3 rounded font-bold bg-blue-500' >
 		    조회하기
 		  </button>
 			<!-- 상품등록 페이지로 이동하는 버튼   -->
@@ -65,11 +65,13 @@
 			      </thead>
 			    <tbody class="text-gray-700">
 			    <c:forEach items="${plist}" var="product" varStatus="status">
-			      <tr class="${status.count % 2 == 1 ? '' : 'bg-gray-100'}">
+			      <tr class="${status.count % 2 == 1 ? '' : 'bg-gray-100'} hover:bg-blue-200" onclick="location.href='<%=request.getContextPath()%>/admin/productdetail?code=${product.code}'" style="cursor:pointer;">
 			        <td class="w-1/4 py-3 px-4 text-center">${product.rnum  }</td>
-			        <td class="w-1/4 py-3 px-4 text-center hover:text-blue-500"><a href="<%=request.getContextPath()%>/admin/productdetail?code=${product.code}">${product.code }</a></td>
+			        <td class="w-1/4 py-3 px-4 text-center">${product.code }</td>
 			        <td class="w-1/4 py-3 px-4 text-center">${product.name }</td>
-			        <td class="w-1/4 py-3 px-4 text-center">${product.price }</td>
+			        <td class="w-1/4 py-3 px-4 text-center">
+			        <fmt:formatNumber pattern="#,###" value="${product.price}" />원
+			        </td>
 			        <td class="w-1/4 py-3 px-4 text-center">${product.describe }</td>
 			        <td class="w-1/4 py-3 px-4 text-center">${product.company }</td>
 			        <td class="w-1/4 py-3 px-4 text-center"><fmt:formatDate value="${product.dates }" pattern="yyyy-MM-dd"/></td>
@@ -83,7 +85,7 @@
 
 			<!-- 하단 페이지네이션 영역 -->
 			<!-- section pagination -->
-			<div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between" style="background-color: #edf2f7;">
+			<div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between" >
 			<div class="inline-flex mt-2 xs:mt-0">
 			<div class="flex flex-col items-center">	
 			<div class="flex text-gray-700">	
