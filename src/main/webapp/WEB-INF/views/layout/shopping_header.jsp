@@ -112,7 +112,7 @@
 			</div>
 		</div>
 		
-		<div class="flex flex-col md:flex-row hidden md:block -mx-2">
+		<div class="flex flex-col md:flex-row hidden md:block -mx-2 font-bold">
 			<a href="<%=request.getContextPath()%>/shopping/list?listno=0" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">전체 보기</a>
 			<a href="<%=request.getContextPath()%>/shopping/list?listno=1" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">이벤트 상품</a>
 			<a href="<%=request.getContextPath()%>/shopping/list?listno=2" class="text-gray-800 rounded hover:bg-blue-500 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">인기 상품</a>

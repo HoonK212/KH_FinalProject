@@ -19,7 +19,7 @@
 <!-- HEADER -->
 <%@include file="../layout/header.jsp" %>
 
-<section class="antialiased font-sans bg-gray-200" style="min-height: 73vh;">
+<section class="antialiased font-sans " style="min-height: 73vh;">
 
     <div class="container mx-auto px-4 sm:px-8">
         <div class="py-8">

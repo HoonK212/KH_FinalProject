@@ -40,7 +40,7 @@ $(document).ready(function() {
 })
 </script>
 
-<section class="antialiased font-sans bg-gray-200" style="min-height: 73vh;">
+<section class="antialiased font-sans " style="min-height: 73vh;">
 <form action="/board/modify" method="post" enctype="multipart/form-data">
 
     <div class="container mx-auto px-4 sm:px-8">

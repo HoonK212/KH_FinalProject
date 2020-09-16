@@ -340,4 +340,4 @@ const send = (e,form) => {
 
 })(jQuery);
 </script> 
-<%@include file="../layout/footer.jsp" %>
+<%@include file="../layout/shopping_footer.jsp" %>
