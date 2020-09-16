@@ -16,13 +16,13 @@
 <%@include file="/WEB-INF/views/layout/admin_sidebar.jsp" %>
 	
 <!-- SECTION  -->
-<div class="lay-item">
+<div class="lay-item" style="min-height: 808px;">
 	
 	<!-- CONTANINER -->
 	<div class="section-container">
 	
 		<!-- 상단 제목 영역 -->
-		<span class="font-semibold text-4xl"><a href="<%=request.getContextPath()%>/admin/saleslist">매출 조회</a></span>
+		<span class="font-semibold text-4xl">매출조회</span>
 		
 		
 			<!-- 상단 버튼 영역 -->		

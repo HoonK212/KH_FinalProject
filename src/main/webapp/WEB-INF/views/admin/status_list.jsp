@@ -16,18 +16,19 @@
 <%@include file="/WEB-INF/views/layout/admin_sidebar.jsp" %>
 	
 <!-- SECTION  -->
-<div class="lay-item">
+<div class="lay-item" style="min-height: 808px;">
 	
 	<!-- CONTANINER -->
 	<div class="section-container">
 	
 		<!-- 상단 제목 영역 -->
-		<span class="font-semibold text-4xl"><a href="<%=request.getContextPath()%>/admin/orderproductlist">주문 배송 관리</a></span>
+		<span class="font-semibold text-4xl">배송관리</span>
 		
 		
 			<!-- 상단 버튼 영역 -->		
 			<form action="<%=request.getContextPath()%>/admin/statuslist" method="GET"  class="flex justify-end">
-				<div class="mr-3">
+			<div class="flex justify-end" style=" margin-bottom:10px;">
+				<div class="mr-3" style="padding-top: 8px;">
 					<input name="fromdate" type="date" /> - <input name="todate" type="date" />
 				</div>
 			
@@ -44,7 +45,7 @@
 			    <button class='bg-gray-100 text-gray-800 py-2 px-3 rounded font-bold'>
 			      조회하기
 			  	</button>
-					        
+			</div>        
 			</form>
 		
 		
@@ -67,8 +68,8 @@
 			      </thead>
 			    <tbody class="text-gray-700">
 			    <c:forEach items="${slist }" var="st" varStatus="status">
-			      <tr class="${status.count % 2 == 1 ? '' : 'bg-gray-100'}">
-			        <td class="w-1/4 py-3 px-4 text-center hover:text-red-500" >${st.rnum }</td>
+			      <tr class="${status.count % 2 == 1 ? '' : 'bg-gray-100'} hover:bg-blue-200 cursor-pointer" onclick="getOrdersDetail(${status.count})">
+			        <td class="w-1/4 py-3 px-4 text-center" >${st.rnum }</td>
 			        <input type="hidden" value="${st.status }" class="orderstatus" /> 
 			        <c:choose>
 						<c:when test="${st.status eq 1 }">
@@ -84,7 +85,7 @@
 						</c:when>
 						
 						<c:when test="${st.status eq 4 }">
-						<td class="w-1/4 py-3 px-4 text-center hover:text-red-500" onclick="getStatusModify(${status.count})" >주문취소</td>
+						<td class="w-1/4 py-3 px-4 text-center hover:text-red-500"  onclick="getStatusModify(${status.count})">주문취소</td>
 						</c:when>
 						
 						<c:when test="${st.status eq 5 }">
@@ -97,10 +98,10 @@
 						
 					</c:choose>
 			        <td class="w-1/4 py-3 px-4 text-center">${st.op_no }</td>
-			        <td class="w-1/4 py-3 px-4 text-center hover:text-red-500" onclick="getOrdersDetail(${status.count})" ">${st.o_no }</td>
+			        <td class="w-1/4 py-3 px-4 text-center">${st.o_no }</td>
 			        <td class="w-1/4 py-3 px-4 text-center">${st.code }</td>
 			        <td class="w-1/4 py-3 px-4 text-center">${st.name }</td>
-			        <td class="w-1/4 py-3 px-4 text-center">${st.amount }</td>
+			        <td class="w-1/4 py-3 px-4 text-center"><fmt:formatNumber pattern="#,###" value="${st.amount }" />개</td>
 			        <td class="w-1/4 py-3 px-4 text-center">${st.id }</td>
 			        <c:choose>
 			        	<c:when test="${not empty st.reason }">
@@ -121,7 +122,7 @@
 		
 		
 			<!-- 하단 페이지네이션 영역 -->
-			<div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between" style="background-color: #edf2f7;">
+			<div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between">
 			<div class="inline-flex mt-2 xs:mt-0">
 			<div class="flex flex-col items-center">	
 			<div class="flex text-gray-700">	
@@ -229,7 +230,7 @@
 		
 		   	  		
    	  			<!-- Modal -->
-				<dialog id="myModal" class="fixed h-auto w-11/12 md:w-1/2 p-5  bg-white rounded-md ">
+				<dialog id="myModal" class="fixed h-auto w-2/5 p-5  bg-white rounded-md">
 					<div class="flex flex-col w-full h-auto justify-center items-center">
 						<!-- Header -->
 						<div class="w-full h-auto">
@@ -243,30 +244,30 @@
 						<div class="flex flex-col justify-center items-center w-full max-w-xl rounded-lg px-4 pt-2">
 							
 						 <div class="shadow w-full overflow-hidden rounded border-b border-gray-200">
-						 	<table>
+						 	<table class="w-full">
 						        <tr>
 						        <th class="bg-gray-800 text-white w-1/4 py-3 px-4 uppercase font-semibold text-sm">주문날짜</th>
-						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="ordersDetail_dates"></td>
+						        <td class="bg-gray-100 w-3/4 py-3 px-4 text-center" id="ordersDetail_dates"></td>
 								</tr>
 						        <tr>
 						        <th class="bg-gray-800 text-white w-1/4 py-3 px-4 uppercase font-semibold text-sm">주문인ID</th>
-						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="ordersDetail_id"></td>
+						        <td class="bg-gray-100 w-3/4 py-3 px-4 text-center" id="ordersDetail_id"></td>
 						        </tr>  
 						        <tr>
 						        <th class="bg-gray-800 text-white w-1/4 py-3 px-4 uppercase font-semibold text-sm">성함</th>
-						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="ordersDetail_name"></td>
+						        <td class="bg-gray-100 w-3/4 py-3 px-4 text-center" id="ordersDetail_name"></td>
 						        </tr>  
 						        <tr>
 						        <th class="bg-gray-800 text-white w-1/4 py-3 px-4 uppercase font-semibold text-sm">전화번호</th>
-						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="ordersDetail_tel"></td>
+						        <td class="bg-gray-100 w-3/4 py-3 px-4 text-center" id="ordersDetail_tel"></td>
 						        </tr>  
 						        <tr>
 						        <th class="bg-gray-800 text-white w-1/4 py-3 px-4 uppercase font-semibold text-sm">주소</th>
-						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="ordersDetail_addr"></td>
+						        <td class="bg-gray-100 w-3/4 py-3 px-4 text-center" id="ordersDetail_addr"></td>
 						        </tr>  
 						        <tr>
 						        <th class="bg-gray-800 text-white w-1/4 py-3 px-4 uppercase font-semibold text-sm">우편번호</th>
-						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="ordersDetail_post"></td>
+						        <td class="bg-gray-100 w-3/4 py-3 px-4 text-center" id="ordersDetail_post"></td>
 						        </tr>  
 						 	</table>
 						  </div>
@@ -338,7 +339,20 @@ function getOrdersDetail(count) {
 		
 		var date = new Date(result[0].dates);
 		
-		document.getElementById('ordersDetail_dates').innerText = date;
+	    var year = date.getFullYear();
+	    var month = date.getMonth()+1
+	    var day = date.getDate();
+	    if(month < 10){
+	        month = "0"+month;
+	    }
+	    if(day < 10){
+	        day = "0"+day;
+	    }
+	 
+	    var dates = year+"-"+month+"-"+day;
+
+		
+		document.getElementById('ordersDetail_dates').innerText = dates;
 		document.getElementById('ordersDetail_id').innerText = result[0].id;
 		document.getElementById('ordersDetail_name').innerText = result[0].to_name;
 		document.getElementById('ordersDetail_tel').innerText = result[0].to_tel;

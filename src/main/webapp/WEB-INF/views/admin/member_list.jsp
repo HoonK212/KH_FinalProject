@@ -22,7 +22,7 @@
 	<div class="section-container">
 		
 		<!-- 상단제목 -->
-		<span class="font-semibold text-4xl"><a href="<%=request.getContextPath()%>/admin/memberlist">회원관리</a></span>
+		<span class="font-semibold text-4xl">회원관리</span>
 		
 		<!-- 상단 버튼 영역 -->
 		<form action="<%=request.getContextPath()%>/admin/memberlist" method="get"> 
@@ -88,7 +88,7 @@
 
 			<!-- 하단 페이지네이션 영역 -->
 			<!-- section pagination -->
-			<div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between" style="background-color: #edf2f7;">
+			<div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between">
 			<div class="inline-flex mt-2 xs:mt-0">
 			<div class="flex flex-col items-center">	
 			<div class="flex text-gray-700">	

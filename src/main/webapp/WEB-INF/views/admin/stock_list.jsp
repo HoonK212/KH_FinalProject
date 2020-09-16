@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>        
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>     
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 
 <!-- HEAD -->
 <%@include file="/WEB-INF/views/layout/admin_head.jsp" %>
@@ -15,17 +16,18 @@
 <%@include file="/WEB-INF/views/layout/admin_sidebar.jsp" %>
 	
 <!-- SECTION  -->
-<div class="lay-item">
+<div class="lay-item" style="min-height: 808px;">
 	
 	<!-- CONTENT  -->
 	<div class="section-container">
 		
 		<!-- 상단 제목 영역 -->
-		<span class="font-semibold text-4xl"><a href="<%= request.getContextPath() %>/admin/stocklist">재고목록</a></span>
+		<span class="font-semibold text-4xl">재고관리</span>
 		
 		
 			<!-- 상단 버튼 영역 -->
 			<form action="<%=request.getContextPath()%>/admin/stocklist" method="GET" class="flex justify-end">
+			<div class="flex justify-end" style=" margin-bottom:10px;">
 				  <div class="mr-3">
 				      <select name="type" id="select" style="height: 40px;">
 				          <option value="1">상품코드</option>
@@ -38,6 +40,7 @@
 			    <button class='bg-gray-100 text-gray-800 py-2 px-3 rounded font-bold'>
 			      조회하기
 			  	</button>
+		  	</div>
 			</form>					        
 	
 		
@@ -56,16 +59,16 @@
 			      </thead>
 			    <tbody class="text-gray-700">
 			    <c:forEach items="${plist }" var="product" varStatus="status">
-			      <tr class="${status.count % 2 == 1 ? '' : 'bg-gray-100'}">
+			      <tr class="${status.count % 2 == 1 ? '' : 'bg-gray-100'} hover:bg-blue-200 cursor-pointer" onclick="getStockDetail(${status.count})">
 			        <td class="w-1/4 py-3 px-4 text-center">${product.rnum }</td>
-			        <td class="w-1/4 py-3 px-4 text-center hover:text-blue-500" onclick="getStockDetail(${status.count})" >${product.code }</td>
+			        <td class="w-1/4 py-3 px-4 text-center">${product.code }</td>
 			        <td class="w-1/4 py-3 px-4 text-center">${product.name }</td>
-			        <td class="w-1/4 py-3 px-4 text-center">${product.stock }</td>
+			        <td class="w-1/4 py-3 px-4 text-center"><fmt:formatNumber pattern="#,###" value="${product.stock }" />개</td>
 			        <c:if test="${product.sell eq 1 }">
-			        <td class="w-1/4 py-3 px-4 text-center">판매중</td>
+			        <td class="w-1/4 py-3 px-4 text-center text-blue-500 font-bold">판매중</td>
 			      	</c:if>
 			        <c:if test="${product.sell eq 0 }">
-			        <td class="w-1/4 py-3 px-4 text-center">판매중단</td>
+			        <td class="w-1/4 py-3 px-4 text-center text-red-500 font-bold">판매중단</td>
 			      	</c:if>
 			      </tr>
 			     </c:forEach> 
@@ -75,7 +78,7 @@
 		
 			<!-- 하단 페이지네이션 영역 -->
 			<!-- section pagination -->
-			<div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between" style="background-color: #edf2f7;">
+			<div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between">
 			<div class="inline-flex mt-2 xs:mt-0">
 			<div class="flex flex-col items-center">	
 			<div class="flex text-gray-700">	
@@ -183,10 +186,10 @@
    	  		
    	  		
    	  			<!-- Modal -->
-				<dialog id="myModal" class="fixed h-auto w-11/12 md:w-1/2 p-5  bg-white rounded-md ">
-					<div class="flex flex-col w-full h-auto justify-center items-center">
+				<dialog id="myModal" class="fixed h-auto w-2/5 p-5  bg-white rounded-md ">
+					<div class="flex flex-col w-1/2 h-auto justify-center items-center" style="margin: 0 auto;">
 						<!-- Header -->
-						<div class="w-full h-auto">
+						<div class="w-full h-auto" style="width: 320px;">
 							<div onclick="document.getElementById('myModal').close();" class="float-right w-1/12 h-auto justify-center cursor-pointer">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
 							</div>
@@ -200,20 +203,20 @@
 						 <div class="shadow w-full overflow-hidden rounded border-b border-gray-200">
 						 	<table>
 						        <tr>
-						        <th class="bg-gray-800 text-white w-1/4 py-3 px-4 uppercase font-semibold text-sm">상품코드</th>
+						        <th class="bg-gray-800 text-white w-full py-3 px-4 uppercase font-semibold text-sm">상품코드</th>
 						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="stockDetail_code"></td>
 						        <input id="code" name="code" type="hidden" />
 								</tr>
 						        <tr>
-						        <th class="bg-gray-800 text-white w-1/4 py-3 px-4 uppercase font-semibold text-sm">상품명</th>
+						        <th class="bg-gray-800 text-white w-full py-3 px-4 uppercase font-semibold text-sm">상품명</th>
 						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="stockDetail_name"></td>
 						        </tr>  
 						        <tr>  
-						        <th class="bg-gray-800 text-white w-1/4 py-3 px-4 uppercase font-semibold text-sm">재고현황</td>
-						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center"><input id="stockDetail_stock" name="stock"/></td> 
+						        <th class="bg-gray-800 text-white w-full py-3 px-4 uppercase font-semibold text-sm">재고현황</td>
+						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center"><input id="stockDetail_stock" name="stock" style="text-align:center;"/></td> 
 						        </tr>
 						        <tr>
-						        <th class="bg-gray-800 text-white w-1/4 py-3 px-4 uppercase font-semibold text-sm">판매여부</td>
+						        <th class="bg-gray-800 text-white w-full py-3 px-4 uppercase font-semibold text-sm">판매여부</td>
 						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center">
 						        	<select name="sell" id="stockDetail_sell">
 						        		<option value="0" >판매중단</option>
@@ -225,7 +228,7 @@
 						  </div>
 							<div class="mt-4">
 								<button class="bg-gray-800 text-white font-bold py-3 px-3 border border-gray-400
-								rounded-lg tracking-wide mr-1 hover:bg-gray-100">수정완료</button>
+								rounded-lg tracking-wide mr-1 hover:bg-gray-100 hover:text-black">수정완료</button>
 							</div>
 						</div>
 						</form>
