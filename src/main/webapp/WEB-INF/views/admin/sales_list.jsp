@@ -27,7 +27,7 @@
 		
 			<!-- 상단 버튼 영역 -->		
 			<form action="<%=request.getContextPath()%>/admin/saleslist" method="GET"  class="flex justify-end" style="margin-bottom: 10px;">
-				<div class="mr-3">
+				<div class="mr-3" style="padding-top: 8px;">
 					<input name="fromdate" type="date" /> - <input name="todate" type="date" />
 				</div>
 			
