@@ -33,7 +33,7 @@
 	</div>
 
   
-	<div style="min-height: 73vh;" class="mx-10 antialiased max-w-6xl bg-gray-300 h-64">
+	<div style="min-height: 73vh; margin:0 auto;" class="mx-10 antialiased max-w-6xl bg-gray-300 h-64">
 		<div style="min-height: 80vh;" class="relative block md:flex items-center h-64">
       	<div class="w-full h-full md:w-1/2 relative z-1 bg-gray-100 rounded shadow-lg overflow-hidden">
         	<div id="aibox" class="text-lg font-medium text-green-500 uppercase  text-center border-b border-gray-200 tracking-wide">AI</div>
@@ -47,7 +47,7 @@
      
      <div class="w-full h-full md:w-1/2 relative z-1 bg-gray-100 rounded shadow-lg overflow-hidden">
         	<div id="mybox" class="text-lg font-medium text-green-500 uppercase  text-center border-b border-gray-200 tracking-wide">도전 상대</div>
-        	<div style="width: 480;height: 512;" class=" mx-12 block sm:flex md:block lg:flex items-center justify-center w-full"  id="webcam-container">
+        	<div style="width: 480;height: 512;margin-top: 135px;" class=" mx-12 block sm:flex md:block lg:flex items-center justify-center w-full"  id="webcam-container">
         	</div>
         <div class="items-baseline  my-5 flex justify-center">
           <ul>
@@ -56,7 +56,7 @@
                 <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path class="primary" d="M11 3.05V2a1 1 0 0 1 2 0v1.05A10 10 0 0 1 22 13c0 1.33-2 1.33-2 0a2 2 0 1 0-4 0c0 1.33-2 1.33-2 0a2 2 0 1 0-4 0c0 1.33-2 1.33-2 0a2 2 0 1 0-4 0c0 1.33-2 1.33-2 0a10 10 0 0 1 9-9.95z"></path><path class="secondary" d="M11 14a1 1 0 0 1 2 0v5a3 3 0 0 1-6 0 1 1 0 0 1 2 0 1 1 0 0 0 2 0v-5z"></path></svg>
               </div>
               <span class="text-gray-700 text-lg ml-3" id="label-container"></span>
-            </li>
+            </li>	
             
           </ul>
         </div>
@@ -64,6 +64,8 @@
 <!--           <span>Create account</span> -->
 <!--           <span class="font-medium text-gray-700 ml-2">➔</span> -->
 <!--         </a> -->
+
+		<div style="color:red;">※ 먼저 포즈를 취하고 대결버튼을 눌러주세요!</div>
       </div>
      
      
