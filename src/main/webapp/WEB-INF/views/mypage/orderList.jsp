@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <!-- TAILWIND -->
@@ -885,9 +886,9 @@ body {
           
           <div class="detail">
 			<div class="o_no">주문번호 : ${order.o_no }</div>
-            <div class="description">주문일자 : ${order.dates }</div>
+            <div class="description">주문일자 : <fmt:formatDate value="${order.dates }" pattern="yyyy.MM.dd"/></div>
             <div class="name">${order.name }</div>
-            <div class="price">${order.price * order.amount }</div>
+            <div class="price">${order.price * order.amount } ₩</div>
             
             <!-- ### 숨겨놓은 데이터 ### -->
             <!-- 상품코드  -->
@@ -898,9 +899,11 @@ body {
             <div class="o_no"  style="display:none">${order.o_no }</div>
 			
 			<!-- 후기 작성 모달 -->
+			<c:if test="${order.status eq 3 }">
 			<div  class="button raised btnModal1" data-toggle="modal" style="width:30%;  margin-top:10px; color: white; background-color: #48bb78;">
-               <div class="modal-btn" >후기</div>
+               <div class="modal-btn" style="cursor: default;" >후기</div>
 			</div> 
+			</c:if>
           </div>
 
         </div>
@@ -934,12 +937,12 @@ body {
           <c:choose>
           <c:when test="${order.status eq 1 }">
           	<div id="info" class=" info btnModal2 button raised" data-toggle="modal" style="width:30%; margin-left: 20; color: white;  background-color: #48bb78;" >
-             <div  fit class="modal-btn" style="cursor: default;">주문취소</div>
+             <div  fit class="modal-btn" style="cursor:pointer;">주문취소</div>
           	</div>
           </c:when>
           <c:when test="${order.status eq 3 }">
           	 <div id="info" class=" info btnModal3 button raised" data-toggle="modal" style="width:30%; margin-left: 20; color: white; background-color: #48bb78;" >
-             <div  fit class="modal-btn" style="cursor: default;">반품</div>
+             <div  fit class="modal-btn" style="cursor:pointer;">반품</div>
           	 </div>
           </c:when>
           <c:otherwise>
@@ -1035,7 +1038,7 @@ body {
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel" style="cursor: default;">후기작성</h4>
+        <h4 class="modal-title" id="myModalLabel" >후기작성</h4>
       </div>
 <form class="form-horizontal" method="post" action="<%= request.getContextPath() %>/mypage/insertreview">
       <div class="modal-body">
