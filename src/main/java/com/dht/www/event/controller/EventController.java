@@ -72,7 +72,8 @@ public class EventController {
 	
 	@RequestMapping(value="/rockpaper", method=RequestMethod.POST)
 	@ResponseBody
-	public void eventRockPaperScissorsfinalCompensation(HttpSession session) {
+	public void eventRockPaperScissorsfinalCompensation(HttpSession session, 
+			@RequestParam int result) {
 		Users user = (Users) session.getAttribute("logInInfo");
 		
 		Compensation com = new Compensation();
@@ -81,8 +82,11 @@ public class EventController {
 		com.setInc(5);
 		com.setEvent(4);
 		
-		insertPoint(com);
 		insertCoin(com);
+		
+		if(result==1) {
+			insertPoint(com);
+		}
 	}
 	
 	// 룰렛 VIEW

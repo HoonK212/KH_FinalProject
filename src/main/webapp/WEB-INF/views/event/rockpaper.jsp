@@ -189,15 +189,17 @@
 			$("#aiscreen").attr("src","<%=request.getContextPath()%>/resources/image/rockpaper/rock.png");
 			setTimeout(function() {
 				if(num==1){
+					compensation(0);
 					alert("비겼습니다.")
 					loc();
 					console.log("비겼습니다.")
 				}else if(num==2){
+					compensation(0);
 					alert("졌습니다.")
 					loc();
 					console.log("졌습니다.")
 				}else if(num==3){
-					compensation();
+					compensation(1);
 					alert("이겼습니다. \n 5포인트가 지급되었습니다.")
 					loc();
 					console.log("이겼습니다.")
@@ -208,15 +210,17 @@
 			$("#aiscreen").attr("src","<%=request.getContextPath()%>/resources/image/rockpaper/scissors.png");
 			setTimeout(function() {
 				if(num==1){
-					compensation();
+					compensation(1);
 					alert("이겼습니다.\n 5포인트가 지급되었습니다.")
 					loc();
 					console.log("이겼습니다.")
 				}else if(num==2){
+					compensation(0);
 					alert("비겼습니다.")
 					loc();
 					console.log("비겼습니다.")
 				}else if(num==3){
+					compensation(0);
 					alert("졌습니다.")
 					loc();
 					console.log("졌습니다.")
@@ -226,15 +230,17 @@
 			$("#aiscreen").attr("src","<%=request.getContextPath()%>/resources/image/rockpaper/paper.png");
 			setTimeout(function() {
 				if(num==1){
+					compensation(0);
 					alert("졌습니다.")
 					loc();
 					console.log("졌습니다.")
 				}else if(num==2){
-					compensation();
+					compensation(1);
 					alert("이겼습니다. \n 5포인트가 지급되었습니다.")
 					loc();
 					console.log("이겼습니다.")
 				}else if(num==3){
+					compensation(0);
 					alert("비겼습니다.")
 					loc();
 					console.log("비겼습니다.")
@@ -243,11 +249,12 @@
 		}
 	}
 	
-function compensation(){
+function compensation(num){
 	jQuery.ajax({
 		url: "/event/rockpaper",
-		type:"POST"
-		
+		type:"POST",
+		dataType : 'json', 
+		data : { result : num }
 	})
 	
 }
