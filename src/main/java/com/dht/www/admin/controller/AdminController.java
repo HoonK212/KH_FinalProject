@@ -98,6 +98,20 @@ public class AdminController {
 		return "admin/status_list";
 	}
 	
+	//배송상태 변경
+	@RequestMapping(value = "/modifystatus")
+	public String modifyStatus(@RequestParam int op_no, @RequestParam String status ) {
+		
+		System.out.println(op_no);
+		System.out.println(status);
+		
+		int res = adminService.modifyStatus(op_no, status);
+		
+		return "redirect: statuslist";
+	}
+	
+	
+	
 	//반품 상세
 	@RequestMapping(value = "/ordersdetail", method = RequestMethod.GET)
 	@ResponseBody

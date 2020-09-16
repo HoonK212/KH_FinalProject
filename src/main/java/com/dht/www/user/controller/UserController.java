@@ -195,7 +195,7 @@ public class UserController {
 		  //회원 메일로 아이디 발송
 		  userService.mailSendingToFindId(commandMap, urlPath, searchId);
 		  
-		  model.addAttribute("alertMsg", "메일을 발송하였습니다.");
+//		  model.addAttribute("alertMsg", "메일을 발송하였습니다.");
 	      model.addAttribute("url", root + "/user/login");
 		
 		  return "common/result";
@@ -236,7 +236,7 @@ public class UserController {
 		//회원 메일로 아이디 발송
 		userService.mailSendingToFindPw(commandMap, urlPath, randomPw);
 		
-		model.addAttribute("alertMsg", "메일을 발송하였습니다.");
+//		model.addAttribute("alertMsg", "메일을 발송하였습니다.");
 		model.addAttribute("url", root + "/user/login");
 		
 		return "common/result";

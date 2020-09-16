@@ -572,5 +572,15 @@ public class AdminServiceImpl implements AdminService {
 			return commandMap;
 			
 		}
+
+		@Override
+		public int modifyStatus(int op_no, String status) {
+			
+			Map<String,Object> mp = new HashMap<>();
+			mp.put("op_no", op_no);
+			mp.put("status", status);
+			
+			return adminDao.modifyStatus(mp);
+		}
 	
 }

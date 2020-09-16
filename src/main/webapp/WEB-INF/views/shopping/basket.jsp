@@ -7,10 +7,13 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%@include file="../layout/shopping_header.jsp" %>
-
+<style type="text/css">
+.bu{
+	background: #2d3748;
+}
+</style>
 <link href="https://tailwindcomponents.com/css/component.ecommerce-product.css" rel="stylesheet">
 <link href="https://tailwindcomponents.com/css/component.checkboxes.css" rel="stylesheet">
-    
 <main class="my-5">
 <div class="container mx-auto px-6">
 	<div class="flex flex-col w-full p-8 text-gray-800 bg-white shadow-lg pin-r pin-y mx-auto">
@@ -108,7 +111,7 @@
 			</table>
 		<hr class="pb-6 mt-6">
 		<div class="flex mx-auto">
-			<button id="selectDel" class="flex justify-center px-10 py-3 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
+			<button id="selectDel" class="flex justify-center px-10 py-3 font-medium text-white uppercase rounded-full shadow item-center focus:shadow-outline focus:outline-none bu">
 			<span class="ml-2 mt-5px">선택 삭제</span>
 			</button>
 		</div>
@@ -177,10 +180,10 @@
 						
 					</div>
 					<div class="flex mx-auto justify-center">
-						<button onclick="location.href='<%= request.getContextPath()%>/shopping/home'" class="flex justify-center px-10 py-3 my-6 mx-2 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
+						<button onclick="location.href='<%= request.getContextPath()%>/shopping/home'" class="flex justify-center px-10 py-3 my-6 mx-2 font-medium text-white uppercase rounded-full shadow item-center focus:shadow-outline focus:outline-none bu">
 							<span class="ml-2 mt-5px">쇼핑 홈 가기</span>
 						</button>
-						<button id="orderBtn" class="flex justify-center px-10 py-3 my-6 mx-2 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
+						<button id="orderBtn" class="flex justify-center px-10 py-3 my-6 mx-2 font-medium text-white uppercase rounded-full shadow item-center focus:shadow-outline focus:outline-none bu">
 							<span class="ml-2 mt-5px">선택 주문</span>
 						</button>
 					</div>
@@ -371,4 +374,4 @@ order.change(function () {
 });
 
 </script>
-<%@include file="../layout/footer.jsp" %>
+<%@include file="../layout/shopping_footer.jsp" %>

@@ -286,7 +286,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void mailSendingToFindPw(Map<String, Object> commandMap, String urlPath, String randomPw) {
 		
-		String setfrom = "kitty9302@naver.com";
+		String setfrom = "kh_finalproject@naver.com";
 		String tomail = (String) commandMap.get("mail");
 		String title = "임시 비밀번호 발급";
 		String htmlBody01 = 

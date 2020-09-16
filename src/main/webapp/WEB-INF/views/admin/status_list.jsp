@@ -69,17 +69,18 @@
 			    <c:forEach items="${slist }" var="st" varStatus="status">
 			      <tr class="${status.count % 2 == 1 ? '' : 'bg-gray-100'}">
 			        <td class="w-1/4 py-3 px-4 text-center hover:text-red-500" >${st.rnum }</td>
+			        <input type="hidden" value="${st.status }" class="orderstatus" /> 
 			        <c:choose>
 						<c:when test="${st.status eq 1 }">
-						<td class="w-1/4 py-3 px-4 text-center hover:text-red-500" onclick="getStatusModify(${status.count})">상품준비</td>
+						<td class="w-1/4 py-3 px-4 text-center text-green-500 font-bold" onclick="getStatusModify(${status.count})">상품준비</td>
 						</c:when>
 						
 						<c:when test="${st.status eq 2 }">
-						<td class="w-1/4 py-3 px-4 text-center hover:text-red-500" onclick="getStatusModify(${status.count})" >출고완료</td>
+						<td class="w-1/4 py-3 px-4 text-center text-blue-500 font-bold" onclick="getStatusModify(${status.count})" >출고완료</td>
 						</c:when>
 						
 						<c:when test="${st.status eq 3 }">
-						<td class="w-1/4 py-3 px-4 text-center hover:text-red-500" onclick="getStatusModify(${status.count})" >배송완료</td>
+						<td class="w-1/4 py-3 px-4 text-center text-purple-500 font-bold" onclick="getStatusModify(${status.count})" >배송완료</td>
 						</c:when>
 						
 						<c:when test="${st.status eq 4 }">
@@ -87,7 +88,7 @@
 						</c:when>
 						
 						<c:when test="${st.status eq 5 }">
-						<td class="w-1/4 py-3 px-4 text-center hover:text-red-500" onclick="getStatusModify(${status.count})" >반품접수</td>
+						<td class="w-1/4 py-3 px-4 text-center text-red-500 font-bold" onclick="getStatusModify(${status.count})" >반품접수</td>
 						</c:when>
 						
 						<c:when test="${st.status eq 6 }">
@@ -275,7 +276,7 @@
 				</dialog>
 				
    	  			<!-- Order Status Modal -->
-				<dialog id="OrderStatus" class="fixed h-auto w-11/12 md:w-1/2 p-5  bg-white rounded-md ">
+				<dialog id="OrderStatus" class="fixed h-auto w-1/12 md:w-1/2 p-5  bg-white rounded-md ">
 					<div class="flex flex-col w-full h-auto justify-center items-center">
 						<!-- Header -->
 						<div class="w-full h-auto">
@@ -286,20 +287,22 @@
 						</div>
 						<!--Header End-->
 						<!-- Content-->
-						<div class="flex flex-col justify-center items-center w-full max-w-xl rounded-lg px-4 pt-2">
-							
-						 <div class="shadow w-full overflow-hidden rounded border-b border-gray-200">
-						 	<form action="<%=request.getContextPath() %>/admin/modifystatus" method="get">
-								<div>배송상태 변경하기</div>
-								<label id="order_status_label"><input type="checkbox" id="order_status_chk"></label>
-								<br>
-								<button class="g-blue-500">변경</button>
-						 	</form>
-						  </div>
-						</div>
+						<h4 class="text-2xl text-center font-bold tracking-wide comment">배송상태 변경</h4><br> 
+						<form action="<%= request.getContextPath() %>/admin/modifystatus" method="get">
+						<label class="flex justify-start items-start">
+							<div class="bg-white border-2 rounded border-gray-400 w-6 h-6 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-blue-500">
+							   <input type="checkbox" name="status" class="opacity-0 absolute">
+							   <svg class="fill-current hidden w-4 h-4 text-green-500 pointer-events-none" viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg>
+							</div>
+							<div class="select-none font-bold text-red-600">Label Text</div>
+						</label><br>
+						<input type="hidden" name="op_no" >
+						<button class="block uppercase mx-auto shadow bg-indigo-800 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded">변경</button>
+						</form>
 						<!-- Content End -->
 					</div>
 				</dialog>
+				
 		   	  		
 	</div> <!-- CONTENT 끝  -->
 
@@ -325,8 +328,6 @@ function getOrdersDetail(count) {
 	var o_no = document.getElementsByTagName('tr')[count].childNodes[7].innerText;
 	var param = "o_no="+o_no;
 	
-	console.log(o_no);
-	
 	xhr.open('GET', '<%=request.getContextPath()%>/admin/ordersdetail?' + param);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
     xhr.send();
@@ -335,33 +336,14 @@ function getOrdersDetail(count) {
     	//반품 상세 정보
     	var result = JSON.parse(xhr.response); 
 		
-    	console.log(xhr.response);
-		console.log(result);
-		console.log(result[0].o_no);
-		
 		var date = new Date(result[0].dates);
-		console.log(date);
-		console.log(result[0].dates);
 		
 		document.getElementById('ordersDetail_dates').innerText = date;
 		document.getElementById('ordersDetail_id').innerText = result[0].id;
 		document.getElementById('ordersDetail_name').innerText = result[0].to_name;
 		document.getElementById('ordersDetail_tel').innerText = result[0].to_tel;
 		document.getElementById('ordersDetail_addr').innerText = result[0].to_addr; 
-		document.getElementById('ordersDetail_post').innerText = result[0].to_post;
-		
-		
-//		if(result[0].accept == 0){
-//			document.getElementById('returnDetail_accept')[0].selected = true;
-//		}else{
-//			document.getElementById('returnDetail_accept')[1].selected = true;
-//		}
-//		if(result[0].status == 0){
-//			document.getElementById('returnDetail_status')[0].selected = true;
-//		}else{
-//			document.getElementById('returnDetail_status')[1].selected = true;
-//		}
-		
+		document.getElementById('ordersDetail_post').innerText = result[0].to_post;	
 		
     })
     
@@ -370,29 +352,40 @@ function getOrdersDetail(count) {
 }
 
 function getStatusModify(count){
-	
-	console.log('test');
-	var status = document.getElementsByTagName('tr')[count].childNodes[3].innerText;
-	var pick = document.getElementsByTagName('tr')[count].childNodes[3];
-	
-	console.log(status);
-	console.log(pick);
+	var status = document.getElementsByTagName('tr')[count].childNodes[5].innerText;
 	
 	if(status == '상품준비'){
-		console.log(document.getElementById('order_status_label'));
-		console.log(document.getElementById('order_status_chk'));
-//		document.getElementById('order_status_label').innerText = '출고완료';
-//		document.getElementById('order_status_chk')[0].value = '2';
+		$('.comment').html('현재상태: 상품준비<br>출고가 완료되면 배송상태를 변경해주세요.')
+		$('.select-none').text('출고 완료');
+		$("input[name='status']").val(2);
+		$("input[name='op_no']").val(document.getElementsByTagName('tr')[count].childNodes[7].innerText);
+		//모달 창 열기
+	    document.getElementById('OrderStatus').showModal();  
+	}else if(status == '출고완료'){
+		$('.comment').html('현재상태: 출고완료<br>배송이 완료되면 배송상태를 변경해주세요.')
+		$('.select-none').text('배송완료');
+		$("input[name='status']").val(3);
+		$("input[name='op_no']").val(document.getElementsByTagName('tr')[count].childNodes[7].innerText);
+		//모달 창 열기
+	    document.getElementById('OrderStatus').showModal();  
+	}else if(status == '반품접수'){
+		$('.comment').html('현재상태: 반품접수<br>반품이 완료되면 반품완료로 변경해주세요.')
+		$('.select-none').text('반품완료');
+		$("input[name='status']").val(5);
+		$("input[name='op_no']").val(document.getElementsByTagName('tr')[count].childNodes[7].innerText);
+		//모달 창 열기
+	    document.getElementById('OrderStatus').showModal();  
 	}
-
-	
-	//모달 창 열기
-    document.getElementById('OrderStatus').showModal();   
-    
 	
 }
 
 
 </script>
+
+<style type="text/css">
+  input:checked + svg {
+  	display: block;
+  }
+</style>
 
 </html>

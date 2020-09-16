@@ -98,7 +98,7 @@
             <span class="text-6xl font-black text-gray-200 absolute top-0 left-0">1</span>
             <div class="mt-8 ml-6 relative z-10 flex flex-col">
                 <h4 class="font-bold text-gray-400 uppercase font-xs leading-none">Kinetic Supplement</h4>
-                <p class="text-3xl text-gray-800 leading-none mt-2">운동 보조제</p>
+                <p class="text-3xl text-gray-800 leading-none mt-2 font-bold">운동 보조제</p>
                 <a href="<%=request.getContextPath()%>/shopping/list?listno=4" class="text-blue-500 mt-2">Going To Buy</a>
             </div>
         </div>
@@ -106,7 +106,7 @@
             <span class="text-6xl font-black text-gray-200 absolute top-0 left-0">2</span>
             <div class="mt-8 ml-6 relative z-10 flex flex-col">
                 <h4 class="font-bold text-gray-400 uppercase font-xs leading-none">Sports Equipment</h4>
-                <p class="text-3xl text-gray-800 leading-none mt-2">운동 기구</p>
+                <p class="text-3xl text-gray-800 leading-none mt-2 font-bold">운동 기구</p>
                 <a href="<%=request.getContextPath()%>/shopping/list?listno=5" class="text-blue-500 mt-2">Going To Buy</a>
             </div>
         </div>
@@ -114,7 +114,7 @@
             <span class="text-6xl font-black text-gray-200 absolute top-0 left-0">3</span>
             <div class="mt-8 ml-6 relative z-10 flex flex-col">
                 <h4 class="font-bold text-gray-400 uppercase font-xs leading-none">Diet Food</h4>
-                <p class="text-3xl text-gray-800 leading-none mt-2">다이어트 식품</p>
+                <p class="text-3xl text-gray-800 leading-none mt-2 font-bold">다이어트 식품</p>
                 <a href="<%=request.getContextPath()%>/shopping/list?listno=6" class="text-blue-500 mt-2">Going To Buy</a>
             </div>
         </div>
@@ -124,7 +124,7 @@
             <img src="<%=request.getContextPath() %>/resources/image/why.png" class="rounded-lg" style="width: 543px; height: 296px;">
         </div>
         <div class="sm:w-1/2 pt-4">
-            <h3 class="text-2xl text-gray-800 mb-4">
+            <h3 class="text-4xl text-gray-800 mb-4 font-bold">
                운동을 해야하는 이유
             </h3>
             <p class="text-gray-600 leading-relaxed text-lg mb-4">
