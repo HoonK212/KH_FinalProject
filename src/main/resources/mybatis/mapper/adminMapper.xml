@@ -793,5 +793,16 @@
 	)
 	</select>
 	
+	<!-- 매출 조회별 합산 끝 -->
+	
+	
+	
+	<!-- 배송상태 변경  -->
+	<update id="modifyStatus">
+		UPDATE ORDER_PRODUCT
+		SET STATUS = #{status}
+		WHERE NO = #{op_no}
+	</update>
+	
 	
 </mapper>

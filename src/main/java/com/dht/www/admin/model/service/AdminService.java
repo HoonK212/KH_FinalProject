@@ -55,4 +55,7 @@ public interface AdminService {
 	//매출목록조회
 	public Map<String, Object> selectSalesList(int cPage, int cntPerPage, Map<String, Object> search);
 
+	//배송상태 변경	
+	public int modifyStatus(int op_no, String status);
+
 }

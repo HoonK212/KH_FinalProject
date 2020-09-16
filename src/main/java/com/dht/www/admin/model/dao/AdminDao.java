@@ -157,6 +157,13 @@ public class AdminDao {
 	
 	
 	
+	// 배송상태 변경
+	public int modifyStatus(Map<String, Object> mp) {
+		
+		return sqlSession.update("ADMIN.modifyStatus", mp);
+	}
+	
+	
 	// 주문 내역 상세
 	public List<Object> selectOrdersDetail(String o_no) {
 		
@@ -334,5 +341,7 @@ public class AdminDao {
 			
 			return sqlSession.selectOne("ADMIN.selectSalesTotal", p);
 		}
+		
+
 		
 }
