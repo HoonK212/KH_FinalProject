@@ -43,7 +43,7 @@
                     </a>
                     </c:if>
                     <c:if test="${logInInfo != null}">
-              	      	<a href="<%=request.getContextPath() %>/mypage/myMain" class="py-2 px-6 flex">
+              	      	<a href="<%=request.getContextPath() %>/mypage/mymain" class="py-2 px-6 flex">
                         MyPage
                    		</a>
                     	<c:set var="TextValue" value="${logInInfo.id}"/>
