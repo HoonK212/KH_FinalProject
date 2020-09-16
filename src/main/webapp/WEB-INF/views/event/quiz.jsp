@@ -66,17 +66,18 @@
 
 <script type="text/javascript">
 const submitAnswer = () => {
-	document.querySelector("#answerBtn").disabled = true;
-	document.querySelector("#answerBtn").remove();
 	
 	var answer = document.querySelector("#answer").value;
 	var checkAnswer = '${quiz.name}';
+	document.querySelector("#answerBtn").disabled = true;
 	
 	if(checkAnswer == answer) {
+		document.querySelector("#answerBtn").remove();
 		alert("정답입니다!\n10포인트를 얻었습니다!");
 		sendResult();
 	} else {
 		alert("틀렸습니다!")
+		document.querySelector("#answerBtn").disabled = false;
 	}
 }
 
