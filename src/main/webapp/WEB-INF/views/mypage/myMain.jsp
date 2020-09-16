@@ -1113,48 +1113,9 @@ body {
 </style>
 </head>
 <body>
-<aside class="side-nav" id="show-side-navigation1">
-  <i class="fa fa-bars close-aside hidden-sm hidden-md hidden-lg" data-close="show-side-navigation1"></i>
-  <div class="heading">
-    <img src="https://uniim1.shutterfly.com/ng/services/mediarender/THISLIFE/021036514417/media/23148907008/medium/1501685726/enhance" alt="">
-    <div class="info">
-      <h3><a href="#">Mostafa Omar</a></h3>
-      <p>Lorem ipsum dolor sit amet consectetur.</p>
-    </div>
-  </div>
-  <div class="search">
-    <input type="text" placeholder="Type here"><i class="fa fa-search"></i>
-  </div>
-  <ul class="categories">
-    <li><i class="fa fa-home fa-fw"></i><a href="#">회원정보</a>
-      <ul class="side-nav-dropdown">
-        <li><a href="#">내 회원정보</a></li>
-        <li><a href="#">포인트&코인 관리</a></li>
-        <li><a href="#">내 가 쓴글 조회</a></li>
-      </ul>
-    </li>
-    <li><i class="fa fa-support fa-fw"></i><a href="#">운동관리</a>
-      <ul class="side-nav-dropdown">
-        <li><a href="#">내 목표설정</a></li>
-        <li><a href="#">내 운동관리</a></li>
-      </ul>
-    </li>
-    <li><i class="fa fa-envelope fa-fw"></i><a href="#">구매내역</a>
-      <ul class="side-nav-dropdown">
-        <li><a href="#">내 구매내역</a></li>
-      </ul>
-    </li>
-  </ul>
-</aside>
-<section id="contents">
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-       <!-- navar-header -->
-     
-      <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1"></div>
-    </div>
-  </nav>
-</section>
+
+<!-- 사이드 네비 메뉴 -->
+<%@include file="/WEB-INF/views/mypage/navi.jsp" %>
 
 <!-- progress -->
 
@@ -1203,15 +1164,15 @@ body {
       <div class="container" style="float:left;">
         <section class="notif notif-notice">
           <h6 class="notif-title">운동단계</h6>
-          <p>**님은 운동**단계를 선택하셨습니다.</p>
+          <p>${user.name }님은 운동 단계를 선택하셨습니다.</p>
         </section>
         <section class="notif notif-notice">
           <h6 class="notif-title">선택한 운동</h6>
-          <p>**님은 ***, ***, ***, *** 운동을 선택하셨습니다</p>
+          <p>${user.name }님은 ***, ***, ***, *** 운동을 선택하셨습니다</p>
         </section>
         <section class="notif notif-warn">
-          <h6 class="notif-title">Warning!</h6>
-          <p>**님의 몸무게는** kg입니다. 현재 목표 감량 칼로리는 **입니다.</p>
+          <h6 class="notif-title">목표 감량 칼로리!</h6>
+          <p>${user.name }님의 몸무게는** kg입니다. 현재 목표 감량 칼로리는 **입니다.</p>
         </section>
    </div>
    

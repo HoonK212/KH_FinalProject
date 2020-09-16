@@ -22,6 +22,13 @@
 		<result column="thumbnail" property="thumbnail"/>
 	</resultMap>
 	
+	<resultMap type="map" id="goal">
+		<result column="id" property="id" />
+		<result column="days" property="days" />
+		<result column="exercises" property="exercises" />
+		<result column="grade" property="grade" />
+	</resultMap>
+	
 	<insert id="setGoal">
 		INSERT INTO GOAL 
 		VALUES ( #{id}, #{days}, #{exercise}, #{grade} ) 
@@ -76,5 +83,10 @@
 		SELECT sum(amount) FROM ORDER_PRODUCT
 		WHERE STATUS NOT IN (4, 6) 
 		AND ORDERS_NO in (SELECT NO FROM ORDERS WHERE ID= #{id})
+	</select>
+	
+	<select id="selectExerciseGoal" resultMap="goal">
+		SELECT * FROM GOAL
+		WHERE ID = #{id}
 	</select>
 </mapper>  

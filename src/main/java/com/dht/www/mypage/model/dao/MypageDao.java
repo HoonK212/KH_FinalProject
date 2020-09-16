@@ -54,5 +54,10 @@ public class MypageDao {
 		return sqlSession.selectOne("MYPAGE.selectOrderAmountCnt", id);
 	}
 
+	public Map<String, Object> selectExerciseGoal(String id) {
+		
+		return sqlSession.selectOne("MYPAGE.selectExerciseGoal", id);
+	}
+
 
 }

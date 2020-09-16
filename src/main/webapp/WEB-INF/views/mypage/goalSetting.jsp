@@ -1096,7 +1096,12 @@ body {
 
    <!-- 저장 버튼 -->
 <div style="display:inline-block; padding-left:171px;">
-   <button id="btnSubmit" class="button raised green center" style="width:77; height:35; line-height:35px; text-align:center;">목표적용</button> 
+   <c:if test="${empty goal }">
+   <button id="btnSubmit" class="button raised green center" style="width:77; height:35; line-height:35px; text-align:center;">목표적용</button>
+   </c:if>
+   <c:if test="${not empty goal }">
+   <button id="btnSubmit" class="button raised green center" style="width:77; height:35; line-height:35px; text-align:center;">목표변경</button> 
+   </c:if>
 </div>
   
   <!--  <div id="info" class=" info popup-trigger button raised green" style="width:10%; margin-left:120; display:inline-block;" title="info">-->

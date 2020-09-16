@@ -18,4 +18,6 @@ public interface MypageService {
 	public void insertReview(Map data);
 
 	public int selectOrderAmountCnt(String id);
+
+	public Map<String, Object> selectExerciseGoal(String id);
 }

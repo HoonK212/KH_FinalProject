@@ -70,4 +70,10 @@ public class MypageServiceImpl implements MypageService {
 		return mypageDao.selectOrderAmountCnt(id);
 	}
 
+	@Override
+	public Map<String, Object> selectExerciseGoal(String id) {
+		
+		return mypageDao.selectExerciseGoal(id);
+	}
+
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dht.www.mypage.model.service.MypageService;
+import com.dht.www.mypage.model.vo.Files;
 import com.dht.www.user.model.vo.Users;
 
 @Controller
@@ -23,9 +24,21 @@ public class MypageController {
 	@Autowired
 	MypageService mypageService;
 	
+	
    // 목표설정 페이지 이동
-   @RequestMapping(value = "/goalSetting", method = RequestMethod.GET)
-   public String goalSetting() {
+   @RequestMapping(value = "/goalsetting", method = RequestMethod.GET)
+   public String goalSetting(Model model, HttpSession session) {
+	   
+	  Files pic = (Files) session.getAttribute("logInPic");
+	  Users user = (Users) session.getAttribute("logInInfo");
+	  
+	  Map<String,Object> commandMap =  mypageService.selectExerciseGoal(user.getId());
+	  System.out.println(commandMap);
+	  
+	  model.addAttribute("pic", pic);
+	  model.addAttribute("user", user);
+	  model.addAttribute("goal", commandMap);
+	  
       return "mypage/goalSetting";
    }
    
@@ -41,6 +54,7 @@ public class MypageController {
 	   }
 	   
 	   Users user = (Users)session.getAttribute("logInInfo");
+	   Map<String,Object> commandMap =  mypageService.selectExerciseGoal(user.getId());
 	   
 	   Map<String, Object> goal = new HashMap<>();
 	   goal.put("id", user.getId());
@@ -48,38 +62,26 @@ public class MypageController {
 	   goal.put("exercise", exercise);
 	   goal.put("grade", grade);
 	   
-	   int res = mypageService.setGoal(goal);
+	   if(commandMap == null) {
+		   int res1 = mypageService.setGoal(goal);
+	   }else {
+		   int res2 = mypageService.updateGoal(goal);
+	   }
 	   
 	   return "mypage/goalSetting";
    }
    
-   //목표 설정 수정
-   @RequestMapping(value = "/updategoal", method = RequestMethod.POST)
-   public String updateGoal(String exercise, String days, String grade, HttpSession session) {
-	   
-	   String d = "";
-	   String str = days;
-	   String[] daysArr = str.split(",");
-	   for(int i=0; i<daysArr.length; i++) {
-		   d += daysArr[i]; 
-	   }
-	   
-	   Users user = (Users)session.getAttribute("logInInfo");
-	   
-	   Map<String, Object> goal = new HashMap<>();
-	   goal.put("id", user.getId());
-	   goal.put("days", d);
-	   goal.put("exercise", exercise);
-	   goal.put("grade", grade);
-	   
-	   int res = mypageService.updateGoal(goal);
-
-	   return "mypage/goalSetting";
-   }
 
    // 마이페이지 메인으로 이동
-   @RequestMapping(value = "/myMain", method = RequestMethod.GET)
-   public String myMain() {
+   @RequestMapping(value = "/mymain", method = RequestMethod.GET)
+   public String myMain(HttpSession session, Model model) {
+	   
+	 Files pic = (Files) session.getAttribute("logInPic");
+	 Users user = (Users) session.getAttribute("logInInfo");
+		  
+	 model.addAttribute("pic", pic);
+	 model.addAttribute("user", user);
+	   
       return "mypage/myMain";
    }
    
@@ -92,7 +94,9 @@ public class MypageController {
 			Model model) {
 	   
 	   Users user = (Users)session.getAttribute("logInInfo");
-	   
+	   Files pic = (Files) session.getAttribute("logInPic");
+		  
+
 	   Map<String, Object> result = mypageService.selectOrderList(cPage, cntPerPage, user.getId());
 	   System.out.println(result);
 	   
@@ -102,6 +106,8 @@ public class MypageController {
 	   model.addAttribute("olist", result.get("olist"));
 	   model.addAttribute("page", result.get("page"));
 	 //  model.addAttribute("totalamount", totalAmount);
+	   model.addAttribute("pic", pic);
+	   model.addAttribute("user", user);
 	   
 	   return "mypage/orderList";
    }
