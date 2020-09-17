@@ -57,7 +57,6 @@
 			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">상품코드</th>
 			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">상품명</th>
 			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">판매가</td>
-			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">상품설명</td>
 			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">제조사</td>
 			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">제조일</td>
 			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">재고</td>
@@ -73,7 +72,6 @@
 			        <td class="w-1/4 py-3 px-4 text-center">
 			        <fmt:formatNumber pattern="#,###" value="${product.price}" />원
 			        </td>
-			        <td class="w-1/4 py-3 px-4 text-center" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${product.describe }</td>
 			        <td class="w-1/4 py-3 px-4 text-center" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${product.company }</td>
 			        <td class="w-1/4 py-3 px-4 text-center"><fmt:formatDate value="${product.dates }" pattern="yyyy-MM-dd"/></td>
 			        <td class="w-1/4 py-3 px-4 text-center">${product.stock }</td>
@@ -81,7 +79,7 @@
 			     </c:forEach> 
 			     </c:if>
 			     <c:if test="${empty plist }">
-			     	<td colspan="8" class="w-1/4 py-3 px-4 text-center font-bold">조회된 데이터가 없습니다.</td>
+			     	<td colspan="7" class="w-1/4 py-3 px-4 text-center font-bold">조회된 데이터가 없습니다.</td>
 			     </c:if>
 			    </tbody>
 			    </table>
