@@ -59,5 +59,10 @@ public class MypageDao {
 		return sqlSession.selectOne("MYPAGE.selectExerciseGoal", id);
 	}
 
+	public Map<String, Object> selectRecord(String id) {
+		
+		return sqlSession.selectList("MYPAGE.selectRecord", id);
+	}
+
 
 }

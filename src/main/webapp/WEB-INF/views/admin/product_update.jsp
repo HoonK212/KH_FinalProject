@@ -85,7 +85,7 @@
 										<img src="<%=request.getContextPath()%>/resources/upload_product/${thumb.renamed }.${thumb.ext}" style="width: 16rem; height: 15rem;" class="originThumb"/>
 									</div>
 									<div onclick="deletefile(${thumb.no})" class="text-gray-800 text-center text-sm">
-									<button class="text-white py-2 px-3 rounded font-bold bg-blue-500">삭제</button>
+									<button type="button" class="text-white py-2 px-3 rounded font-bold bg-blue-500">삭제</button>
 									</div>
 									</div>
 								</c:forEach> 
@@ -103,7 +103,7 @@
 										<img src="<%=request.getContextPath()%>/resources/upload_product/${file.renamed }.${file.ext}" style="width: 16rem; height: 15rem;" class="originFile"/>
 									</div>
 									<div onclick="deletefile(${file.no})" class="text-gray-800 text-center">
-										<button class="text-white py-2 px-3 rounded font-bold bg-blue-500">삭제</button>
+										<button type="button" class="text-white py-2 px-3 rounded font-bold bg-blue-500">삭제</button>
 									</div>
 									</div>
 								</c:forEach> 

@@ -83,6 +83,10 @@ public class MypageServiceImpl implements MypageService {
 		String days = String.valueOf( commandMap.get("days") );
 		String[] daysArr = days.split("");
 		
+		Map<String,Object> cm = new HashMap<>();
+		cm = mypageDao.selectRecord(id);
+		
+		
 		Map<String,Object> result = new HashMap<>();
 		result.put("exercises", exArr);
 		result.put("grade", commandMap.get("grade"));
