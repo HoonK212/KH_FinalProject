@@ -56,7 +56,7 @@
 	<div class="container mx-auto px-6">
         
 			<!-- 이벤트 상품 -->
-			<div class="h-64 rounded-md overflow-hidden bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1577655197620-704858b270ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1280&q=144')">
+			<div class="h-64 rounded-md overflow-hidden bg-cover bg-center" style="background-position: center; background-image: url('https://images.unsplash.com/photo-1577655197620-704858b270ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1280&q=144')">
 				<div class="bg-gray-900 bg-opacity-50 flex items-center h-full">
 					<div class="px-10 max-w-xl">
 						<h2 class="text-2xl text-white font-semibold">이벤트 상품</h2>
@@ -72,7 +72,7 @@
 			<!-- 인기상품/신규상품 -->
 			<div class="md:flex mt-8 md:-mx-4">
 				<!-- 인기상품 -->
-				<div class="w-full h-64 md:mx-4 rounded-md overflow-hidden bg-cover bg-center md:w-1/2" style="background-image: url('https://images.unsplash.com/photo-1547949003-9792a18a2601?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')">
+				<div class="w-full h-64 md:mx-4 rounded-md overflow-hidden bg-cover bg-center md:w-1/2" style="background-position: center; background-image: url('https://images.unsplash.com/photo-1547949003-9792a18a2601?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')">
 					<div class="bg-gray-900 bg-opacity-50 flex items-center h-full">
 						<div class="px-10 max-w-xl">
 							<h2 class="text-2xl text-white font-semibold">인기 상품</h2>
@@ -86,7 +86,7 @@
 				</div>
                 
 				<!-- 신규 상품 -->
-				<div class="w-full h-64 mt-8 md:mx-4 rounded-md overflow-hidden bg-cover bg-center md:mt-0 md:w-1/2" style="background-image: url('https://images.unsplash.com/photo-1486401899868-0e435ed85128?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80')">
+				<div class="w-full h-64 mt-8 md:mx-4 rounded-md overflow-hidden bg-cover bg-center md:mt-0 md:w-1/2" style="background-position: center; background-image: url('https://images.unsplash.com/photo-1486401899868-0e435ed85128?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80')">
 					<div class="bg-gray-900 bg-opacity-50 flex items-center h-full">
 						<div class="px-10 max-w-xl">
 							<h2 class="text-2xl text-white font-semibold">신규 상품</h2>
@@ -108,7 +108,7 @@
 					<c:forEach items="${list2}" var="list" begin="0" end="3">
 						<div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
 							<a href="/shopping/detail?code=${list.code }">
-								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-size: 290px 224px; background-image: url('<%=request.getContextPath() %>/resources/${list.path }/${list.renamed }.${list.ext }')" ></div>
+								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-position: center; background-size: 290px 224px; background-image: url('<%=request.getContextPath() %>/resources/${list.path }/${list.renamed }.${list.ext }')" ></div>
 							</a>
 							<div class="py-2" style="text-align: right;">
 								<button onclick="loadBody('${list.code}');" class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
@@ -139,7 +139,7 @@
 					<c:forEach items="${list1}" var="list" begin="0" end="3">
 						<div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
 							<a href="/shopping/detail?code=${list.code }">
-								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('<%=request.getContextPath() %>/resources/${list.path }/${list.renamed }.${list.ext }')"></div>
+								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-position: center; background-image: url('<%=request.getContextPath() %>/resources/${list.path }/${list.renamed }.${list.ext }')"></div>
 							</a>
 							<div class="py-2" style="text-align: right;">
 								<button onclick="loadBody('${list.code}');" class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
@@ -170,7 +170,7 @@
 					<c:forEach items="${list3}" var="list" begin="0" end="3">
 						<div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
 							<a href="/shopping/detail?code=${list.code }">
-								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('<%=request.getContextPath() %>/resources/${list.path }/${list.renamed }.${list.ext }')"></div>
+								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-position: center; background-image: url('<%=request.getContextPath() %>/resources/${list.path }/${list.renamed }.${list.ext }')"></div>
 							</a>
 							<div class="py-2" style="text-align: right;">
 								<button onclick="loadBody('${list.code}');" class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">

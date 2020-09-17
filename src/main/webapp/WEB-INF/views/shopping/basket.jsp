@@ -111,15 +111,15 @@
 			</table>
 		<hr class="pb-6 mt-6">
 		<div class="flex mx-auto">
-			<button id="selectDel" class="flex justify-center px-10 py-3 font-medium text-white uppercase rounded-full shadow item-center focus:shadow-outline focus:outline-none bu">
-			<span class="ml-2 mt-5px">선택 삭제</span>
+			<button id="selectDel" class="flex justify-center px-10 py-3 font-medium text-white uppercase rounded-full shadow item-center focus:shadow-outline focus:outline-none bu bg-blue-500 hover:bg-blue-600">
+			<span class=" mt-5px">선택 삭제</span>
 			</button>
 		</div>
       
 		<div class="my-4 mt-6 -mx-2 lg:flex">
 			<div class="w-full">
 				<div class="p-4 bg-gray-100 rounded-full text-center">
-					<h1 class="ml-2 font-bold uppercase">주문 상세</h1>
+					<h1 class=" font-bold uppercase">주문 상세</h1>
 				</div>
 				<div class="p-4">
 					<div class="flex justify-between border-b">
@@ -180,11 +180,11 @@
 						
 					</div>
 					<div class="flex mx-auto justify-center">
-						<button onclick="location.href='<%= request.getContextPath()%>/shopping/home'" class="flex justify-center px-10 py-3 my-6 mx-2 font-medium text-white uppercase rounded-full shadow item-center focus:shadow-outline focus:outline-none bu">
-							<span class="ml-2 mt-5px">쇼핑 홈 가기</span>
+						<button onclick="location.href='<%= request.getContextPath()%>/shopping/home'" class="flex justify-center px-10 py-3 my-6 mx-2 font-medium text-white uppercase rounded-full shadow item-center focus:shadow-outline focus:outline-none bu bg-blue-500 hover:bg-blue-600">
+							<span class=" mt-5px">쇼핑 홈 가기</span>
 						</button>
-						<button id="orderBtn" class="flex justify-center px-10 py-3 my-6 mx-2 font-medium text-white uppercase rounded-full shadow item-center focus:shadow-outline focus:outline-none bu">
-							<span class="ml-2 mt-5px">선택 주문</span>
+						<button id="orderBtn" class="flex justify-center px-10 py-3 my-6 mx-2 font-medium text-white uppercase rounded-full shadow item-center focus:shadow-outline focus:outline-none bu bg-blue-500 hover:bg-blue-600">
+							<span class=" mt-5px">선택 주문</span>
 						</button>
 					</div>
 				</div>
