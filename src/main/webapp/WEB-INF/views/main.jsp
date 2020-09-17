@@ -82,7 +82,7 @@
                 <p class="text-sm sm:text-base text-white mt-4"> - John F.Kennedy - </p>
                 <div class="flex mt-8">
                     <a href="<%=request.getContextPath()%>/exercise/type" class="uppercase py-2 px-5 sm:px-8 rounded-full bg-blue-500 border-2 border-transparent text-white text-sm mr-4 hover:bg-blue-300">Start Of Exercise</a>
-                    <a href="<%=request.getContextPath()%>/mypage/goalSetting" class="uppercase py-2 px-5 sm:px-8 rounded-full bg-transparent border-2 border-blue-500 text-white hover:bg-blue-300 hover:border-blue-400 hover:text-white text-sm">Goal Setting</a>
+                    <a href="<%=request.getContextPath()%>/mypage/goalsetting" class="uppercase py-2 px-5 sm:px-8 rounded-full bg-transparent border-2 border-blue-500 text-white hover:bg-blue-300 hover:border-blue-400 hover:text-white text-sm">Goal Setting</a>
                 </div>
             </div>
             <div class="hidden sm:block sm:w-1/2 lg:w-3/5 relative">

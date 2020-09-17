@@ -108,7 +108,7 @@
 					<c:forEach items="${list1}" var="list" begin="0" end="3">
 						<div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
 							<a href="/shopping/detail?code=${list.code }">
-								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('<%=request.getContextPath() %>/resources/${list.path }/${list.renamed }.${list.ext }')"></div>
+								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-size: 290px 224px; background-image: url('<%=request.getContextPath() %>/resources/${list.path }/${list.renamed }.${list.ext }')" ></div>
 							</a>
 							<div class="py-2" style="text-align: right;">
 								<button onclick="loadBody('${list.code}');" class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">

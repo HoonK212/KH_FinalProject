@@ -69,7 +69,7 @@
 			<c:forEach items="${list}" var="list">
 				<div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
 	                <a href="/shopping/detail?code=${list.code }">
-	                  	<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('<%=request.getContextPath() %>/resources/${list.path }/${list.renamed }.${list.ext }')"></div>
+	                  	<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-size: 290px 224px; background-image: url('<%=request.getContextPath() %>/resources/${list.path }/${list.renamed }.${list.ext }')"></div>
 	                </a>
 	                <div class="py-2" style="text-align: right;">
 	                	<!-- 장바구니 버튼 -->
