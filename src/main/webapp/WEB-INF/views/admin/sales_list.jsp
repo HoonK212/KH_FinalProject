@@ -38,7 +38,7 @@
 				      </select>
 				  </div>
 				  
-	            <input name="data" type="text" class="mr-3" placeholder="입력하세요"/>
+	            <input name="data" type="text" class="mr-3" placeholder="검색어를 입력하세요."/>
 	            <input name="searchType" value="search" type="hidden" />
 			    <button class='bg-gray-100 text-gray-800 py-2 px-3 rounded font-bold'>
 			      조회하기
@@ -64,53 +64,59 @@
 			        </tr>
 			      </thead>
 			    <tbody class="text-gray-700">
+			    <c:if test="${!empty slist }">
 			    <c:forEach items="${slist }" var="st" varStatus="status">
 			      <tr class="${status.count % 2 == 1 ? '' : 'bg-gray-100'} hover:bg-blue-200">
 			        <td class="w-1/4 py-3 px-4 text-center " >${st.code }</td>
-			        <td class="w-1/4 py-3 px-4 text-center">${st.name }</td>
+			        <td class="w-1/4 py-3 px-4 text-center" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${st.name }</td>
 			        <td class="w-1/4 py-3 px-4 text-center " >
-			        <fmt:formatNumber pattern="#,###" value="${st.price}" /> 원
+			        <fmt:formatNumber pattern="#,###" value="${st.price}" />원
 			        </td>
 			        <td class="w-1/4 py-3 px-4 text-center">
-			        <fmt:formatNumber pattern="#,###" value="${st.amount }" /> EA
+			        <fmt:formatNumber pattern="#,###" value="${st.amount }" />EA
 			        </td>
 			        <td class="w-1/4 py-3 px-4 text-center">
-			        <fmt:formatNumber pattern="#,###" value="${st.point }" /> P
+			        <fmt:formatNumber pattern="#,###" value="${st.point }" />P
 			        </td>
 			        <td class="w-1/4 py-3 px-4 text-center">
-			        <fmt:formatNumber pattern="#,###" value="${st.cash }" /> 원
+			        <fmt:formatNumber pattern="#,###" value="${st.cash }" />원
 			        </td>
 			        <td class="w-1/4 py-3 px-4 text-center">
-			        <fmt:formatNumber pattern="#,###" value="${st.total }" /> 원
+			        <fmt:formatNumber pattern="#,###" value="${st.total }" />원
 			        </td>
 			        <td class="w-1/4 py-3 px-4 text-center">
-			        ${st.chardate }
+			        <fmt:parseDate value="${st.chardate }" var="saleslistDate" pattern="yy/MM/dd"/>
+             		<fmt:formatDate value="${saleslistDate}" pattern="yyyy-MM-dd"/>
 			        </td>
 			      </tr>
 			     </c:forEach> 
 			      
+			     
 			      <tr>
 			      	<td class="w-2/4 py-3 px-4 text-center font-bold">합산</td>
 			      	<td class="w-2/4 py-3 px-4 text-center "></td>
 			      	<td class="w-2/4 py-3 px-4 text-center "></td>
 			      	<td class="w-2/4 py-3 px-4 text-center font-bold">
-			      	<fmt:formatNumber pattern="#,###" value="${total.ta }" /> EA
+			      	<fmt:formatNumber pattern="#,###" value="${total.ta }" />EA
 			      	</td>
 			      	<td class="w-2/4 py-3 px-4 text-center font-bold">
-			      	<fmt:formatNumber pattern="#,###" value="${total.tp }" /> P
+			      	<fmt:formatNumber pattern="#,###" value="${total.tp }" />P
 			      	
 			      	</td>
 			      	<td class="w-2/4 py-3 px-4 text-center font-bold">
-			      	<fmt:formatNumber pattern="#,###" value="${total.tc }" /> 원
+			      	<fmt:formatNumber pattern="#,###" value="${total.tc }" />원
 			      	
 			      	</td>
 			      	<td class="w-2/4 py-3 px-4 text-center font-bold">
-			      	<fmt:formatNumber pattern="#,###" value="${total.ts }" /> 원
+			      	<fmt:formatNumber pattern="#,###" value="${total.ts }" />원
 			      	
 			      	</td>
 			      	<td class="w-2/4 py-3 px-4 text-center"></td>
 			      </tr>
-			      
+			      </c:if>
+			      <c:if test="${empty slist }">
+			     	<td colspan="8" class="w-1/4 py-3 px-4 text-center font-bold">조회된 데이터가 없습니다.</td>
+			     </c:if>
 			    </tbody>
 			    </table>
 			  </div>

@@ -30,9 +30,9 @@
 	      </div>
 	      <div class="p-5 w-48 ">
 	         <div class="text-xs uppercase text-gray-500 font-medium">MYPAGE</div>
-	         <a class="my-3 text-white block" href="<%=request.getContextPath() %>/mypage/myMain">회원정보<span class="text-white text-xs p-1"></span></a>
-	         <a class="my-3 text-white block" href="<%=request.getContextPath() %>/mypage/goalSetting">운동관리<span class="text-white text-xs p-1"></span></a>
-	         <a class="my-3 text-white block" href="<%=request.getContextPath() %>/mypage/myMain">구매내역<span class="text-white text-xs p-1"></span></a> 
+	         <a class="my-3 text-white block" href="<%=request.getContextPath() %>/mypage/mymain">회원정보<span class="text-white text-xs p-1"></span></a>
+	         <a class="my-3 text-white block" href="<%=request.getContextPath() %>/mypage/goalsetting">운동관리<span class="text-white text-xs p-1"></span></a>
+	         <a class="my-3 text-white block" href="<%=request.getContextPath() %>/mypage/orderlist">구매내역<span class="text-white text-xs p-1"></span></a> 
 	      </div>
 	      <div class="p-5 w-48 ">
 	         <div class="text-xs uppercase text-gray-500 font-medium">Contact us</div>

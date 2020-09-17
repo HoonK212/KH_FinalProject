@@ -40,7 +40,7 @@
 				      </select>
 				  </div>
 				  
-	            <input name="data" type="text" class="mr-3" placeholder="입력하세요"/>
+	            <input name="data" type="text" class="mr-3" placeholder="검색어를 입력하세요."/>
 	            <input name="searchType" value="search" type="hidden" />
 			    <button class='bg-gray-100 text-gray-800 py-2 px-3 rounded font-bold'>
 			      조회하기
@@ -67,6 +67,7 @@
 			        </tr>
 			      </thead>
 			    <tbody class="text-gray-700">
+			    <c:if test="${!empty slist }">
 			    <c:forEach items="${slist }" var="st" varStatus="status">
 			      <tr class="${status.count % 2 == 1 ? '' : 'bg-gray-100'} hover:bg-blue-200 cursor-pointer" onclick="getOrdersDetail(${status.count})">
 			        <td class="w-1/4 py-3 px-4 text-center" >${st.rnum }</td>
@@ -100,7 +101,7 @@
 			        <td class="w-1/4 py-3 px-4 text-center">${st.op_no }</td>
 			        <td class="w-1/4 py-3 px-4 text-center">${st.o_no }</td>
 			        <td class="w-1/4 py-3 px-4 text-center">${st.code }</td>
-			        <td class="w-1/4 py-3 px-4 text-center">${st.name }</td>
+			        <td class="w-1/4 py-3 px-4 text-center" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${st.name }</td>
 			        <td class="w-1/4 py-3 px-4 text-center"><fmt:formatNumber pattern="#,###" value="${st.amount }" />개</td>
 			        <td class="w-1/4 py-3 px-4 text-center">${st.id }</td>
 			        <c:choose>
@@ -113,7 +114,11 @@
 			        </c:choose>
 			        
 			      </tr>
-			     </c:forEach> 
+			     </c:forEach>
+			     </c:if>
+			     <c:if test="${empty slist }">
+			     	<td colspan="9" class="w-1/4 py-3 px-4 text-center font-bold">조회된 데이터가 없습니다.</td>
+			     </c:if>
 			    </tbody>
 			    </table>
 			  </div>
@@ -277,7 +282,7 @@
 				</dialog>
 				
    	  			<!-- Order Status Modal -->
-				<dialog id="OrderStatus" class="fixed h-auto w-1/12 md:w-1/2 p-5  bg-white rounded-md ">
+				<dialog id="OrderStatus" class="fixed h-auto w-2/5 p-5  bg-white rounded-md ">
 					<div class="flex flex-col w-full h-auto justify-center items-center">
 						<!-- Header -->
 						<div class="w-full h-auto">

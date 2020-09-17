@@ -36,7 +36,7 @@
 		      </select>
 		  </div>
 		  
-          <input name="data" type="text" class="mr-3" placeholder="입력하세요" />
+          <input name="data" type="text" class="mr-3" placeholder="검색어를 입력하세요." />
           <input name="searchType" value="search" type="hidden" />
 		  <button type="submit" class='text-white py-2 px-3 rounded font-bold bg-blue-500' >
 		    조회하기
@@ -64,20 +64,25 @@
 			        </tr>
 			      </thead>
 			    <tbody class="text-gray-700">
+			    <c:if test="${!empty plist }">
 			    <c:forEach items="${plist}" var="product" varStatus="status">
 			      <tr class="${status.count % 2 == 1 ? '' : 'bg-gray-100'} hover:bg-blue-200" onclick="location.href='<%=request.getContextPath()%>/admin/productdetail?code=${product.code}'" style="cursor:pointer;">
 			        <td class="w-1/4 py-3 px-4 text-center">${product.rnum  }</td>
 			        <td class="w-1/4 py-3 px-4 text-center">${product.code }</td>
-			        <td class="w-1/4 py-3 px-4 text-center">${product.name }</td>
+			        <td class="w-1/4 py-3 px-4 text-center" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${product.name }</td>
 			        <td class="w-1/4 py-3 px-4 text-center">
 			        <fmt:formatNumber pattern="#,###" value="${product.price}" />원
 			        </td>
-			        <td class="w-1/4 py-3 px-4 text-center">${product.describe }</td>
-			        <td class="w-1/4 py-3 px-4 text-center">${product.company }</td>
+			        <td class="w-1/4 py-3 px-4 text-center" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${product.describe }</td>
+			        <td class="w-1/4 py-3 px-4 text-center" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${product.company }</td>
 			        <td class="w-1/4 py-3 px-4 text-center"><fmt:formatDate value="${product.dates }" pattern="yyyy-MM-dd"/></td>
 			        <td class="w-1/4 py-3 px-4 text-center">${product.stock }</td>
 			      </tr>
 			     </c:forEach> 
+			     </c:if>
+			     <c:if test="${empty plist }">
+			     	<td colspan="8" class="w-1/4 py-3 px-4 text-center font-bold">조회된 데이터가 없습니다.</td>
+			     </c:if>
 			    </tbody>
 			    </table>
 			  </div>

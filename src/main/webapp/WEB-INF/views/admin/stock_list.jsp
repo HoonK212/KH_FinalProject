@@ -35,7 +35,7 @@
 				      </select>
 				  </div>
 				  
-	            <input name="data" type="text" class="mr-3" placeholder="입력하세요" />
+	            <input name="data" type="text" class="mr-3" placeholder="검색어를 입력하세요." />
 	            <input name="searchType" value="search" type="hidden" />
 			    <button class='bg-gray-100 text-gray-800 py-2 px-3 rounded font-bold'>
 			      조회하기
@@ -58,11 +58,12 @@
 			        </tr>
 			      </thead>
 			    <tbody class="text-gray-700">
+			    <c:if test="${!empty plist }">
 			    <c:forEach items="${plist }" var="product" varStatus="status">
 			      <tr class="${status.count % 2 == 1 ? '' : 'bg-gray-100'} hover:bg-blue-200 cursor-pointer" onclick="getStockDetail(${status.count})">
 			        <td class="w-1/4 py-3 px-4 text-center">${product.rnum }</td>
 			        <td class="w-1/4 py-3 px-4 text-center">${product.code }</td>
-			        <td class="w-1/4 py-3 px-4 text-center">${product.name }</td>
+			        <td class="w-1/4 py-3 px-4 text-center" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${product.name }</td>
 			        <td class="w-1/4 py-3 px-4 text-center"><fmt:formatNumber pattern="#,###" value="${product.stock }" />개</td>
 			        <c:if test="${product.sell eq 1 }">
 			        <td class="w-1/4 py-3 px-4 text-center text-blue-500 font-bold">판매중</td>
@@ -72,6 +73,10 @@
 			      	</c:if>
 			      </tr>
 			     </c:forEach> 
+			     </c:if>
+			     <c:if test="${empty plist }">
+			     	<td colspan="5" class="w-1/4 py-3 px-4 text-center font-bold">조회된 데이터가 없습니다.</td>
+			     </c:if>
 			    </tbody>
 			    </table>
 			  </div>
