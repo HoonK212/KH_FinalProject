@@ -189,14 +189,7 @@ body {background-color:#eee}
  
  <script type="text/javascript">
  
- var dataset = [
-		<c:forEach items='${mygoal}' var='mg'>
-			{
-				title: '출석',
-	 			start: '${mg.DATES}',
-			},
-		</c:forEach>
-	];
+
 
 
   document.addEventListener('DOMContentLoaded', function() {
