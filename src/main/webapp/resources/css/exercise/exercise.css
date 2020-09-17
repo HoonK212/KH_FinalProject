@@ -50,7 +50,7 @@
 .level-title {
 	text-align: center;
 	padding-bottom: 10px;
-	border-bottom: 2px solid #2fcc71;
+	border-bottom: 2px solid #4299e1;
 	max-width: 40%;
 	margin: 40px auto;
 	font-size: 1.5em;
@@ -116,12 +116,12 @@
 .form label:hover {
 	cursor: pointer;
     background-color: white;
-    border: 3px solid #2fcc71;
+    border: 3px solid #4299e1;
 }
 
 .form .plan input:checked+label, .form .payment-plan input:checked+label,
 	.form .payment-type input:checked+label {
-	border: 3px solid #2fcc71;
+	border: 3px solid #4299e1;
 	background-color: white;
 }
 
@@ -133,8 +133,8 @@
 	height: 40px;
 	line-height: 40px;
 	border-radius: 100%;
-	border: 2px solid #2fcc71;
-	background-color: #2fcc71;
+	border: 2px solid #4299e1;
+	background-color: #4299e1;
 	z-index: 10;
 	position: absolute;
 	top: -10px;
@@ -166,12 +166,12 @@
 .levelForm label:hover {
 	cursor: pointer;
     background-color: white;
-    border: 3px solid #2fcc71;
+    border: 3px solid #4299e1;
 }
 
 .levelForm .plan input:checked+label, .levelForm .payment-plan input:checked+label,
 	.levelForm .payment-type input:checked+label {
-	border: 3px solid #2fcc71;
+	border: 3px solid #4299e1;
 	background-color: white;
 }
 
@@ -183,8 +183,8 @@
 	height: 40px;
 	line-height: 40px;
 	border-radius: 100%;
-	border: 2px solid #2fcc71;
-	background-color: #2fcc71;
+	border: 2px solid #4299e1;
+	background-color: #4299e1;
 	z-index: 10;
 	position: absolute;
 	top: -10px;
@@ -216,13 +216,13 @@
 .form-exercies label:hover {
 	cursor: pointer;
     background-color: white;
-    border: 3px solid #2fcc71;
+    border: 3px solid #4299e1;
 }
 
 .form-exercies .plan input:checked+label, .form-exercies .payment-plan input:checked+label,
 	.form-exercies .payment-type input:checked+label {
-	border: 3px solid #2fcc71;
-	background-color: #2fcc71;
+	border: 3px solid #4299e1;
+	background-color: #4299e1;
 }
 
 .form-exercies .plan input:checked+label:after, form .payment-plan input:checked+label:after,
@@ -232,8 +232,8 @@
 	height: 40px;
 	line-height: 40px;
 	border-radius: 100%;
-	border: 2px solid #2fcc71;
-	background-color: #2fcc71;
+	border: 2px solid #4299e1;
+	background-color: #4299e1;
 	z-index: 10;
 	position: absolute;
 	top: -10px;

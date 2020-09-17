@@ -202,7 +202,7 @@ $(".complete").click(function() {
 				<div class="flex-1"></div>
 
 				<div class="flex-1">
-					<div class="w-10 h-10 bg-green-500 mx-auto rounded-full text-lg text-white flex items-center">
+					<div class="w-10 h-10 bg-blue-500 mx-auto rounded-full text-lg text-white flex items-center">
 						<span class="text-white text-center w-full">1</span>
 					</div>
 				</div>
@@ -210,25 +210,25 @@ $(".complete").click(function() {
 
 				<div class="w-1/6 align-center items-center align-middle content-center flex">
 					<div class="w-full bg-gray-300 rounded items-center align-middle align-center flex-1">
-						<div class="bg-green-500 text-xs leading-none py-1 text-center text-grey-darkest rounded " style="width: 100%"></div>
+						<div class="bg-blue-500 text-xs leading-none py-1 text-center text-grey-darkest rounded " style="width: 100%"></div>
 					</div>
 				</div>
 
 
 				<div class="flex-1">
-					<div class="w-10 h-10 bg-green-500 mx-auto rounded-full text-lg text-white flex items-center">
+					<div class="w-10 h-10 bg-blue-500 mx-auto rounded-full text-lg text-white flex items-center">
 						<span class="text-white text-center w-full">2</span>
 					</div>
 				</div>
 
 				<div class="w-1/6 align-center items-center align-middle content-center flex">
 					<div class="w-full bg-gray-300 rounded items-center align-middle align-center flex-1">
-						<div class="bg-green-500 text-xs leading-none py-1 text-center text-grey-darkest rounded " style="width: 100%"></div>
+						<div class="bg-blue-500 text-xs leading-none py-1 text-center text-grey-darkest rounded " style="width: 100%"></div>
 					</div>
 				</div>
 
 				<div class="flex-1">
-					<div class="w-10 h-10 bg-green-500 mx-auto rounded-full text-lg text-white flex items-center">
+					<div class="w-10 h-10 bg-blue-500 mx-auto rounded-full text-lg text-white flex items-center">
 						<span class="text-white text-center w-full">3</span>
 					</div>
 				</div>
@@ -236,13 +236,13 @@ $(".complete").click(function() {
 
 				<div class="w-1/6 align-center items-center align-middle content-center flex">
 					<div class="w-full bg-gray-300 rounded items-center align-middle align-center flex-1">
-						<div class="bg-green-500 text-xs leading-none py-1 text-center text-grey-darkest rounded " style="width: 100%"></div>
+						<div class="bg-blue-500 text-xs leading-none py-1 text-center text-grey-darkest rounded " style="width: 100%"></div>
 					</div>
 				</div>
 
 
 				<div class="flex-1">
-					<div class="w-10 h-10 bg-green-500 mx-auto rounded-full text-lg text-white flex items-center">
+					<div class="w-10 h-10 bg-blue-500 mx-auto rounded-full text-lg text-white flex items-center">
 						<span class="text-white text-center w-full">4</span>
 					</div>
 				</div>
@@ -251,7 +251,7 @@ $(".complete").click(function() {
 				<div class="flex-1"></div>
 			</div>
 
-			<div class="flex text-base content-center text-center">
+			<div class="flex text-base content-center text-center font-bold">
 				<div class="w-1/4">종류선택</div>
 				<div class="w-1/4">등급선택</div>
 				<div class="w-1/4">운동선택</div>
@@ -262,7 +262,7 @@ $(".complete").click(function() {
 
 		<!-- 안내문구 시작 -->
 		<div class="container_checkbox">
-			<h1 class="level-title">파이팅, 포기하지 마세요!</h1>
+			<h1 class="level-title font-bold">파이팅, 포기하지 마세요!</h1>
 		</div>
 		<!-- 안내문구 끝 -->
 

@@ -45,7 +45,7 @@ $(document).ready(function() {
 			</div>
 	
 			<div class="flex-1">
-				<div class="w-10 h-10 bg-green-500 mx-auto rounded-full text-lg text-white flex items-center">
+				<div class="w-10 h-10 bg-blue-500 mx-auto rounded-full text-lg text-white flex items-center">
 					<span class="text-white text-center w-full">1</span>
 				</div>
 			</div>
@@ -53,20 +53,20 @@ $(document).ready(function() {
 	
 			<div class="w-1/6 align-center items-center align-middle content-center flex">
 				<div class="w-full bg-gray-300 rounded items-center align-middle align-center flex-1">
-				 	<div class="bg-green-500 text-xs leading-none py-1 text-center text-grey-darkest rounded " style="width: 100%"></div>
+				 	<div class="bg-blue-500 text-xs leading-none py-1 text-center text-grey-darkest rounded " style="width: 100%"></div>
 				</div>
 			</div>
 		
 			
 			<div class="flex-1">
-				<div class="w-10 h-10 bg-green-500 mx-auto rounded-full text-lg text-white flex items-center">
+				<div class="w-10 h-10 bg-blue-500 mx-auto rounded-full text-lg text-white flex items-center">
 					<span class="text-white text-center w-full">2</span>
 				</div>
 			</div>
 		
 			<div class="w-1/6 align-center items-center align-middle content-center flex">
 				<div class="w-full bg-gray-300 rounded items-center align-middle align-center flex-1">
-				 	<div class="bg-green-500 text-xs leading-none py-1 text-center text-grey-darkest rounded " style="width: 20%"></div>
+				 	<div class="bg-blue-500 text-xs leading-none py-1 text-center text-grey-darkest rounded " style="width: 20%"></div>
 				</div>
 			</div>
 		
@@ -95,7 +95,7 @@ $(document).ready(function() {
 			</div>		
 		</div>
 		
-		<div class="flex text-base content-center text-center">
+		<div class="flex text-base content-center text-center font-bold">
 			<div class="w-1/4">
 				종류선택
 			</div>
@@ -117,7 +117,7 @@ $(document).ready(function() {
 		
 		<!-- radiobox 시작 -->
 		<div class="container_checkbox">
-		<h1 class="level-title">등급을 선택해주세요</h1>
+		<h1 class="level-title font-bold">등급을 선택해주세요</h1>
 		<form class="levelForm cf" action="<%=request.getContextPath() %>/exercise/select" method="post">
 			<section class="plan cf">
 				<input type="radio" name="level" id="level1" value="1"><label class="free-label four-level col" for="level1">왕초보자</label>
@@ -129,13 +129,13 @@ $(document).ready(function() {
 				
 			<!-- 버튼 시작 -->
 			<div class="flex nav-button margin-topbottom">
-			    <button type="button" class="border border-gray-500 text-black-500 block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:bg-green-500 hover:text-white">
+			    <button type="button" class="border border-blue-500 text-white block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:bg-blue-600 hover:text-white bg-blue-500">
 			        <svg class="h-5 w-5 mr-2 fill-current" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="-49 141 512 512" style="enable-background:new -49 141 512 512;" xml:space="preserve">
 			            <path id="XMLID_10_" d="M438,372H36.355l72.822-72.822c9.763-9.763,9.763-25.592,0-35.355c-9.763-9.764-25.593-9.762-35.355,0 l-115.5,115.5C-46.366,384.01-49,390.369-49,397s2.634,12.989,7.322,17.678l115.5,115.5c9.763,9.762,25.593,9.763,35.355,0 c9.763-9.763,9.763-25.592,0-35.355L36.355,422H438c13.808,0,25-11.193,25-25S451.808,372,438,372z"></path>
 			        </svg>
 			        <a href="<%=request.getContextPath() %>/exercise/type">Previous page</a>
 			    </button>
-			    <button type="submit" class="border border-gary-500 bg-green-500 text-white block rounded-sm font-bold py-4 px-6 ml-2 flex items-center">
+			    <button type="submit" class="border border-gary-500 bg-blue-500 text-white block rounded-sm font-bold py-4 px-6 ml-2 flex items-center hover:bg-blue-600">
 			        Next page
 			        <svg class="h-5 w-5 ml-2 fill-current" clasversion="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 			             viewBox="-49 141 512 512" style="enable-background:new -49 141 512 512;" xml:space="preserve">

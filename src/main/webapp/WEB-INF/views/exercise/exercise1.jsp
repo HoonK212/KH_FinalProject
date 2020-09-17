@@ -50,7 +50,7 @@ $(document).ready(function() {
 			</div>
 	
 			<div class="flex-1">
-				<div class="w-10 h-10 bg-green-500 mx-auto rounded-full text-lg text-white flex items-center">
+				<div class="w-10 h-10 bg-blue-500 mx-auto rounded-full text-lg text-white flex items-center">
 					<span class="text-white text-center w-full">1</span>
 				</div>
 			</div>
@@ -58,7 +58,7 @@ $(document).ready(function() {
 	
 			<div class="w-1/6 align-center items-center align-middle content-center flex">
 				<div class="w-full bg-gray-300 rounded items-center align-middle align-center flex-1">
-				 	<div class="bg-green-500 text-xs leading-none py-1 text-center text-grey-darkest rounded " style="width: 20%"></div>
+				 	<div class="bg-blue-500 text-xs leading-none py-1 text-center text-grey-darkest rounded " style="width: 20%"></div>
 				</div>
 			</div>
 		
@@ -100,7 +100,7 @@ $(document).ready(function() {
 			</div>		
 		</div>
 		
-		<div class="flex text-base content-center text-center">
+		<div class="flex text-base content-center text-center font-bold">
 			<div class="w-1/4">
 				종류선택
 			</div>
@@ -120,7 +120,7 @@ $(document).ready(function() {
 		<!-- radiobox 시작 -->
 		<div class="container_checkbox">
 		
-		<h1 class="level-title">종류를 선택해주세요</h1>
+		<h1 class="level-title font-bold">종류를 선택해주세요</h1>
 		
 		<form class="form cf"  method="post">
 			<section class="plan cf flex">
@@ -135,7 +135,7 @@ $(document).ready(function() {
 			
 			<!-- 버튼 시작 -->
 			<div class="flex nav-button margin-topbottom">
-			    <button type="submit" class="border border-gary-500 bg-green-500 text-white block rounded-sm font-bold py-4 px-6 ml-2 flex items-center">
+			    <button type="submit" class="border border-blue-500 bg-blue-500 text-white block rounded-sm font-bold py-4 px-6 ml-2 flex items-center hover:bg-blue-600">
 			        Next page
 			        <svg class="h-5 w-5 ml-2 fill-current" clasversion="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 			             viewBox="-49 141 512 512" style="enable-background:new -49 141 512 512;" xml:space="preserve">
