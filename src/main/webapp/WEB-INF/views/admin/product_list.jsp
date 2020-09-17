@@ -38,11 +38,11 @@
 		  
           <input name="data" type="text" class="mr-3" placeholder="검색어를 입력하세요." />
           <input name="searchType" value="search" type="hidden" />
-		  <button type="submit" class='text-white py-2 px-3 rounded font-bold bg-blue-500' >
+		  <button type="submit" class='text-white py-2 px-3 rounded font-bold bg-blue-500 hover:bg-blue-600' >
 		    조회하기
 		  </button>
 			<!-- 상품등록 페이지로 이동하는 버튼   -->
-			<button type="button" class='product-register-btn bg-gray-600 text-white py-2 px-3 rounded font-bold ml-4' >
+			<button type="button" class='product-register-btn bg-gray-600 text-white py-2 px-3 rounded font-bold ml-4 hover:bg-gray-700' >
 			    상품등록
 			</button>
 		</div>

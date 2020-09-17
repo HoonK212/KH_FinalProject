@@ -7,32 +7,32 @@
 	   <div class="max-w-6xl m-auto text-gray-800 flex flex-wrap justify-center">
 	      <div class="p-5 w-48 ">
 	         <div class="text-xs uppercase text-gray-500 font-medium">SHOP</div>
-	         <a class="my-3 text-white block" href="<%=request.getContextPath() %>/shopping/list?listno=1">이벤트 상품<span class="text-white text-xs p-1"></span></a>
-	         <a class="my-3 text-white block" href="<%=request.getContextPath() %>/shopping/list?listno=2">인기 상품<span class="text-white text-xs p-1"></span></a>
-	         <a class="my-3 text-white block" href="<%=request.getContextPath() %>/shopping/list?listno=3">신규 상품<span class="text-white text-xs p-1"></span></a>
+	         <a class="my-3 text-white block hover:text-blue-400" href="<%=request.getContextPath() %>/shopping/list?listno=1">이벤트 상품<span class="text-white text-xs p-1"></span></a>
+	         <a class="my-3 text-white block hover:text-blue-400" href="<%=request.getContextPath() %>/shopping/list?listno=2">인기 상품<span class="text-white text-xs p-1"></span></a>
+	         <a class="my-3 text-white block hover:text-blue-400" href="<%=request.getContextPath() %>/shopping/list?listno=3">신규 상품<span class="text-white text-xs p-1"></span></a>
 	      </div>
 	      <div class="p-5 w-48 ">
 	         <div class="text-xs uppercase text-gray-500 font-medium">EXERCISE</div>
-	         <a class="my-3 text-white block" href="<%=request.getContextPath() %>/exercise/type">운동하기<span class="text-white text-xs p-1"></span></a>
+	         <a class="my-3 text-white block hover:text-blue-400" href="<%=request.getContextPath() %>/exercise/type">운동하기<span class="text-white text-xs p-1"></span></a>
 	      </div>
 	      <div class="p-5 w-48 ">
 	         <div class="text-xs uppercase text-gray-500 font-medium">EVENT</div>
-	         <a class="my-3 text-white block" href="<%=request.getContextPath() %>/event/attend">출석이벤트<span class="text-white text-xs p-1"></span></a>
-	         <a class="my-3 text-white block" href="<%=request.getContextPath() %>/event/rockpaper">가위바위보<span class="text-white text-xs p-1"></span></a>
-	         <a class="my-3 text-white block" href="<%=request.getContextPath() %>/event/roulette">룰렛돌리기<span class="text-white text-xs p-1"></span></a> 
-	         <a class="my-3 text-white block" href="<%=request.getContextPath() %>/event/quiz">초성퀴즈<span class="text-white text-xs p-1"></span></a> 
-	         <a class="my-3 text-white block" href="<%=request.getContextPath() %>/event/record">신기록 랭킹<span class="text-white text-xs p-1"></span></a> 
+	         <a class="my-3 text-white block hover:text-blue-400" href="<%=request.getContextPath() %>/event/attend">출석이벤트<span class="text-white text-xs p-1"></span></a>
+	         <a class="my-3 text-white block hover:text-blue-400" href="<%=request.getContextPath() %>/event/rockpaper">가위바위보<span class="text-white text-xs p-1"></span></a>
+	         <a class="my-3 text-white block hover:text-blue-400" href="<%=request.getContextPath() %>/event/roulette">룰렛돌리기<span class="text-white text-xs p-1"></span></a> 
+	         <a class="my-3 text-white block hover:text-blue-400" href="<%=request.getContextPath() %>/event/quiz">초성퀴즈<span class="text-white text-xs p-1"></span></a> 
+	         <a class="my-3 text-white block hover:text-blue-400" href="<%=request.getContextPath() %>/event/record">신기록 랭킹<span class="text-white text-xs p-1"></span></a> 
 	      </div>
 	      <div class="p-5 w-48 ">
 	         <div class="text-xs uppercase text-gray-500 font-medium">BOARD</div>
-	         <a class="my-3 text-white block" href="<%=request.getContextPath() %>/board/list">게시판<span class="text-white text-xs p-1"></span></a>
-	         <a class="my-3 text-white block" href="<%=request.getContextPath() %>/board/write">게시글쓰기<span class="text-white text-xs p-1"></span></a>
+	         <a class="my-3 text-white block hover:text-blue-400" href="<%=request.getContextPath() %>/board/list">게시판<span class="text-white text-xs p-1"></span></a>
+	         <a class="my-3 text-white block hover:text-blue-400" href="<%=request.getContextPath() %>/board/write">게시글쓰기<span class="text-white text-xs p-1"></span></a>
 	      </div>
 	      <div class="p-5 w-48 ">
 	         <div class="text-xs uppercase text-gray-500 font-medium">MYPAGE</div>
-	         <a class="my-3 text-white block" href="<%=request.getContextPath() %>/mypage/mymain">회원정보<span class="text-white text-xs p-1"></span></a>
-	         <a class="my-3 text-white block" href="<%=request.getContextPath() %>/mypage/goalsetting">운동관리<span class="text-white text-xs p-1"></span></a>
-	         <a class="my-3 text-white block" href="<%=request.getContextPath() %>/mypage/orderlist">구매내역<span class="text-white text-xs p-1"></span></a> 
+	         <a class="my-3 text-white block hover:text-blue-400" href="<%=request.getContextPath() %>/mypage/mymain">회원정보<span class="text-white text-xs p-1"></span></a>
+	         <a class="my-3 text-white block hover:text-blue-400" href="<%=request.getContextPath() %>/mypage/goalsetting">운동관리<span class="text-white text-xs p-1"></span></a>
+	         <a class="my-3 text-white block hover:text-blue-400" href="<%=request.getContextPath() %>/mypage/orderlist">구매내역<span class="text-white text-xs p-1"></span></a> 
 	      </div>
 	      <div class="p-5 w-48 ">
 	         <div class="text-xs uppercase text-gray-500 font-medium">Contact us</div>

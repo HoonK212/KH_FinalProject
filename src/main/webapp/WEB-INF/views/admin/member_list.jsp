@@ -36,7 +36,7 @@
 		  
           <input name="data" type="text" class="mr-3" placeholder="검색어를 입력하세요." />
           <input name="searchType" value="search" type="hidden" />
-		  <button type="submit" class='bg-gray-100 text-gray-800 py-2 px-3 rounded font-bold'>
+		  <button type="submit" class='text-white py-2 px-3 rounded font-bold bg-blue-500 hover:bg-blue-600'>
 		    조회하기
 		  </button>
 		</div>

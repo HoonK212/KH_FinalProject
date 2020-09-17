@@ -81,8 +81,8 @@
                 <p class="text-sm sm:text-base text-white mt-8">Physical fitness is not only one of the most important keys to a healthy body, it is the basis of dynamic and creative intellectual activity.</p>
                 <p class="text-sm sm:text-base text-white mt-4"> - John F.Kennedy - </p>
                 <div class="flex mt-8">
-                    <a href="<%=request.getContextPath()%>/exercise/type" class="uppercase py-2 px-5 sm:px-8 rounded-full bg-blue-500 border-2 border-transparent text-white text-sm mr-4 hover:bg-blue-300">Start Of Exercise</a>
-                    <a href="<%=request.getContextPath()%>/mypage/goalsetting" class="uppercase py-2 px-5 sm:px-8 rounded-full bg-transparent border-2 border-blue-500 text-white hover:bg-blue-300 hover:border-blue-400 hover:text-white text-sm">Goal Setting</a>
+                    <a href="<%=request.getContextPath()%>/exercise/type" class="uppercase py-2 px-5 sm:px-8 rounded-full bg-blue-500 border-2 border-transparent text-white text-sm mr-4 hover:bg-blue-600">Start Of Exercise</a>
+                    <a href="<%=request.getContextPath()%>/mypage/goalsetting" class="uppercase py-2 px-5 sm:px-8 rounded-full bg-transparent border-2 border-blue-500 text-white hover:bg-blue-600 hover:border-blue-600 hover:text-white text-sm">Goal Setting</a>
                 </div>
             </div>
             <div class="hidden sm:block sm:w-1/2 lg:w-3/5 relative">
@@ -145,7 +145,7 @@
         <p class="text-gray-600 leading-relaxed text-lg mb-8 text-center">
             출석 이벤트, 가위바위보, 룰렛돌리기, 초성퀴즈, 신기록 랭킹을 통해 포인트를 획득하세요.
         </p>
-        <button class="mx-auto bg-blue-500 hover:bg-blue-300 text-white rounded py-3 px-8 shadow-lg text-xl">
+        <button class="mx-auto bg-blue-500 hover:bg-blue-600 text-white rounded py-3 px-8 shadow-lg text-xl">
             <a href="<%=request.getContextPath() %>/event/attend">Going to Event</a> 
         </button>
     </div>
