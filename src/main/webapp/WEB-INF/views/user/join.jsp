@@ -275,9 +275,6 @@
 			                     <input type="text" name="addr"
 			                        class="addr w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium mb-2"
 			                        placeholder="도로명 주소" id="sample4_roadAddress">
-			                     <input type="text"
-			                        class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium mb-2"
-			                        placeholder="지번 주소" id="sample4_jibunAddress">
 			                     <input type="text" name="addr_detail"
 			                        class="addr_detail w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium mb-2"
 			                        placeholder="상세 주소" id="sample4_detailAddress">
@@ -644,30 +641,8 @@
                  // 우편번호와 주소 정보를 해당 필드에 넣는다.
                  document.getElementById('sample4_postcode').value = data.zonecode;
                  document.getElementById("sample4_roadAddress").value = roadAddr;
-                 document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
                  
-                 // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-                 if(roadAddr !== ''){
-                     document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-                 } else {
-                     document.getElementById("sample4_extraAddress").value = '';
-                 }
-
-                 var guideTextBox = document.getElementById("guide");
-                 // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-                 if(data.autoRoadAddress) {
-                     var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-                     guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-                     guideTextBox.style.display = 'block';
-
-                 } else if(data.autoJibunAddress) {
-                     var expJibunAddr = data.autoJibunAddress;
-                     guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-                     guideTextBox.style.display = 'block';
-                 } else {
-                     guideTextBox.innerHTML = '';
-                     guideTextBox.style.display = 'none';
-                 }
+                 document.getElementById("sample4_detailAddress").focus();
              }
          }).open();
      }//end
