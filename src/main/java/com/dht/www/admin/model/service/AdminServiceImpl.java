@@ -344,8 +344,10 @@ public class AdminServiceImpl implements AdminService {
 			int idx = -1;
 			
 			//상품 이미지를 추가 업로드
-			if(!(files.get(0).getOriginalFilename().equals(""))) { 
+			if(!(files.get(0).getOriginalFilename().equals("")) ) { 
 		        
+				System.out.println("이미지 들어왔나 ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ");
+				
 			    List<Map<String, Object>> fileData = null;
 
 			    try {
@@ -377,7 +379,43 @@ public class AdminServiceImpl implements AdminService {
 				} catch (FileException e) {
 					e.printStackTrace();
 				}
+		      }else if( !(files.get(1).getOriginalFilename().equals("")) ) {
+		    	  
+		    	  System.out.println("썸네일 없이 상세만 등록했을때");
+		    	  
+		    	  List<Map<String, Object>> fileData = null;
+		    	  
+		    	  try {
+		    		  
+				    	//파일 첫번째 인덱스가 빈 값일때 배열 삭제
+				    	if(files.get(0).getOriginalFilename().equals("")) {
+				    		files.remove(0);
+				    	}
+		    		  
+		    		  //실제로 이미지 업로드
+		    		  fileData = new FileUtil().fileUpload(files, path);
+		    		  
+						for(Map<String, Object> f : fileData) {
+							
+							//이미지가 참조하는 상품의 코드 저장하기
+							f.put("ref", product.get("code"));
+							//썸네일 '0' 저장
+							f.put("thumbnail", 0);
+							
+							//DB에 상품이미지 정보 저장
+							adminDao.insertProductImage(f);
+							
+						}
+					
+				} catch (FileException e) {
+
+					e.printStackTrace();
+				}
+		    	  
+		    	  
 		      }else { //추가로 상품 이미지 등록 하지 않았을 때
+		    	  
+		    	  System.out.println("이미지  안들어옴 ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ");
 		    	  
 		    	 // System.out.println("!!");
 		    	  
