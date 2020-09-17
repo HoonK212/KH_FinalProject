@@ -27,8 +27,8 @@
 	</update>
 	
 	<insert id="insertUser" >
-		INSERT INTO USERS ( ID, PW, NAME, NICK, BIRTH, GENDER, MAIL, TEL, ADDR, POST )
-		VALUES ( #{id}, #{pw}, #{name}, #{nick}, #{birth}, #{gender}, #{mail}, #{tel}, #{addr}, #{post} )
+		INSERT INTO USERS ( ID, PW, NAME, NICK, BIRTH, GENDER, MAIL, TEL, ADDR, POST, DATES )
+		VALUES ( #{id}, #{pw}, #{name}, #{nick}, #{birth}, #{gender}, #{mail}, #{tel}, #{addr}, #{post}, sysdate + (INTERVAL '9' HOUR) )
 	</insert>
 	
 	<insert id="insertUserProfile">
