@@ -8,11 +8,18 @@
 			<span class="font-black text-2xl">통합관리시스템</span>
 		</div>
 		<div class="flex items-center">
+			
 			<div x-data="{ dropdownOpen: false }"  class="relative">
-				<button class="relative z-10 block h-8 w-8 rounded-full overflow-hidden shadow focus:outline-none">
+				<button @click="dropdownOpen = !dropdownOpen" class="relative z-10 block h-8 w-8 rounded-full overflow-hidden shadow focus:outline-none">
 					<img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=296&q=80" alt="Your avatar">
 				</button>
+				<div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
+	   
+				<div x-show="dropdownOpen" class="absolute right-0 mt-2 py-2 w-48 bg-indigo-600 rounded-md shadow-xl z-20">
+					<a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-600 hover:text-white">로그아웃</a>
+				</div>
 			</div>
+
 			<span class="font-mono ml-4">문지영님</span>
 		</div>
 	</div>
