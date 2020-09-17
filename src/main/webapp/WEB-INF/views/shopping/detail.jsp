@@ -231,7 +231,7 @@ aside {
 					<c:forEach items="${list}" var="item" begin="0" end="3">
 						<div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
 							<a href="/shopping/detail?code=${item.code }">
-								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('<%=request.getContextPath() %>/resources/${item.path }/${item.renamed }.${item.ext }')"></div>
+								<div class="flex items-end justify-end h-56 w-full bg-cover" style=" background-size: 290px 224px; background-image: url('<%=request.getContextPath() %>/resources/${item.path }/${item.renamed }.${item.ext }')"></div>
 							</a>
 							<div class="px-5 py-3">
 								<h3 class="text-gray-700 uppercase"><a href="/shopping/detail?code=${item.code }">${item.name}</a></h3>
