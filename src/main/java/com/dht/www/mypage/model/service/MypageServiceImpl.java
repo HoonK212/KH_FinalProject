@@ -1,5 +1,6 @@
 package com.dht.www.mypage.model.service;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,7 +74,22 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public Map<String, Object> selectExerciseGoal(String id) {
 		
-		return mypageDao.selectExerciseGoal(id);
+		Map<String,Object> commandMap = new HashMap<>();
+		commandMap = mypageDao.selectExerciseGoal(id);
+		
+		String ex = (String) commandMap.get("exercises");
+		String[] exArr = ex.split(",");
+		
+		String days = String.valueOf( commandMap.get("days") );
+		String[] daysArr = days.split("");
+		
+		Map<String,Object> result = new HashMap<>();
+		result.put("exercises", exArr);
+		result.put("grade", commandMap.get("grade"));
+		result.put("days", daysArr);
+		result.put("id", commandMap.get("id"));
+		
+		return result;
 	}
 
 }

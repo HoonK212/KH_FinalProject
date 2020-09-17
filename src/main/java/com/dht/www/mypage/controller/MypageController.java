@@ -37,7 +37,7 @@ public class MypageController {
 	  
 	  model.addAttribute("pic", pic);
 	  model.addAttribute("user", user);
-	  model.addAttribute("goal", commandMap);
+	  model.addAttribute("mygoal", commandMap);
 	  
       return "mypage/goalSetting";
    }
@@ -68,7 +68,7 @@ public class MypageController {
 		   int res2 = mypageService.updateGoal(goal);
 	   }
 	   
-	   return "mypage/goalSetting";
+	   return "redirect:goalsetting";
    }
    
 
@@ -78,9 +78,12 @@ public class MypageController {
 	   
 	 Files pic = (Files) session.getAttribute("logInPic");
 	 Users user = (Users) session.getAttribute("logInInfo");
+	 
+	 Map<String,Object> mygoal =  mypageService.selectExerciseGoal(user.getId());
 		  
 	 model.addAttribute("pic", pic);
 	 model.addAttribute("user", user);
+	 model.addAttribute("mygoal", mygoal);
 	   
       return "mypage/myMain";
    }
@@ -93,9 +96,9 @@ public class MypageController {
 			HttpSession session, 
 			Model model) {
 	   
+	   //마이페이지 사이드바에 사용할 정보
 	   Users user = (Users)session.getAttribute("logInInfo");
 	   Files pic = (Files) session.getAttribute("logInPic");
-		  
 
 	   Map<String, Object> result = mypageService.selectOrderList(cPage, cntPerPage, user.getId());
 	   System.out.println(result);

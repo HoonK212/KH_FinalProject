@@ -36,7 +36,7 @@
 	
 	<update id="updateGoal">
 		UPDATE GOAL
-		SET DAYS = #{days}, EXERCISE = #{exercise}, GRADE = #{grade}
+		SET DAYS = #{days}, EXERCISES = #{exercise}, GRADE = #{grade}
 		WHERE ID = #{id}
 	</update>
 	
