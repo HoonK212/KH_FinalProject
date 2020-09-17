@@ -105,7 +105,7 @@
 				<h3 class="text-gray-600 text-2xl font-medium">운동 보조제</h3>
 				<div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
                 
-					<c:forEach items="${list1}" var="list" begin="0" end="3">
+					<c:forEach items="${list2}" var="list" begin="0" end="3">
 						<div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
 							<a href="/shopping/detail?code=${list.code }">
 								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-size: 290px 224px; background-image: url('<%=request.getContextPath() %>/resources/${list.path }/${list.renamed }.${list.ext }')" ></div>
@@ -136,7 +136,7 @@
 				<h3 class="text-gray-600 text-2xl font-medium">운동 기구</h3>
 				<div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
                 
-					<c:forEach items="${list2}" var="list" begin="0" end="3">
+					<c:forEach items="${list1}" var="list" begin="0" end="3">
 						<div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
 							<a href="/shopping/detail?code=${list.code }">
 								<div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('<%=request.getContextPath() %>/resources/${list.path }/${list.renamed }.${list.ext }')"></div>
