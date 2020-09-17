@@ -66,11 +66,6 @@
                         Cart
                     </a>
                 </nav>
-                <button class="lg:hidden flex flex-col ml-4">
-                    <span class="w-6 h-1 bg-white mb-1"></span>
-                    <span class="w-6 h-1 bg-white mb-1"></span>
-                    <span class="w-6 h-1 bg-white mb-1"></span>
-                </button>
             </div>
         </div>
     </header>
