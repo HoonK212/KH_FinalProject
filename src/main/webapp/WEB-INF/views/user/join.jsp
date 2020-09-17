@@ -141,8 +141,8 @@
 								class="w-9/12 px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium mr-6"
 								placeholder="사용하고자 하는 아이디 입력">
 							<label
-								class="flex justify-start items-center rounded-lg bg-white pl-4 pr-6 py-3 shadow-sm bg-gray-800">
-								<div class="select-none text-white font-extrabold" onclick="XmlIdCheck()">중복확인</div>
+								class="flex justify-start items-center rounded-lg bg-white pl-4 pr-6 py-3 shadow-sm bg-blue-500 hover:bg-blue-600">
+								<div class="select-none text-white font-extrabold " onclick="XmlIdCheck()" style="cursor: pointer;">중복확인</div>
 							</label>
 						</div>
 						<label for="nick" class="font-bold mb-1 text-gray-800 inline-block">닉네임</label>
@@ -153,8 +153,8 @@
 								class="w-9/12 px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium mr-6"
 								placeholder="사용하고자 하는 닉네임 입력">
 							<label
-								class="flex justify-start items-center rounded-lg bg-white pl-4 pr-6 py-3 shadow-sm bg-gray-800">
-								<div class="select-none text-white font-extrabold" onclick="XmlNickCheck()">중복확인</div>
+								class="flex justify-start items-center rounded-lg bg-white pl-4 pr-6 py-3 shadow-sm bg-blue-500 hover:bg-blue-600">
+								<div class="select-none text-white font-extrabold" onclick="XmlNickCheck()"style="cursor: pointer;">중복확인</div>
 							</label>
 						</div>
 					</div>
@@ -200,10 +200,10 @@
 							</div>
 							<div class="flex items-center mt-4 h-3 cpt-layout">
 								<div id="cpt-img"></div>
-								<div id="refresh"><img style="width: 50px; height: 50px; margin: 0 auto;" src="<%=request.getContextPath()%>/resources/image/captcha/refreshicon.png" /></div>
+								<div id="refresh" style="cursor: pointer;"><img style="width: 50px; height: 50px; margin: 0 auto;" src="<%=request.getContextPath()%>/resources/image/captcha/refreshicon.png" /></div>
 								<div><input id="input" type="text" class="px-4 py-3 rounded-lg shadow-sm 
 								focus:outline-none focus:shadow-outline text-gray-600 font-medium"/></div>
-								<label class="flex justify-center items-center rounded-lg bg-white pl-3 pr-3 py-3 shadow-sm bg-gray-800">
+								<label class="flex justify-center items-center rounded-lg bg-white pl-3 pr-3 py-3 shadow-sm bg-blue-500 hover:bg-blue-600" style="cursor: pointer;">
 								<div class="select-none text-white font-extrabold" id="btnSubmit">확인</div>
 								</label>
 								<span class="text-blue-600 font-bold" id="result" style="font-size: 0.8rem; min-height: 1rem; display:inline-block"></span>
@@ -246,7 +246,7 @@
 								class="w-9/12 px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium mr-6"
 								placeholder="example@mail.com">
 							<label
-								class="flex justify-start items-center rounded-lg bg-white pl-4 pr-6 py-3 shadow-sm bg-gray-800">
+								class="flex justify-start items-center rounded-lg bg-white pl-4 pr-6 py-3 shadow-sm bg-blue-500 hover:bg-blue-600" style="cursor: pointer;">
 <!-- 								<div class="select-none text-white font-extrabold" onclick="XmlMailCheck()">중복확인</div> -->
 							</label>
 							</div>
@@ -267,7 +267,7 @@
 			                           class="post w-9/12 px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium mr-6"
 			                           placeholder="우편 번호"  id="sample4_postcode">
 			                        <label
-			                           class="flex justify-start items-center rounded-lg bg-white pl-4 pr-6 py-3 shadow-sm bg-gray-800"  onclick="sample4_execDaumPostcode()">
+			                           class="flex justify-start items-center rounded-lg bg-white pl-4 pr-6 py-3 shadow-sm bg-blue-500 hover:bg-blue-600" style="cursor: pointer;" onclick="sample4_execDaumPostcode()">
 			                           
 			                            <div class="select-none text-white font-extrabold" >우편번호검색</div> 
 			                        </label>
@@ -294,7 +294,7 @@
 						<button type="button"
 							x-show="step > 1"
 							@click="step--"
-							class="w-32 focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border" 
+							class="w-32 focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-white bg-gray-800 hover:bg-blue-600 font-medium border" 
 						>이전</button>
 					</div>
 
@@ -302,11 +302,11 @@
 						<button type="button"
 							x-show="step < 3"
 							@click="step++"
-							class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
+							class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-gray-800 hover:bg-blue-600 font-medium" 
 						>다음</button>
 
 						<button type="submit" x-show="step === 3" class="w-32 focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center 
-						text-white bg-blue-500 hover:bg-blue-600 font-medium" >완료</button>
+						text-white bg-gray-800 hover:bg-blue-600 font-medium" >완료</button>
 						
 						<button hidden="hidden" id="stepOne" @click="step = 1" type="button"></button>
 						<button hidden="hidden" id="stepTwo" @click="step = 2" type="button"></button>

@@ -89,4 +89,6 @@
 		SELECT * FROM GOAL
 		WHERE ID = #{id}
 	</select>
+	
+	
 </mapper>  

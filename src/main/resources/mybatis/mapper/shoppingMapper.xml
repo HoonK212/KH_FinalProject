@@ -86,10 +86,10 @@
     			and p.code = s.code(+)
     		</if>
     		<if test="value == 4">
-    			and p.code like 'A%'
+    			and p.code like 'B%'
     		</if>
     		<if test="value == 5">
-    			and p.code like 'B%'
+    			and p.code like 'A%'
     		</if>
     		<if test="value == 6">
     			and p.code like 'C%'
@@ -116,10 +116,10 @@
     			and p.code = s.code(+)
     		</if>
     		<if test="listno == 4">
-    			and p.code like 'A%'
+    			and p.code like 'B%'
     		</if>
     		<if test="listno == 5">
-    			and p.code like 'B%'
+    			and p.code like 'A%'
     		</if>
     		<if test="listno == 6">
     			and p.code like 'C%'

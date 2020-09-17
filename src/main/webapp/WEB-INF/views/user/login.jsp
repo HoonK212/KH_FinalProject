@@ -40,23 +40,19 @@
                                 </button>
                                 <br>
                                 <div class="btn-wrapper text-center">
-                         			<button class="bg-white active:bg-gray-100 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs" type="button" id="googldBtn" style="transition: all 0.15s ease 0s;"><img alt="..." class="w-5 mr-1" src="<%=request.getContextPath() %>/resources/image/user/google.png">구글</button>
                        		    	<button class="bg-white active:bg-gray-100 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs" type="button" id="kakaoBtn" style="transition: all 0.15s ease 0s;"><img alt="..." class="w-5 mr-1" src="<%=request.getContextPath() %>/resources/image/user/kakao.png">카카오</button>
                         		</div>
                         </div>
                         </div>
                         <div class="text-center mt-4">
                             <a class="no-underline hover:underline text-blue-dark text-xs" href="<%=request.getContextPath()%>/user/findId">
-                            	아이디 찾기
+                          		아이디 찾기
                             </a>
+                            
                             /
                             <a class="no-underline hover:underline text-blue-dark text-xs" href="<%=request.getContextPath()%>/user/findPw">
                             	비밀번호 찾기
                             </a>
-                            /
-                            <button type="button" class="kakaoLogout no-underline hover:underline text-blue-dark text-xs">
-                            	카카오 로그아웃(임시) 
-                            </button>
                         </div>
                     </div>
                 </div>
