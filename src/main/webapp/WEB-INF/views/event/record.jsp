@@ -36,7 +36,7 @@ $("#recordrow1").html
 				<table class="content-table" style="min-width: 250px;">
 					<thead>
 						<tr>
-							<th colspan="3;" style="text-align: center;">${fn:toUpperCase(item[0].name)}</th>
+							<th colspan="3;" style="text-align: center;">${fn:toUpperCase(exer[stat.index])}</th>
 						</tr>
 						<tr>
 							<th>Rank</th>
@@ -45,13 +45,19 @@ $("#recordrow1").html
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${item }" var="i" begin="0" end="2">
+						<c:forEach items="${item }" var="i" begin="0" end="2" varStatus="stat">
 						<tr>
 							<td>${i.rank }</td>
 							<td>${i.id }</td>
 							<td>${i.record }</td>
 						</tr>
 						</c:forEach>
+						
+						<c:if test="${fn:length(item) < 3 }">
+						<c:forEach begin="0" end="${2 - fn:length(item) }">
+							<tr><td colspan="3" class="text-center text-gray-600">기록이 없습니다.</td></tr>
+						</c:forEach>						
+						</c:if>
 					</tbody>
 				</table>
 			</div>
@@ -65,7 +71,7 @@ $("#recordrow1").html
 					<thead>
 						<tr>
 							<th colspan="3;" style="text-align: center;">
-							<c:if test="${item[0].name ne 'kneepushup'}">${fn:toUpperCase(item[0].name)}</c:if>
+							<c:if test="${item[0].name ne 'kneepushup'}">${fn:toUpperCase(exer[stat.index])}</c:if>
 							<c:if test="${item[0].name eq 'kneepushup'}">PUSHUP</c:if>
 							</th>
 						</tr>
@@ -83,6 +89,12 @@ $("#recordrow1").html
 							<td>${i.record }</td>
 						</tr>
 						</c:forEach>
+						
+						<c:if test="${fn:length(item) < 3 }">
+						<c:forEach begin="0" end="${2 - fn:length(item) }">
+							<tr><td colspan="3" class="text-center text-gray-600">기록이 없습니다.</td></tr>
+						</c:forEach>						
+						</c:if>
 					</tbody>
 				</table>
 			</div>
@@ -95,7 +107,7 @@ $("#recordrow1").html
 				<table class="content-table" style="min-width: 250px;">
 					<thead>
 						<tr>
-							<th colspan="3;" style="text-align: center;">${fn:toUpperCase(item[0].name)}</th>
+							<th colspan="3;" style="text-align: center;">${fn:toUpperCase(exer[stat.index])}</th>
 						</tr>
 						<tr>
 							<th>Rank</th>
@@ -111,6 +123,12 @@ $("#recordrow1").html
 							<td>${i.record }</td>
 						</tr>
 						</c:forEach>
+						
+						<c:if test="${fn:length(item) < 3 }">
+						<c:forEach begin="0" end="${2 - fn:length(item) }">
+							<tr><td colspan="3" class="text-center text-gray-600">기록이 없습니다.</td></tr>
+						</c:forEach>						
+						</c:if>
 					</tbody>
 				</table>
 			</div>

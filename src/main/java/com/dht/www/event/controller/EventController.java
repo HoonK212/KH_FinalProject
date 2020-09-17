@@ -1,9 +1,8 @@
 package com.dht.www.event.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
@@ -140,6 +139,9 @@ public class EventController {
 		int day = cal.get(Calendar.DAY_OF_WEEK);
 		
 		List<List<Map<String, Object>>> list = eventService.selectRecord(day);
+		List<String> exer = Arrays.asList("Plank", "Jumping Jack", "Burpee", "Leg Raise", "Crunch", "Push Up", "Side Lunge", "Squat", "Lunge");
+		
+		model.addAttribute("exer", exer);
 		model.addAttribute("list", list);
 		model.addAttribute("start", list.get(0).get(0).get("sdate"));
 		model.addAttribute("end", list.get(0).get(0).get("edate"));
