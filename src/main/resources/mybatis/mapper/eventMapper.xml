@@ -99,5 +99,7 @@
 			to_char(r.dates, 'yy/mm/dd') between to_char(sysdate+ (INTERVAL '9' HOUR) - to_char(sysdate+ (INTERVAL '9' HOUR), 'D') +5, 'yy/mm/dd') 
 			and to_char(sysdate+ (INTERVAL '9' HOUR) - to_char(sysdate+ (INTERVAL '9' HOUR), 'D') + 11, 'yy/mm/dd')
 		</if>
+		
+		order by r.dates
 	</select>
 </mapper>
