@@ -95,7 +95,7 @@
 	
 	<select id="selectProductListOfSearchType1" resultMap="productdata">
 		SELECT * FROM (SELECT ROWNUM RNUM, P.* FROM(
-		SELECT * FROM PRODUCT WHERE CODE LIKE '%' ||  #{search.data} || '%' )P
+		SELECT * FROM PRODUCT WHERE CODE LIKE '%' ||  #{search.data} || '%' )P order by dates desc
 		)WHERE RNUM BETWEEN #{paging.start} and #{paging.end}
 	</select>
 	
@@ -106,7 +106,7 @@
 	
 	<select id="selectProductListOfSearchType2" resultMap="productdata">
 		SELECT * FROM (SELECT ROWNUM RNUM, P.* FROM(
-		SELECT * FROM PRODUCT WHERE NAME LIKE '%' ||  #{search.data} || '%' )P
+		SELECT * FROM PRODUCT WHERE NAME LIKE '%' ||  #{search.data} || '%' )P order by dates desc
 		)WHERE RNUM BETWEEN #{paging.start} and #{paging.end}
 	</select>
 	
@@ -116,7 +116,7 @@
 	
 	<select id="selectProductList" resultMap="productdata">
 		select * from ( select rownum rnum, p.* from(
-            select * from product order by substr(code,2) desc) p		
+            select * from product order by dates desc) p		
 		)where rnum between #{start} and #{end}
 	</select>
 	
