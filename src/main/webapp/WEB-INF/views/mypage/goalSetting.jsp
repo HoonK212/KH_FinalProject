@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -30,12 +31,12 @@
 ::-webkit-scrollbar-thumb:hover {
   background-color: rgba(0, 0, 0, 0.3);
 }
-body {background-color: #2a2b3d}
+body {}
 #contents {
   position: relative;
   transition: .3s;
   margin-left: 290px;
-  background-color: #2a2b3d;
+/*   background-color: #2a2b3d;  */
 }
 .margin {
   margin-left: 0 !important;
@@ -395,7 +396,7 @@ body {background-color: #2a2b3d}
 /*이미지*/
 body {
   margin: auto;
-  background: #F2F5E9;
+/*   background: #F2F5E9; */
  
   font-family: "Arial"
 }
@@ -1095,16 +1096,32 @@ body {
   
 
    <!-- 저장 버튼 -->
-<div style="display:inline-block; padding-left:171px;">
-   <c:if test="${empty goal }">
-   <button id="btnSubmit" class="button raised green center" style="width:77; height:35; line-height:35px; text-align:center;">목표적용</button>
-   </c:if>
-   <c:if test="${not empty goal }">
-   <button id="btnSubmit" class="button raised green center" style="width:77; height:35; line-height:35px; text-align:center;">목표변경</button> 
-   </c:if>
-</div>
+
+	<c:choose>
+		<c:when test="${empty mygoal}">
+			<div style="display:inline-block; padding-left:171px;">
+			<button id="btnSubmit01" class="button raised green center" style="width:77; height:35; line-height:35px; text-align:center;">목표적용</button>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div style="display:inline-block; padding-left:171px;">
+			<button id="btnSubmit02" class="button raised green center" style="width:77; height:35; line-height:35px; text-align:center;">목표적용</button>
+			</div>
+		</c:otherwise>
+	</c:choose>
+	
+	<script type="text/javascript">
+	
+	$('#btnSubmit01').click(function(){
+		alert('나의 운동 목표가 설정되었습니다!');
+	});
+	$('#btnSubmit02').click(function(){
+		alert('나의 운동 목표가 변경되었습니다!');
+	});
+	</script>
+	
+	
   
-  <!--  <div id="info" class=" info popup-trigger button raised green" style="width:10%; margin-left:120; display:inline-block;" title="info">-->
 
 <ul class="gallery" style="padding-left:600; padding-top:10; width:1250px;">
   <li  id="info" class="info animals-item">

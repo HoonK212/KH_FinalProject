@@ -495,7 +495,6 @@ header .count {
   color: #333333;
   height: 20px;
   line-height: 20px;
-  background-color: yellow;
 }
 
 /* --- PRODUCT LIST --- */
@@ -863,7 +862,7 @@ body {
 <%--     <c:forEach items="${olist }" var="order"> --%>
 <%--     	<c:set var="totalamount" value = "${totalamount + order.amount }" /> --%>
 <%--     </c:forEach> --%>
-    <span class="count"> 총 ${totalamount }개 구매 </span>
+    <span class="count bg-orange-500"> 총 ${totalamount }개 구매 </span>
   </header>
   <!-- End Header -->
   
@@ -886,7 +885,7 @@ body {
           
           <div class="detail">
 			<div class="o_no">주문번호 : ${order.o_no }</div>
-            <div class="description">주문일자 : <fmt:formatDate value="${order.dates }" pattern="yyyy.MM.dd"/></div>
+            <div class="description">주문일자 : <fmt:formatDate value="${order.dates }" pattern="yyyy-MM-dd"/></div>
             <div class="name">${order.name }</div>
             <div class="price">${order.price * order.amount } ₩</div>
             
@@ -901,7 +900,7 @@ body {
 			<!-- 후기 작성 모달 -->
 			<c:if test="${order.status eq 3 }">
 			<div  class="button raised btnModal1" data-toggle="modal" style="width:30%;  margin-top:10px; color: white; background-color: #48bb78;">
-               <div class="modal-btn" style="cursor: default;" >후기</div>
+               <div class="modal-btn bg-indigo-800" style="cursor: pointer;" >후기</div>
 			</div> 
 			</c:if>
           </div>
@@ -937,12 +936,12 @@ body {
           <c:choose>
           <c:when test="${order.status eq 1 }">
           	<div id="info" class=" info btnModal2 button raised" data-toggle="modal" style="width:30%; margin-left: 20; color: white;  background-color: #48bb78;" >
-             <div  fit class="modal-btn" style="cursor:pointer;">주문취소</div>
+             <div fit class="modal-btn bg-indigo-800" style="cursor:pointer;">주문취소</div>
           	</div>
           </c:when>
           <c:when test="${order.status eq 3 }">
           	 <div id="info" class=" info btnModal3 button raised" data-toggle="modal" style="width:30%; margin-left: 20; color: white; background-color: #48bb78;" >
-             <div  fit class="modal-btn" style="cursor:pointer;">반품</div>
+             <div fit class="modal-btn bg-red-500" style="cursor:pointer;">반품</div>
           	 </div>
           </c:when>
           <c:otherwise>
@@ -963,71 +962,85 @@ body {
   </section>
   <!-- End Product List -->
   	
-  	   <div class="px-5 py-5 flex flex-col xs:flex-row items-center xs:justify-between">
-                   <div class="inline-flex mt-2 xs:mt-0" style="padding-left:190px;">
-                     <div class="flex flex-col items-center">
-                         <div class="flex text-gray-700 pb-3">
-                             <c:choose>
-                                <c:when test="${page.blockStart > 1 }">
-                                    <a href="<%= request.getContextPath() %>/mypage/myWritten?cPage=${page.blockStart-1}" class="nav prev">
-                                    <div class="h-8 w-8 mr-1 flex justify-center items-center  cursor-pointer">
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left w-4 h-4">
-                                              <polyline points="15 18 9 12 15 6"></polyline>
-                                          </wsvg>
-                                      </div>
-                                 </a>
-                                </c:when>
-                                <c:otherwise>
-                                   <a href="<%= request.getContextPath() %>/mypage/myWritten?cPage=${page.blockStart}" class="nav prev">
-                                    <div class="h-8 w-8 mr-1 flex justify-center items-center  cursor-pointer">
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left w-4 h-4">
-                                              <polyline points="15 18 9 12 15 6"></polyline>
-                                          </svg>
-                                      </div>
-                                 </a>
-                                </c:otherwise>
-                             </c:choose>
-                             <div class="flex h-8 font-medium ">
-                                 <c:forEach begin="${page.blockStart}" end="${page.blockEnd}" var="pagenation">
-                                 <a href="<%= request.getContextPath() %>/mypage/myWritten?cPage=${pagenation }">
-                                    <c:choose>
-                                     <c:when test="${page.currentPage eq pagenation }">
-                                      <div class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in border-t-2 border-orange-600">${pagenation}</div>
-                                     </c:when>
-                                     <c:otherwise>
-                                      <div class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in border-t-2 border-transparent">${pagenation}</div>
-                                     </c:otherwise>
-                                    </c:choose>
-                                   </a>
-                                </c:forEach>
-                             </div>
-                           <c:choose>
-                                <c:when test="${page.blockEnd+1 > page.lastPage }">
-                                    <a href="<%= request.getContextPath() %>/mypage/myWritten?cPage=${page.blockEnd}">
-                                      <div class="h-8 w-8 ml-1 flex justify-center items-center  cursor-pointer">
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right w-4 h-4">
-                                              <polyline points="9 18 15 12 9 6"></polyline>
-                                          </svg>
-                                      </div>
-                                    </a>
-                                </c:when>
-                                <c:otherwise>
-                                    <a href="<%= request.getContextPath() %>/mypage/myWritten?cPage=${page.blockEnd+1}">
-                                      <div class="h-8 w-8 ml-1 flex justify-center items-center  cursor-pointer">
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right w-4 h-4">
-                                              <polyline points="9 18 15 12 9 6"></polyline>
-                                          </svg>
-                                      </div>
-                                  </a>
-                                </c:otherwise>
-                                 </c:choose>
-                         </div>
-                        <span class="text-xs xs:text-sm text-gray-900">
-                                  Showing ${page.blockStart } to ${page.blockEnd } of ${page.lastPage }
-                              </span>
-                     </div>
-                      </div>
-                   </div> 
+			<!-- section pagination -->
+			<div class="px-5 py-5 border-t flex flex-col xs:flex-row items-center xs:justify-between" >
+			<div class="inline-flex mt-2 xs:mt-0">
+			<div class="flex flex-col items-center">	
+			<div class="flex text-gray-700">	
+		        
+		        <c:choose>
+		        	<c:when test="${page.blockStart > 1 }">
+		         		<a href="<%= request.getContextPath() %>/mypage/orderlist?cPage=${page.blockStart-1}" class="nav prev">
+		         			<div class="h-8 w-8 mr-1 flex justify-center items-center  cursor-pointer">
+					            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" 
+					            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+					            class="feather feather-chevron-left w-4 h-4">
+					                <polyline points="15 18 9 12 15 6"></polyline>
+					            </svg>
+							</div>
+		         		</a>
+		        	</c:when>
+		        	<c:otherwise>
+		         		<a href="<%= request.getContextPath() %>/mypage/orderlist?cPage=${page.blockStart}" class="nav prev">
+							<div class="h-8 w-8 mr-1 flex justify-center items-center  cursor-pointer">
+					            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" 
+					            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+					            class="feather feather-chevron-left w-4 h-4">
+					                <polyline points="15 18 9 12 15 6"></polyline>
+					            </svg>
+							</div>	        		
+		        		</a>
+		        	</c:otherwise>
+		        </c:choose>
+		       
+		        <div class="flex h-8 font-medium">
+		        <c:forEach begin="${page.blockStart}" end="${page.blockEnd}" var="pagenation">
+		        
+         		<a href="<%= request.getContextPath() %>/mypage/orderlist?cPage=${pagenation}" class="nav prev">
+	         		<c:choose>
+		       	   		<c:when test="${page.currentPage eq pagenation }">
+			       	    	<div class="cursor-pointer border-orange-600">${pagenation}</div>
+		       	   		</c:when>
+			       	    <c:otherwise>
+			       	    	<div class="cursor-pointer border-transparent">${pagenation}</div>
+			       	    </c:otherwise>
+		       	 	</c:choose>
+		         </a>
+		        
+		        </c:forEach> 
+	        	</div>
+	        	
+	        	
+		        <c:choose>
+		        	<c:when test="${page.blockEnd+1 > page.lastPage }">
+		         		<a href="<%= request.getContextPath() %>/mypage/orderlist?cPage=${page.blockEnd}" class="nav prev">
+		         			<div class="h-8 w-8 ml-1 flex justify-center items-center  cursor-pointer">
+					            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" 
+					            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+					            class="feather feather-chevron-right w-4 h-4">
+					                <polyline points="9 18 15 12 9 6"></polyline>
+					            </svg>
+							</div>
+		         		</a>
+		        	</c:when>
+		        	<c:otherwise>
+		         		<a href="<%= request.getContextPath() %>/mypage/orderlist?cPage=${page.blockEnd+1}" class="nav prev">
+					        <div class="h-8 w-8 ml-1 flex justify-center items-center  cursor-pointer">
+					            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" 
+					            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+					            class="feather feather-chevron-right w-4 h-4">
+					                <polyline points="9 18 15 12 9 6"></polyline>
+					            </svg>
+					        </div>	         		
+		         		</a>
+		        	</c:otherwise>
+		   	   	</c:choose>
+	 	   	 
+	   	  	</div>
+	   	  	</div>
+	   	  	</div>
+	   	  	</div>
+   	  		<!-- // section pagination -->
   
   
 </div>
@@ -1107,7 +1120,7 @@ body {
       <lable for="comments" class="col-sm-9 control-lable">정말 구매를 취소하시겠습니까?</lable>
    </div>
    		<!-- 주문 번호  -->
-      <input type="text" id="cancelorder" name="op_no" />
+      <input type="hidden" id="cancelorder" name="op_no" />
     
       </div>
       <div class="modal-footer">
@@ -1138,7 +1151,7 @@ body {
    </div>
    	
    		<!-- 주문 번호  -->
-      <input type="text" id="submitreturn" name="op_no" />
+      <input type="hidden" id="submitreturn" name="op_no" />
     
       </div>
       <div class="modal-footer">
