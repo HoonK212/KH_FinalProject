@@ -105,7 +105,7 @@ aside {
         <div class="container mx-auto px-6">
             <div class="md:flex md:items-center">
 	<div class="w-full h-64 md:w-1/2 lg:h-96">
-		<img class="h-full w-full rounded-md object-cover max-w-lg mx-auto" src="<%=request.getContextPath() %>/resources/${detail.path }/${detail.renamed }.${detail.ext }" alt="thumbnail">
+		<img class="h-full w-full rounded-md object-cover " src="<%=request.getContextPath() %>/resources/${detail.path }/${detail.renamed }.${detail.ext }" alt="thumbnail" style="width: 616px; height: 256px;">
 	</div>
 	<div class="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
 	

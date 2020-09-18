@@ -54,7 +54,7 @@
 </style>
 </head>
 <body>
-	<div class="text-white font-black text-2xl" style="text-align: center; color: #2d3748;">
+	<div class="text-white font-black text-2xl" style="text-align: center; color: #2d3748; margin-top: 12px;">
 		<a href="/"><img src="/resources/image/logo.png" style="width:70px; height:70px; display: inline-block;">Daily Home Training</a>
 	</div>
 <div class="h-screen">

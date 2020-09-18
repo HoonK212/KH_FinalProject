@@ -138,7 +138,7 @@ $(document).ready(function() {
 												})
 											</script>
 											<br>
-                                        	<input class="px-2" type="file" name="files" multiple="multiple">
+                                        	<input class="px-2" type="file" name="files" multiple="multiple" id="boardfileimage">
                                         </div>
                                     </div>
                                 </td>
