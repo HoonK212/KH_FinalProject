@@ -53,8 +53,8 @@
 			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">No</th>
 			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">상품코드</th>
 			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">상품명</th>
-			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">재고현황</td>
-			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">판매여부</td>
+			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">재고현황</th>
+			          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">판매여부</th>
 			        </tr>
 			      </thead>
 			    <tbody class="text-gray-700">
@@ -191,10 +191,10 @@
    	  		
    	  		
    	  			<!-- Modal -->
-				<dialog id="myModal" class="fixed h-auto w-2/5 p-5  bg-white rounded-md ">
-					<div class="flex flex-col w-1/2 h-auto justify-center items-center" style="margin: 0 auto;">
+				<dialog id="myModal" class="fixed h-auto w-1/4 p-5  bg-white rounded-md ">
+					<div class="flex flex-col w-full h-auto justify-center items-center" style="margin: 0 auto;">
 						<!-- Header -->
-						<div class="w-full h-auto" style="width: 320px;">
+						<div class="w-full h-auto" style="width: 410px;">
 							<div onclick="document.getElementById('myModal').close();" class="float-right w-1/12 h-auto justify-center cursor-pointer">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
 							</div>
@@ -208,20 +208,20 @@
 						 <div class="shadow w-full overflow-hidden rounded border-b border-gray-200">
 						 	<table>
 						        <tr>
-						        <th class="bg-gray-800 text-white w-full py-3 px-4 uppercase font-semibold text-sm">상품코드</th>
+						        <th class="bg-gray-800 text-white w-1/4 py-3 px-4 uppercase font-semibold text-sm">상품코드</th>
 						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="stockDetail_code"></td>
 						        <input id="code" name="code" type="hidden" />
 								</tr>
 						        <tr>
-						        <th class="bg-gray-800 text-white w-full py-3 px-4 uppercase font-semibold text-sm">상품명</th>
+						        <th class="bg-gray-800 text-white w-1/4 py-3 px-4 uppercase font-semibold text-sm">상품명</th>
 						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center" id="stockDetail_name"></td>
 						        </tr>  
 						        <tr>  
-						        <th class="bg-gray-800 text-white w-full py-3 px-4 uppercase font-semibold text-sm">재고현황</td>
+						        <th class="bg-gray-800 text-white w-1/4 py-3 px-4 uppercase font-semibold text-sm">재고현황</td>
 						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center"><input id="stockDetail_stock" name="stock" style="text-align:center;"/></td> 
 						        </tr>
 						        <tr>
-						        <th class="bg-gray-800 text-white w-full py-3 px-4 uppercase font-semibold text-sm">판매여부</td>
+						        <th class="bg-gray-800 text-white w-1/4 py-3 px-4 uppercase font-semibold text-sm">판매여부</td>
 						        <td class="bg-gray-100 w-1/4 py-3 px-4 text-center">
 						        	<select name="sell" id="stockDetail_sell">
 						        		<option value="0" >판매중단</option>
