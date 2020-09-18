@@ -74,7 +74,7 @@
 			        </td>
 			        <td class="w-1/4 py-3 px-4 text-center" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${product.company }</td>
 			        <td class="w-1/4 py-3 px-4 text-center"><fmt:formatDate value="${product.dates }" pattern="yyyy-MM-dd"/></td>
-			        <td class="w-1/4 py-3 px-4 text-center">${product.stock }</td>
+			        <td class="w-1/4 py-3 px-4 text-center"><fmt:formatNumber pattern="#,###" value="${product.stock }" />개</td>
 			      </tr>
 			     </c:forEach> 
 			     </c:if>
