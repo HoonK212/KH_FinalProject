@@ -84,7 +84,7 @@ public class MypageServiceImpl implements MypageService {
 		String[] daysArr = days.split("");
 		
 		Map<String,Object> cm = new HashMap<>();
-		cm = mypageDao.selectRecord(id);
+//		cm = mypageDao.selectRecord(id);
 		
 		
 		Map<String,Object> result = new HashMap<>();
