@@ -22,6 +22,9 @@
 		<result column="id" property="id"/>
 		<result column="record" property="record"/>
 		<result column="rk" property="rank"/>
+	</resultMap>
+	
+	<resultMap type="map" id="dates">
 		<result column="sdate" property="sdate"/>
 		<result column="edate" property="edate"/>
 	</resultMap>
@@ -69,16 +72,6 @@
 	
 	<select id="selectRecord" resultMap="exerRecord">
 		select e.name, r.id, r.record, RANK() OVER (order by r.record desc ) as rk
-		
-		<if test="day lte 4">
-			, to_char(sysdate + (INTERVAL '9' HOUR) - to_char(sysdate + (INTERVAL '9' HOUR), 'D') -2, 'yy/mm/dd') sdate
-			,to_char(sysdate + (INTERVAL '9' HOUR) - to_char(sysdate + (INTERVAL '9' HOUR), 'D') + 4, 'yy/mm/dd') edate
-		</if>
-		<if test="day gt 4">
-			,to_char(sysdate + (INTERVAL '9' HOUR) - to_char(sysdate+ (INTERVAL '9' HOUR), 'D') +5, 'yy/mm/dd') sdate
-			,to_char(sysdate+ (INTERVAL '9' HOUR) - to_char(sysdate+ (INTERVAL '9' HOUR), 'D') + 11, 'yy/mm/dd') edate
-		</if>
-		
 		from exercise e, record r where e.no = r.ex_no and 
 		
 		<if test="no lt 6">
@@ -102,5 +95,18 @@
 		</if>
 		
 		order by r.dates
+	</select>
+	
+	<select id="selectDates" parameterType="int" resultMap="dates">
+		select
+		<if test="value lte 4">
+			to_char(sysdate + (INTERVAL '9' HOUR) - to_char(sysdate + (INTERVAL '9' HOUR), 'D') -2, 'yy/mm/dd') sdate
+			,to_char(sysdate + (INTERVAL '9' HOUR) - to_char(sysdate + (INTERVAL '9' HOUR), 'D') + 4, 'yy/mm/dd') edate
+		</if>
+		<if test="value gt 4">
+			to_char(sysdate + (INTERVAL '9' HOUR) - to_char(sysdate+ (INTERVAL '9' HOUR), 'D') +5, 'yy/mm/dd') sdate
+			,to_char(sysdate+ (INTERVAL '9' HOUR) - to_char(sysdate+ (INTERVAL '9' HOUR), 'D') + 11, 'yy/mm/dd') edate
+		</if>
+		from dual
 	</select>
 </mapper>

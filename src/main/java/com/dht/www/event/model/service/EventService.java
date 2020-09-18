@@ -22,4 +22,6 @@ public interface EventService {
 	public List<Map<String, Object>> selectAttend(String id);
 	
 	public int checkWeekAttend(String id);
+	
+	public Map<String, Object> selectDates(int day);
 }

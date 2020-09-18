@@ -57,5 +57,9 @@ public class EventDao {
 	public int checkWeekAttend(String id) {
 		return sqlSession.selectOne("Event.checkWeekAttend", id);
 	}
+	
+	public Map<String, Object> selectDates(int day) {
+		return sqlSession.selectOne("Event.selectDates", day);
+	}
 
 }

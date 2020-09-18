@@ -143,8 +143,7 @@ public class EventController {
 		
 		model.addAttribute("exer", exer);
 		model.addAttribute("list", list);
-		model.addAttribute("start", list.get(0).get(0).get("sdate"));
-		model.addAttribute("end", list.get(0).get(0).get("edate"));
+		model.addAttribute("dates", eventService.selectDates(day));
 		model.addAttribute("event", 4);
 
 	}

@@ -55,5 +55,9 @@ public class EventServiceImpl implements EventService {
 	public int checkWeekAttend(String id) {
 		return eventDao.checkWeekAttend(id);
 	}
-	
+
+	@Override
+	public Map<String, Object> selectDates(int day) {
+		return eventDao.selectDates(day);
+	}
 }
