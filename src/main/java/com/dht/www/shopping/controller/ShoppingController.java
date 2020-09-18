@@ -324,20 +324,71 @@ public class ShoppingController {
 			@RequestParam(required = false, defaultValue = "0") int amount, String userId, String codes, int sale) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		List<Map<String, Object>> result = new ArrayList<Map<String,Object>>();
+		List name = new ArrayList<String>();
+		List company = new ArrayList<String>();
 
 		if (amount > 0) {
 			map = shoppingService.sessionBasket(codes);
 			map.put("amount", amount);
-			List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 			list.add(map);
-			model.addAttribute("product", list);
+			
+			System.out.println("테스트...."+list.get(0).get("name"));
+				
+				Map<String, Object> pro = new HashMap<String,Object>();
+				
+				name.add(list.get(0).get("name"));
+				company.add(list.get(0).get("company"));
+				
+				pro.put("ext", list.get(0).get("ext"));
+				pro.put("path", list.get(0).get("path"));
+				pro.put("amount", list.get(0).get("amount"));
+				pro.put("code", list.get(0).get("code"));
+				pro.put("price", list.get(0).get("price"));
+				pro.put("event", list.get(0).get("event"));
+				pro.put("renamed", list.get(0).get("renamed"));
+				
+				result.add(0, pro);
+			
+			
+			
 		} else {
 			String[] array = codes.split(",");
 			map.put("userId", userId);
 			map.put("array", array);
-			//장바구니에서 정보 가져오기
-			model.addAttribute("product", shoppingService.selectProuct(map));
+			
+			
+			
+			list = shoppingService.selectProuct(map);
+			System.out.println("테스트...."+list);
+			
+			for(int i=0; i<list.size(); i++) {
+				
+				Map<String, Object> pro = new HashMap<String,Object>();
+				
+				name.add(i, list.get(i).get("name"));
+				company.add(i, list.get(i).get("company"));
+				
+				pro.put("ext", list.get(i).get("ext"));
+				pro.put("path", list.get(i).get("path"));
+				pro.put("amount", list.get(i).get("amount"));
+				pro.put("code", list.get(i).get("code"));
+				pro.put("price", list.get(i).get("price"));
+				pro.put("event", list.get(i).get("event"));
+				pro.put("renamed", list.get(i).get("renamed"));
+				
+				result.add(i, pro);
+			}
 		}
+			System.out.println("리저트결과프로덕트"+result);
+			
+			//장바구니에서 정보 가져오기
+			model.addAttribute("product", result);
+			model.addAttribute("productname",name );
+			model.addAttribute("productcompany",company );
+			
 		model.addAttribute("point", shoppingService.selectPoint(userId));
 		
 		if( sale != 0) {
@@ -408,7 +459,10 @@ public class ShoppingController {
 	         
 	         shoppingService.insertPoint(userPoint);
 	         
-	         point = point / result.size();
+	         if(point != 0) {
+	        	 point = point / result.size();
+	         }
+	         
 	         
 	         StringBuilder sb = new StringBuilder();
 	         for(int i=0; i<result.size(); i++) {
