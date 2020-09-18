@@ -53,6 +53,7 @@
 		</c:if>
 		<c:if test="${attend gt 0 }">
 			<p class="text-center text-gray-700">오늘은 이미 문제를 푸셨습니다.</p>
+			<div><button type="button" class="my-4 px-8 py-2 bg-indigo-600 text-white text-sm font-medium rounded hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500" onclick="location.href='<%=request.getContextPath()%>/shopping/detail?code=${quiz.code }'">상품 보러가기</button></div>
 		</c:if>
 		
 	</div>
