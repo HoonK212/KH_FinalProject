@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dht.www.board.model.vo.Board;
+import com.dht.www.user.model.vo.Users;
 
 import common.exception.FileException;
 
@@ -22,5 +23,7 @@ public interface BoardService {
 
 	// 게시글 수정
 	public int updateBoardContent(Board board);
+	
+	public Map<String, Object> selectProfile(Users login);
 	
 }

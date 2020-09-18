@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dht.www.board.model.vo.Board;
+import com.dht.www.user.model.vo.Users;
 
 import common.util.Paging;
 
@@ -45,6 +46,10 @@ public class BoardDao {
 	// 게시글 수정
 	public int updateBoardContent(Board board) {
 		return sqlSession.insert("BOARD.updateBoardContent", board);
+	}
+	
+	public Map<String, Object> selectProfile(Users login) {
+		return sqlSession.selectOne("BOARD.selectProfile", login);
 	}
 
 }

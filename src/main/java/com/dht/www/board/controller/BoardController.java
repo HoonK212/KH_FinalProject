@@ -59,7 +59,9 @@ public class BoardController {
 	
 	// 게시글 작성 페이지
 	@RequestMapping(value="/write", method=RequestMethod.GET)
-	public void write() {
+	public void write(HttpSession session, Model model) {
+		Users login = (Users) session.getAttribute("logInInfo");
+		model.addAttribute("profile", boardService.selectProfile(login));
 	}
 	
 	

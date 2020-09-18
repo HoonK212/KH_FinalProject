@@ -94,7 +94,7 @@ $(document).ready(function() {
 	                            	<div class="flex items-center">
                                         <div class="flex-shrink-0 w-10 h-10">
                                             <img class="w-full h-full rounded-full"
-                                                src="<%=request.getContextPath() %>/resources/upload_user/logo.png"
+                                                src="<%=request.getContextPath() %>/resources/upload_user/${profile.renamed }.${profile.ext}"
                                                 alt="" />
                                         </div>
                                         <div class="ml-3">

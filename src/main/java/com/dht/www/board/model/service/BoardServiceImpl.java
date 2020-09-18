@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.dht.www.board.model.dao.BoardDao;
 import com.dht.www.board.model.dao.FilesDao;
 import com.dht.www.board.model.vo.Board;
+import com.dht.www.user.model.vo.Users;
 
 import common.exception.FileException;
 import common.util.FileUtil;
@@ -70,6 +71,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int updateBoardContent(Board board) {
 		return boardDao.updateBoardContent(board);
+	}
+
+	@Override
+	public Map<String, Object> selectProfile(Users login) {
+		return boardDao.selectProfile(login);
 	}
 
 

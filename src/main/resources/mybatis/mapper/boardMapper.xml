@@ -21,6 +21,11 @@
 		<result column="goodbad" property="goodbad" />
 	</resultMap>
 	
+	<resultMap type="map" id="profile">
+		<result column="renamed" property="renamed" />
+		<result column="ext" property="ext" />
+	</resultMap>
+	
 	<select id="selectContentCnt" resultType="int">
 		select count(*)
 		from board
@@ -72,5 +77,10 @@
 		update board set content=#{content}
 		where no = #{no}
 	</update>
+	
+	<select id="selectProfile" resultMap="profile">
+		select renamed, ext from users u, files f
+		where u.id = f.ref and id = #{id}
+	</select>
 	
 </mapper>
