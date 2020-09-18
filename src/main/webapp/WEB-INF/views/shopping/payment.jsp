@@ -177,7 +177,8 @@
                             		<div class="flex items-center justify-between">
                                 		<h3 class="text-gray-700 font-bold -webkit-text-stroke: medium">주문 정보</h3>
                             		</div>
-                        <c:forEach items="${product}" var="product">
+                            		
+                        <c:forEach items="${product}" var="product" varStatus="stat">
                        		<c:set var="price" value="${product.price * product.amount }"></c:set>
                         			<div>
                             	<div class="flex justify-between mt-6 ">
@@ -196,10 +197,10 @@
                                         		</div>
                                     		</div>
                                     		<div class="mx-8 float-right">
-		                                        <h3 class="text-sm text-gray-600 float-right">${product.name} </h3>
+		                                        <h3 class="text-sm text-gray-600 float-right">${productname[stat.index]} </h3>
 		                                        <br>
 		                                        <br>
-		                                        <h3 class="text-sm text-gray-600">${product.company}</h3>
+		                                        <h3 class="text-sm text-gray-600">${productcompany[stat.index]}</h3>
 		                                        <br>
 		                                        <h3 class="text-sm text-gray-600">${product.amount}</h3>
 		                                        <br>
@@ -422,7 +423,7 @@ function requestPayment() {
 	    pay_method : 'card', //결제방식 - 'samsung':삼성페이, 'card':신용카드, 'trans':실시간계좌이체, 'vbank':가상계좌, 'phone':휴대폰소액결제
 	    merchant_uid : 'merchant_' + new Date().getTime(), //고유주문번호 - random, unique
     	name : '주문명 : ' + '${product[0].name}', //주문명 - 선택항목, 결제정보 확인을 위한 입력, 16자 이내로 작성 
-	    amount : 100, //${totalPayment},	//결제금액 - 필수항목
+	    amount : 10, //${totalPayment},	//결제금액 - 필수항목
 	    buyer_email : '${logInInfo.mail}', //주문자Email - 선택항목
 	    buyer_name : '${logInInfo.name}', //주문자명 - 선택항목 
 	    buyer_tel : '${logInInfo.tel}', //주문자연락처 - 필수항목, 누락되면 PG사전송 시 오류 발생
