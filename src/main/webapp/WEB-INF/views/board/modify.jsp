@@ -47,7 +47,7 @@ $(document).ready(function() {
         <div class="py-8">
         
             <div class="pb-2">
-                <h2 class="text-2xl font-semibold leading-tight text-gray-700">게시글 작성</h2>
+                <h2 class="text-2xl font-semibold leading-tight text-gray-700">게시글 수정</h2>
             </div>
             
             <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">

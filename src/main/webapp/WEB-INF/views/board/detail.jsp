@@ -28,7 +28,10 @@
                 <h2 class="text-2xl font-semibold leading-tight text-gray-700">게시글</h2>
 	            <button onclick="document.getElementById('writeComments').showModal();" id="btn" class="text-sm font-extrabold float-right w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
 				>댓글작성</button>
-				<c:if test="${logInInfo.id eq board.id }">
+				
+				<button onclick="location.href='<%=request.getContextPath()%>/board/list'" class="text-sm font-extrabold float-right w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" style="margin-right: 10px;" >목록으로</button>
+				
+	            <c:if test="${logInInfo.id eq board.id }">
 		            <button onclick="location.href='<%=request.getContextPath()%>/board/modify?no=${board.no }'"
 		            	class="mx-3 text-sm font-extrabold float-right w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
 					>수정하기</button>
