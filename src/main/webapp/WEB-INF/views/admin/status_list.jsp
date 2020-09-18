@@ -117,7 +117,7 @@
 			     </c:forEach>
 			     </c:if>
 			     <c:if test="${empty slist }">
-			     	<td colspan="9" class="w-1/4 py-3 px-4 text-center font-bold">조회된 데이터가 없습니다.</td>
+			     	<td colspan="8" class="w-1/4 py-3 px-4 text-center font-bold">조회된 데이터가 없습니다.</td>
 			     </c:if>
 			    </tbody>
 			    </table>
@@ -235,10 +235,10 @@
 		
 		   	  		
    	  			<!-- Modal -->
-				<dialog id="myModal" class="fixed h-auto w-2/5 p-5  bg-white rounded-md">
+				<dialog id="myModal" class="fixed h-auto w-2/6 p-5  bg-white rounded-md">
 					<div class="flex flex-col w-full h-auto justify-center items-center">
 						<!-- Header -->
-						<div class="w-full h-auto">
+						<div class="w-full h-auto" style="width: 660px;">
 							<div onclick="document.getElementById('myModal').close();" class="float-right w-1/12 h-auto justify-center cursor-pointer">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
 							</div>
@@ -282,10 +282,10 @@
 				</dialog>
 				
    	  			<!-- Order Status Modal -->
-				<dialog id="OrderStatus" class="fixed h-auto w-2/5 p-5  bg-white rounded-md ">
+				<dialog id="OrderStatus" class="fixed h-auto w-2/6 p-5  bg-white rounded-md ">
 					<div class="flex flex-col w-full h-auto justify-center items-center">
 						<!-- Header -->
-						<div class="w-full h-auto">
+						<div class="w-full h-auto" style="width: 660px;">
 							<div onclick="document.getElementById('OrderStatus').close();" class="float-right w-1/12 h-auto justify-center cursor-pointer">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
 							</div>
