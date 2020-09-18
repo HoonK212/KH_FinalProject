@@ -321,7 +321,7 @@ $(document).ready(function() {
 					.attr("value", sale)
 			);
 		$(document.body).append($form);
-// 		$form.submit();
+ 		$form.submit();
 	});
 });
 
