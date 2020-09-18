@@ -48,7 +48,7 @@
 		select code, answer, product_initial ini, describe from ( select rownum rnum, b.* from (
     		select i.code, answer, product_initial, i.describe from product_initial i, product p
     		where i.code = p.code
-		) b order by rnum ) t where rnum = 1
+		) b order by rnum ) t where rnum = #{value}
 	</select>
 	
 	<select id="checkAtt" resultType="int">
