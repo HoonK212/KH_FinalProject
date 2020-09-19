@@ -32,16 +32,14 @@ public class AuthInterceptor implements HandlerInterceptor{
 		} else if(req.getRequestURI().contains("shopping/payment") && req.getSession().getAttribute("logInInfo") == null) {
 			auth(req, resp);
 			return false;
-<<<<<<< HEAD
 		} else if(req.getRequestURI().contains("user/login") && req.getSession().getAttribute("logInInfo") != null) {
-			login(req, resp);
-=======
+			loginauth(req, resp);
+			return false;
 		} else if(req.getRequestURI().contains("mypage/") && req.getSession().getAttribute("logInInfo") == null) {
 			auth(req, resp);
 			return false;
 		} else if(req.getRequestURI().contains("admin/") && req.getSession().getAttribute("logInInfo") == null) {
 			adminauth(req, resp);
->>>>>>> 4f8d8809d175e87ee5d1859e102e7d9ab69dfa96
 			return false;
 		} else {
 			return true;
@@ -62,10 +60,11 @@ public class AuthInterceptor implements HandlerInterceptor{
 			e.printStackTrace();
 		}
 	}
-	public void adminauth(HttpServletRequest req, HttpServletResponse resp) {
+	
+	public void loginauth(HttpServletRequest req, HttpServletResponse resp) {
 		
-		req.setAttribute("alertMsg", "관리자 권한이 없습니다.");
-		req.setAttribute("url", req.getContextPath()+"/adminlogin/main");
+		req.setAttribute("alertMsg", "이미 로그인 하셨습니다.");
+		req.setAttribute("url", req.getContextPath()+"/user/login");
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/common/result.jsp");
 		
 		try {
@@ -77,10 +76,10 @@ public class AuthInterceptor implements HandlerInterceptor{
 		}
 	}
 	
-	public void login(HttpServletRequest req, HttpServletResponse resp) {
+	public void adminauth(HttpServletRequest req, HttpServletResponse resp) {
 		
-		req.setAttribute("alertMsg", "이미 로그인 하셨습니다.");
-		req.setAttribute("url", req.getContextPath()+"/user/login");
+		req.setAttribute("alertMsg", "관리자 권한이 없습니다.");
+		req.setAttribute("url", req.getContextPath()+"/adminlogin/main");
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/common/result.jsp");
 		
 		try {

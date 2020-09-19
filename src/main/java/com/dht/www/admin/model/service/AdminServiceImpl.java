@@ -623,7 +623,6 @@ public class AdminServiceImpl implements AdminService {
 			return adminDao.modifyStatus(mp);
 		}
 
-<<<<<<< HEAD
 		// 신고 관리
 		@Override
 		public Map<String, Object> selectReportList(int cPage, int cntPerPage) {
@@ -649,12 +648,12 @@ public class AdminServiceImpl implements AdminService {
 		public int modifyReportData(Map<String, Object> data) {
 
 			return adminDao.modifyReportData(data);
-=======
+		}
+		
 		@Override
 		public Map<String,Object> selectAdmin(Map<String,Object> admin) {
 			
 			return adminDao.selectAdmin(admin);
->>>>>>> 4f8d8809d175e87ee5d1859e102e7d9ab69dfa96
 		}
 	
 }
