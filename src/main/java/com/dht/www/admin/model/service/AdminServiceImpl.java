@@ -12,8 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dht.www.admin.model.dao.AdminDao;
+import com.dht.www.admin.model.vo.Admin;
 import com.dht.www.mypage.model.vo.Files;
 import com.dht.www.shopping.model.vo.Product;
+import com.dht.www.user.model.vo.Users;
 
 import common.exception.FileException;
 import common.util.FileUtil;
@@ -619,6 +621,12 @@ public class AdminServiceImpl implements AdminService {
 			mp.put("status", status);
 			
 			return adminDao.modifyStatus(mp);
+		}
+
+		@Override
+		public Users selectAdmin(Admin admin) {
+			
+			return adminDao.selectAdmin(admin);
 		}
 	
 }

@@ -31,6 +31,8 @@
 		<typeAlias type="com.dht.www.admin.model.vo.Admin" alias="Admin" />
 		
 		<typeAlias type="com.dht.www.mypage.model.vo.Files" alias="Files" />
+		
+		<typeAlias type="com.dht.www.mypage.model.vo.Account" alias="Account" />
 	</typeAliases>
 
 </configuration>

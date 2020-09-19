@@ -8,8 +8,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.dht.www.admin.model.vo.Admin;
 import com.dht.www.board.model.vo.Board;
 import com.dht.www.mypage.model.vo.Files;
+import com.dht.www.user.model.vo.Users;
 
 import common.util.Paging;
 
@@ -340,6 +342,11 @@ public class AdminDao {
 		public Map<String, Object> selectSalesTotal(Paging p) {
 			
 			return sqlSession.selectOne("ADMIN.selectSalesTotal", p);
+		}
+
+		public Users selectAdmin(Admin admin) {
+			
+			return sqlSession.selectOne("ADMIN.selectAdmin", admin);
 		}
 		
 

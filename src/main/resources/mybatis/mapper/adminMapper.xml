@@ -805,4 +805,10 @@
 	</update>
 	
 	
+	<!-- 관리자 로그인 -->
+	<select id="selectAdmin">
+		SELECT * FROM ADMIN
+		WHERE ID = #{id} AND PW = #{pw}
+	</select>
+	
 </mapper>

@@ -32,6 +32,12 @@ public class AuthInterceptor implements HandlerInterceptor{
 		} else if(req.getRequestURI().contains("shopping/payment") && req.getSession().getAttribute("logInInfo") == null) {
 			auth(req, resp);
 			return false;
+		} else if(req.getRequestURI().contains("mypage/") && req.getSession().getAttribute("logInInfo") == null) {
+			auth(req, resp);
+			return false;
+		} else if(req.getRequestURI().contains("admin/") && req.getSession().getAttribute("logInInfo") == null) {
+			adminauth(req, resp);
+			return false;
 		} else {
 			return true;
 		}
@@ -41,6 +47,20 @@ public class AuthInterceptor implements HandlerInterceptor{
 		
 		req.setAttribute("alertMsg", "비회원은 권한이 없습니다.");
 		req.setAttribute("url", req.getContextPath()+"/user/login");
+		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/common/result.jsp");
+		
+		try {
+			rd.forward(req, resp);
+		} catch (ServletException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void adminauth(HttpServletRequest req, HttpServletResponse resp) {
+		
+		req.setAttribute("alertMsg", "관리자 권한이 없습니다.");
+		req.setAttribute("url", req.getContextPath()+"/admin/main");
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/common/result.jsp");
 		
 		try {

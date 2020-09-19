@@ -1,11 +1,18 @@
 package com.dht.www.mypage.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.dht.www.board.model.vo.Board;
+import com.dht.www.board.model.vo.Comments;
+import com.dht.www.mypage.model.vo.Account;
+import com.dht.www.mypage.model.vo.Files;
+import com.dht.www.user.model.vo.Users;
 
 import common.util.Paging;
 
@@ -64,5 +71,155 @@ public class MypageDao {
 //		return sqlSession.selectList("MYPAGE.selectRecord", id);
 //	}
 
+	
+	// ------ 세민 ------
+	
+	   
+	   //중복된 메일인지 확인하는 메소드 
+	   public int chMail(String mail) {
+	      return sqlSession.selectOne("MYPAGE.chMail", mail);
+	   }
+	   
+	   //기존에 존재하는 닉네임인지 확인하는 메소드
+	   public int chNick(String nick) {
+	      return sqlSession.selectOne("MYPAGE.chNick", nick);
+	   }
+	   
+	   //계좌를 확인하는 메소드 
+	   public int chAccount(long account) {
+	      return sqlSession.selectOne("MYPAGE.chAccount", account);
+	   }
+	   
+	   //회원정보를 업데이트 하는 메소드 
+	   public void updateUserInfo(Users user, String id) {
+	      
+	      //회원정보를 update하는 메소드 
+	      Map <String, Object> map =new  HashMap <String, Object> ();
+	      map.put("pw", user.getPw());
+	      map.put("mail", user.getMail());
+	      map.put("nick", user.getNick());
+	      map.put("addr", user.getAddr());
+	      map.put("post", user.getPost());
+	      map.put("tel", user.getTel());
+	      
+	      map.put("id", id);
+	      
+	      sqlSession.update("MYPAGE.updateUserInfo", map);
+	      
+	   }
+	   //기존에 계좌가 있는지 확인하는 메소드 
+	   public int checkAccount(String id) {
+	      return sqlSession.selectOne("MYPAGE.checkAccount", id);
+	   }
+	   //계좌정보를 입력하는 메소드 
+	   public void insertAccount(Account account, String id) {
+	      Map <String, Object> map =new  HashMap <String, Object> ();
+	      map.put("account", account.getAccount());
+	      map.put("bank", account.getBank());
+	      map.put("id", id);
+	      
+	      sqlSession.insert("MYPAGE.insertAccount", map);
+	   }
+	   //계좌정보를 업데이트 하는 메소드 
+	   public void updateAccount(Account account, String id) {
+	      Map <String, Object> map =new  HashMap <String, Object> ();
+	      map.put("account", account.getAccount());
+	      map.put("bank", account.getBank());
+	      map.put("id", id);
+	      
+	      sqlSession.update("MYPAGE.updateAccount", map);
+	   }
+	   //파일정보를 업데이트 하는 메소드
+	   public void insertUserProfile(Map<String, Object> f) {
+	      sqlSession.insert("MYPAGE.insertUserProfile", f);
+	   }
+	   //파일정보를 삭제하는 메소드 
+	   public void deleteFile(String id) {
+	      sqlSession.delete("MYPAGE.deleteFile", id);
+	   }
+	   //파일정보를 가져오는 메소드 
+	   public List<Files> selectFileList(String id) {
+	      return sqlSession.selectList("MYPAGE.selectFileList", id);
+	   }
+	   
+	   //user의 정보를 가져오는 메소드
+	   public Users selectUserInfo(String id) {
+	      return sqlSession.selectOne("MYPAGE.selectUserInfo", id);
+	   }
+	   //파일 정보를 가져오는 메소드
+	   public Files selectUserFile(String id) {
+	      return sqlSession.selectOne("MYPAGE.selectUserFile", id);
+	   }
+	   
+	   //계좌 정보를 가져오는 메소드 
+	   public Account selectUserAccount(String id) {
+	      return sqlSession.selectOne("MYPAGE.selectUserAccount", id);
+	   }
+	   
+	   //point 가져오는 메소드 
+	   public int userPoint(String id) {
+	      return sqlSession.selectOne("MYPAGE.userPoint", id);
+	   }
+	   
+	   //point 가져오는 메소드 
+	   public int userCoin(String id) {
+	      return sqlSession.selectOne("MYPAGE.userCoin", id);
+	   }
+	   //point 차감하는 메소드
+	   public void subPoint(int point, String id) {
+	      Map <String, Object> map =new  HashMap <String, Object> ();
+	      map.put("point", point);
+	      map.put("id", id);
+	      
+	      System.out.println("dao-point:" + point);
+	      System.out.println("dao-id:" + id);
+	      
+	      sqlSession.insert("MYPAGE.subPoint", map);
+	   }
+	   
+	   //게시글을 가져오는 메소드
+	   public List<Board> selectUserWritten(Paging p , String id) {
+	      
+	      Map <String, Object> map =new  HashMap <String, Object> ();
+	      map.put("start", p.getStart());
+	      map.put("end", p.getEnd());
+	      map.put("id", id);
+	      
+	      return  sqlSession.selectList("MYPAGE.selectUserWritten", map);
+	   }
+	   
+	   //댓글 가져오는 메소드
+	   public List<Comments> selectUserComment(Paging p ,String id) {
+	      
+	      Map <String, Object> map =new  HashMap <String, Object> ();
+	      map.put("start", p.getStart());
+	      map.put("end", p.getEnd());
+	      map.put("id", id);
+	      
+	      return sqlSession.selectList("MYPAGE.selectUserComment", map);
+	   }
+	   
+	   //게시글을 삭제하는 메소드
+	   public void deleteWritten(String no) {
+	       sqlSession.delete("MYPAGE.deleteWritten", no);
+	   }
+	   
+	   //댓글을 삭제하는 메소드
+	   public void deleteComment(String no) {
+	      sqlSession.delete("MYPAGE.deleteComment", no);
+	   }
+	   //총 게시글수를 가져오는 메소드 
+	   public int selectWrittenCnt(String id ) {
+	      return sqlSession.selectOne("MYPAGE.selectWrittenCnt", id);
+	   }
+	   
+	   //댓글 총 수를 가져온는 메소드 
+	   public int selectCommentCnt(String id) {
+	      return sqlSession.selectOne("MYPAGE.selectCommentCnt", id);
+	   }
+	   //회원의 비밀번호를 가져오는 메소드 
+	   public String selectUserPw(String id) {
+	      return sqlSession.selectOne("MYPAGE.selectUserPw", id);
+	   }
 
 }
