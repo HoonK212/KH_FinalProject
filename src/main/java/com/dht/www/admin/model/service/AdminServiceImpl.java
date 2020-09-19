@@ -624,7 +624,7 @@ public class AdminServiceImpl implements AdminService {
 		}
 
 		@Override
-		public Users selectAdmin(Admin admin) {
+		public Map<String,Object> selectAdmin(Map<String,Object> admin) {
 			
 			return adminDao.selectAdmin(admin);
 		}

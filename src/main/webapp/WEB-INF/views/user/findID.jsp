@@ -45,14 +45,14 @@
 						<div class="mt-10 mb-10">
 							<label for="name" class="font-bold mb-1 text-gray-800 inline-block">이름</label>
 							<p class="font-bold mb-1 text-gray-400 block text-xs inline-block">(1/2)</p>
-							<input type="text" name="name" id="name"
+							<input type="text" name="name" id="name" required
 								class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
 								placeholder="등록된 이름 입력">
 						</div>
 						<div class="mb-10">
 							<label for="mail" class="font-bold mb-1 text-gray-800 inline-block">이메일</label>
 							<p class="font-bold mb-1 text-gray-400 block text-xs inline-block">(2/2)</p>
-							<input type="email" name="mail" id="mail"
+							<input type="email" name="mail" id="mail" required
 								class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
 								placeholder="등록된 이메일 입력">
 						</div>

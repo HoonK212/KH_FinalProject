@@ -344,7 +344,7 @@ public class AdminDao {
 			return sqlSession.selectOne("ADMIN.selectSalesTotal", p);
 		}
 
-		public Users selectAdmin(Admin admin) {
+		public Map<String,Object> selectAdmin(Map<String,Object> admin) {
 			
 			return sqlSession.selectOne("ADMIN.selectAdmin", admin);
 		}

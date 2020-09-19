@@ -1,5 +1,7 @@
 package com.dht.www.admin.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dht.www.admin.model.service.AdminService;
@@ -15,7 +18,7 @@ import com.dht.www.admin.model.vo.Admin;
 import com.dht.www.user.model.vo.Users;
 
 @Controller
-@RequestMapping("/adminmain")
+@RequestMapping("/adminlogin")
 public class AdminLoginController {
 	
 	@Autowired
@@ -26,19 +29,18 @@ public class AdminLoginController {
 	public String adminMain() {
 		
 		
-		
 		return "admin/main";
 	}
 	
 	//관리자 로그인
 	@RequestMapping(value = "/loginimple", method = RequestMethod.POST, produces = "application/text; charset=UTF-8")
 	@ResponseBody
-	public String loginImpl(Admin admin, HttpSession session, Model model, HttpServletRequest request) {
+	public String loginImpl(@RequestParam Map<String,Object> admin, HttpSession session, Model model, HttpServletRequest request) {
 
-		System.out.println(admin.getId() + ", " + admin.getPw());
+		System.out.println(admin.get("id") + ", " + admin.get("pw"));
 		
 		//관리자 정보 조회
-		Users res = adminService.selectAdmin(admin);
+		Map<String,Object> res = adminService.selectAdmin(admin);
 		
 		//루트 컨텍스트
 		String root = request.getContextPath();

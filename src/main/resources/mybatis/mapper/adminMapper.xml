@@ -84,6 +84,11 @@
 		<result column="total_sum" property="ts" />
 	</resultMap>
 	
+	<resultMap type="map" id="admin">
+		<result column="id" property="id" />
+		<result column="pw" property="pw" />
+		<result column="name" property="name" />
+	</resultMap>
 	
 	
 	<!-- 상품 조회 -->
@@ -806,7 +811,7 @@
 	
 	
 	<!-- 관리자 로그인 -->
-	<select id="selectAdmin">
+	<select id="selectAdmin" resultMap="admin">
 		SELECT * FROM ADMIN
 		WHERE ID = #{id} AND PW = #{pw}
 	</select>

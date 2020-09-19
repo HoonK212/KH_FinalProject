@@ -60,7 +60,7 @@ public class AuthInterceptor implements HandlerInterceptor{
 	public void adminauth(HttpServletRequest req, HttpServletResponse resp) {
 		
 		req.setAttribute("alertMsg", "관리자 권한이 없습니다.");
-		req.setAttribute("url", req.getContextPath()+"/admin/main");
+		req.setAttribute("url", req.getContextPath()+"/adminlogin/main");
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/common/result.jsp");
 		
 		try {

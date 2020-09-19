@@ -31,13 +31,6 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
-	//관리자 메인
-	@RequestMapping("/main")
-	public String adminMain() {
-		
-		return "admin/main";
-	}
-	
 	
 	//재고 목록 조회
 	@RequestMapping("/stocklist")
@@ -45,7 +38,10 @@ public class AdminController {
 			@RequestParam(required=false, defaultValue="1") int cPage,
 			@RequestParam(required=false, defaultValue="10") int cntPerPage,
 			@RequestParam Map<String, Object> search,
-			Model model) {
+			Model model,
+			HttpSession session) {
+		
+		Map<String,Object> admin = (Map<String,Object>) session.getAttribute("logInInfo");
 		
 		System.out.println("컨트롤러 서치 객체 : " + search);
 		
@@ -55,6 +51,7 @@ public class AdminController {
 		
 		model.addAttribute("plist", result.get("plist"));
 		model.addAttribute("page", result.get("page"));
+		model.addAttribute("admin", admin);
 		//검색한 경우 검색정보를 담기
 		if(search.get("data") != null && search.get("data") != "") {
 			model.addAttribute("search", search);
@@ -66,7 +63,7 @@ public class AdminController {
 	//재고 상세 조회
 	@RequestMapping("/stockdetail")
 	@ResponseBody
-	public Object selectStockDetail(@RequestParam String code, Model model) {
+	public Object selectStockDetail(@RequestParam String code, Model model, HttpSession session) {
 		
 		List<Object> result = adminService.selectStockDetail(code);
 		
@@ -91,7 +88,10 @@ public class AdminController {
 			@RequestParam(required=false, defaultValue="1") int cPage,
 			@RequestParam(required=false, defaultValue="10") int cntPerPage,
 			@RequestParam Map<String, Object> search,
-			Model model) {
+			Model model,
+			HttpSession session) {
+		
+		Map<String,Object> admin = (Map<String,Object>) session.getAttribute("logInInfo");
 		
 		System.out.println("컨트롤러 서치 객체 : " + search);
 		
@@ -101,6 +101,7 @@ public class AdminController {
 		
 		model.addAttribute("slist", result.get("slist"));
 		model.addAttribute("page", result.get("page"));
+		model.addAttribute("admin", admin);
 		//검색한 경우 검색정보를 담기
 		if( (search.get("data") != null && search.get("data") != "") || 
 			(search.get("fromdate")!=null && search.get("fromdate")!= "" && search.get("todate")!=null && search.get("todate")!= "") ) {
@@ -145,7 +146,10 @@ public class AdminController {
 
 	//상품등록 view로 이동하는 메소드
 	@RequestMapping(value="/productregister", method=RequestMethod.GET)
-	public String productRegister() {
+	public String productRegister(HttpSession session, Model model) {
+		
+		Map<String,Object> admin = (Map<String,Object>) session.getAttribute("logInInfo");
+		model.addAttribute("admin", admin);
 		
 		return "admin/product_register";
 	}
@@ -187,8 +191,11 @@ public class AdminController {
 	public String productList(@RequestParam(required=false, defaultValue="1") int cPage,
 			@RequestParam(required=false, defaultValue="10") int cntPerPage,
 			@RequestParam Map<String, Object> search,
-			Model model) {
+			Model model,
+			HttpSession session) {
 	
+		Map<String,Object> admin = (Map<String,Object>) session.getAttribute("logInInfo");
+		
 		System.out.println("컨트롤러 서치 객체 : " + search);
 		
 		Map<String,Object> result = adminService.selectProductList(cPage, cntPerPage, search);
@@ -197,6 +204,7 @@ public class AdminController {
 		
 		model.addAttribute("plist", result.get("plist"));
 		model.addAttribute("page", result.get("page"));
+		model.addAttribute("admin", admin);
 		
 		//검색한 경우 검색정보를 담기
 		if(search.get("data") != null && search.get("data") != "") {
@@ -208,7 +216,9 @@ public class AdminController {
 	
 	//상세상세 및 수정 페이지로 이동
 	@RequestMapping(value="/productdetail" , method=RequestMethod.GET)
-	public String productDetail(@RequestParam String code , Model model) {
+	public String productDetail(@RequestParam String code , Model model, HttpSession session) {
+		
+		Map<String,Object> admin = (Map<String,Object>) session.getAttribute("logInInfo");
 		
 		//code에 해당하는 상품의 정보를 가져오는 메소드 
 		Map<String,Object> product = adminService.selectProductDetail(code);
@@ -219,6 +229,7 @@ public class AdminController {
 		model.addAttribute("product", product);
 		model.addAttribute("filelist", files.get("filelist"));
 		model.addAttribute("thumblist", files.get("thumblist"));
+		model.addAttribute("admin", admin);
 		
 		return "admin/product_update";
 	}
@@ -265,7 +276,10 @@ public class AdminController {
 			@RequestParam(required=false, defaultValue="1") int cPage,
 			@RequestParam(required=false, defaultValue="10") int cntPerPage,
 			@RequestParam Map<String, Object> search,
-			Model model) {
+			Model model,
+			HttpSession session) {
+		
+		Map<String,Object> admin = (Map<String,Object>) session.getAttribute("logInInfo");
 		
 		System.out.println(search);
 		
@@ -274,6 +288,7 @@ public class AdminController {
 		model.addAttribute("slist", result.get("slist"));
 		model.addAttribute("page", result.get("page"));
 		model.addAttribute("total", result.get("total"));
+		model.addAttribute("admin", admin);
 		
 		//검색한 경우 검색정보를 담기
 		if(search.get("data") != null && search.get("data") != "") {
@@ -289,12 +304,16 @@ public class AdminController {
 	public String memberList(@RequestParam(required=false, defaultValue="1") int cPage,
 			@RequestParam(required=false, defaultValue="10") int cntPerPage,
 			@RequestParam Map<String, Object> search,
-			Model model) {
+			Model model,
+			HttpSession session) {
 	
+		Map<String,Object> admin = (Map<String,Object>) session.getAttribute("logInInfo");
+		
 		Map<String,Object> result = adminService.selectMemberList(cPage, cntPerPage, search);
 		
 		model.addAttribute("mlist", result.get("mlist"));
 		model.addAttribute("page", result.get("page"));
+		model.addAttribute("admin", admin);
 		
 		//검색한 경우 검색정보를 담기
 		if(search.get("data") != null && search.get("data") != "") {

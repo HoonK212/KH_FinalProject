@@ -61,6 +61,6 @@ public interface AdminService {
 	public int modifyStatus(int op_no, String status);
 	
 	//관리자 로그인
-	public Users selectAdmin(Admin admin);
+	public Map<String,Object> selectAdmin(Map<String,Object> admin);
 
 }

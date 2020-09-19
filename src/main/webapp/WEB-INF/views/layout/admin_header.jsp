@@ -18,10 +18,10 @@
 	   
 				<div x-show="dropdownOpen" class="absolute right-0 mt-2 py-2 w-48 bg-indigo-600 rounded-md shadow-xl z-20">
 					<c:if test="${not empty admin }">
-					<a href="<%=request.getContextPath()%>/admin/logout" class="block px-4 py-2 text-sm text-white hover:bg-gray-600 hover:text-white">로그아웃</a>
+					<a href="<%=request.getContextPath()%>/adminlogin/logout" class="block px-4 py-2 text-sm text-white hover:bg-gray-600 hover:text-white">로그아웃</a>
 					</c:if>
 					<c:if test="${empty admin }">
-					<a href="<%=request.getContextPath()%>/admin/main" class="block px-4 py-2 text-sm text-white hover:bg-gray-600 hover:text-white">로그인</a>
+					<a href="<%=request.getContextPath()%>/adminlogin/main" class="block px-4 py-2 text-sm text-white hover:bg-gray-600 hover:text-white">로그인</a>
 					</c:if>
 				</div>
 			</div>
