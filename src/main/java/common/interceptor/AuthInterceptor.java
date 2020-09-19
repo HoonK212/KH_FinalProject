@@ -32,6 +32,9 @@ public class AuthInterceptor implements HandlerInterceptor{
 		} else if(req.getRequestURI().contains("shopping/payment") && req.getSession().getAttribute("logInInfo") == null) {
 			auth(req, resp);
 			return false;
+		} else if(req.getRequestURI().contains("user/login") && req.getSession().getAttribute("logInInfo") != null) {
+			login(req, resp);
+			return false;
 		} else {
 			return true;
 		}
@@ -40,6 +43,21 @@ public class AuthInterceptor implements HandlerInterceptor{
 	public void auth(HttpServletRequest req, HttpServletResponse resp) {
 		
 		req.setAttribute("alertMsg", "비회원은 권한이 없습니다.");
+		req.setAttribute("url", req.getContextPath()+"/user/login");
+		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/common/result.jsp");
+		
+		try {
+			rd.forward(req, resp);
+		} catch (ServletException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void login(HttpServletRequest req, HttpServletResponse resp) {
+		
+		req.setAttribute("alertMsg", "이미 로그인 하셨습니다.");
 		req.setAttribute("url", req.getContextPath()+"/user/login");
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/common/result.jsp");
 		

@@ -84,7 +84,18 @@
 		<result column="total_sum" property="ts" />
 	</resultMap>
 	
-	
+	<resultMap type="map" id="reportdata">
+		<result column="title" property="title" />
+		<result column="id" property="id" />
+		<result column="ref" property="ref" />
+		<result column="reason" property="reason" />
+		<result column="detail" property="detail" />
+		<result column="manage" property="manage" />
+		<result column="days" property="days" />
+		<result column="note" property="note" />
+		<result column="dates" property="dates" />
+		<result column="target" property="target" />
+	</resultMap>
 	
 	<!-- 상품 조회 -->
 		
@@ -95,7 +106,7 @@
 	
 	<select id="selectProductListOfSearchType1" resultMap="productdata">
 		SELECT * FROM (SELECT ROWNUM RNUM, P.* FROM(
-		SELECT * FROM PRODUCT WHERE CODE LIKE '%' ||  #{search.data} || '%' )P order by dates desc
+		SELECT * FROM PRODUCT WHERE CODE LIKE '%' ||  #{search.data} || '%' )P order by substr(code, 2) desc
 		)WHERE RNUM BETWEEN #{paging.start} and #{paging.end}
 	</select>
 	
@@ -106,7 +117,7 @@
 	
 	<select id="selectProductListOfSearchType2" resultMap="productdata">
 		SELECT * FROM (SELECT ROWNUM RNUM, P.* FROM(
-		SELECT * FROM PRODUCT WHERE NAME LIKE '%' ||  #{search.data} || '%' )P order by dates desc
+		SELECT * FROM PRODUCT WHERE NAME LIKE '%' ||  #{search.data} || '%' )P order by substr(code, 2) desc
 		)WHERE RNUM BETWEEN #{paging.start} and #{paging.end}
 	</select>
 	
@@ -116,7 +127,7 @@
 	
 	<select id="selectProductList" resultMap="productdata">
 		select * from ( select rownum rnum, p.* from(
-            select * from product order by dates desc) p		
+            select * from product order by substr(code, 2) desc) p		
 		)where rnum between #{start} and #{end}
 	</select>
 	
@@ -804,5 +815,29 @@
 		WHERE NO = #{op_no}
 	</update>
 	
+	<!-- 신고관리 -->
+	<select id="selectReportCnt" resultType="int">
+		SELECT COUNT(*) FROM REPORT
+	</select>
+	
+	<select id="selectReportList" resultMap="reportdata" parameterType="int">
+		select *
+		from
+		    (select rownum rnum, RP.*
+		    from
+		       (select B.title, R.* from board B, report R where B.no = R.ref order by R.dates desc) RP
+			)
+		where rnum between #{start} and #{end}
+	</select>
+	
+	<select id="selectReportDetail" resultMap="reportdata">
+		SELECT * FROM REPORT 
+		WHERE id = #{id} and ref = #{ref}
+	</select>
+	
+	<update id="modifyReportData">
+		UPDATE REPORT SET manage = 1, days = #{days}, note = #{note} 
+		WHERE id = #{id} and ref = #{ref}
+	</update>
 	
 </mapper>

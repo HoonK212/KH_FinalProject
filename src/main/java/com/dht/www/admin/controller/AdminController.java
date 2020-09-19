@@ -1,5 +1,6 @@
 package com.dht.www.admin.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -302,47 +303,40 @@ public class AdminController {
 		return "admin/member_list";
 	}
 	
-//	//신고 관리
-//	@RequestMapping(value = "/reportlist")
-//	public String selectReportList(
-//			@RequestParam(required=false, defaultValue="1") int cPage,
-//			@RequestParam(required=false, defaultValue="15") int cntPerPage,
-//			@RequestParam Map<String, Object> search,
-//			Model model) {
-//		
-//		Map<String,Object> result = adminService.selectReturnList(cPage, cntPerPage, search);
-//		
-//		model.addAttribute("rlist", result.get("plist"));
-//		model.addAttribute("page", result.get("page"));
-//		
-//		//검색한 경우 검색정보를 담기
-//		if( (search.get("data") != null && search.get("data") != "") || 
-//			(search.get("fromdate")!=null && search.get("fromdate")!= "" && search.get("todate")!=null && search.get("todate")!= "") ) {
-//			model.addAttribute("search", search);
-//		}
-//		
-//		return "admin/report_list";
-//	}
-//	
-//	//신고 내용
-//	@RequestMapping(value = "/reportdetail", method = RequestMethod.GET)
-//	@ResponseBody
-//	public Object selectReportDetail(@RequestParam String op_no, Model model) {
-//		
-//		List<Object> result = adminService.selectReturnDetail(op_no);
-//		
-//		return result;
-//	}
-//	
-//	//신고 처리
-//	@RequestMapping(value = "/reportmodify", method = RequestMethod.POST)
-//	public String modifyReportData(@RequestParam Map<String, Object> data) {
-//		
-//		System.out.println(data);
-//		
-//		int res = adminService.modifyReturnData(data);
-//		
-//		return "redirect:reportlist";
-//	}
-
+	//신고 관리
+	@RequestMapping("/reportlist")
+	public String selectReportList(
+			@RequestParam(required=false, defaultValue="1") int cPage,
+			@RequestParam(required=false, defaultValue="10") int cntPerPage,
+			Model model) {
+		
+		Map<String,Object> result = adminService.selectReportList(cPage, cntPerPage);
+		
+		model.addAttribute("rlist", result.get("rlist"));
+		model.addAttribute("page", result.get("page"));
+		
+		return "admin/report_list";
+	}
+	
+	@RequestMapping("/reportdetail")
+	@ResponseBody
+	public Object selectReportlistDetail(@RequestParam String id, int ref, Model model) {
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("id", id);
+		paramMap.put("ref", ref);
+		
+		List<Object> result = adminService.selectReportDetail(paramMap);
+		
+		return result;
+	}
+	
+	@RequestMapping(value = "/reportmodify", method = RequestMethod.POST)
+	public String modifyReportData(@RequestParam Map<String,Object> data) {
+		
+		int res = adminService.modifyReportData(data);
+		
+		return "redirect:reportlist";
+	}
+	
 }

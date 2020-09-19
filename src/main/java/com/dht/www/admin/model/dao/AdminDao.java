@@ -230,7 +230,7 @@ public class AdminDao {
 			return sqlSession.selectOne("ADMIN.selectFileWifhFileNo", no);
 		}
 
-		//회원관리
+		//회원 관리
 		public int selectMemberCnt() {
 			return sqlSession.selectOne("ADMIN.selectMemberCnt");
 		}
@@ -342,6 +342,23 @@ public class AdminDao {
 			return sqlSession.selectOne("ADMIN.selectSalesTotal", p);
 		}
 		
+		//신고 관리
+		public int selectReportCnt() {
+			return sqlSession.selectOne("ADMIN.selectReportCnt");
+		}
 
+		public List<Map<String, Object>> selectReportList(Paging paging) {
+			return sqlSession.selectList("ADMIN.selectReportList", paging);
+		}
+		
+		public List<Object> selectReportDetail(Map<String, Object> paramMap) {
+
+			return sqlSession.selectList("ADMIN.selectReportDetail", paramMap);
+		}
+		
+		public int modifyReportData(Map<String, Object> data) {
+
+			return sqlSession.update("ADMIN.modifyReportData", data);
+		}
 		
 }

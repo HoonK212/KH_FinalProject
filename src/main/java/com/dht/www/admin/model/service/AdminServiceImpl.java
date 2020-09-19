@@ -423,7 +423,7 @@ public class AdminServiceImpl implements AdminService {
 			
 		}
 
-		//회원관리
+		//회원 관리
 		@Override
 		public Map<String, Object> selectMemberList(int cPage, int cntPerPage, Map<String,Object> search) {
 		
@@ -619,6 +619,33 @@ public class AdminServiceImpl implements AdminService {
 			mp.put("status", status);
 			
 			return adminDao.modifyStatus(mp);
+		}
+
+		// 신고 관리
+		@Override
+		public Map<String, Object> selectReportList(int cPage, int cntPerPage) {
+			
+			Map<String, Object> commandMap = new HashMap<>();
+
+			Paging p = new Paging(adminDao.selectReportCnt(), cPage, cntPerPage);
+			List<Map<String,Object>> rlist = adminDao.selectReportList(p);
+			
+			commandMap.put("rlist", rlist);
+			commandMap.put("page", p);
+			
+			return commandMap;
+		}
+		
+		@Override
+		public List<Object> selectReportDetail(Map<String, Object> paramMap) {
+			
+			return adminDao.selectReportDetail(paramMap);
+		}
+
+		@Override
+		public int modifyReportData(Map<String, Object> data) {
+
+			return adminDao.modifyReportData(data);
 		}
 	
 }

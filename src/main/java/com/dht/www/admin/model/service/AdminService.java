@@ -49,7 +49,7 @@ public interface AdminService {
 	public void updateProductData(List<MultipartFile> files, Map<String, Object> product, String path,
 			List<String> thumbList);
 
-	//회원관리
+	//회원 관리
 	public Map<String, Object> selectMemberList(int cPage, int cntPerPage, Map<String,Object> search);
 	
 	//매출목록조회
@@ -57,5 +57,12 @@ public interface AdminService {
 
 	//배송상태 변경	
 	public int modifyStatus(int op_no, String status);
+
+	//신고 관리
+	public Map<String, Object> selectReportList(int cPage, int cntPerPage);
+	
+	public List<Object> selectReportDetail(Map<String, Object> paramMap);
+	
+	public int modifyReportData(Map<String, Object> data);
 
 }
