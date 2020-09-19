@@ -887,7 +887,7 @@ body {
 			<div class="o_no">주문번호 : ${order.o_no }</div>
             <div class="description">주문일자 : <fmt:formatDate value="${order.dates }" pattern="yyyy-MM-dd"/></div>
             <div class="name">${order.name }</div>
-            <div class="price">${order.price * order.amount } ₩</div>
+            <div class="price">${order.price * order.amount }원</div>
             
             <!-- ### 숨겨놓은 데이터 ### -->
             <!-- 상품코드  -->

@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
 <meta charset="UTF-8">
@@ -442,7 +442,7 @@ header .count {
 /*table*/
 table {
   font-family: arial;
-  max-width: 60%;
+  max-width: 100%;
   background-color: transparent;
   border-collapse: collapse;
   border-spacing: 0;
@@ -472,10 +472,10 @@ table {
   background-color: #fafafa;
 }    
 .table .t-small {
-  width: 6%;
+  width: 2%;
 }
 .table .t-medium {
-  width: 10%;
+  width: 15%;
 }
 .table .t-status {
   font-weight: bold;
@@ -536,7 +536,6 @@ table {
       text-align: center;
     }
     
-
 </style>
 </head>
 <body>
@@ -544,42 +543,40 @@ table {
 <!-- 사이드 네비 메뉴 -->
 <%@include file="/WEB-INF/views/mypage/navi.jsp" %>
 
-
 <!-- HEADER -->
 <div style="padding-left:300px; padding-bottom:20px; padding-top:20px;">
 <header class="container">
     <h1>내가 쓴 글</h1>
     <ul class="breadcrumb">
       <li>마이페이지</li>
-      <li>게시글</li>
+      <li>댓글</li>
     </ul>
 </header>
 </div>
 
+
 <div style="padding-left:400px; padding-bottom:10px; display:inline-block;"><span><a href="<%=request.getContextPath()%>/mypage/myWritten">게시글</a></span> | <span><a href="<%=request.getContextPath()%>/mypage/myComment">댓글</a></span></div>
-<div class="my-table" style="width:132%; padding-left:400px;">
-<table class="table table-action" style="table-layout:fixed;">
+<div class="my-table" style="width:90%; padding-left:400px;">
+<table class="table table-action"  style="table-layout:fixed;">
   
   <thead>
     <tr>
-      <th class="t-small"><input type="checkbox" id="checkAll" onclick="checkAll();"></th>
-      <th class="t-small">번호</th>
-      <th class="t-medium">제목</th>
-      <th>내용</th>
-      <th class="t-medium">작성일</th>
-      <th class="t-medium">조회수</th>
+      <th class="t-small"><input type="checkbox" id="checkAll"  onclick="checkAll();"></th>
+      <th class="t-small" style="text-align:center;">번호</th>
+      <th class="t-medium">내용</th>
+      <th class="t-small">작성일</th>
+      <th class="t-small">아이디</th>
     </tr>
   </thead>
   
   <tbody>
-  <c:forEach var="board" items="${board}">
+  <c:forEach var="comment" items="${comment}">
     <tr>
-      <td><label><input type="checkbox" name="chk" id="chk" value="${board.no}"></label></td>
-      <td style="width:7%; text-align:center;">${board.no}</td>
-      <td style="width:40%;text-overflow:ellipsis; overflow:hidden; white-space: nowrap;">${board.title}</td>
-      <td style="text-overflow:ellipsis; overflow:hidden; white-space: nowrap;">${board.content}</td>
-      <td class="t-status t-active">${board.dates}</td>
-      <td class="t-status t-active">${board.count}</td>
+      <td><label><input type="checkbox" name="chk" id="chk" value="${comment.no}"></label></td>
+      <td style="width:10%; text-align:center;">${comment.no}</td>
+      <td style="width:40%; text-overflow:ellipsis; overflow:hidden; white-space: nowrap;">${comment.content}</td>
+      <td>${comment.dates}</td>
+      <td class="t-status t-active">${comment.id}</td>
     </tr>
   </c:forEach>
   </tbody>
@@ -589,9 +586,9 @@ table {
 <!-- delete button -->
 
           <div class="button raised green" style="width:5%; margin-left:1300px;" onclick="checkboxArr();">
-               <div class="center" >삭제</div>
+               <div class="center">삭제</div>
           </div>
-
+          
 <!-- 페이징 -->
    <div
                         class="px-5 py-5 flex flex-col xs:flex-row items-center xs:justify-between          ">
@@ -660,134 +657,143 @@ table {
                       </div>
                    </div>   
          <!-- 페이징 end -->
+
+
+
 <script>
 
-      $(function () {
-   
-        'use strict';
-   
-        var aside = $('.side-nav'),
-            showAsideBtn = $('.show-side-btn'),
-            contents = $('#contents'),
-            _window = $(window)
-   
-        showAsideBtn.on("click", function () {
-          $("#" + $(this).data('show')).toggleClass('show-side-nav');
-          contents.toggleClass('margin');
-        });
-   
-        if (_window.width() <= 767) {
-          aside.addClass('show-side-nav');
-        }
-   
-        _window.on('resize', function () {
-          if ($(window).width() > 767) {
-            aside.removeClass('show-side-nav');
-          }
-        });
-   
-        // dropdown menu in the side nav
-        var slideNavDropdown = $('.side-nav-dropdown');
-   
-        $('.side-nav .categories li').on('click', function () {
-   
-          var $this = $(this)
-   
-          $this.toggleClass('opend').siblings().removeClass('opend');
-   
-          if ($this.hasClass('opend')) {
-            $this.find('.side-nav-dropdown').slideToggle('fast');
-            $this.siblings().find('.side-nav-dropdown').slideUp('fast');
-          } else {
-            $this.find('.side-nav-dropdown').slideUp('fast');
-          }
-        });
-   
-        $('.side-nav .close-aside').on('click', function () {
-          $('#' + $(this).data('close')).addClass('show-side-nav');
-          contents.removeClass('margin');
-        });
-   
-      });
-      
-      
-      /* stage-select------------------- */
-         button = document.querySelector('button');
-      datalist = document.querySelector('datalist');
-      select = document.querySelector('select');
-      options = select.options;
-   
-      /* on arrow button click, show/hide the DDL*/
-      button.addEventListener('click', toggle_ddl);
-   
-      function toggle_ddl() {
-        if (datalist.style.display === '') {
-          datalist.style.display = 'block';
-          this.textContent = "▲";
-          /* If input already has a value, select that option from DDL */
-          var val = input.value;
-          for (var i = 0; i < options.length; i++) {
-            if (options[i].text === val) {
-              select.selectedIndex = i;
-              break;
-            }
-          }
-        } else hide_select();
-      }
-   
-      /* when user selects an option from DDL, write it to text field */
-      select.addEventListener('change', fill_input);
-   
-      function fill_input() {
-        input.value = options[this.selectedIndex].value;
-        hide_select();
-      }
-   
-      /* when user wants to type in text field, hide DDL */
-      input = document.querySelector('input');
-      input.addEventListener('focus', hide_select);
-   
-      function hide_select() {
-        datalist.style.display = '';
-        button.textContent = "▼";
-      };
-   
-       
-       //체크박스 전체 선택하기, 선택 해제하기ㅏ 
-       function checkAll(){
-            if( $("#checkAll").is(':checked') ){
-              $("input[name=chk]").prop("checked", true);
-            }else{
-              $("input[name=chk]").prop("checked", false);
-            }
-      }
+   $(function () {
 
-       
-      //선택된 체크박스의 값을 삭제 
-      function checkboxArr() {
-         //선택된 체크박스 값이 없다면 값을 넘기지 않는다
-         if($("input:checkbox[name='chk']").is(":checked") == false){
-            alert('하나이상의 글을 선택해주세요')         
-         }else{
-             var checkArr = [];     // 배열 초기화
-             $("input[name='chk']:checked").each(function(i){
-                 checkArr.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
-             })
-          
-             $.ajax({
-                 url: '<%= request.getContextPath() %>/mypage/deleteWritten '
-                 , type: 'post'
-                 , dataType: 'text'
-                 , data: {
-                     valueArrTest: checkArr
-                 }
-                 ,success : function(){
-                    location.href = '<%= request.getContextPath()%>/mypage/myWritten'
-                 }
-                 
-             });
+     'use strict';
+
+     var aside = $('.side-nav'),
+         showAsideBtn = $('.show-side-btn'),
+         contents = $('#contents'),
+         _window = $(window)
+
+     showAsideBtn.on("click", function () {
+       $("#" + $(this).data('show')).toggleClass('show-side-nav');
+       contents.toggleClass('margin');
+     });
+
+     if (_window.width() <= 767) {
+       aside.addClass('show-side-nav');
+     }
+
+     _window.on('resize', function () {
+       if ($(window).width() > 767) {
+         aside.removeClass('show-side-nav');
+       }
+     });
+
+     // dropdown menu in the side nav
+     var slideNavDropdown = $('.side-nav-dropdown');
+
+     $('.side-nav .categories li').on('click', function () {
+
+       var $this = $(this)
+
+       $this.toggleClass('opend').siblings().removeClass('opend');
+
+       if ($this.hasClass('opend')) {
+         $this.find('.side-nav-dropdown').slideToggle('fast');
+         $this.siblings().find('.side-nav-dropdown').slideUp('fast');
+       } else {
+         $this.find('.side-nav-dropdown').slideUp('fast');
+       }
+     });
+
+     $('.side-nav .close-aside').on('click', function () {
+       $('#' + $(this).data('close')).addClass('show-side-nav');
+       contents.removeClass('margin');
+     });
+
+   });
+   
+   
+   /* stage-select------------------- */
+      button = document.querySelector('button');
+   datalist = document.querySelector('datalist');
+   select = document.querySelector('select');
+   options = select.options;
+
+   /* on arrow button click, show/hide the DDL*/
+   button.addEventListener('click', toggle_ddl);
+
+   function toggle_ddl() {
+     if (datalist.style.display === '') {
+       datalist.style.display = 'block';
+       this.textContent = "▲";
+       /* If input already has a value, select that option from DDL */
+       var val = input.value;
+       for (var i = 0; i < options.length; i++) {
+         if (options[i].text === val) {
+           select.selectedIndex = i;
+           break;
          }
-      }//end
+       }
+     } else hide_select();
+   }
+
+   /* when user selects an option from DDL, write it to text field */
+   select.addEventListener('change', fill_input);
+
+   function fill_input() {
+     input.value = options[this.selectedIndex].value;
+     hide_select();
+   }
+
+   /* when user wants to type in text field, hide DDL */
+   input = document.querySelector('input');
+   input.addEventListener('focus', hide_select);
+
+   function hide_select() {
+     datalist.style.display = '';
+     button.textContent = "▼";
+   }
+   
+   
+   //체크박스 전체 선택하기, 선택 해제하기ㅏ 
+   function checkAll(){
+         if( $("#checkAll").is(':checked') ){
+           $("input[name=chk]").prop("checked", true);
+         }else{
+           $("input[name=chk]").prop("checked", false);
+         }
+   }
+   
+   
+
+   //선택된 체크박스의 값을 삭제 
+   function checkboxArr() {
+      
+      //선택된 체크박스 값이 없는 경우 삭제가 되면 안된다 
+      if($("input:checkbox[name='chk']").is(":checked") == false){
+         alert('하나 이상의 글을 선택해주세요')
+      }else{
+         
+          var checkArr = [];     // 배열 초기화
+          $("input[name='chk']:checked").each(function(i){
+              checkArr.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
+          })
+          
+          
+       
+          $.ajax({
+              url: '<%= request.getContextPath() %>/mypage/deleteComment '
+              , type: 'post'
+              , dataType: 'text'
+              , data: {
+                  valueArrTest: checkArr
+              }
+              ,success : function(){
+                 location.href = '<%= request.getContextPath()%>/mypage/myComment'
+              }
+              
+          });
+      } 
+   }
+      
 
 </script>
 </body>

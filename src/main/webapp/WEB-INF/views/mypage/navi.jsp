@@ -325,9 +325,9 @@
   <ul class="categories">
     <li><i class="fa fa-home fa-fw"></i>회원정보
       <ul class="side-nav-dropdown">
-        <li><a href="#">내 회원정보</a></li>
-        <li><a href="#">포인트&코인 관리</a></li>
-        <li><a href="#">내가 쓴 글 조회</a></li>
+        <li><a href="<%=request.getContextPath()%>/mypage/myInformation">내 회원정보</a></li>
+        <li><a href="<%=request.getContextPath()%>/mypage/myPoint">포인트&코인 관리</a></li>
+        <li><a href="<%=request.getContextPath()%>/mypage/myWritten">내가 쓴 글 조회</a></li>
       </ul>
     </li>
     <li><i class="fa fa-support fa-fw"></i>운동관리

@@ -7,9 +7,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.dht.www.admin.model.vo.Admin;
 import com.dht.www.board.model.vo.Board;
 import com.dht.www.mypage.model.vo.Files;
 import com.dht.www.shopping.model.vo.Product;
+import com.dht.www.user.model.vo.Users;
 
 public interface AdminService {
 	
@@ -57,6 +59,9 @@ public interface AdminService {
 
 	//배송상태 변경	
 	public int modifyStatus(int op_no, String status);
+	
+	//관리자 로그인
+	public Map<String,Object> selectAdmin(Map<String,Object> admin);
 
 	//신고 관리
 	public Map<String, Object> selectReportList(int cPage, int cntPerPage);

@@ -84,6 +84,7 @@
 		<result column="total_sum" property="ts" />
 	</resultMap>
 	
+<<<<<<< HEAD
 	<resultMap type="map" id="reportdata">
 		<result column="title" property="title" />
 		<result column="id" property="id" />
@@ -96,6 +97,14 @@
 		<result column="dates" property="dates" />
 		<result column="target" property="target" />
 	</resultMap>
+=======
+	<resultMap type="map" id="admin">
+		<result column="id" property="id" />
+		<result column="pw" property="pw" />
+		<result column="name" property="name" />
+	</resultMap>
+	
+>>>>>>> 4f8d8809d175e87ee5d1859e102e7d9ab69dfa96
 	
 	<!-- 상품 조회 -->
 		
@@ -839,5 +848,11 @@
 		UPDATE REPORT SET manage = 1, days = #{days}, note = #{note} 
 		WHERE id = #{id} and ref = #{ref}
 	</update>
+	
+	<!-- 관리자 로그인 -->
+	<select id="selectAdmin" resultMap="admin">
+		SELECT * FROM ADMIN
+		WHERE ID = #{id} AND PW = #{pw}
+	</select>
 	
 </mapper>

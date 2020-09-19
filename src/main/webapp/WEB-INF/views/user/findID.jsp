@@ -14,7 +14,7 @@
 
 <div class="h-screen">
 	<div x-data="app()" x-cloak>
-	<form action="<%=request.getContextPath() %>/user/findIdImpl" method="POST" onsubmit="return required();">
+	<form action="<%=request.getContextPath() %>/user/findIdImpl" method="POST">
 		<div class="max-w-3xl mx-auto px-4 py-10">
 			<div x-show.transition="step === 'complete'">
 				<div class="bg-white rounded-lg p-10 flex items-center shadow justify-between">
@@ -45,14 +45,14 @@
 						<div class="mt-10 mb-10">
 							<label for="name" class="font-bold mb-1 text-gray-800 inline-block">이름</label>
 							<p class="font-bold mb-1 text-gray-400 block text-xs inline-block">(1/2)</p>
-							<input type="text" name="name" id="name"
+							<input type="text" name="name" id="name" required
 								class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
 								placeholder="등록된 이름 입력">
 						</div>
 						<div class="mb-10">
 							<label for="mail" class="font-bold mb-1 text-gray-800 inline-block">이메일</label>
 							<p class="font-bold mb-1 text-gray-400 block text-xs inline-block">(2/2)</p>
-							<input type="email" name="mail" id="mail"
+							<input type="email" name="mail" id="mail" required
 								class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
 								placeholder="등록된 이메일 입력">
 						</div>
@@ -62,11 +62,22 @@
 			</div>
 		</div>
 
+		<div class="fixed bottom-0 left-0 right-0 py-5 bg-white shadow-md" style="margin-bottom: 20px;">
+			<div class="max-w-3xl mx-auto px-4">
+				<div class="flex justify-between">
+					<div class="w-full text-right" >
+						<button x-show="step === 3" type="button" id="btnSubmit01"
+							class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
+						>완료</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="fixed bottom-0 left-0 right-0 py-5 bg-white shadow-md" x-show="step != 'complete'">
 			<div class="max-w-3xl mx-auto px-4">
 				<div class="flex justify-between">
-					<div class="w-full text-right">
-						<button
+					<div class="w-full text-right" style="display:none;" >
+						<button id="btnSubmit02"
 							@click="step = 'complete'"
 							x-show="step === 3"
 							class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
@@ -86,15 +97,27 @@
 			}
 		}
 		
-		function required(){
-			var id = document.getElementById('id').value;
-			var name = documnet.getElementById('name').value;
-			
-			if( id == "" || name == ""){
+		window.onload = function(){
+
+			document.getElementById('btnSubmit01').onclick = function() {
+				var name = document.getElementById('name').value;
+				var email = document.getElementById('mail').value;
 				
-				return false;
+				if(name != '' && email != ''){
+					document.getElementById('btnSubmit02').click();
+				}else{
+					alert('이름과 이메일을 입력하세요.');
+				}
+					
+					
 			}
+			
+			
 		}
+		
+			
+			
+		
 	</script>
 
 </body>

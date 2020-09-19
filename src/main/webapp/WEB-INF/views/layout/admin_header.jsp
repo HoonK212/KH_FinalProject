@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 
 <div class="lay-item">
 	<div class="flex justify-between items-center mx-auto py-4 px-6 bg-white border-b-4 border-indigo-600">
@@ -16,11 +17,20 @@
 				<div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
 	   
 				<div x-show="dropdownOpen" class="absolute right-0 mt-2 py-2 w-48 bg-indigo-600 rounded-md shadow-xl z-20">
-					<a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-600 hover:text-white">로그아웃</a>
+					<c:if test="${not empty admin }">
+					<a href="<%=request.getContextPath()%>/adminlogin/logout" class="block px-4 py-2 text-sm text-white hover:bg-gray-600 hover:text-white">로그아웃</a>
+					</c:if>
+					<c:if test="${empty admin }">
+					<a href="<%=request.getContextPath()%>/adminlogin/main" class="block px-4 py-2 text-sm text-white hover:bg-gray-600 hover:text-white">로그인</a>
+					</c:if>
 				</div>
 			</div>
-
-			<span class="font-mono ml-4">문지영님</span>
+			<c:if test="${not empty admin }">
+			<span class="font-mono ml-4">${admin.name }님</span>
+			</c:if>
+			<c:if test="${empty admin }">
+			<span class="font-mono ml-4">반갑습니다</span>
+			</c:if>
 		</div>
 	</div>
 </div>

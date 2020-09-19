@@ -112,13 +112,7 @@
 		location.href='https://kauth.kakao.com/oauth/authorize?client_id=f601dfea61fb3ccf05acb9ddb277a697&redirect_uri=http://<%=request.getServerName() %>:<%=request.getServerPort() %><%=request.getContextPath() %>/user/kakaoLogin&response_type=code'; 
  	}
 	
-   var btn = document.querySelector('.kakaoLogout');
-   
-   btn.onclick=function(){
-      
-      location.href='https://kauth.kakao.com/oauth/logout?client_id=f601dfea61fb3ccf05acb9ddb277a697&logout_redirect_uri=http://<%=request.getServerName() %>:<%=request.getServerPort() %><%=request.getContextPath() %>/user/kakaoLogout';
-  
-   }
+
 	</script>
 	
 

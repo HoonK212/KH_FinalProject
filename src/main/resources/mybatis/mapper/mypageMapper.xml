@@ -91,4 +91,153 @@
 	</select>
 	
 	
+	<!-- 세민 -->
+	
+	<!-- 메일이 중복 되는지 확인하는 메소드  -->
+   <select id="chMail" resultType="int">
+      select count(*) from users
+      where mail=#{mail}
+   </select>
+   
+   <!-- 닉니임이 중복 되는지 확인하는 메소드  -->
+   <select id="chNick" resultType="int">
+      select count(*) from users
+      where nick=#{nick}
+   </select>
+   
+   <!-- 계좌가 중복 되는지 확인하는 메소드  -->
+   <select id="chAccount" resultType="int">
+      select count(*) from account
+      where account=#{account}
+   </select>
+   
+   <!-- 회원정보업데이트   -->
+   <update id="updateUserInfo">
+      update users set pw = #{pw} , nick=#{nick}, mail = #{mail}, tel = #{tel}, addr= #{addr}, post = #{post}
+      where id = #{id}
+   </update>
+   
+   <!-- 기존에 계좌가 있는지 확인하는메소드  -->
+   <select id = "checkAccount" resultType="int">
+      select count(*) from account
+      where id = #{id}
+   </select>
+   
+   <!-- 계좌 정보를 insert 하는 뭐리 -->
+   <insert id="insertAccount">
+      insert into account values(#{account},#{bank})
+      where id = #{id}
+   </insert>
+   
+   <!-- 계좌정보를 update 하는 쿼리  -->
+   <update id="updateAccount">
+      update account set account = #{account} , bank=#{bank}
+      where id = #{id} 
+   </update>
+   
+   <!-- 파일정보를  insert 하는 메소드  -->
+   <insert id="insertUserProfile">
+      INSERT INTO FILES ( NO, TYPE, REF, PATH, ORIGIN, RENAMED, EXT, SIZES, THUMBNAIL )
+      VALUES ( FILES_SEQ.NEXTVAL, 1, #{id}, 'upload_user', #{origin}, #{rename}, #{ext}, #{sizes}, 0 )
+   </insert>
+   
+   <!-- 파일정보를 삭제하는 메소드  -->
+   <delete id="deleteFile">
+      delete from files 
+      where ref = #{id} and type = 1 
+   </delete>
+   
+   <!-- 파일정보를 가져오는 메소드  -->
+   <select id="selectFileList" resultType="Files">
+      select * from files
+      where ref = #{id} and type = 1
+   </select>
+   
+   <!-- 회원정보를 가져오는 메소드  -->
+   <select id="selectUserInfo" resultType="Users">
+      select * from users
+      where id = #{id}
+   </select>
+   
+   <!-- 회원파일 정보를 가져오는 메소드 -->
+   <select id="selectUserFile" resultType="Files">
+      select * from files
+      where ref = #{id} and type = 1 
+   </select>
+   
+   <!-- 회원 계좌 정보를 가져오는 메소드  -->
+   <select id = "selectUserAccount" resultType="Account">
+      select * from account
+      where id = #{id}
+   </select>
+   
+   <!-- 회원의 포인트를 가져오는 메소드  -->
+   <select id="userPoint" resultType="int">
+      select point from point_coin
+      where id = #{id}      
+   </select>
+   
+   <!-- 회원 코인을 가져오는 메소드  -->
+   <select id="userCoin" resultType="int">
+      select coin from point_coin
+      where id = #{id}      
+   </select>
+   
+   <!-- 포인트 차감하는 메소드-->
+   <insert id = "subPoint">
+      insert into compensation(id, dates, type, dec) VALUES(#{id}, sysdate + (INTERVAL '9' HOUR) , 1, #{point})
+   </insert>
+   
+   <!-- 게시글을 가져오는 메소드  -->
+   <select id="selectUserWritten" resultType="Board">
+      select * from ( 
+         select rownum rnum, p.* from
+         (
+            select * from board where id = #{id} 
+            ) p      
+      )where rnum between #{start} and #{end}
+   </select>
+   
+   
+   <!-- 댓글을 가져오는 메소드  -->
+   <select id="selectUserComment" resultType="Comments">
+      select * from ( 
+         select rownum rnum, p.* from
+         (
+            select * from comments where id = #{id} 
+            ) p      
+      )where rnum between #{start} and #{end}
+   </select>
+   
+   <!-- 게시글 삭제하는메소드 -->
+   <delete id="deleteWritten" >
+      delete from board
+      where no = #{no}
+   </delete>
+   
+   <!-- 댓글글 삭제하는메소드 -->
+   <delete id="deleteComment" >
+      delete from comments
+      where no = #{no}
+   </delete>
+   
+   <!-- 게시글 총수를 가져오기-->
+   <select id = "selectWrittenCnt" resultType="int">
+      select count(*) from board
+      where id = #{id}
+   </select>
+   
+   <!-- 댓글 총수를 가져오기-->
+   <select id = "selectCommentCnt" resultType="int">
+      select count(*) from comments
+      where id = #{id}
+   </select>
+   
+   <!-- 회원 패스워드를 가져오는 메소드 -->
+   <select id="selectUserPw" resultType="String">
+      select pw from users
+      where id = #{id}
+   </select>
+	
+	
 </mapper>  
