@@ -423,7 +423,7 @@ label {
 }
 img {
   padding: 5px;
-  border: 1px solid #ccc;
+/*   border: 1px solid #ccc; */
 
 }
 /*Select Categorie*/   
@@ -1127,7 +1127,7 @@ body {
   <li  id="info" class="info animals-item">
     <img src="<%=request.getContextPath()%>/resources/image/mypage/Plank.jpg" style="width: 200; height: 200;"/>
   </li>
-  <li id="info" class="info  desert-item">
+  <li id="info" class="info  animals-item">
     <img src="<%=request.getContextPath()%>/resources/image/mypage/Jumping-Jack.jpg" style="width:200; height: 200;"  />
   </li>
   <li id="info" class="info animals-item">
@@ -1136,19 +1136,19 @@ body {
   <li id="info" class="info lightning-item">
     <img src="<%=request.getContextPath()%>/resources/image/mypage/Leg-Raise.png"  style="width:200; height: 200;"  />
   </li>
-  <li id="info" class="info animals-item">
+  <li id="info" class="info lightning-item">
     <img src="<%=request.getContextPath()%>/resources/image/mypage/Crunch.png"  style="width:200; height: 200;" />
   </li>
-  <li id="info" class="info desert-item">
+  <li id="info" class="info lightning-item">
     <img src="<%=request.getContextPath()%>/resources/image/mypage/Push-Up.jpg"  style="width:200; height: 200;"  />
   </li>
-  <li id="info" class="info lightning-item">
+  <li id="info" class="info desert-item">
     <img src="<%=request.getContextPath()%>/resources/image/mypage/sidelunge.png"   style="width:200; height: 200;" />
   </li>
-  <li id="info" class="info lightning-item">
+  <li id="info" class="info desert-item">
     <img src="<%=request.getContextPath()%>/resources/image/mypage/Squat.png"  style="width:200; height: 200;"   />
   </li>
-  <li id="info" class="info lightning-item">
+  <li id="info" class="info desert-item">
     <img src="<%=request.getContextPath()%>/resources/image/mypage/Lunge.jpg"  style="width:200; height: 200;" />
   </li>
 </ul>
