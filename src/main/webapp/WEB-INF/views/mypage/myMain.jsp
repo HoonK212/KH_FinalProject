@@ -4,9 +4,9 @@
     
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
+<!-- 캘린더 -->
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.2/main.min.css">
 <script type="text/javascript" src="https://cdn.jsdelivr.net/combine/npm/fullcalendar@5.3.2/main.min.js,npm/fullcalendar@5.3.2"></script>
-
 
 
 <!-- TAILWIND -->
@@ -117,21 +117,11 @@
 <!-- 사이드 네비 메뉴 -->
 <%@include file="/WEB-INF/views/mypage/navi.jsp" %>
 
- <div style="padding-left: 320px; padding-top: 100px; display:grid; grid-template-columns: repeat(2, 1fr);" >	
+ <div style="padding-left: 320px; padding-top: 100px; display:grid; grid-template-columns: 385px 900px; gap:50px; " >	
 
- <div style="grid-column: 1/2; grid-row: 1; ">	
+ <div style="grid-column: 1/2; grid-row: 1;">	
  
- 		  <!-- progress -->
-		  <div style="grid-column: 2/3; grid-row: 1;">
-		      <svg class="progress blue noselect" data-progress="30" x="0px" y="0px" viewBox="0 0 80 80">
-		         <path class="track" d="M5,40a35,35 0 1,0 70,0a35,35 0 1,0 -70,0" />
-		         <path class="fill" d="M5,40a35,35 0 1,0 70,0a35,35 0 1,0 -70,0" />
-		         <text class="value" x="50%" y="55%">0%</text>
-		         <text class="text" x="50%" y="115%">목표달성률</text>
-		      </svg>
-		  </div>
- 
-		<div class="flex bg-yellow-400 max-w-sm mb-4">
+		<div class="flex bg-indigo-800 max-w-sm mb-4">
 		      <div class="w-16 bg-yellow">
 		          <div class="p-4">
 	              		<svg class="h-8 w-8 text-white fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M468.907 214.604c-11.423 0-20.682 9.26-20.682 20.682v20.831c-.031 54.338-21.221 105.412-59.666 143.812-38.417 38.372-89.467 59.5-143.761 59.5h-.12C132.506 459.365 41.3 368.056 41.364 255.883c.031-54.337 21.221-105.411 59.667-143.813 38.417-38.372 89.468-59.5 143.761-59.5h.12c28.672.016 56.49 5.942 82.68 17.611 10.436 4.65 22.659-.041 27.309-10.474 4.648-10.433-.04-22.659-10.474-27.309-31.516-14.043-64.989-21.173-99.492-21.192h-.144c-65.329 0-126.767 25.428-172.993 71.6C25.536 129.014.038 190.473 0 255.861c-.037 65.386 25.389 126.874 71.599 173.136 46.21 46.262 107.668 71.76 173.055 71.798h.144c65.329 0 126.767-25.427 172.993-71.6 46.262-46.209 71.76-107.668 71.798-173.066v-20.842c0-11.423-9.259-20.683-20.682-20.683z"/><path d="M505.942 39.803c-8.077-8.076-21.172-8.076-29.249 0L244.794 271.701l-52.609-52.609c-8.076-8.077-21.172-8.077-29.248 0-8.077 8.077-8.077 21.172 0 29.249l67.234 67.234a20.616 20.616 0 0 0 14.625 6.058 20.618 20.618 0 0 0 14.625-6.058L505.942 69.052c8.077-8.077 8.077-21.172 0-29.249z"/></svg>
@@ -139,7 +129,7 @@
 		      </div>
 		      <div class="w-auto text-grey-darker items-center p-4">
 		          <span class="text-lg font-bold pb-4 text-white">
-		            <a href="<%=request.getContextPath() %>/mypage/goalsetting" style="color: red;">운동 목표 설정하러 가기!</a>
+		            <a href="<%=request.getContextPath() %>/mypage/goalsetting" >운동 목표 설정 Go!</a>
 		          </span>
 		      </div>
 		</div>
@@ -181,6 +171,17 @@
 	           운동을 선택하셨습니다.</p>
 	      </div>
 	  </div>
+	  
+   		<!-- progress -->
+	  <div style="grid-column: 2/3; grid-row: 1; display: flex; justify-content: center; align-items: center;">
+	      <svg class="progress blue noselect" data-progress="30" x="0px" y="0px" viewBox="0 0 80 80">
+	         <path class="track" d="M5,40a35,35 0 1,0 70,0a35,35 0 1,0 -70,0" />
+	         <path class="fill" d="M5,40a35,35 0 1,0 70,0a35,35 0 1,0 -70,0" />
+	         <text class="value" x="50%" y="55%">0%</text>
+	         <text class="text" x="50%" y="115%">목표달성률</text>
+	      </svg>
+	  </div>
+	  
  </div>
   
 	 <div id="calendar"></div>
@@ -189,9 +190,6 @@
  
  <script type="text/javascript">
  
-
-
-
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
@@ -221,7 +219,7 @@
         {
           title: 'Conference',
           start: '2020-09-18',
-          end: '2020-09-20'
+          end: '2020-09-20',
         },
         {
           title: 'Party',
@@ -246,16 +244,16 @@
         {
           start: '2020-09-24',
           end: '2020-09-28',
-          overlap: false,
+          overlap: true,
           display: 'background',
-          color: '#ff9f89'
+          color: 'red'
         },
         {
           start: '2020-09-06',
           end: '2020-09-08',
           overlap: false,
           display: 'background',
-          color: '#ff9f89'
+          color: 'blue'
         }
       ]
     });

@@ -80,6 +80,10 @@ public class MypageController {
 	 Users user = (Users) session.getAttribute("logInInfo");
 	 
 	 Map<String,Object> mygoal =  mypageService.selectExerciseGoal(user.getId());
+	 
+	 //테스트
+//	 Map<String,Object> test = mypageService.makeCalendarData(user.getId());
+	 
 		  
 	 model.addAttribute("pic", pic);
 	 model.addAttribute("user", user);

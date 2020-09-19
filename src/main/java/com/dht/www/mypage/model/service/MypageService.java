@@ -20,4 +20,7 @@ public interface MypageService {
 	public int selectOrderAmountCnt(String id);
 
 	public Map<String, Object> selectExerciseGoal(String id);
+
+	public String[] transformToDOW(String[] daysArr);
+
 }
