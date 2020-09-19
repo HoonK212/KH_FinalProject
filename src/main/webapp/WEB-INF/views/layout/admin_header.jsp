@@ -25,8 +25,12 @@
 					</c:if>
 				</div>
 			</div>
-
-			<span class="font-mono ml-4">관리자님</span>
+			<c:if test="${not empty admin }">
+			<span class="font-mono ml-4">${admin.name }님</span>
+			</c:if>
+			<c:if test="${empty admin }">
+			<span class="font-mono ml-4">반갑습니다</span>
+			</c:if>
 		</div>
 	</div>
 </div>

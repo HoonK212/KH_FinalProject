@@ -26,10 +26,18 @@ public class AdminLoginController {
 	
 	//관리자 메인
 	@RequestMapping("/main")
-	public String adminMain() {
+	public String adminMain(HttpSession session, Model model) {
 		
+		Map<String,Object> admin = (Map<String,Object>) session.getAttribute("logInInfo");
 		
-		return "admin/main";
+		model.addAttribute("admin", admin);
+		
+		if(admin != null) {
+			return "redirect:admin/productlist";
+		}else {
+			return "admin/main";
+		}
+		
 	}
 	
 	//관리자 로그인
