@@ -30,6 +30,10 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	
+    <session-config>
+        <session-timeout>60</session-timeout>
+    </session-config>
 
 	<servlet>
 		<servlet-name>appServlet</servlet-name>

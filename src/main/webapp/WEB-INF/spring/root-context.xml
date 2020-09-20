@@ -6,6 +6,7 @@
 	<!-- dataSource for SqlSessionFactoryBean.setDataSource -->
 	<bean id="dataSourceSpied" class="oracle.jdbc.pool.OracleDataSource">
 		<property name="uRL" value="jdbc:oracle:thin:@db202008071908_high?TNS_ADMIN=C:\\Wallet_DB202008071908"/>
+<!-- 		<property name="uRL" value="jdbc:oracle:thin:@db202009171644_high?TNS_ADMIN=/usr/local/tomcat9/webapps/Wallet_DB202009171644"/> -->
 		<property name="connectionProperties">
 			<props>
 				<prop key="user">ADMIN</prop>

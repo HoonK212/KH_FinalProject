@@ -9,6 +9,14 @@
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
 	</appender>
+<!--     <appender name="dailyout" class="org.apache.log4j.DailyRollingFileAppender">   -->
+<!--         <param name="file" value="/usr/local/tomcat9/logs/dht.log" />   -->
+<!--         <param name="Append" value="true" />   -->
+<!--         <param name="DatePattern" value="'.'yyMMdd" />   -->
+<!--         <layout class="org.apache.log4j.PatternLayout">   -->
+<!--             <param name="ConversionPattern" value="%t> [%d{yyyy-MM-dd HH:mm:ss}] [%c{1}] [%L] [%p] %m %n"/>   -->
+<!--         </layout>   -->
+<!--     </appender>   -->
 	
 	<!-- log4jdbc-remix Appenders -->
 	<appender name="console-log4jdbc" class="org.apache.log4j.ConsoleAppender">
@@ -17,40 +25,49 @@
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
 	</appender>
+<!--     <appender name="dailyout-log4jdbc" class="org.apache.log4j.DailyRollingFileAppender">   -->
+<!--         <param name="file" value="/usr/local/tomcat9/logs/dht-log4jdbc.log" />   -->
+<!--         <param name="Append" value="true" />   -->
+<!--         <param name="DatePattern" value="'.'yyMMdd" />   -->
+<!--         <layout class="org.apache.log4j.PatternLayout">   -->
+<!--             <param name="ConversionPattern" value="%t> [%d{yyyy-MM-dd HH:mm:ss}] [%c{1}] [%L] [%p] %m %n"/>   -->
+<!--         </layout>   -->
+<!--     </appender>   -->
 	
 	<!-- Application Loggers -->
 	<logger name="com.dht.www">
-		<level value="info" />
+		<level value="warn" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
-		<level value="info" />
+		<level value="warn" />
 	</logger>
 	
 	<logger name="org.springframework.beans">
-		<level value="info" />
+		<level value="warn" />
 	</logger>
 	
 	<logger name="org.springframework.context">
-		<level value="info" />
+		<level value="warn" />
 	</logger>
 
 	<logger name="org.springframework.web">
-		<level value="info" />
+		<level value="warn" />
 	</logger>
 
 	<!-- log4jdbc-remix Loggers -->
 	<logger name="jdbc.resultsettable" additivity="false">
-		<level value="info" />
+		<level value="warn" />
 		<appender-ref ref="console-log4jdbc" />
+<!-- 		<appender-ref ref="dailyout-log4jdbc" /> -->
 	</logger>
 
 	<!-- Root Logger -->
 	<root>
-<!-- 		<priority value="warn" /> -->
-		<priority value="INFO" />
+		<priority value="warn" />
 		<appender-ref ref="console" />
+<!-- 		<appender-ref ref="dailyout" /> -->
 	</root>
 	
 </log4j:configuration>
