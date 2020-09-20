@@ -772,10 +772,25 @@ body {
    <script type="text/javascript">
    
    $('#btnSubmit01').click(function(){
-      alert('나의 운동 목표가 설정되었습니다!');
+   //   alert('나의 운동 목표가 설정되었습니다!');
+   //   location.href = '<%=request.getContextPath()%>/mypage/mymain';
+      
+      var result = confirm('나의 운동 목표가 설정되었습니다!'); 
+      if(result) { 
+    	  alert('s');
+    	  location.replace('<%=request.getContextPath()%>/mypage/mymain'); 
+      } 
+
    });
    $('#btnSubmit02').click(function(){
-      alert('나의 운동 목표가 변경되었습니다!');
+  //  alert('나의 운동 목표가 변경되었습니다!');
+  //  location.href = '<%=request.getContextPath()%>/mypage/mymain';
+      
+      var result = confirm('나의 운동 목표가 변경되었습니다!'); 
+      if(result) { 
+    	  alert('s');
+    	  location.replace('<%=request.getContextPath()%>/mypage/mymain'); 
+      } 
    });
    </script>
    

@@ -10,7 +10,6 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.2/main.min.css">
 <script type="text/javascript" src="https://cdn.jsdelivr.net/combine/npm/fullcalendar@5.3.2/main.min.js,npm/fullcalendar@5.3.2"></script>
 
-
 <!-- TAILWIND -->
 <link  rel="stylesheet" href="https://unpkg.com/tailwindcss@1.5.2/dist/tailwind.min.css">
 <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css">
@@ -119,74 +118,113 @@
 <!-- 사이드 네비 메뉴 -->
 <%@include file="/WEB-INF/views/mypage/navi.jsp" %>
 
- <div style="padding-left: 320px; padding-top: 100px; display:grid; grid-template-columns: 385px 900px; gap:50px; " >	
+ <div style="padding-left: 350px; padding-top: 100px; display:grid; grid-template-columns: 500px 1000px; gap:40px; " >	
 
  <div style="grid-column: 1/2; grid-row: 1;">	
  
-	  <div class="flex bg-indigo-800 max-w-sm mb-4">
-	      <div class="w-16 bg-indigo">
-	          <div class="p-4">
-	              <svg class="h-8 w-8 text-white fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M468.907 214.604c-11.423 0-20.682 9.26-20.682 20.682v20.831c-.031 54.338-21.221 105.412-59.666 143.812-38.417 38.372-89.467 59.5-143.761 59.5h-.12C132.506 459.365 41.3 368.056 41.364 255.883c.031-54.337 21.221-105.411 59.667-143.813 38.417-38.372 89.468-59.5 143.761-59.5h.12c28.672.016 56.49 5.942 82.68 17.611 10.436 4.65 22.659-.041 27.309-10.474 4.648-10.433-.04-22.659-10.474-27.309-31.516-14.043-64.989-21.173-99.492-21.192h-.144c-65.329 0-126.767 25.428-172.993 71.6C25.536 129.014.038 190.473 0 255.861c-.037 65.386 25.389 126.874 71.599 173.136 46.21 46.262 107.668 71.76 173.055 71.798h.144c65.329 0 126.767-25.427 172.993-71.6 46.262-46.209 71.76-107.668 71.798-173.066v-20.842c0-11.423-9.259-20.683-20.682-20.683z"/><path d="M505.942 39.803c-8.077-8.076-21.172-8.076-29.249 0L244.794 271.701l-52.609-52.609c-8.076-8.077-21.172-8.077-29.248 0-8.077 8.077-8.077 21.172 0 29.249l67.234 67.234a20.616 20.616 0 0 0 14.625 6.058 20.618 20.618 0 0 0 14.625-6.058L505.942 69.052c8.077-8.077 8.077-21.172 0-29.249z"/></svg>
-	          </div>
-	      </div>
-	      <div class="w-auto text-grey-darker items-center p-4">
-	          <span class="text-lg font-bold pb-4 text-white">
-	              운동단계
-	          </span>
-	          <p class="text-white">${user.name }님은 
-	        	<span style="color: red; font-weight: bold;"><c:if test="${mygoal.grade eq 1 }">왕초보자</c:if></span> 		  
-	        	<span style="color: red; font-weight: bold;"><c:if test="${mygoal.grade eq 2 }">초보자</c:if></span> 		  
-	        	<span style="color: red; font-weight: bold;"><c:if test="${mygoal.grade eq 3 }">중급자</c:if></span> 		  
-	        	<span style="color: red; font-weight: bold;"><c:if test="${mygoal.grade eq 4 }">고급자</c:if></span> 		  
-	        	<span style="color: red; font-weight: bold;"><c:if test="${mygoal.grade eq 5 }">마스터</c:if></span> 		  
-	          단계를 선택하셨습니다.</p>
-	      </div>
-	  </div>
-   
-	  <div class="flex bg-indigo-800 max-w-sm mb-4">
-	      <div class="w-16 bg-indigo">
-	          <div class="p-4">
-	              <svg class="h-8 w-8 text-white fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M468.907 214.604c-11.423 0-20.682 9.26-20.682 20.682v20.831c-.031 54.338-21.221 105.412-59.666 143.812-38.417 38.372-89.467 59.5-143.761 59.5h-.12C132.506 459.365 41.3 368.056 41.364 255.883c.031-54.337 21.221-105.411 59.667-143.813 38.417-38.372 89.468-59.5 143.761-59.5h.12c28.672.016 56.49 5.942 82.68 17.611 10.436 4.65 22.659-.041 27.309-10.474 4.648-10.433-.04-22.659-10.474-27.309-31.516-14.043-64.989-21.173-99.492-21.192h-.144c-65.329 0-126.767 25.428-172.993 71.6C25.536 129.014.038 190.473 0 255.861c-.037 65.386 25.389 126.874 71.599 173.136 46.21 46.262 107.668 71.76 173.055 71.798h.144c65.329 0 126.767-25.427 172.993-71.6 46.262-46.209 71.76-107.668 71.798-173.066v-20.842c0-11.423-9.259-20.683-20.682-20.683z"/><path d="M505.942 39.803c-8.077-8.076-21.172-8.076-29.249 0L244.794 271.701l-52.609-52.609c-8.076-8.077-21.172-8.077-29.248 0-8.077 8.077-8.077 21.172 0 29.249l67.234 67.234a20.616 20.616 0 0 0 14.625 6.058 20.618 20.618 0 0 0 14.625-6.058L505.942 69.052c8.077-8.077 8.077-21.172 0-29.249z"/></svg>
-	          </div>
-	      </div>
-	      <div class="w-auto text-grey-darker items-center p-4">
-	          <span class="text-lg font-bold pb-4 text-white">
-	              선택한운동
-	          </span>
-	          <p class="text-white">${user.name }님은 
-	          <c:forEach items="${mygoal.exercises }" var="ex">
-				<span style="color: red; font-weight: bold;">
-						${ex['name'] }
-				</span>           
-	          </c:forEach>
-	           운동을 선택하셨습니다.</p>
-	      </div>
-	  </div>
-	  
-	  	<div class="flex bg-indigo-800 max-w-sm mb-4">
-		      <div class="w-16 bg-yellow">
-		          <div class="p-4">
-	              		<svg class="h-8 w-8 text-white fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M468.907 214.604c-11.423 0-20.682 9.26-20.682 20.682v20.831c-.031 54.338-21.221 105.412-59.666 143.812-38.417 38.372-89.467 59.5-143.761 59.5h-.12C132.506 459.365 41.3 368.056 41.364 255.883c.031-54.337 21.221-105.411 59.667-143.813 38.417-38.372 89.468-59.5 143.761-59.5h.12c28.672.016 56.49 5.942 82.68 17.611 10.436 4.65 22.659-.041 27.309-10.474 4.648-10.433-.04-22.659-10.474-27.309-31.516-14.043-64.989-21.173-99.492-21.192h-.144c-65.329 0-126.767 25.428-172.993 71.6C25.536 129.014.038 190.473 0 255.861c-.037 65.386 25.389 126.874 71.599 173.136 46.21 46.262 107.668 71.76 173.055 71.798h.144c65.329 0 126.767-25.427 172.993-71.6 46.262-46.209 71.76-107.668 71.798-173.066v-20.842c0-11.423-9.259-20.683-20.682-20.683z"/><path d="M505.942 39.803c-8.077-8.076-21.172-8.076-29.249 0L244.794 271.701l-52.609-52.609c-8.076-8.077-21.172-8.077-29.248 0-8.077 8.077-8.077 21.172 0 29.249l67.234 67.234a20.616 20.616 0 0 0 14.625 6.058 20.618 20.618 0 0 0 14.625-6.058L505.942 69.052c8.077-8.077 8.077-21.172 0-29.249z"/></svg>
-		          </div>
-		      </div>
-		      <div class="w-auto text-grey-darker items-center p-4">
-		          <span class="text-lg font-bold pb-4 text-white">
-		            이번달 감량 칼로리
-		          </span>
-		          <p class="text-white">${user.name }님은 현재까지
-		          <span style="color: red; font-weight: bold;"> ${decal }칼로리</span>를 감량하셨습니다.</p>
-		      </div>
-		</div>
-
- 	<!-- progress -->
-	  <div style="grid-column: 2/3; grid-row: 1; display: flex; justify-content: center; align-items: center;">
+ 	
+ 	<div style="display:grid; grid-template-columns: 250px 250px; margin-bottom : 5rem;">
+  	<!-- progress -->
+	  <div style="display: flex; justify-content: center; align-items: top; ">
 	      <svg class="progress blue noselect" data-progress="${successPercent}" x="0px" y="0px" viewBox="0 0 80 80">
 	         <path class="track" d="M5,40a35,35 0 1,0 70,0a35,35 0 1,0 -70,0" />
 	         <path class="fill" d="M5,40a35,35 0 1,0 70,0a35,35 0 1,0 -70,0" />
 	         <text class="value" x="50%" y="55%">${successPercent}%</text>
 	         <text class="text" x="50%" y="115%">목표달성률</text>
 	      </svg>
+	      
 	  </div>
+ 	
+ 	<div style="margin-top:80">
+ 		<div class="flex max-w-sm mb-4">
+			<div style=" width: 50; height: 50; background-color: rgb(151, 246, 238);"></div> 
+			<span class="text-lg font-bold pb-4 ml-3 mt-3"> 목표 설정 요일</span>	
+		</div>
+	  	<div class="flex max-w-sm mb-4">
+			<div style="  width: 50; height: 50; background-color: rgb(284, 130, 127);"></div> 
+			<span class="text-lg font-bold pb-4 ml-3 mt-3"> 목표 달성 요일</span>
+		</div>	
+ 	</div>
+ 	</div>
+ 
+ 
+ 	  	<div class="flex  bg-teal-400 max-w-md mb-4">
+		      <div class="w-16 bg-teal-700">
+		          <div class="p-4">
+	              		<svg class="h-8 w-8 text-white fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M468.907 214.604c-11.423 0-20.682 9.26-20.682 20.682v20.831c-.031 54.338-21.221 105.412-59.666 143.812-38.417 38.372-89.467 59.5-143.761 59.5h-.12C132.506 459.365 41.3 368.056 41.364 255.883c.031-54.337 21.221-105.411 59.667-143.813 38.417-38.372 89.468-59.5 143.761-59.5h.12c28.672.016 56.49 5.942 82.68 17.611 10.436 4.65 22.659-.041 27.309-10.474 4.648-10.433-.04-22.659-10.474-27.309-31.516-14.043-64.989-21.173-99.492-21.192h-.144c-65.329 0-126.767 25.428-172.993 71.6C25.536 129.014.038 190.473 0 255.861c-.037 65.386 25.389 126.874 71.599 173.136 46.21 46.262 107.668 71.76 173.055 71.798h.144c65.329 0 126.767-25.427 172.993-71.6 46.262-46.209 71.76-107.668 71.798-173.066v-20.842c0-11.423-9.259-20.683-20.682-20.683z"/><path d="M505.942 39.803c-8.077-8.076-21.172-8.076-29.249 0L244.794 271.701l-52.609-52.609c-8.076-8.077-21.172-8.077-29.248 0-8.077 8.077-8.077 21.172 0 29.249l67.234 67.234a20.616 20.616 0 0 0 14.625 6.058 20.618 20.618 0 0 0 14.625-6.058L505.942 69.052c8.077-8.077 8.077-21.172 0-29.249z"/></svg>
+		          </div>
+		      </div>
+		      <div class="w-auto text-grey-darker items-center p-4">
+		          <span class="text-lg font-bold pb-4">
+		            <c:set var="now" value="<%=new java.util.Date()%>" />
+		            ${user.name }님의 <span style="color: red; font-weight: bold;"><fmt:formatDate value="${now}" pattern="MM" />월</span> 운동목표
+		          </span>
+		      </div>
+		</div>
+ 
+	  <div class="flex bg-teal-400 max-w-md mb-4">
+	      <div class="w-16 bg-teal-700">
+	          <div class="p-4">
+	              <svg class="h-8 w-8 text-white fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M468.907 214.604c-11.423 0-20.682 9.26-20.682 20.682v20.831c-.031 54.338-21.221 105.412-59.666 143.812-38.417 38.372-89.467 59.5-143.761 59.5h-.12C132.506 459.365 41.3 368.056 41.364 255.883c.031-54.337 21.221-105.411 59.667-143.813 38.417-38.372 89.468-59.5 143.761-59.5h.12c28.672.016 56.49 5.942 82.68 17.611 10.436 4.65 22.659-.041 27.309-10.474 4.648-10.433-.04-22.659-10.474-27.309-31.516-14.043-64.989-21.173-99.492-21.192h-.144c-65.329 0-126.767 25.428-172.993 71.6C25.536 129.014.038 190.473 0 255.861c-.037 65.386 25.389 126.874 71.599 173.136 46.21 46.262 107.668 71.76 173.055 71.798h.144c65.329 0 126.767-25.427 172.993-71.6 46.262-46.209 71.76-107.668 71.798-173.066v-20.842c0-11.423-9.259-20.683-20.682-20.683z"/><path d="M505.942 39.803c-8.077-8.076-21.172-8.076-29.249 0L244.794 271.701l-52.609-52.609c-8.076-8.077-21.172-8.077-29.248 0-8.077 8.077-8.077 21.172 0 29.249l67.234 67.234a20.616 20.616 0 0 0 14.625 6.058 20.618 20.618 0 0 0 14.625-6.058L505.942 69.052c8.077-8.077 8.077-21.172 0-29.249z"/></svg>
+	          </div>
+	      </div>
+	      <div class="w-auto text-grey-darker items-center p-4">
+	          <span class="text-lg font-bold pb-4 ">
+	              운동단계
+	        	<span style="color: red; font-weight: bold;"><c:if test="${mygoal.grade eq 1 }">왕초보자</c:if></span> 		  
+	        	<span style="color: red; font-weight: bold;"><c:if test="${mygoal.grade eq 2 }">초보자</c:if></span> 		  
+	        	<span style="color: red; font-weight: bold;"><c:if test="${mygoal.grade eq 3 }">중급자</c:if></span> 		  
+	        	<span style="color: red; font-weight: bold;"><c:if test="${mygoal.grade eq 4 }">고급자</c:if></span> 		  
+	        	<span style="color: red; font-weight: bold;"><c:if test="${mygoal.grade eq 5 }">마스터</c:if></span> 		  
+	          </span>
+	      </div>
+	  </div>
+   
+	  <div class="flex bg-teal-400 max-w-md mb-4">
+	      <div class="w-16 bg-teal-700">
+	          <div class="p-4">
+	              <svg class="h-8 w-8 text-white fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M468.907 214.604c-11.423 0-20.682 9.26-20.682 20.682v20.831c-.031 54.338-21.221 105.412-59.666 143.812-38.417 38.372-89.467 59.5-143.761 59.5h-.12C132.506 459.365 41.3 368.056 41.364 255.883c.031-54.337 21.221-105.411 59.667-143.813 38.417-38.372 89.468-59.5 143.761-59.5h.12c28.672.016 56.49 5.942 82.68 17.611 10.436 4.65 22.659-.041 27.309-10.474 4.648-10.433-.04-22.659-10.474-27.309-31.516-14.043-64.989-21.173-99.492-21.192h-.144c-65.329 0-126.767 25.428-172.993 71.6C25.536 129.014.038 190.473 0 255.861c-.037 65.386 25.389 126.874 71.599 173.136 46.21 46.262 107.668 71.76 173.055 71.798h.144c65.329 0 126.767-25.427 172.993-71.6 46.262-46.209 71.76-107.668 71.798-173.066v-20.842c0-11.423-9.259-20.683-20.682-20.683z"/><path d="M505.942 39.803c-8.077-8.076-21.172-8.076-29.249 0L244.794 271.701l-52.609-52.609c-8.076-8.077-21.172-8.077-29.248 0-8.077 8.077-8.077 21.172 0 29.249l67.234 67.234a20.616 20.616 0 0 0 14.625 6.058 20.618 20.618 0 0 0 14.625-6.058L505.942 69.052c8.077-8.077 8.077-21.172 0-29.249z"/></svg>
+	          </div>
+	      </div>
+	      <div class="w-auto text-grey-darker items-center p-4">
+	          <span class="text-lg font-bold pb-4 ">
+			          목표운동	
+	          	  <span style="color: red; font-weight: bold;">
+	              <c:forEach items="${mygoal.exercises }" var="ex">
+						${ex['name'] }
+	          	  </c:forEach>
+	          	  </span>
+	          </span>
+	      </div>
+	  </div>
+	  
+	  	<div class="flex bg-teal-400 max-w-md mb-4">
+		      <div class="w-16 bg-teal-700">
+		          <div class="p-4">
+	              		<svg class="h-8 w-8 text-white fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M468.907 214.604c-11.423 0-20.682 9.26-20.682 20.682v20.831c-.031 54.338-21.221 105.412-59.666 143.812-38.417 38.372-89.467 59.5-143.761 59.5h-.12C132.506 459.365 41.3 368.056 41.364 255.883c.031-54.337 21.221-105.411 59.667-143.813 38.417-38.372 89.468-59.5 143.761-59.5h.12c28.672.016 56.49 5.942 82.68 17.611 10.436 4.65 22.659-.041 27.309-10.474 4.648-10.433-.04-22.659-10.474-27.309-31.516-14.043-64.989-21.173-99.492-21.192h-.144c-65.329 0-126.767 25.428-172.993 71.6C25.536 129.014.038 190.473 0 255.861c-.037 65.386 25.389 126.874 71.599 173.136 46.21 46.262 107.668 71.76 173.055 71.798h.144c65.329 0 126.767-25.427 172.993-71.6 46.262-46.209 71.76-107.668 71.798-173.066v-20.842c0-11.423-9.259-20.683-20.682-20.683z"/><path d="M505.942 39.803c-8.077-8.076-21.172-8.076-29.249 0L244.794 271.701l-52.609-52.609c-8.076-8.077-21.172-8.077-29.248 0-8.077 8.077-8.077 21.172 0 29.249l67.234 67.234a20.616 20.616 0 0 0 14.625 6.058 20.618 20.618 0 0 0 14.625-6.058L505.942 69.052c8.077-8.077 8.077-21.172 0-29.249z"/></svg>
+		          </div>
+		      </div>
+		      <div class="w-auto text-grey-darker items-center p-4">
+		          <span class="text-lg font-bold pb-4 ">
+		            현재까지 <span style="color: red; font-weight: bold;"> ${decal }칼로리 감량</span>
+		          </span>
+		      </div>
+		</div>
+
+	  	<div class="flex bg-yellow-400 max-w-md mb-4">
+		      <div class="w-16 bg-yellow-700">
+		          <div class="p-4">
+	              		<svg class="h-8 w-8 text-white fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M468.907 214.604c-11.423 0-20.682 9.26-20.682 20.682v20.831c-.031 54.338-21.221 105.412-59.666 143.812-38.417 38.372-89.467 59.5-143.761 59.5h-.12C132.506 459.365 41.3 368.056 41.364 255.883c.031-54.337 21.221-105.411 59.667-143.813 38.417-38.372 89.468-59.5 143.761-59.5h.12c28.672.016 56.49 5.942 82.68 17.611 10.436 4.65 22.659-.041 27.309-10.474 4.648-10.433-.04-22.659-10.474-27.309-31.516-14.043-64.989-21.173-99.492-21.192h-.144c-65.329 0-126.767 25.428-172.993 71.6C25.536 129.014.038 190.473 0 255.861c-.037 65.386 25.389 126.874 71.599 173.136 46.21 46.262 107.668 71.76 173.055 71.798h.144c65.329 0 126.767-25.427 172.993-71.6 46.262-46.209 71.76-107.668 71.798-173.066v-20.842c0-11.423-9.259-20.683-20.682-20.683z"/><path d="M505.942 39.803c-8.077-8.076-21.172-8.076-29.249 0L244.794 271.701l-52.609-52.609c-8.076-8.077-21.172-8.077-29.248 0-8.077 8.077-8.077 21.172 0 29.249l67.234 67.234a20.616 20.616 0 0 0 14.625 6.058 20.618 20.618 0 0 0 14.625-6.058L505.942 69.052c8.077-8.077 8.077-21.172 0-29.249z"/></svg>
+		          </div>
+		      </div>
+		      <div class="w-auto text-grey-darker items-center p-4">
+		          <span class="text-lg font-bold pb-4 text-white">
+					<a href="<%=request.getContextPath()%>/mypage/goalsetting">목표 설정 변경하기</a>
+		          </span>
+		      </div>
+		</div>
+
+
 	  
  </div>
   
@@ -194,20 +232,33 @@
 
  </div>
  
+ <style>
+   div.fc-non-business { color:red; }  
+ </style>
+ 
  <script type="text/javascript">
 
-
+window.onload = function(){
+	console.log(dataset);
+}
 
 var dataset = [
 		<c:forEach items='${mygoal.days}' var='day'>
-		//	<c:forEach items='${mygoal.exercises}' var='ex'>
 			{	
-			//	title : '${ex['name']}',
 				start : '${day}',
-	 			color : '#6495ED',
-				display : 'background'
+	 			
+				color : '#4fd1c5',	 			
+				
+				<c:forEach items='${successDate}' var='sd'>
+				<c:choose>
+				<c:when test='${day eq sd}'>
+				color : '#ff0000',
+				</c:when>
+				</c:choose>
+				</c:forEach>
+	 			
+	 			display : 'background'
 			},
-		//	</c:forEach>
 		</c:forEach>
 
 		<c:forEach items='${myrecord}' var='record'>
@@ -215,19 +266,11 @@ var dataset = [
 				{
 					title : '${val['name'] }',
 					start : '${val['dates']}',
-					color : '#50bcdf'
+					color : '#4fd1c5'
 				},
 			</c:forEach>
 		</c:forEach>
-		
-		<c:forEach items='${successDate}' var='sd'>
-			{
-				start : '${sd}',
-				color : '#DC143C',
-				display : 'background'
-			},
-		</c:forEach>
-		
+			
 	]	
 		
 		document.addEventListener('DOMContentLoaded', function() {
@@ -235,10 +278,11 @@ var dataset = [
 
 		    var calendar = new FullCalendar.Calendar(calendarEl, {
 		      headerToolbar: {
-		        left: 'prev,next today',
-		        center: 'title',
-		        right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-		      },
+		        left: 'title',
+		    	right: 'prev,next',
+		        center: ''
+		    //  right: 'dayGridMonth'
+		      },    
 		      initialDate: '2020-09-12',
 		      navLinks: true, // can click day/week names to navigate views
 		      businessHours: true, // display business hours
