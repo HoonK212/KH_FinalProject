@@ -28,7 +28,7 @@ public class AdminLoginController {
 	@RequestMapping("/main")
 	public String adminMain(HttpSession session, Model model) {
 		
-		Map<String,Object> admin = (Map<String,Object>) session.getAttribute("logInInfo");
+		Map<String,Object> admin = (Map<String,Object>) session.getAttribute("logInInfoAdmin");
 		
 		model.addAttribute("admin", admin);
 		
@@ -57,7 +57,7 @@ public class AdminLoginController {
 		if(res != null) {
 
 			//로그인 성공
-			session.setAttribute("logInInfo", res);
+			session.setAttribute("logInInfoAdmin", res);
 			
 			return "1";
 		
@@ -71,7 +71,7 @@ public class AdminLoginController {
 	public String logout(HttpSession session) {
 		
 		//세션에 저장한 회원정보 삭제
-		session.removeAttribute("logInInfo");
+		session.removeAttribute("logInInfoAdmin");
 		
 		//슬래시가 없으면 상대경로가 된다.
 		return "redirect:main";

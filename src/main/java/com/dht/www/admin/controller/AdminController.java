@@ -42,7 +42,7 @@ public class AdminController {
 			Model model,
 			HttpSession session) {
 		
-		Map<String,Object> admin = (Map<String,Object>) session.getAttribute("logInInfo");
+		Map<String,Object> admin = (Map<String,Object>) session.getAttribute("logInInfoAdmin");
 		
 		System.out.println("컨트롤러 서치 객체 : " + search);
 		
@@ -92,7 +92,7 @@ public class AdminController {
 			Model model,
 			HttpSession session) {
 		
-		Map<String,Object> admin = (Map<String,Object>) session.getAttribute("logInInfo");
+		Map<String,Object> admin = (Map<String,Object>) session.getAttribute("logInInfoAdmin");
 		
 		System.out.println("컨트롤러 서치 객체 : " + search);
 		
@@ -149,7 +149,7 @@ public class AdminController {
 	@RequestMapping(value="/productregister", method=RequestMethod.GET)
 	public String productRegister(HttpSession session, Model model) {
 		
-		Map<String,Object> admin = (Map<String,Object>) session.getAttribute("logInInfo");
+		Map<String,Object> admin = (Map<String,Object>) session.getAttribute("logInInfoAdmin");
 		model.addAttribute("admin", admin);
 		
 		return "admin/product_register";
@@ -195,7 +195,7 @@ public class AdminController {
 			Model model,
 			HttpSession session) {
 	
-		Map<String,Object> admin = (Map<String,Object>) session.getAttribute("logInInfo");
+		Map<String,Object> admin = (Map<String,Object>) session.getAttribute("logInInfoAdmin");
 		
 		System.out.println("컨트롤러 서치 객체 : " + search);
 		
@@ -219,7 +219,7 @@ public class AdminController {
 	@RequestMapping(value="/productdetail" , method=RequestMethod.GET)
 	public String productDetail(@RequestParam String code , Model model, HttpSession session) {
 		
-		Map<String,Object> admin = (Map<String,Object>) session.getAttribute("logInInfo");
+		Map<String,Object> admin = (Map<String,Object>) session.getAttribute("logInInfoAdmin");
 		
 		//code에 해당하는 상품의 정보를 가져오는 메소드 
 		Map<String,Object> product = adminService.selectProductDetail(code);
@@ -280,7 +280,7 @@ public class AdminController {
 			Model model,
 			HttpSession session) {
 		
-		Map<String,Object> admin = (Map<String,Object>) session.getAttribute("logInInfo");
+		Map<String,Object> admin = (Map<String,Object>) session.getAttribute("logInInfoAdmin");
 		
 		System.out.println(search);
 		
@@ -308,7 +308,7 @@ public class AdminController {
 			Model model,
 			HttpSession session) {
 	
-		Map<String,Object> admin = (Map<String,Object>) session.getAttribute("logInInfo");
+		Map<String,Object> admin = (Map<String,Object>) session.getAttribute("logInInfoAdmin");
 		
 		Map<String,Object> result = adminService.selectMemberList(cPage, cntPerPage, search);
 		
