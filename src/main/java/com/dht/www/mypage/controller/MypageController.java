@@ -85,13 +85,23 @@ public class MypageController {
 	 Users user = (Users) session.getAttribute("logInInfo");
 	 
 	 Map<String,Object> mygoal =  mypageService.selectExerciseGoal(user.getId());
+	 Map<Object,Object> myrecord = mypageService.selectMyRecord(user.getId());
+	 List<String> successDate = mypageService.selectSuccessDates(user.getId());
 	 
-	 //테스트
-//	 Map<String,Object> test = mypageService.makeCalendarData(user.getId());
 	 
+	 //목표 요일 갯수
+	 int mygoalCnt = ((List) mygoal.get("days")).size();
+	 //성공 요일 갯수
+	 int successCnt = successDate.size();
+	 //목표 성공률
+	 double successPercent = (int)( (double)successCnt/ (double)mygoalCnt * 100.0 );
+
 	 model.addAttribute("pic", pic);
 	 model.addAttribute("user", user);
 	 model.addAttribute("mygoal", mygoal);
+	 model.addAttribute("myrecord", myrecord);
+	 model.addAttribute("successDate", successDate);
+	 model.addAttribute("successPercent", successPercent);
 	   
       return "mypage/myMain";
    }

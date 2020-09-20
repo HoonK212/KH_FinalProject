@@ -29,6 +29,22 @@
 		<result column="grade" property="grade" />
 	</resultMap>
 	
+	<resultMap type="map" id="exercise">
+		<result column="no" property="no" />
+		<result column="type" property="type" />
+		<result column="name" property="name" />
+		<result column="cal" property="cal" />
+		<result column="count" property="count" />
+	</resultMap>
+	
+	<resultMap type="map" id="record">
+		<result column="id" property="id" />
+		<result column="dates" property="dates" />
+		<result column="record" property="record" />
+		<result column="ex_no" property="ex_no" />
+		<result column="name" property="name" />
+	</resultMap>
+	
 	<insert id="setGoal">
 		INSERT INTO GOAL 
 		VALUES ( #{id}, #{days}, #{exercise}, #{grade} ) 
@@ -90,6 +106,34 @@
 		WHERE ID = #{id}
 	</select>
 	
+	<select id="selectExercise" resultMap="exercise">
+		SELECT * FROM EXERCISE
+	</select>
+	
+	<select id="selectExerciseByName" resultType="int">
+		SELECT * FROM EXERCISE WHERE NAME = #{string}
+	</select>
+	
+	<select id="selectMyRecordDates" resultMap="record">
+		select distinct to_char(R.dates, 'yyyy-mm-dd') dates
+		from record R, exercise E
+		where R.ex_no = E.no
+		and R.id = #{id} order by dates asc
+	</select>
+	
+	<select id="selectMyRecordByDate" resultMap="record">
+		select distinct R.id, to_char(R.dates, 'yyyy-mm-dd') dates, R.record, R.ex_no, E.name
+		from record R, exercise E
+		where R.ex_no = E.no
+		and R.id = #{id}
+		and to_char(R.dates, 'yyyy-mm-dd') = #{date}
+	</select>
+	
+	<select id="selectSuccessDate" resultType="int">
+		select count(*) from record
+        where id = #{id} and to_char(dates, 'yyyy-mm-dd') = #{dates}
+        and ex_no = #{ex_no}
+	</select>
 	
 	<!-- 세민 -->
 	

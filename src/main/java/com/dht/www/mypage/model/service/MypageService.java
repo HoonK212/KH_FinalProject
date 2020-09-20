@@ -1,5 +1,6 @@
 package com.dht.www.mypage.model.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +30,11 @@ public interface MypageService {
 
 	public Map<String, Object> selectExerciseGoal(String id);
 
-	public String[] transformToDOW(String[] daysArr);
+	public List<String> transformToDOW(String[] daysArr);
+	
+	public Map<Object, Object> selectMyRecord(String id);
+	
+	public List<String> selectSuccessDates(String id);
 	
 	// -------- 세민 ------------
 	   //기존의 이메일이 존재하는 지 확인 하는 메소드 
@@ -68,6 +73,10 @@ public interface MypageService {
 	   public void deleteComment(String no);
 	   //패스워드가 맞는지 확인하는 메소드
 	   public String checkPassword(String pw, String id);
+
+	
+
+	
 	
 
 }

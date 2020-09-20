@@ -66,11 +66,36 @@ public class MypageDao {
 		return sqlSession.selectOne("MYPAGE.selectExerciseGoal", id);
 	}
 
-//	public Map<String, Object> selectRecord(String id) {
+	//기록 날짜 조회
+	public List<Map<String,Object>> selectMyRecordDates(String id) {
 		
-//		return sqlSession.selectList("MYPAGE.selectRecord", id);
-//	}
+		return sqlSession.selectList("MYPAGE.selectMyRecordDates", id);
+	}
+	
+	//날짜로 나의 기록 조회
+	public List<Map<String, Object>> selectMyRecordByDate(Map<String, Object> param) {
+		
+		return sqlSession.selectList("MYPAGE.selectMyRecordByDate", param);
+	}
 
+	// 운동 조회  
+	public List<Map<String, Object>> selectExercises() {
+		
+		return sqlSession.selectList("MYPAGE.selectExercise");
+	}
+	
+	// 운동 이름으로 운동 번호 조회
+	public int selectExerciseByName(String string) {
+		
+		return sqlSession.selectOne("MYPAGE.selectExerciseByName", string);
+	}
+	
+	public int selectSuccessDate(Map<String, Object> param) {
+	
+		return sqlSession.selectOne("MYPAGE.selectSuccessDate", param);
+	}
+	
+	
 	
 	// ------ 세민 ------
 	
@@ -156,15 +181,26 @@ public class MypageDao {
 	      return sqlSession.selectOne("MYPAGE.selectUserAccount", id);
 	   }
 	   
-	   //point 가져오는 메소드 
-	   public int userPoint(String id) {
-	      return sqlSession.selectOne("MYPAGE.userPoint", id);
-	   }
+	   		
+	   		//사용자 point 값 가져오기
+		   public int userPoint(String id) {
+		         //이게 가능해?
+		         if( sqlSession.selectOne("MYPAGE.userPoint", id) != null) {
+		            return sqlSession.selectOne("MYPAGE.userPoint", id);
+		         }else {
+		            return 0 ;
+		         }
+		      }
+	      
+	      //coin 가져오는 메소드 
+	      public int userCoin(String id) {
+	         if(sqlSession.selectOne("MYPAGE.userCoin", id) != null) {
+	            return sqlSession.selectOne("MYPAGE.userCoin", id);
+	         }else {
+	            return 0 ;
+	         }
+	      }
 	   
-	   //point 가져오는 메소드 
-	   public int userCoin(String id) {
-	      return sqlSession.selectOne("MYPAGE.userCoin", id);
-	   }
 	   //point 차감하는 메소드
 	   public void subPoint(int point, String id) {
 	      Map <String, Object> map =new  HashMap <String, Object> ();
@@ -221,5 +257,10 @@ public class MypageDao {
 	   public String selectUserPw(String id) {
 	      return sqlSession.selectOne("MYPAGE.selectUserPw", id);
 	   }
+
+
+
+
+
 
 }

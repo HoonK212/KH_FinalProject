@@ -4,9 +4,9 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
 <!DOCTYPE html>
 <html>
+<!--<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">-->
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -41,355 +41,6 @@ body {}
 .margin {
   margin-left: 0 !important;
 }
-/* Start side navigation bar  */
-
-.side-nav {
-  float: left;
-  height: 100%;
-  width: 290px;
-  background-color: #252636;
-  color: #CCC;
-  -webkit-transform: translateX(0);
-  -moz-transform: translateX(0);
-  transform: translateX(0);
-  -webkit-transition: all .3s ease-in-out;
-  -moz-transition: all .3s ease-in-out;
-  transition: .3s;
-  position: fixed;
-  top: 0;
-  left: 0;
-  overflow: auto;
-  z-index: 9999999
-}
-.side-nav .close-aside {
-  position: absolute;
-  top: 7px;
-  right: 7px;
-  cursor: pointer;
-  color: #EEE;
-}
-.side-nav .heading {
-  background-color: #252636;
-  padding: 15px 15px 15px 30px;
-  overflow: hidden;
-  border-bottom: 1px solid #2a2b3c
-}
-.side-nav .heading > img {
-  border-radius: 50%;
-  float: left;
-  width: 28%;
-}
-.side-nav .info {
-  float: left;
-  width: 69%;
-  margin-left: 3%;
-}
-.side-nav .heading .info > h3 {margin: 0 0 5px}
-.side-nav .heading .info > h3 > a {
-  color: #EEE;
-  font-weight: 100;
-  margin-top: 4px;
-  display: block;
-  text-decoration: none;
-  font-size: 18px;
-}
-.side-nav .heading .info > h3 > a:hover {
-  color: #FFF;
-}
-.side-nav .heading .info > p {
-  color: #BBB;
-  font-size: 13px;
-}
-/* End heading */
-/* Start search */
-.side-nav .search {
-  text-align: center;
-  padding: 15px 30px;
-  margin: 15px 0;
-  position: relative;
-}
-.side-nav .search > input {
-  width: 100%;
-  background-color: transparent;
-  border: none;
-  border-bottom: 1px solid #23262d;
-  padding: 7px 0 7px;
-  color: #DDD
-}
-.side-nav .search > input ~ i {
-  position: absolute;
-  top: 22px;
-  right: 40px;
-  display: block;
-  color: #2b2f3a;
-  font-size: 19px;
-}
-/* End search */
-
-.side-nav .categories > li {
-  padding: 17px 40px 17px 30px;
-  overflow: hidden;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
-  cursor: pointer;
-}
-.side-nav .categories > li > a {
-  color: #AAA;
-  text-decoration: none;
-}
-/* Start num: there are three options primary, danger and success like Bootstrap */
-.side-nav .categories > li > a > .num {
-  line-height: 0;
-  border-radius: 3px;
-  font-size: 14px;
-  color: #FFF;
-  padding: 0px 5px
-}
-.dang {background-color: #f35959}
-.prim {background-color: #0275d8}
-.succ {background-color: #5cb85c}
-/* End num */
-.side-nav .categories > li > a:hover {
-  color: #FFF
-}
-.side-nav .categories > li > i {
-  font-size: 18px;
-  margin-right: 5px
-}
-
-.side-nav .categories .opend > a:after {
-  -webkit-transform: rotate(-90deg);
-  -moz-transform: rotate(-90deg);
-  transform: rotate(-90deg);
-}
-/* End categories */
-/* Start dropdown menu */
-.side-nav .categories .side-nav-dropdown {
-  padding-top: 10px;
-  padding-left: 30px;
-  list-style: none;
-  display: none;
-}
-.side-nav .categories .side-nav-dropdown > li > a {
-  color: #AAA;
-  text-decoration: none;
-  padding: 7px 0;
-  display: block;
-}
-.side-nav .categories p {
-  margin-left: 30px;
-  color: #535465;
-  margin-top: 10px;
-}
-
-/* End dropdown menu */
-
-.show-side-nav {
-  -webkit-transform: translateX(-290px);
-  -moz-transform: translateX(-290px);
-  transform: translateX(-290px);
-}
-
-
-/* End side navigation bar  */
-/* Start welcome */
-
-.welcome {
-  color: #CCC;
-}
-.welcome .content {
-  background-color: #313348;
-  padding: 15px;
-  margin-top: 25px;
-}
-.welcome h2 {
-  font-family: Calibri;
-  font-weight: 100;
-  margin-top: 0
-}
-.welcome p {
-  color: #999;
-}
-
-
-/* Start statistics */
-.statistics {
-  margin-top: 25px;
-  color: #CCC;
-}
-.statistics .box {
-  background-color: #313348;
-  padding: 15px;
-  overflow: hidden;
-}
-.statistics .box > i {
-  float: left;
-  color: #FFF;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  line-height: 60px;
-  font-size: 22px;
-}
-.statistics .box .info {
-  float: left;
-  width: auto;
-  margin-left: 10px;
-}
-.statistics .box .info h3 {
-  margin: 5px 0 5px;
-  display: inline-block;
-}
-.statistics .box .info p {color:#BBB}
-
-/* End statistics */
-/* Start charts */
-.charts {
-  margin-top: 25px;
-  color: #BBB
-}
-.charts .chart-container {
-  background-color: #313348;
-  padding: 15px;
-}
-.charts .chart-container h3 {
-  margin: 0 0 10px;
-  font-size: 17px;
-}
-
-/* Start users */
-
-.admins {
-  margin-top: 25px;
-}
-.admins .box {
-
-}
-.admins .box > h3 {
-  color: #ccc;
-  font-family: Calibri;
-  font-weight: 300;
-  margin-top: 0;
-}
-.admins .box .admin {
-  margin-bottom: 20px;
-  overflow: hidden;
-  background-color: #313348;
-  padding: 10px;
-}
-.admins .box .admin .img {
-  width: 20%;
-  margin-right: 5%;
-  float: left;
-}
-.admins .box .admin .img img {
-  border-radius: 50%;
-}
-.admins .box .info {
-  width: 75%;
-  color: #EEE;
-  float: left;
-}
-.admins .box .info h3 {font-size: 19px}
-.admins .box .info p {color: #BBB}
-
-/* End users */
-/* Start statis */
-
-.statis {
-  color: #EEE;
-  margin-top: 15px;
-}
-.statis .box {
-  position: relative;
-  padding: 15px;
-  overflow: hidden;
-  border-radius: 3px;
-  margin-bottom: 25px;
-}
-.statis .box h3:after {
-  content: "";
-  height: 2px;
-  width: 70%;
-  margin: auto;
-  background-color: rgba(255, 255, 255, 0.12);
-  display: block;
-  margin-top: 10px;
-}
-.statis .box i {
-  position: absolute;
-  height: 70px;
-  width: 70px;
-  font-size: 22px;
-  padding: 15px;
-  top: -25px;
-  left: -25px;
-  background-color: rgba(255, 255, 255, 0.15);
-  line-height: 60px;
-  text-align: right;
-  border-radius: 50%;
-}
-
-
-
-.main-color {
-  color: #ffc107
-}
-.warning {background-color: #f0ad4e}
-.danger {background-color: #d9534f}
-.success {background-color: #5cb85c}
-.inf {background-color: #5bc0de}
-
-/* Start bootstrap */
-.navbar-right .dropdown-menu {
-  right: auto !important;
-  left: 0 !important;
-}
-.navbar-default {
-  background-color: #6f6486 !important;
-  border: none !important;
-  border-radius: 0 !important;
-  margin: 0 !important
-}
-.navbar-default .navbar-nav>li>a {
-  color: #EEE !important;
-  line-height: 55px !important;
-  padding: 0 10px !important;
-}
-.navbar-default .navbar-brand {color:#FFF !important}
-.navbar-default .navbar-nav>li>a:focus,
-.navbar-default .navbar-nav>li>a:hover {color: #EEE !important}
-
-.navbar-default .navbar-nav>.open>a,
-.navbar-default .navbar-nav>.open>a:focus,
-.navbar-default .navbar-nav>.open>a:hover {background-color: transparent !important; color: #FFF !important}
-
-.navbar-default .navbar-brand {line-height: 55px !important; padding: 0 !important}
-.navbar-default .navbar-brand:focus,
-.navbar-default .navbar-brand:hover {color: #FFF !important}
-.navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {margin: 0 !important}
-
-
-.navbar-default .navbar-nav>li>a {
-  float: left !important;
-}
-.navbar-default .navbar-nav>li>a>span:not(.caret) {
-  background-color: #e74c3c !important;
-  border-radius: 50% !important;
-  height: 25px !important;
-  width: 25px !important;
-  padding: 2px !important;
-  font-size: 11px !important;
-  position: relative !important;
-  top: -10px !important;
-  right: 5px !important
-}
-.dropdown-menu>li>a {
-  padding-top: 5px !important;
-  padding-right: 5px !important;
-}
-.navbar-default .navbar-nav>li>a>i {
-  font-size: 18px !important;
-}
 
 
 
@@ -422,7 +73,7 @@ label {
   display: none;
 }
 img {
-  padding: 5px;
+ /* padding: 5px; */
 /*   border: 1px solid #ccc; */
 
 }
@@ -433,7 +84,11 @@ img {
 
 /*다중선택*/
 body {
-  font: normal 14px/100% "Andale Mono", AndaleMono, monospace;
+
+  /*이거를 지우니까 네비는 모양을 갖추는 것 같다 */
+  /*font: normal 14px/100% "Andale Mono", AndaleMono, monospace;*/
+  
+  
   /* color: #fff;  */ 
   padding: 50px;
  /* width: 300px; */ 
@@ -447,9 +102,9 @@ body {
   transform: translateY(-50%);
 }
 
-a {
-  color: #fff;
-}
+ a {
+  color: #fff; 
+} 
 
 .dropdown dd,
 .dropdown dt {
@@ -1054,6 +709,10 @@ body {
       box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
       transition-delay: 0s;
     }
+    
+    #fonttt{
+      font: normal 14px/100% "Andale Mono", AndaleMono, monospace;
+    }
 
 </style>
 </head>
@@ -1097,30 +756,30 @@ body {
 
    <!-- 저장 버튼 -->
 
-	<c:choose>
-		<c:when test="${empty mygoal}">
-			<div style="display:inline-block; padding-left:171px;">
-			<button id="btnSubmit01" class="button raised green center" style="width:77; height:35; line-height:35px; text-align:center;">목표적용</button>
-			</div>
-		</c:when>
-		<c:otherwise>
-			<div style="display:inline-block; padding-left:171px;">
-			<button id="btnSubmit02" class="button raised green center" style="width:77; height:35; line-height:35px; text-align:center;">목표적용</button>
-			</div>
-		</c:otherwise>
-	</c:choose>
-	
-	<script type="text/javascript">
-	
-	$('#btnSubmit01').click(function(){
-		alert('나의 운동 목표가 설정되었습니다!');
-	});
-	$('#btnSubmit02').click(function(){
-		alert('나의 운동 목표가 변경되었습니다!');
-	});
-	</script>
-	
-	
+   <c:choose>
+      <c:when test="${empty mygoal}">
+         <div style="display:inline-block; padding-left:171px;">
+         <button id="btnSubmit01" class="button raised green center" style="width:77; height:35; line-height:35px; text-align:center;">목표적용</button>
+         </div>
+      </c:when>
+      <c:otherwise>
+         <div style="display:inline-block; padding-left:171px;">
+         <button id="btnSubmit02" class="button raised green center" style="width:77; height:35; line-height:35px; text-align:center;">목표적용</button>
+         </div>
+      </c:otherwise>
+   </c:choose>
+   
+   <script type="text/javascript">
+   
+   $('#btnSubmit01').click(function(){
+      alert('나의 운동 목표가 설정되었습니다!');
+   });
+   $('#btnSubmit02').click(function(){
+      alert('나의 운동 목표가 변경되었습니다!');
+   });
+   </script>
+   
+   
   
 
 <ul class="gallery" style="padding-left:600; padding-top:10; width:1250px;">
@@ -1154,7 +813,7 @@ body {
 </ul>
 
 <!-- 다중선택 추가 -->
-<!-- 새로운  멀티  -->
+<!-- 새로운  멀티  font: normal 14px/100% "Andale Mono", AndaleMono, monospace;-->
  <dl class="dropdown2" style="margin-left:260;">
   <dt>
     <a href="#" class="a2" style="width:302;">
@@ -1164,9 +823,9 @@ body {
     </dt>
   
     <dd>
-        <div class="mutliSelect2">
-            <ul>
-                <li>
+        <div class="mutliSelect2" >
+            <ul id="fonttt">
+                <li >
                     <input type="checkbox" name="exercise" value="plank" />플랭크</li>
                 <li>
                     <input type="checkbox" name="exercise" value="jumpingjack" />점핑잭</li>
@@ -1205,7 +864,7 @@ body {
   
     <dd>
         <div class="mutliSelect">
-            <ul>
+            <ul id="fonttt">
                 <li>
                     <input type="checkbox" name="days" value="1" />일</li>
                 <li>
@@ -1240,7 +899,7 @@ body {
   
     <dd>
         <div class="mutliSelect3">
-            <ul>
+            <ul id="fonttt">
                 <li>
                     <input type="checkbox" name="grade" value="1" />왕초보자</li>
                 <li>
@@ -1342,7 +1001,7 @@ $(document).bind('click', function(e) {
 });
 
 $('.mutliSelect li').on('click', function() {
-	var idx = $(this).index();
+   var idx = $(this).index();
   var title = $(this).closest('.mutliSelect').find('li').eq(idx).text();
 /*     title = $(this).val() + ","; */
 
@@ -1377,17 +1036,17 @@ $('.mutliSelect li').on('click', function() {
       });
 
       $('.mutliSelect2 li').on('click', function() {
-		var idx = $(this).index();
-		console.log(idx);
+      var idx = $(this).index();
+      console.log(idx);
         var title = $(this).closest('.mutliSelect2').find('li').eq(idx).text();
 /*           title = $(this).val() + ","; */
-//		console.log($(this).closest('.mutliSelect2').find('li'));
-//		console.log($(this).closest('.mutliSelect2').find('li').eq(idx));
-//		console.log($(this).closest('.mutliSelect2').find('li').eq(idx).text());
-//		console.log($(this).closest('.mutliSelect2').find('li').eq(idx).innerText());
-//		console.log($(this).closest('.mutliSelect2').find('li')[idx]);
-//		console.log($(this).closest('.mutliSelect2').find('li')[idx].text());
-	
+//      console.log($(this).closest('.mutliSelect2').find('li'));
+//      console.log($(this).closest('.mutliSelect2').find('li').eq(idx));
+//      console.log($(this).closest('.mutliSelect2').find('li').eq(idx).text());
+//      console.log($(this).closest('.mutliSelect2').find('li').eq(idx).innerText());
+//      console.log($(this).closest('.mutliSelect2').find('li')[idx]);
+//      console.log($(this).closest('.mutliSelect2').find('li')[idx].text());
+   
         if ($(this).children().is(':checked')) {
           var html = '<span title="' + title + '">' + title + '</span>';
           $('.multiSel2').append(html);
@@ -1418,18 +1077,18 @@ $('.mutliSelect li').on('click', function() {
         var $clicked = $(e.target);
         if (!$clicked.parents().hasClass("dropdown3")) $(".dropdown3 dd ul").hide();
       });
-	
+   
       //운동단계 1개만 선택하도록 처리
       $('input[type="checkbox"][name="grade"]').click(function(){
 
-    	  if($(this).prop('checked') && $('input[type="checkbox"][name="grade"]:checked').size()>1){
-    	  $(this).prop('checked', false);
-    	  alert('운동단계는 1개만 선택해주세요.');
-    	  }
-      });    	  
+         if($(this).prop('checked') && $('input[type="checkbox"][name="grade"]:checked').size()>1){
+         $(this).prop('checked', false);
+         alert('운동단계는 1개만 선택해주세요.');
+         }
+      });         
       
       $('.mutliSelect3 li').on('click', function() {
-    	var idx = $(this).index();
+       var idx = $(this).index();
         var title = $(this).closest('.mutliSelect3').find('li').eq(idx).text();
         if($(this).children().is(':checked')) {
           var html = '<span title="' + title + '">' + title + '</span>';
@@ -1593,32 +1252,32 @@ $('.mutliSelect li').on('click', function() {
       
 
  /*pop-up-1 */
-	
+   
  
     jQuery(document).ready(function($){
-    	var idx = null;
-	    $('ul.gallery li').on('click', function(event){
-	    	idx = $(this).index()+1;
-	    	//open popup
-	        event.preventDefault();
-	        $('.popup').addClass('is-visible');
-		 	if(idx==1)   $('.popup-container div').html(desc1);
-		 	if(idx==2)   $('.popup-container div').html(desc2);
-		 	if(idx==3)   $('.popup-container div').html(desc3);
-		 	if(idx==4)   $('.popup-container div').html(desc4);
-		 	if(idx==5)   $('.popup-container div').html(desc5);
-		 	if(idx==6)   $('.popup-container div').html(desc6);
-		 	if(idx==7)   $('.popup-container div').html(desc7);
-		 	if(idx==8)   $('.popup-container div').html(desc8);
-		 	if(idx==9)   $('.popup-container div').html(desc9);
-	    });
-	    $('.popup').on('click', function(event){
-	        //close popup
-	        if( $(event.target).is('.popup-close') || $(event.target).is('.popup') ) {
-	          event.preventDefault();
-	          $(this).removeClass('is-visible');
-	        }
-	    });
+       var idx = null;
+       $('ul.gallery li').on('click', function(event){
+          idx = $(this).index()+1;
+          //open popup
+           event.preventDefault();
+           $('.popup').addClass('is-visible');
+          if(idx==1)   $('.popup-container div').html(desc1);
+          if(idx==2)   $('.popup-container div').html(desc2);
+          if(idx==3)   $('.popup-container div').html(desc3);
+          if(idx==4)   $('.popup-container div').html(desc4);
+          if(idx==5)   $('.popup-container div').html(desc5);
+          if(idx==6)   $('.popup-container div').html(desc6);
+          if(idx==7)   $('.popup-container div').html(desc7);
+          if(idx==8)   $('.popup-container div').html(desc8);
+          if(idx==9)   $('.popup-container div').html(desc9);
+       });
+       $('.popup').on('click', function(event){
+           //close popup
+           if( $(event.target).is('.popup-close') || $(event.target).is('.popup') ) {
+             event.preventDefault();
+             $(this).removeClass('is-visible');
+           }
+       });
         //close popup when clicking the esc keyboard button
         $(document).keyup(function(event){
           if(event.which=='27'){
@@ -1627,35 +1286,35 @@ $('.mutliSelect li').on('click', function() {
         });
     });
    
- 	var desc1 = "<div><h2>플랭크</h2><br><p>1. 견갑골(날개뼈)과 쇄골은 전체적으로 뒤로 밀리지 않도록 단단히 고정시켜준다.</p><p>2. 어깨는 방향이 지면과 수직을 이루도록 한다.</p><p>3. 허리는 일직선을 만들고 고개도 들지 않는다.</p><p>4. 엉덩이는 허리가 아래쪽으로 처지지 않도록 지속적으로 엉덩이 근육을 수축시키면서 긴장 상태를 유지해야 한다. 그래서 머리부터 발끝까지 일직선을 유지해야 한다.</p><p>5. 허벅지는 안쪽을 강하게 조여 내전근의 긴장을 유도한다.</p><p>6. 발끝은 가지런히 모아주며 발뒤꿈치도 붙인다.</p></div>";
-	var desc2 = "<div><h2>점핑잭</h2><br><p>1. 차렷 자세를 취합니다.</p><p>2. 두 팔을 양옆으로 올리면서 두 발을 점프해서 벌립니다.</p><p>3. 다시 차렷 자세로 돌아갑니다.</p><p>4. 두 발을 점프해서 더 넓게 벌리면서 두 손은 머리 위로 올려 박수를 칩니다.</p><p>5. 다시 차렷 자세로 돌아갑니다.</p><p>6. ‘하나둘, 하나둘’ 박자에 맞춰 리듬감 있게 이 동작들을 반복합니다.</p></div>";
-	var desc3 = "<div><h2>버핏</h2><br><p>1. 차렷 자세를 취합니다.</p><p>2. 무릎을 굽혀 바닥에 손을 집고 상체를 숙여줍니다.</p><p>3. 다리를 뒤쪽으로 길게 뻗어 푸쉬업 자세를 만듭니다.</p><p>4. 다리를 가슴쪽으로 다시 당깁니다.</p><p>5. 차렷자세 또는 점프 후  이 동작들을 반복합니다.</p></div>";
-	var desc4 = "<div><h2>레그레이즈</h2><br><p>1. 누워서 위와같이 몸통과 다리가 직각이 되도록 자세를 취합니다.</p><p>2. 다리를 들어올렸다면 숨을 들이마셔 복부에 공기를 채운다는 느낌으로 배에 힘을 줍니다.</p><p>3. 배에 힘을 주었다면, 호흡을 참고 다리를 내립니다.</p><p>4. 다리를 내린 다음 다시 몸통과 같이 직각이 되도록 다리를 들어올립니다. 이 때 다리를 들어올리면서 숨을 천천히 뱉고, 다리를 다시 뻗어올렸다면 복부에 공기를 채운다는 느낌으로 배에 힘을 줍니다.</p></div>";
-	var desc5 = "<div><h2>크런치</h2><br><p>1. 손은 머리 뒤로 가져간상태에서 천장을 보고 눕는다.</p><p>2. 바닥에서 어깨가 살짝 떨어질 정도로만 상체를 일으켜 세우면서 호흡을 내쉰다.</p></div>";
-	var desc6 = "<div><h2>푸쉬업</h2><br><p>1. 팔을 어깨보다 살짝 넓게 벌려 바닥을 짚는다.</p><p>2. 머리부터 발끝까지 일자를 유지한 채 가슴에 바닥이 닿을 정도로 내려갔다 올라온다.</p><p>3. 복근을 포함한 코어 의 긴장감을 유지한다.</p></div>";
-	var desc7 = "<div><h2>사이드런지</h2><br><p>1. 엎드려뻗쳐 상태에서 상체는 지면과 평행하게 유지합니다.</p><p>2. 다리는 곧게 뻗어서 바닥을 디디고, 발은 골반 넓이 정도로 벌려줍니다.</p><p>3. 양 무릎을 리듬감있게 번갈아 가면서 가슴 앞으로 당겨 올려 바닥을 디딥니다.</p></div>";
-	var desc8 = "<div><h2>스쿼트</h2><br><p>1. 발 각도는 대략 120도 정도로 고정시킵니다.</p><p>2. 견갑골을 고정시켜 가슴을 폅니다.</p><p>3. 엉덩이부터 천천히 내빼면서 서서히 내려갔다가 무릎까지 90도를 만든 다음에 올라옵니다.</p></div>";
-	var desc9 = "<div><h2>런지</h2><br><p>1. 골반너비로 두 발을 벌리고 허리에 손을 대고 바로 서줍니다.</p><p>2. 한쪽 발을 70~100cm 가량 앞으로 벌려 내밀고, 왼발의 뒤꿈치를 세워줍니다.(이 때 시선은 앞을 보도록 해야합니다.)</p><p>3. 허리와 등을 똑바로 편 채로 오른편 무릎을 90도로 구부리고 반대편 무릎은 바닥에 닿는 느낌으로 몸을 내려줍니다.</p></div>";
+    var desc1 = "<div><h2>플랭크</h2><br><p>1. 견갑골(날개뼈)과 쇄골은 전체적으로 뒤로 밀리지 않도록 단단히 고정시켜준다.</p><p>2. 어깨는 방향이 지면과 수직을 이루도록 한다.</p><p>3. 허리는 일직선을 만들고 고개도 들지 않는다.</p><p>4. 엉덩이는 허리가 아래쪽으로 처지지 않도록 지속적으로 엉덩이 근육을 수축시키면서 긴장 상태를 유지해야 한다. 그래서 머리부터 발끝까지 일직선을 유지해야 한다.</p><p>5. 허벅지는 안쪽을 강하게 조여 내전근의 긴장을 유도한다.</p><p>6. 발끝은 가지런히 모아주며 발뒤꿈치도 붙인다.</p></div>";
+   var desc2 = "<div><h2>점핑잭</h2><br><p>1. 차렷 자세를 취합니다.</p><p>2. 두 팔을 양옆으로 올리면서 두 발을 점프해서 벌립니다.</p><p>3. 다시 차렷 자세로 돌아갑니다.</p><p>4. 두 발을 점프해서 더 넓게 벌리면서 두 손은 머리 위로 올려 박수를 칩니다.</p><p>5. 다시 차렷 자세로 돌아갑니다.</p><p>6. ‘하나둘, 하나둘’ 박자에 맞춰 리듬감 있게 이 동작들을 반복합니다.</p></div>";
+   var desc3 = "<div><h2>버핏</h2><br><p>1. 차렷 자세를 취합니다.</p><p>2. 무릎을 굽혀 바닥에 손을 집고 상체를 숙여줍니다.</p><p>3. 다리를 뒤쪽으로 길게 뻗어 푸쉬업 자세를 만듭니다.</p><p>4. 다리를 가슴쪽으로 다시 당깁니다.</p><p>5. 차렷자세 또는 점프 후  이 동작들을 반복합니다.</p></div>";
+   var desc4 = "<div><h2>레그레이즈</h2><br><p>1. 누워서 위와같이 몸통과 다리가 직각이 되도록 자세를 취합니다.</p><p>2. 다리를 들어올렸다면 숨을 들이마셔 복부에 공기를 채운다는 느낌으로 배에 힘을 줍니다.</p><p>3. 배에 힘을 주었다면, 호흡을 참고 다리를 내립니다.</p><p>4. 다리를 내린 다음 다시 몸통과 같이 직각이 되도록 다리를 들어올립니다. 이 때 다리를 들어올리면서 숨을 천천히 뱉고, 다리를 다시 뻗어올렸다면 복부에 공기를 채운다는 느낌으로 배에 힘을 줍니다.</p></div>";
+   var desc5 = "<div><h2>크런치</h2><br><p>1. 손은 머리 뒤로 가져간상태에서 천장을 보고 눕는다.</p><p>2. 바닥에서 어깨가 살짝 떨어질 정도로만 상체를 일으켜 세우면서 호흡을 내쉰다.</p></div>";
+   var desc6 = "<div><h2>푸쉬업</h2><br><p>1. 팔을 어깨보다 살짝 넓게 벌려 바닥을 짚는다.</p><p>2. 머리부터 발끝까지 일자를 유지한 채 가슴에 바닥이 닿을 정도로 내려갔다 올라온다.</p><p>3. 복근을 포함한 코어 의 긴장감을 유지한다.</p></div>";
+   var desc7 = "<div><h2>사이드런지</h2><br><p>1. 엎드려뻗쳐 상태에서 상체는 지면과 평행하게 유지합니다.</p><p>2. 다리는 곧게 뻗어서 바닥을 디디고, 발은 골반 넓이 정도로 벌려줍니다.</p><p>3. 양 무릎을 리듬감있게 번갈아 가면서 가슴 앞으로 당겨 올려 바닥을 디딥니다.</p></div>";
+   var desc8 = "<div><h2>스쿼트</h2><br><p>1. 발 각도는 대략 120도 정도로 고정시킵니다.</p><p>2. 견갑골을 고정시켜 가슴을 폅니다.</p><p>3. 엉덩이부터 천천히 내빼면서 서서히 내려갔다가 무릎까지 90도를 만든 다음에 올라옵니다.</p></div>";
+   var desc9 = "<div><h2>런지</h2><br><p>1. 골반너비로 두 발을 벌리고 허리에 손을 대고 바로 서줍니다.</p><p>2. 한쪽 발을 70~100cm 가량 앞으로 벌려 내밀고, 왼발의 뒤꿈치를 세워줍니다.(이 때 시선은 앞을 보도록 해야합니다.)</p><p>3. 허리와 등을 똑바로 편 채로 오른편 무릎을 90도로 구부리고 반대편 무릎은 바닥에 닿는 느낌으로 몸을 내려줍니다.</p></div>";
 
 
-	$('#btnSubmit').on('click', function(){
-		console.log('시작');
-		if($('input[type="checkbox"][name="exercise"]:checked').size() == 0){
-			alert('목표 운동을 선택해 주세요');
-			return false;
-		}else if($('input[type="checkbox"][name="days"]:checked').size() == 0){
-			alert('목표 요일을 선택해 주세요');
-			return false;
-		}else if($('input[type="checkbox"][name="grade"]:checked').size() == 0){
-			alert('목표 단계를 선택해 주세요');
-			return false;
-		}
-		console.log('통과');
-	});
-	
-	
-	
-	
+   $('#btnSubmit').on('click', function(){
+      console.log('시작');
+      if($('input[type="checkbox"][name="exercise"]:checked').size() == 0){
+         alert('목표 운동을 선택해 주세요');
+         return false;
+      }else if($('input[type="checkbox"][name="days"]:checked').size() == 0){
+         alert('목표 요일을 선택해 주세요');
+         return false;
+      }else if($('input[type="checkbox"][name="grade"]:checked').size() == 0){
+         alert('목표 단계를 선택해 주세요');
+         return false;
+      }
+      console.log('통과');
+   });
+   
+   
+   
+   
 </script>
 </body>
 </html>
