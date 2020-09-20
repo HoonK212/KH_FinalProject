@@ -48,7 +48,7 @@
   background-color: rgba(0, 0, 0, 0.3);
 }
 /* body {background-color: #2a2b3d} */
-body {background-color:#eee}
+/* body {background-color:#eee} */
 #contents {
   position: relative;
   transition: .3s;

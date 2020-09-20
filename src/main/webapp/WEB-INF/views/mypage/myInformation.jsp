@@ -5,6 +5,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <!-- 우편번호와 관련된 라이브러리 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -27,7 +28,7 @@
 ::-webkit-scrollbar-thumb:hover {
   background-color: rgba(0, 0, 0, 0.3);
 }
-body {background-color:#eee}
+/* body {background-color:#eee} */
 #contents {
   position: relative;
   transition: .3s;
@@ -37,155 +38,7 @@ body {background-color:#eee}
 .margin {
   margin-left: 0 !important;
 }
-/* Start side navigation bar  */
 
-.side-nav {
-  float: left;
-  height: 100%;
-  width: 290px;
-  background-color: #252636;
-  color: #CCC;
-  -webkit-transform: translateX(0);
-  -moz-transform: translateX(0);
-  transform: translateX(0);
-  -webkit-transition: all .3s ease-in-out;
-  -moz-transition: all .3s ease-in-out;
-  transition: .3s;
-  position: fixed;
-  top: 0;
-  left: 0;
-  overflow: auto;
-  z-index: 9999999
-}
-.side-nav .close-aside {
-  position: absolute;
-  top: 7px;
-  right: 7px;
-  cursor: pointer;
-  color: #EEE;
-}
-.side-nav .heading {
-  background-color: #252636;
-  padding: 15px 15px 15px 30px;
-  overflow: hidden;
-  border-bottom: 1px solid #2a2b3c
-}
-.side-nav .heading > img {
-  border-radius: 50%;
-  float: left;
-  width: 28%;
-}
-.side-nav .info {
-  float: left;
-  width: 69%;
-  margin-left: 3%;
-}
-.side-nav .heading .info > h3 {margin: 0 0 5px}
-.side-nav .heading .info > h3 > a {
-  color: #EEE;
-  font-weight: 100;
-  margin-top: 4px;
-  display: block;
-  text-decoration: none;
-  font-size: 18px;
-}
-.side-nav .heading .info > h3 > a:hover {
-  color: #FFF;
-}
-.side-nav .heading .info > p {
-  color: #BBB;
-  font-size: 13px;
-}
-/* End heading */
-/* Start search */
-.side-nav .search {
-  text-align: center;
-  padding: 15px 30px;
-  margin: 15px 0;
-  position: relative;
-}
-.side-nav .search > input {
-  width: 100%;
-  background-color: transparent;
-  border: none;
-  border-bottom: 1px solid #23262d;
-  padding: 7px 0 7px;
-  color: #DDD
-}
-.side-nav .search > input ~ i {
-  position: absolute;
-  top: 22px;
-  right: 40px;
-  display: block;
-  color: #2b2f3a;
-  font-size: 19px;
-}
-/* End search */
-
-.side-nav .categories > li {
-  padding: 17px 40px 17px 30px;
-  overflow: hidden;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
-  cursor: pointer;
-}
-.side-nav .categories > li > a {
-  color: #AAA;
-  text-decoration: none;
-}
-/* Start num: there are three options primary, danger and success like Bootstrap */
-.side-nav .categories > li > a > .num {
-  line-height: 0;
-  border-radius: 3px;
-  font-size: 14px;
-  color: #FFF;
-  padding: 0px 5px
-}
-.dang {background-color: #f35959}
-.prim {background-color: #0275d8}
-.succ {background-color: #5cb85c}
-/* End num */
-.side-nav .categories > li > a:hover {
-  color: #FFF
-}
-.side-nav .categories > li > i {
-  font-size: 18px;
-  margin-right: 5px
-}
-
-.side-nav .categories .opend > a:after {
-  -webkit-transform: rotate(-90deg);
-  -moz-transform: rotate(-90deg);
-  transform: rotate(-90deg);
-}
-/* End categories */
-/* Start dropdown menu */
-.side-nav .categories .side-nav-dropdown {
-  padding-top: 10px;
-  padding-left: 30px;
-  list-style: none;
-  display: none;
-}
-.side-nav .categories .side-nav-dropdown > li > a {
-  color: #AAA;
-  text-decoration: none;
-  padding: 7px 0;
-  display: block;
-}
-.side-nav .categories p {
-  margin-left: 30px;
-  color: #535465;
-  margin-top: 10px;
-}
-
-/* End dropdown menu */
-
-.show-side-nav {
-  -webkit-transform: translateX(-290px);
-  -moz-transform: translateX(-290px);
-  transform: translateX(-290px);
-}
-
-/* End side navigation bar  */
 /* Start welcome */
 
 .welcome {
@@ -324,8 +177,6 @@ body {background-color:#eee}
   border-radius: 50%;
 }
 
-
-
 .main-color {
   color: #ffc107
 }
@@ -334,56 +185,8 @@ body {background-color:#eee}
 .success {background-color: #5cb85c}
 .inf {background-color: #5bc0de}
 
-/* Start bootstrap */
-.navbar-right .dropdown-menu {
-  right: auto !important;
-  left: 0 !important;
-}
-.navbar-default {
-  background-color: #6f6486 !important;
-  border: none !important;
-  border-radius: 0 !important;
-  margin: 0 !important
-}
-.navbar-default .navbar-nav>li>a {
-  color: #EEE !important;
-  line-height: 55px !important;
-  padding: 0 10px !important;
-}
-.navbar-default .navbar-brand {color:#FFF !important}
-.navbar-default .navbar-nav>li>a:focus,
-.navbar-default .navbar-nav>li>a:hover {color: #EEE !important}
 
-.navbar-default .navbar-nav>.open>a,
-.navbar-default .navbar-nav>.open>a:focus,
-.navbar-default .navbar-nav>.open>a:hover {background-color: transparent !important; color: #FFF !important}
 
-.navbar-default .navbar-brand {line-height: 55px !important; padding: 0 !important}
-.navbar-default .navbar-brand:focus,
-.navbar-default .navbar-brand:hover {color: #FFF !important}
-.navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {margin: 0 !important}
-
-.navbar-default .navbar-nav>li>a {
-  float: left !important;
-}
-.navbar-default .navbar-nav>li>a>span:not(.caret) {
-  background-color: #e74c3c !important;
-  border-radius: 50% !important;
-  height: 25px !important;
-  width: 25px !important;
-  padding: 2px !important;
-  font-size: 11px !important;
-  position: relative !important;
-  top: -10px !important;
-  right: 5px !important
-}
-.dropdown-menu>li>a {
-  padding-top: 5px !important;
-  padding-right: 5px !important;
-}
-.navbar-default .navbar-nav>li>a>i {
-  font-size: 18px !important;
-}
 
 /* --- HEADER --- */
 .breadcrumb {
@@ -477,106 +280,71 @@ table {
   color: #049cdb;
 }
 
+ /* Delete-Button */
+ .button {
+   display: inline-block;
+   position: relative;
+   width: 120px;
+   height: 32px;
+   line-height: 32px;
+   border-radius: 2px;
+   font-size: 0.9em;
+   background-color: #fff;
+   color: #646464;
+ }
+ 
+ .button > paper-ripple {
+   border-radius: 2px;
+   overflow: hidden;
+ }
+ 
 
+.button.green {
+   background-color: #0f9d58;
+   color: #fff;
+ }
+ 
+ .button.raised {
+   transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+   transition-delay: 0.2s;
+   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+ }
+ 
+ .button.raised:active {
+   box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+   transition-delay: 0s;
+ }
+ 
 
-    /* Delete-Button */
-    .button {
-      display: inline-block;
-      position: relative;
-      width: 120px;
-      height: 32px;
-      line-height: 32px;
-      border-radius: 2px;
-      font-size: 0.9em;
-      background-color: #fff;
-      color: #646464;
-    }
+  /* Misc */
+ .center {
+   text-align: center;
+ }
+ 
+ .pic-btn{
+    background-color:#0f9d58;
+    color:#fff;
+    font-family: 'Droid Sans', sans-serif;
+    margin:0;
+    padding:0;
+    text-align: center;
+ 
+ }
+ 
     
-    .button > paper-ripple {
-      border-radius: 2px;
-      overflow: hidden;
-    }
-    
-  
-   .button.green {
-      background-color: #0f9d58;
-      color: #fff;
-    }
-    
-    .button.raised {
-      transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      transition-delay: 0.2s;
-      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-    }
-    
-    .button.raised:active {
-      box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
-      transition-delay: 0s;
-    }
-    
-  
-     /* Misc */
-    .center {
-      text-align: center;
-    }
-    
-    .pic-btn{
-       background-color:#0f9d58;
-       color:#fff;
-       font-family: 'Droid Sans', sans-serif;
-       margin:0;
-       padding:0;
-       text-align: center;
-    
-    }
-    
-    
-  /* file-preview */
 .hide{display:none;}
-/*
-.btn {
-display: inline-block;
-padding: 4px 12px;
-margin-bottom: 0;
-font-size: 14px;
-line-height: 20px;
-color: #333333;
-text-align: center;
-vertical-align: middle;
-cursor: pointer;
-border: 1px solid #bbbbbb;
-border-color: #e6e6e6 #e6e6e6 #bfbfbf;
-border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-border-bottom-color: #a2a2a2;
--webkit-border-radius: 4px;
--moz-border-radius: 4px;
-border-radius: 4px;
-}
-.btn {
-border-color: #c5c5c5;
-border-color: rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.25);
-}
-.btn-large {
-padding: 11px 19px;
-font-size: 17.5px;
--webkit-border-radius: 4px;
--moz-border-radius: 4px;
-border-radius: 4px;
-}   */
     
-
 </style>
 </head>
 <body>
 
 <!-- 사이드 네비 메뉴 -->
-<%@include file="/WEB-INF/views/mypage/navi.jsp" %>
-
+ <%@include file="/WEB-INF/views/mypage/navi.jsp" %> 
 
 <!--테이블  -->
 <!-- TABLE -->
-<div style="padding-left:300; padding-bottom:20; padding-top:20;">
-<header class="container" style="padding-left:300px;">
+<div style="padding-left:300px; padding-bottom:20px; padding-top:20px;">
+<header class="container" >
     <h1>내 회원정보</h1>
     <ul class="breadcrumb">
       <li>마이페이지</li>
@@ -590,7 +358,7 @@ border-radius: 4px;
 <div class="my-table" style="width:90%; padding-left:400px;">
 <table class="table table-action">
   <thead>
-    <tr>
+    <tr style="display:none;">
       <th class="t-small"></th>
       <th class="t-medium"></th>
       <th></th>
@@ -598,7 +366,7 @@ border-radius: 4px;
   </thead>
   <tbody>
     <tr>
-      <td>
+      <td style="width:20%;">
       <input type="file" name="file" id="imageUpload" class="hide" multiple="multiple"/> 
      <img src="<%=request.getContextPath()%>/resources/${pic.path}/${pic.renamed }.${pic.ext}" id="imagePreview" alt="Preview Image" style="width:200px; height:180px;"/>
       </td> 
@@ -633,7 +401,7 @@ border-radius: 4px;
     <tr>
       <td>이메일</td>
       <td>
-      <input type='text' value="${user.mail}" style="border:none;background-color:transparent;" id="oMail" name="mail">
+      <input type='email' value="${user.mail}" style="border:none;background-color:transparent;" id="oMail" name="mail">
       <div id="mailAdd"></div>
       </td>
       <td> <span class="button raised green center" style="width:57; height:35; line-height:35px; cursor: pointer;" onclick="attachMail()">수정</span></td>
@@ -670,7 +438,7 @@ border-radius: 4px;
 </form>
 
 <!-- button -->
-   <div style="margin-left:1080px; display:inline;">
+   <div style="margin-left:1046px; display:inline;">
         <div class="button raised green" style="width:5%; display:inline-block; text-align:center; cursor: pointer;" onclick="sendForm();">
                <span class="center" >저장</span>
         </div>

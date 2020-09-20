@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>     
     
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
@@ -121,19 +123,6 @@
 
  <div style="grid-column: 1/2; grid-row: 1;">	
  
-		<div class="flex bg-indigo-800 max-w-sm mb-4">
-		      <div class="w-16 bg-yellow">
-		          <div class="p-4">
-	              		<svg class="h-8 w-8 text-white fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M468.907 214.604c-11.423 0-20.682 9.26-20.682 20.682v20.831c-.031 54.338-21.221 105.412-59.666 143.812-38.417 38.372-89.467 59.5-143.761 59.5h-.12C132.506 459.365 41.3 368.056 41.364 255.883c.031-54.337 21.221-105.411 59.667-143.813 38.417-38.372 89.468-59.5 143.761-59.5h.12c28.672.016 56.49 5.942 82.68 17.611 10.436 4.65 22.659-.041 27.309-10.474 4.648-10.433-.04-22.659-10.474-27.309-31.516-14.043-64.989-21.173-99.492-21.192h-.144c-65.329 0-126.767 25.428-172.993 71.6C25.536 129.014.038 190.473 0 255.861c-.037 65.386 25.389 126.874 71.599 173.136 46.21 46.262 107.668 71.76 173.055 71.798h.144c65.329 0 126.767-25.427 172.993-71.6 46.262-46.209 71.76-107.668 71.798-173.066v-20.842c0-11.423-9.259-20.683-20.682-20.683z"/><path d="M505.942 39.803c-8.077-8.076-21.172-8.076-29.249 0L244.794 271.701l-52.609-52.609c-8.076-8.077-21.172-8.077-29.248 0-8.077 8.077-8.077 21.172 0 29.249l67.234 67.234a20.616 20.616 0 0 0 14.625 6.058 20.618 20.618 0 0 0 14.625-6.058L505.942 69.052c8.077-8.077 8.077-21.172 0-29.249z"/></svg>
-		          </div>
-		      </div>
-		      <div class="w-auto text-grey-darker items-center p-4">
-		          <span class="text-lg font-bold pb-4 text-white">
-		            <a href="<%=request.getContextPath() %>/mypage/goalsetting" >운동 목표 설정 Go!</a>
-		          </span>
-		      </div>
-		</div>
-	  
 	  <div class="flex bg-indigo-800 max-w-sm mb-4">
 	      <div class="w-16 bg-indigo">
 	          <div class="p-4">
@@ -166,18 +155,34 @@
 	          </span>
 	          <p class="text-white">${user.name }님은 
 	          <c:forEach items="${mygoal.exercises }" var="ex">
-				<span style="color: red; font-weight: bold;">${ex}</span>           
+				<span style="color: red; font-weight: bold;">
+						${ex['name'] }
+				</span>           
 	          </c:forEach>
 	           운동을 선택하셨습니다.</p>
 	      </div>
 	  </div>
 	  
-   		<!-- progress -->
+	  	<div class="flex bg-indigo-800 max-w-sm mb-4">
+		      <div class="w-16 bg-yellow">
+		          <div class="p-4">
+	              		<svg class="h-8 w-8 text-white fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M468.907 214.604c-11.423 0-20.682 9.26-20.682 20.682v20.831c-.031 54.338-21.221 105.412-59.666 143.812-38.417 38.372-89.467 59.5-143.761 59.5h-.12C132.506 459.365 41.3 368.056 41.364 255.883c.031-54.337 21.221-105.411 59.667-143.813 38.417-38.372 89.468-59.5 143.761-59.5h.12c28.672.016 56.49 5.942 82.68 17.611 10.436 4.65 22.659-.041 27.309-10.474 4.648-10.433-.04-22.659-10.474-27.309-31.516-14.043-64.989-21.173-99.492-21.192h-.144c-65.329 0-126.767 25.428-172.993 71.6C25.536 129.014.038 190.473 0 255.861c-.037 65.386 25.389 126.874 71.599 173.136 46.21 46.262 107.668 71.76 173.055 71.798h.144c65.329 0 126.767-25.427 172.993-71.6 46.262-46.209 71.76-107.668 71.798-173.066v-20.842c0-11.423-9.259-20.683-20.682-20.683z"/><path d="M505.942 39.803c-8.077-8.076-21.172-8.076-29.249 0L244.794 271.701l-52.609-52.609c-8.076-8.077-21.172-8.077-29.248 0-8.077 8.077-8.077 21.172 0 29.249l67.234 67.234a20.616 20.616 0 0 0 14.625 6.058 20.618 20.618 0 0 0 14.625-6.058L505.942 69.052c8.077-8.077 8.077-21.172 0-29.249z"/></svg>
+		          </div>
+		      </div>
+		      <div class="w-auto text-grey-darker items-center p-4">
+		          <span class="text-lg font-bold pb-4 text-white">
+		            이번달 감량 칼로리
+		          </span>
+		          <p class="text-white">${user.name }님은 ${cal }을 감량하셨습니다.</p>
+		      </div>
+		</div>
+
+ 	<!-- progress -->
 	  <div style="grid-column: 2/3; grid-row: 1; display: flex; justify-content: center; align-items: center;">
-	      <svg class="progress blue noselect" data-progress="30" x="0px" y="0px" viewBox="0 0 80 80">
+	      <svg class="progress blue noselect" data-progress="${successPercent}" x="0px" y="0px" viewBox="0 0 80 80">
 	         <path class="track" d="M5,40a35,35 0 1,0 70,0a35,35 0 1,0 -70,0" />
 	         <path class="fill" d="M5,40a35,35 0 1,0 70,0a35,35 0 1,0 -70,0" />
-	         <text class="value" x="50%" y="55%">0%</text>
+	         <text class="value" x="50%" y="55%">${successPercent}%</text>
 	         <text class="text" x="50%" y="115%">목표달성률</text>
 	      </svg>
 	  </div>
@@ -189,77 +194,60 @@
  </div>
  
  <script type="text/javascript">
- 
-  document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
 
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-      },
-      initialDate: '2020-09-12',
-      navLinks: true, // can click day/week names to navigate views
-      businessHours: true, // display business hours
-      editable: true,
-      selectable: true,
-      events: [
-        {
-          title: 'Business Lunch',
-          start: '2020-09-03T13:00:00',
-          constraint: 'businessHours'
-        },
-        {
-          title: 'Meeting',
-          start: '2020-09-13T11:00:00',
-          constraint: 'availableForMeeting', // defined below
-          color: '#257e4a'
-        },
-        {
-          title: 'Conference',
-          start: '2020-09-18',
-          end: '2020-09-20',
-        },
-        {
-          title: 'Party',
-          start: '2020-09-29T20:00:00'
-        },
 
-        // areas where "Meeting" must be dropped
-        {
-          groupId: 'availableForMeeting',
-          start: '2020-09-11T10:00:00',
-          end: '2020-09-11T16:00:00',
-          display: 'background'
-        },
-        {
-          groupId: 'availableForMeeting',
-          start: '2020-09-13T10:00:00',
-          end: '2020-09-13T16:00:00',
-          display: 'background'
-        },
 
-        // red areas where no events can be dropped
-        {
-          start: '2020-09-24',
-          end: '2020-09-28',
-          overlap: true,
-          display: 'background',
-          color: 'red'
-        },
-        {
-          start: '2020-09-06',
-          end: '2020-09-08',
-          overlap: false,
-          display: 'background',
-          color: 'blue'
-        }
-      ]
-    });
+var dataset = [
+		<c:forEach items='${mygoal.days}' var='day'>
+		//	<c:forEach items='${mygoal.exercises}' var='ex'>
+			{	
+			//	title : '${ex['name']}',
+				start : '${day}',
+	 			color : '#6495ED',
+				display : 'background'
+			},
+		//	</c:forEach>
+		</c:forEach>
 
-    calendar.render();
-  });
+		<c:forEach items='${myrecord}' var='record'>
+			<c:forEach items='${record.value}' var='val'>
+				{
+					title : '${val['name'] }',
+					start : '${val['dates']}',
+					color : '#50bcdf'
+				},
+			</c:forEach>
+		</c:forEach>
+		
+		<c:forEach items='${successDate}' var='sd'>
+			{
+				start : '${sd}',
+				color : '#DC143C',
+				display : 'background'
+			},
+		</c:forEach>
+		
+	]	
+		
+		document.addEventListener('DOMContentLoaded', function() {
+		    var calendarEl = document.getElementById('calendar');
+
+		    var calendar = new FullCalendar.Calendar(calendarEl, {
+		      headerToolbar: {
+		        left: 'prev,next today',
+		        center: 'title',
+		        right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+		      },
+		      initialDate: '2020-09-12',
+		      navLinks: true, // can click day/week names to navigate views
+		      businessHours: true, // display business hours
+		      editable: true,
+		      selectable: true,
+		      events: dataset
+		    });
+
+		    calendar.render();
+		  });
 
 </script>
  
