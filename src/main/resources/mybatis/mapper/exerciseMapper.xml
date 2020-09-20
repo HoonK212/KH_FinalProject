@@ -5,6 +5,7 @@
 
 <mapper namespace="EXERCISE">
 
+	<!-- VO resultMap START -->
 	<resultMap type="map" id="Exercise">
 		<id column="no" property="no" />
 		<result column="type" property="type" />
@@ -41,6 +42,7 @@
 		<result column="exercises" property="exercises" />
 		<result column="grade" property="grade" />
 	</resultMap>
+	<!-- VO resultMap END -->
 	
 	<!-- 나의 운동정보 가져오기 -->
 	<select id="selectRoutine" resultType="String" >

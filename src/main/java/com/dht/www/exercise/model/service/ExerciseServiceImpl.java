@@ -44,6 +44,7 @@ public class ExerciseServiceImpl implements ExerciseService {
 		List<Exercise> leftExerInfo = new ArrayList<>();
 		Exercise exercise = new Exercise();
 		
+		// 운동개수만큼 list에 전신, 상체, 하체 조회
 		for(int i=0; i<exerciseList.size(); i++) {
 			exercise = exerciseDao.leftExerInfo(exerciseList.get(i));
 			leftExerInfo.add(exercise);
@@ -61,7 +62,6 @@ public class ExerciseServiceImpl implements ExerciseService {
 		
 		// 레벨에 대한 값 조회하기
 		double level = exerciseDao.selectGradeValue(userLevel);
-		System.out.println("조회한 level  : " + level);
 		
 		// calcExerCnt 배열에 [조회한 운동 * level] 저장
 		for(int i=0; i<userExer.length; i++) {
@@ -76,11 +76,13 @@ public class ExerciseServiceImpl implements ExerciseService {
 	@Override
 	public int selectUserAge(Map<String, Object> userInfo) {
 		
+		// 생년월일 가져오기
 		String birth = exerciseDao.selectUserBirth(userInfo);
-		System.out.println("조회된 birthhday" + birth);
 		
+		// map에 생년월일 넣기
 		userInfo.put("birth", birth);
 		
+		// 만 나이 구해서 반환
 		return exerciseDao.selectUserAge(userInfo);
 	}
 
@@ -90,19 +92,18 @@ public class ExerciseServiceImpl implements ExerciseService {
 		
 		// 레벨에 대한 값 조회하기
 		double level = exerciseDao.selectGradeValue((int) rewardMap.get("exerciseLevel"));
-		System.out.println("조회한 level  : " + level);
 		
+		// 운동개수 꺼내기
 		int exerciseLength = (int) rewardMap.get("exerciseLength");
-		
-		System.out.println("exerciseLength  : " + exerciseLength);
-		
 		
 		// 포인트 지급
 		int point = (int) Math.ceil(exerciseLength * 10.0 * level);
 		System.out.println("point  : " + point);
 		
+		// 계산된 point map에 넣기
 		rewardMap.put("point", point);
 		
+		// 포인트지급
 		exerciseDao.insertRewardPoint(rewardMap);
 		
 		return point;
@@ -133,6 +134,7 @@ public class ExerciseServiceImpl implements ExerciseService {
 		// 운동길이 + 당일지급 받은 코인
 		int calcCoin = exerciseLength + todayUserCoin;
 
+		// 조건문에 맞게 coin을 map에 담아 지급
 		if(calcCoin > maxCoin) {
 			coin = maxCoin - todayUserCoin;
 			rewardMap.put("coin", coin);
@@ -177,9 +179,6 @@ public class ExerciseServiceImpl implements ExerciseService {
 			// i번째 운동개수
 			exerciseInfo.put("exerciseCount", exerciseCount[i]);
 			
-			System.out.println("exerciseNo   : " + exerciseNo[i]);
-			System.out.println("exerciseCount   : " + exerciseCount[i]);
-					
 			exerciseDao.insertEventRecord(exerciseInfo);
 		}
 	}

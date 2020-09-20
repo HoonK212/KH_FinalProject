@@ -47,13 +47,11 @@ public class ExerciseController {
 	@RequestMapping(value="/level", method=RequestMethod.GET)
 	public String exercise2(HttpSession session, Model model, HttpServletRequest req) {
 
+		// 비정상적인 접근 예외처리
 		boolean res = false;
 		
 		try {
-			if(session.getAttribute("level")  == null && session.getAttribute("level").equals("")) {
-				
-			}
-			
+			if(session.getAttribute("level")  == null && session.getAttribute("level").equals("")) { }
 		} catch (Exception e) {
 			res = true;
 		}
@@ -88,20 +86,15 @@ public class ExerciseController {
 	public String exerciseTypeToLevel(@RequestParam String exerType, HttpSession session, Model model) {
 		session.setAttribute("exerType", exerType);
 		
-		System.out.println(exerType);
-		
 		return "exercise/exercise2";
 	}
 	
 	// 운동 선택
 	@RequestMapping(value="/select", method=RequestMethod.POST)
 	public String exerciseLevelToSelect(@RequestParam String level, HttpSession session, Model model) {
-		System.out.println(session.getAttribute("exerType"));
-		System.out.println(level);
 		
 		// 로그인 세션 얻기
 		Users user = (Users) session.getAttribute("logInInfo");
-		System.out.println(user);
 		model.addAttribute("user", user);
 		
 		session.setAttribute("level", level);
@@ -112,16 +105,9 @@ public class ExerciseController {
 	// 운동 진행
 	@RequestMapping(value="/trainning", method=RequestMethod.POST)
 	public String exerciseSelectToTrainning(@RequestParam(value="exerType", required=false) String exerType , @RequestParam(value="exercise", required=false) String exerciseName, HttpSession session, Model model) {
-		System.out.println("= = = = = = = = = = = = = = =  = = = = = = = = = =");
-		System.out.println(session.getAttribute("exerType"));
-		System.out.println(session.getAttribute("level"));
-		System.out.println(exerType);
-		System.out.println(exerciseName);
-		
 		
 		// 로그인 세션 얻기
 		Users user = (Users) session.getAttribute("logInInfo");
-		
 		
 		// 만 나이 모델값 지정
 		Map<String, Object> userInfo = new HashMap<>();
@@ -129,7 +115,6 @@ public class ExerciseController {
 		userInfo.put("birth", user.getBirth());
 		
 		model.addAttribute("userAge", exerciseService.selectUserAge(userInfo));
-		
 		
 		// 새로운 목표 설정 시
 		if(exerType == null) {
@@ -169,10 +154,8 @@ public class ExerciseController {
 			
 			// 설정한 운동 종류 가져오기
 			String exerInfo = exerciseService.selectExerciseMyRoutine(user);
-			System.out.println(exerInfo);
 			
 			String[] goalExerArr = exerInfo.split(",");
-			System.out.println("가져온 운동 정보" + goalExerArr);
 			
 			// 설정한 운동 종류 모델값 지정 / 세션 등록
 			model.addAttribute("exerciseInfo", goalExerArr);
@@ -190,7 +173,6 @@ public class ExerciseController {
 
 			// 설정한 운동 등급 가져오기
 			int exerGrade = exerciseService.selectExerciseMyGrade(user);
-			System.out.println("등급 : " + exerGrade);
 			
 			// 왼쪽 프로그레스바에 해당 운동만 보여줌
 			List<Exercise> leftExerInfo = exerciseService.leftExerInfo(exerciseList);
@@ -208,11 +190,6 @@ public class ExerciseController {
 	// 다음 운동 진행 Ajax
 	@RequestMapping(value="/nextexer", method=RequestMethod.GET)
 	public String nextExer(@RequestParam String exerName, Model model) {
-		
-		System.out.println("이이이이이이!!");
-		System.out.println(exerName);
-		
-		
 		return "exercise/"+exerName;
 	}
 			
@@ -265,7 +242,6 @@ public class ExerciseController {
 		recordMap.put("exerciseCount", exerciseCount);
 		recordMap.put("exerciseLength", exerciseCount.length);
 		
-		
 		// 운동기록 저장
 		exerciseService.insertEventRecord(recordMap);
 		
@@ -275,7 +251,6 @@ public class ExerciseController {
 		session.removeAttribute("exerciseInfo");
 		session.removeAttribute("exerciseLength");
 		session.removeAttribute("exerciseCount");
-		
 		
 		// 안내 msg
 		String msg = "적립 포인트: " + point + "\\n적립 코인: " + coin + "\\n※ 코인은 하루 3개까지 받을 수 있습니다.";
