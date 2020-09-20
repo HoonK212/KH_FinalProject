@@ -1,12 +1,10 @@
 package com.dht.www.shopping.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +35,7 @@ public class ShoppingController {
 	@Autowired
 	private ShoppingService shoppingService;
 
-	// 쇼핑 홈
+	//쇼핑 홈 출력 리스트
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public void shoppingHome(Model model) {
 		
@@ -46,7 +44,7 @@ public class ShoppingController {
 		model.addAttribute("list3", shoppingService.selectHome("C"));
 	}
 
-	// 게시판 목록
+	//게시판 서브 목록
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String shoppingList(Model model, @RequestParam(required = false, defaultValue = "1") int cPage,
 			@RequestParam(required = false, defaultValue = "0") int listno) {
@@ -62,7 +60,7 @@ public class ShoppingController {
 		return "/shopping/list";
 	}
 
-	// 제품 상세페이지
+	//제품 상세페이지
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public void shoppingDetail(Model model, String code) {
 		model.addAttribute("detail", shoppingService.selectItem(code));
@@ -73,29 +71,28 @@ public class ShoppingController {
 		
 	}
 
-	// 장바구니 모달창 AJAX
+	//장바구니 모달창 AJAX ============================================
 	@RequestMapping(value = "/modalload", method = RequestMethod.GET)
 	public String modalLoad(Model model, String code) {
 		model.addAttribute("detail", shoppingService.selectItem(code));
 		return "/shopping/modalcontent";
 	}
-
 	@RequestMapping("/modalcontent")
 	@ResponseBody
-	public void modalContent() {
-	}
+	public void modalContent() {}
+	//==================================================================
 
-	// 장바구니 조회
+	//장바구니 조회
 	@RequestMapping(value = "/basket", method = RequestMethod.GET)
 	public void shoppingBasket(Model model, HttpSession session) {
 
 		Users user = (Users) session.getAttribute("logInInfo");
 
 		if (user != null) {
-			// 로그인
+			//로그인
 			session.setAttribute("basket", shoppingService.selectBasket(user));
 		} else {
-			// 비로그인
+			//비로그인
 			List<Map<String, Object>> sessionBasket = (List<Map<String, Object>>) session.getAttribute("sessionBasket");
 
 			if (sessionBasket != null && session.getId().equals((String) sessionBasket.get(0).get("sessionId"))) {
@@ -106,17 +103,17 @@ public class ShoppingController {
 		}
 	}
 
-	// 장바구니 조회
+	//사이드바 장바구니 조회 AJAX =================================================
 	@RequestMapping(value = "/loadcart", method = RequestMethod.GET)
 	public String loadCart(Model model, HttpSession session) {
 
 		Users user = (Users) session.getAttribute("logInInfo");
 
 		if (user != null) {
-			// 로그인
+			//로그인
 			model.addAttribute("basket", shoppingService.selectBasket(user));
 		} else {
-			// 비로그인
+			//비로그인
 			List<Map<String, Object>> sessionBasket = (List<Map<String, Object>>) session.getAttribute("sessionBasket");
 
 			if (sessionBasket != null && session.getId().equals((String) sessionBasket.get(0).get("sessionId"))) {
@@ -127,29 +124,25 @@ public class ShoppingController {
 		}
 		return "/shopping/cart";
 	}
-	
 	@RequestMapping("/cart")
 	@ResponseBody
 	public void cart() { }
+	//==============================================================================
 
-	// 장바구니 추가
+	//장바구니 추가
 	@RequestMapping(value = "/basket", method = RequestMethod.POST)
 	@ResponseBody
 	public void addBasket(Model model, HttpSession session,
 			@RequestParam(required = false, defaultValue = "guest") String userId, String codes, int amount) {
-		System.out.println(userId);
-		System.out.println(codes);
-		System.out.println(amount);
-
 		Users user = (Users) session.getAttribute("logInInfo");
 
-		// 장바구니에 추가할 item
+		//장바구니에 추가할 item
 		Basket insert = new Basket();
 		insert.setCode(codes);
-		insert.setId(userId); // 로그인 회원일 때는 userId, 비로그인 회원일 때는 guest
+		insert.setId(userId); //로그인 회원일 때는 userId, 비로그인 회원일 때는 guest
 		insert.setAmount(amount);
 
-		// ------------------------ 로그인 ------------------------
+		//------------------------ 로그인 ------------------------
 		if (user != null && userId.equals(user.getId())) {
 
 			int res = shoppingService.checkBasket(insert);
@@ -160,13 +153,13 @@ public class ShoppingController {
 			} else {
 				shoppingService.insertBasket(insert);
 			}
-		// ----------------------------------------------------------
+		//----------------------------------------------------------
 
-		// ------------------------ 비로그인 ------------------------
+		//------------------------ 비로그인 ------------------------
 		} else {
 			List<Map<String, Object>> sessionBasket = (List<Map<String, Object>>) session.getAttribute("sessionBasket");
 
-			// 세션에 등록된 장바구니가 없을 때
+			//세션에 등록된 장바구니가 없을 때
 			if (sessionBasket == null) {
 				sessionBasket = new ArrayList<Map<String, Object>>();
 
@@ -186,16 +179,14 @@ public class ShoppingController {
 				session.setAttribute("sessionBasket", sessionBasket);
 				session.setAttribute("basket", sessionBasket.get(1).values());
 
-				// 세션에 등록된 장바구니가 있을 경우
+			//세션에 등록된 장바구니가 있을 경우
 			} else {
-				System.out.println("addBasket() - basket" + sessionBasket + "basket.get(1)" + sessionBasket.get(1));
-
 				if (session.getId().equals((String) sessionBasket.get(0).get("sessionId"))) {
 
-					// 장바구니 들어있는 map
+					//장바구니 들어있는 map
 					Map<String, Object> items = sessionBasket.get(1);
 
-					// 해당 상품이 있을 경우
+					//해당 상품이 있을 경우
 					if (items.get(insert.getCode()) != null) {
 						Map<String, Object> sessionItem = (Map<String, Object>) items.get(insert.getCode());
 
@@ -203,7 +194,7 @@ public class ShoppingController {
 						sessionItem.remove("amount");
 						sessionItem.put("amount", updateAmount);
 
-					} else { // 해당 상품이 없을 경우
+					} else { //해당 상품이 없을 경우
 
 						Map<String, Object> sessionItem = shoppingService.sessionBasket(insert.getCode());
 						sessionItem.put("amount", insert.getAmount());
@@ -213,30 +204,27 @@ public class ShoppingController {
 				}
 			}
 		}
-		// ----------------------------------------------------------
+		//----------------------------------------------------------
 
 	}
 
-	// 장바구니 수량 업데이트
+	//장바구니 수량 업데이트
 	@RequestMapping(value = "/amount", method = RequestMethod.GET)
 	@ResponseBody
 	public int updateAmount(@RequestParam(required = false, defaultValue = "guest") String userId, int amount,
 			String code, HttpSession session) {
-		System.out.println(userId);
 		Users user = (Users) session.getAttribute("logInInfo");
 		if (user != null && user.getId().equals(userId)) {
-			// 로그인
+			//로그인
 			Basket insert = new Basket();
 			insert.setId(user.getId());
 			insert.setCode(code);
 			insert.setAmount(amount);
 
-			System.out.println(insert);
-
 			return shoppingService.updateAmount(insert);
 
 		} else {
-			// 비로그인 - 장바구니 O
+			//비로그인 - 장바구니 있을 때
 			List<Map<String, Object>> sessionBasket = (List<Map<String, Object>>) session.getAttribute("sessionBasket");
 
 			if (sessionBasket.get(0).get("sessionId").equals(session.getId())) {
@@ -248,13 +236,13 @@ public class ShoppingController {
 				return 0;
 
 			} else {
-				// 비로그인 - 장바구니 X
+				// 비로그인 - 장바구니 없을 때
 				return -1;
 			}
 		}
 	}
 
-	// 장바구니 삭제
+	//장바구니 개별 삭제 AJAX
 	@RequestMapping(value = "/deletebasket", method = RequestMethod.POST)
 	@ResponseBody
 	public String deleteBasket(HttpSession session, int num, Basket basket) {
@@ -285,12 +273,9 @@ public class ShoppingController {
 		}
 	}
 
-	// 장바구니 선택 삭제
+	//장바구니 선택 삭제
 	@RequestMapping(value = "/deletelist", method = RequestMethod.POST)
 	public String deleteList(HttpSession session, String userId, String codes) {
-
-		System.out.println(codes);
-
 		Users user = (Users) session.getAttribute("logInInfo");
 
 		String[] array = codes.split(",");
@@ -502,6 +487,7 @@ public class ShoppingController {
 		}
 	}
 
+	//쇼핑 헤더 - 검색
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public void shoppingSearch(Model model, @RequestParam(required = false, defaultValue = "1") int cPage,
 			@RequestParam(required = false, defaultValue = "") String search) {

@@ -55,6 +55,7 @@
 		<result column="event" property="event"/>
 	</resultMap>
 	
+	<!-- 쇼핑 홈 출력 아이템 리스트 -->
 	<select id="selectHome" parameterType="string" resultMap="homeItem">
 		select * from ( select rownum rnum, b.* from (
     		select p.code, name, company, price, path, renamed, ext, nvl2(e.code, 1, 0) event from product p, files f,
@@ -68,6 +69,7 @@
 		) b order by rnum ) t where rnum between 1 and 4
 	</select>
 	
+	<!-- 상품 서브 메뉴 카운트 -->
 	<select id="selectCnt" parameterType="int" resultType="int">
     		select count(*) from product p, files f
     		
@@ -96,6 +98,7 @@
     		</if>
 	</select>
 	
+	<!-- 상품 서브 메뉴 리스트 -->
 	<select id="selectList" resultMap="homeItem">
 		select * from ( select rownum rnum, b.* from (
     		select p.code, name, company, price, path, renamed, ext, nvl2(e.code, 1, 0) event from product p, files f,
@@ -132,6 +135,7 @@
 		) b order by rnum ) t where rnum between #{start} and #{end}
 	</select>
 	
+	<!-- 장바구니 정보 -->
 	<select id="selectBasket" parameterType="map" resultMap="basketItem">
 		select p.code, name, amount, price, path, renamed, ext, nvl2(e.code, 1, 0) event from product p, files f, basket b,
 		(select product.code from product, product_initial where product.code = product_initial.code) e
@@ -163,6 +167,7 @@
 		where id = #{id}
 	</select>
 
+	<!-- 상세페이지 -->
 	<select id="selectItem" resultMap="detailItem">
 		select p.code, name, price, path, renamed, ext, company, describe, stock, nvl2(e.code, 1, 0) event from product p, files f,
 		(select product.code from product, product_initial where product.code = product_initial.code) e
@@ -171,6 +176,7 @@
 		order by substr(p.code,2) desc
 	</select>
 	
+	<!-- 상품 리뷰정보 -->
 	<select id="selectReview" resultMap="detailReview">
 		select u.nick, score, review, to_char(r.dates, 'yyyy-mm-dd') dates, path, renamed, ext from review r, order_product op, product p, orders o, users u, files f
 		where r.op_no = op.no and p.code = op.code and op.orders_no = o.no and o.id = u.id and f.ref = u.id
@@ -178,36 +184,43 @@
 		order by r.dates desc
 	</select>
 	
+	<!-- 상품 평균 별점 -->
 	<select id="scoreAvg" resultType="int">
 		select nvl(avg(score), 0) from review r, order_product op, product p, orders o   
 		where r.op_no = op.no and p.code = op.code and p.code = #{value}
 	</select>
 	
+	<!-- 장바구니 내 상품 존재여부 -->
 	<select id="checkBasket" resultType="int">
 		select count(*) from basket
 		where id = #{id} and code = #{code}
 	</select>
 
+	<!-- 장바구니 삽입 -->
 	<insert id="insertBasket">
 		insert into basket 
 		values(#{id}, #{code}, #{amount}, sysdate+ (INTERVAL '9' HOUR))
 	</insert>
 	
+	<!-- 장바구니 수량 업데이트 -->
 	<update id="updateAmount">
 		update basket set amount = #{amount}
 		where id = #{id} and code = #{code}
 	</update>
 	
+	<!-- 장바구니 수량 추가 -->
 	<update id="addAmount">
 		update basket set amount = amount + #{amount}
 		where id = #{id} and code = #{code}
 	</update>
 	
+	<!-- 장바구니 선택 삭제 -->
 	<delete id="deleteBasket">
 		delete basket 
 		where code=#{code} and id=#{id}
 	</delete>
 	
+	<!-- 장바구니 리스트 삭제 -->
 	<delete id="deleteList">
 		delete basket where id=#{userId} 
 		and code in
@@ -233,11 +246,13 @@
 		insert into compensation values ( #{id}, sysdate+ (INTERVAL '9' HOUR), 1, null, 0, #{point} )
 	</insert>
 	
+	<!-- 쇼핑 검색 페이징위한 카운트 -->
 	<select id="selectCntSearch" parameterType="string" resultType="int">
 		select count(*) from product
 	    where name like '%'|| #{value} || '%'
 	</select>
 	
+	<!-- 쇼핑 검색 결과 -->
 	<select id="selectSearch" resultMap="homeItem">
 		select * from ( select rownum rnum, b.* from (
 	    	select p.code, name, company, price, path, renamed, ext, nvl2(e.code, 1, 0) event from product p, files f,
@@ -248,6 +263,7 @@
 		) b order by rnum ) t where rnum between #{start} and #{end}
 	</select>
 	
+	<!-- 상세페이지 파일 -->
 	<select id="selectFiles" parameterType="string" resultType="map">
 		select path, renamed, ext from files
 		where thumbnail = 0 and ref = #{value}

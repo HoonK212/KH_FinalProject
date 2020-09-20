@@ -22,13 +22,14 @@ public class ShoppingServiceImpl implements ShoppingService {
 	
 	@Autowired
 	private ShoppingDao shoppingDao;
-	
 
+	//쇼핑 홈 출력 리스트
 	@Override
 	public List<Map<String, Object>> selectHome(String cate) {
 		return shoppingDao.selectHome(cate);
 	}
 
+	//게시판 서브 목록
 	@Override
 	public Map<String, Object> selectList(int listno, int curPage, int cntPerPage) {
 	
@@ -43,49 +44,57 @@ public class ShoppingServiceImpl implements ShoppingService {
 		 commandMap.put("list", list);
 		
 		return commandMap;
-				
 	}
 	
+	//제품 상세 정보
 	@Override
 	public Map<String, Object> selectItem(String code) {
 		return shoppingDao.selectItem(code);
 	}
 
+	//사용자 장바구니 정보
 	@Override
 	public List<Map<String, Object>> selectBasket(Users user) {
 		return shoppingDao.selectBasket(user);
 	}
 	
+	//세션 장바구니 상품 정보
 	@Override
 	public Map<String, Object> sessionBasket(String code) {
 		return shoppingDao.sessionBasket(code);
 	}
-
+	
+	//장바구니 내 상품 존재 여부
 	@Override
 	public int checkBasket(Basket basket) {
 		return shoppingDao.checkBasket(basket);
 	}
 
+	//장바구니 삽입
 	@Override
 	public int insertBasket(Basket basket) {
 		return shoppingDao.insertBasket(basket);
 	}
 	
+	//이미 있는 상품 장바구니에 넣을 경우 - 장바구니 수량추가
 	@Override
 	public int addAmount(Basket basket) {
 		return shoppingDao.addAmount(basket);
 	}
 	
+	//장바구니 페이지에서 상품 수량 변경할 경우 - 장바구니 수량 업데이트
 	@Override
 	public int updateAmount(Basket basket) {
 		return shoppingDao.updateAmount(basket);
 	}
 	
+	//장바구니 개별 삭제
 	@Override
 	public int deleteBasket(Basket basket) {
 		return shoppingDao.deleteBasket(basket);
 	}
 	
+	//장바구니 리스트 삭제
 	@Override
 	public int deleteList(Map<String,Object> map) {
 		return shoppingDao.deleteList(map);
@@ -117,45 +126,48 @@ public class ShoppingServiceImpl implements ShoppingService {
 	
 	@Override
 
-		public int selectOrdersNo() {
-			return shoppingDao.selectOrdersNo();
-		}
+	public int selectOrdersNo() {
+		return shoppingDao.selectOrdersNo();
+	}
 
-		@Override
-		public void insertPoint(Map userPoint) {
-			shoppingDao.insertPoint(userPoint);
-		}
+	@Override
+	public void insertPoint(Map userPoint) {
+		shoppingDao.insertPoint(userPoint);
+	}
 
-		public List<Map<String, Object>> selectReview(String code) {
-			return shoppingDao.selectReview(code);
-		}
+	//상세페이지 - 리뷰 정보
+	public List<Map<String, Object>> selectReview(String code) {
+		return shoppingDao.selectReview(code);
+	}
 
-		@Override
-		public int scoreAvg(String code) {
-			return shoppingDao.scoreAvg(code);
-		}
+	//상세페이지 - 상품 별점
+	@Override
+	public int scoreAvg(String code) {
+		return shoppingDao.scoreAvg(code);
+	}
 
-		@Override
-		public Map<String, Object> selectSearch(String search, int curPage, int cntPerPage) {
-			Map<String, Object> commandMap = new HashMap<String, Object>();
+	//쇼핑 헤더 - 검색 결과
+	@Override
+	public Map<String, Object> selectSearch(String search, int curPage, int cntPerPage) {
+		Map<String, Object> commandMap = new HashMap<String, Object>();
 
-			Paging paging = new Paging(shoppingDao.selectCntSearch(search), curPage, cntPerPage);
-			paging.setSearch(search);
-			
-			System.out.println(paging);
-			
-			List<Map<String, Object>> list = shoppingDao.selectSearch(paging);
-			
-			commandMap.put("paging", paging);
-			commandMap.put("list", list);
-			
-			return commandMap;
-		}
+		Paging paging = new Paging(shoppingDao.selectCntSearch(search), curPage, cntPerPage);
+		paging.setSearch(search);
 
-		@Override
-		public List<Map<String, Object>> selectFiles(String code) {
-			return shoppingDao.selectFiles(code);
-		}
+		System.out.println(paging);
 
+		List<Map<String, Object>> list = shoppingDao.selectSearch(paging);
+
+		commandMap.put("paging", paging);
+		commandMap.put("list", list);
+
+		return commandMap;
+	}
+
+	//상세페이지 - 상품 파일
+	@Override
+	public List<Map<String, Object>> selectFiles(String code) {
+		return shoppingDao.selectFiles(code);
+	}
 
 }
