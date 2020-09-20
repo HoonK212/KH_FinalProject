@@ -173,7 +173,8 @@
 		          <span class="text-lg font-bold pb-4 text-white">
 		            이번달 감량 칼로리
 		          </span>
-		          <p class="text-white">${user.name }님은 ${cal }을 감량하셨습니다.</p>
+		          <p class="text-white">${user.name }님은 현재까지
+		          <span style="color: red; font-weight: bold;"> ${decal }칼로리</span>를 감량하셨습니다.</p>
 		      </div>
 		</div>
 

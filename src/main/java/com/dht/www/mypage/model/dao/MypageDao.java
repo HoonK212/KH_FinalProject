@@ -95,6 +95,10 @@ public class MypageDao {
 		return sqlSession.selectOne("MYPAGE.selectSuccessDate", param);
 	}
 	
+	public double selectDeCal(Map<String, Object> param) {
+		
+		return sqlSession.selectOne("MYPAGE.selectDeCal", param);
+	}
 	
 	
 	// ------ 세민 ------

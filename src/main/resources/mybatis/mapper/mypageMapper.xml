@@ -135,6 +135,15 @@
         and ex_no = #{ex_no}
 	</select>
 	
+	<select id="selectDeCal" resultType="double">
+		SELECT SUM(A.DECAL) FROM
+		(SELECT R.ID, R.DATES, R.RECORD, R.EX_NO, E.CAL, (R.RECORD*E.CAL) DECAL
+		FROM RECORD R, EXERCISE E
+		WHERE R.EX_NO = E.NO
+		AND ID = #{id}
+		AND R.DATES BETWEEN to_date(#{start}, 'yyyy-mm-dd') AND to_date(#{end}, 'yyyy-mm-dd')+0.99999 )A
+	</select>
+	
 	<!-- 세민 -->
 	
 	<!-- 메일이 중복 되는지 확인하는 메소드  -->

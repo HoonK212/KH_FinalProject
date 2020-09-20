@@ -36,6 +36,8 @@ public interface MypageService {
 	
 	public List<String> selectSuccessDates(String id);
 	
+	public double selectDeCal(String id);
+	
 	// -------- 세민 ------------
 	   //기존의 이메일이 존재하는 지 확인 하는 메소드 
 	   public int chMail(String mail);

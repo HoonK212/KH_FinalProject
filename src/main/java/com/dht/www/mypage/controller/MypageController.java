@@ -87,7 +87,7 @@ public class MypageController {
 	 Map<String,Object> mygoal =  mypageService.selectExerciseGoal(user.getId());
 	 Map<Object,Object> myrecord = mypageService.selectMyRecord(user.getId());
 	 List<String> successDate = mypageService.selectSuccessDates(user.getId());
-	 
+	 double decal = mypageService.selectDeCal(user.getId());
 	 
 	 //목표 요일 갯수
 	 int mygoalCnt = ((List) mygoal.get("days")).size();
@@ -102,6 +102,7 @@ public class MypageController {
 	 model.addAttribute("myrecord", myrecord);
 	 model.addAttribute("successDate", successDate);
 	 model.addAttribute("successPercent", successPercent);
+	 model.addAttribute("decal", decal);
 	   
       return "mypage/myMain";
    }
