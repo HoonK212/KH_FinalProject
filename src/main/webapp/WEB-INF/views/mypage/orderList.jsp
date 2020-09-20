@@ -858,10 +858,6 @@ body {
       <li>마이페이지</li>
       <li>구매목록</li>
     </ul>
-<%--     <c:set var="totalamount" value="0" /> --%>
-<%--     <c:forEach items="${olist }" var="order"> --%>
-<%--     	<c:set var="totalamount" value = "${totalamount + order.amount }" /> --%>
-<%--     </c:forEach> --%>
     <span class="count bg-orange-500"> 총 ${totalamount }개 구매 </span>
   </header>
   <!-- End Header -->
@@ -899,9 +895,15 @@ body {
 			
 			<!-- 후기 작성 모달 -->
 			<c:if test="${order.status eq 3 }">
-			<div  class="button raised btnModal1" data-toggle="modal" style="width:30%;  margin-top:10px; color: white; background-color: #48bb78;">
-               <div class="modal-btn bg-indigo-800" style="cursor: pointer;" >후기</div>
-			</div> 
+				<c:choose>
+					<c:when test="${empty order.review }">
+						<div  class="button raised btnModal1" data-toggle="modal" style="width:30%;  margin-top:10px; color: white; background-color: #48bb78;">
+			               <div class="modal-btn bg-indigo-800" style="cursor: pointer;" >후기</div>
+						</div> 
+					</c:when>
+					<c:otherwise>
+					</c:otherwise>
+				</c:choose>
 			</c:if>
           </div>
 
@@ -999,10 +1001,10 @@ body {
          		<a href="<%= request.getContextPath() %>/mypage/orderlist?cPage=${pagenation}" class="nav prev">
 	         		<c:choose>
 		       	   		<c:when test="${page.currentPage eq pagenation }">
-			       	    	<div class="cursor-pointer border-orange-600">${pagenation}</div>
+			       	    	<div class="cursor-pointer border-orange-600 pr-2 pl-2 text-lg">${pagenation}</div>
 		       	   		</c:when>
 			       	    <c:otherwise>
-			       	    	<div class="cursor-pointer border-transparent">${pagenation}</div>
+			       	    	<div class="cursor-pointer border-transparent pr-2 pl-2 text-lg">${pagenation}</div>
 			       	    </c:otherwise>
 		       	 	</c:choose>
 		         </a>

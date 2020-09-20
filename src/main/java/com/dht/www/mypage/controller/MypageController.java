@@ -119,9 +119,11 @@ public class MypageController {
 	   Users user = (Users)session.getAttribute("logInInfo");
 	   Files pic = (Files) session.getAttribute("logInPic");
 
+	   //주문 조회
 	   Map<String, Object> result = mypageService.selectOrderList(cPage, cntPerPage, user.getId());
 	   System.out.println(result);
 	   
+	   //총 주문건수
 	   int totalAmount = mypageService.selectOrderAmountCnt(user.getId());
 	   System.out.println(totalAmount);
 	   

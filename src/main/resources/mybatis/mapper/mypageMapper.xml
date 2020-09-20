@@ -20,6 +20,7 @@
 		<result column="renamed" property="renamed"/>
 		<result column="ext" property="ext"/>
 		<result column="thumbnail" property="thumbnail"/>
+		<result column="review" property="review"/>
 	</resultMap>
 	
 	<resultMap type="map" id="goal">
@@ -58,12 +59,13 @@
 	
 	<select id="selectOrderList" resultMap="orderdata">
 		SELECT * FROM ( SELECT ROWNUM RNUM, A.* FROM (
-		SELECT OP.*, O.ID, O.DATES, P.NAME, P.PRICE, F.RENAMED, F.EXT, F.THUMBNAIL
-		FROM ORDER_PRODUCT OP, ORDERS O, PRODUCT P, FILES F
+		SELECT OP.*, O.ID, O.DATES, P.NAME, P.PRICE, F.RENAMED, F.EXT, F.THUMBNAIL, R.OP_NO REVIEW
+		FROM ORDER_PRODUCT OP, ORDERS O, PRODUCT P, FILES F, REVIEW R
 		WHERE OP.ORDERS_NO = O.NO
 		AND OP.CODE = P.CODE
 		AND OP.CODE = F.REF
 		AND F.THUMBNAIL = 1
+		AND OP.NO = R.OP_NO(+)
 		AND ID = #{id} 
 		ORDER BY O.DATES DESC)A
 		) WHERE RNUM BETWEEN #{page.start} AND #{page.end}
