@@ -1,6 +1,5 @@
 package com.dht.www.event.controller;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -100,6 +99,7 @@ public class EventController {
 		model.addAttribute("event", 2);
 	}
 	
+	//룰렛 결과 AJAX
 	@RequestMapping(value="/roulette", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> rouletteResult(Model model, HttpSession session, String result) {
@@ -131,18 +131,17 @@ public class EventController {
 		
 	}
 	
-	// 신기록 VIEW
+	// 신기록 랭킹 VIEW
 	@RequestMapping(value = "/record", method = RequestMethod.GET)
 	public void eventRecordfinal(Model model) {
 		// 요일을 1-7으로 반환
 		GregorianCalendar cal = new GregorianCalendar();
 		int day = cal.get(Calendar.DAY_OF_WEEK);
 		
-		List<List<Map<String, Object>>> list = eventService.selectRecord(day);
 		List<String> exer = Arrays.asList("Plank", "Jumping Jack", "Burpee", "Leg Raise", "Crunch", "Push Up", "Side Lunge", "Squat", "Lunge");
 		
 		model.addAttribute("exer", exer);
-		model.addAttribute("list", list);
+		model.addAttribute("list", eventService.selectRecord(day));
 		model.addAttribute("dates", eventService.selectDates(day));
 		model.addAttribute("event", 4);
 
@@ -172,6 +171,7 @@ public class EventController {
 		model.addAttribute("event", 3);
 	}
 	
+	//초성퀴즈 결과
 	@RequestMapping(value="/quiz", method=RequestMethod.POST)
 	public String quizResult(HttpSession session, String answer) {
 		Users login = (Users) session.getAttribute("logInInfo");
@@ -183,7 +183,6 @@ public class EventController {
 		insertPoint(com);
 		
 		return "redirect:/event/quiz";
-		
 	}
 	
 	// 출석체크 VIEW
@@ -197,10 +196,12 @@ public class EventController {
 
 		model.addAttribute("attend", eventService.checkAtt(com));
 		model.addAttribute("attList", eventService.selectAttend(login.getId()));
+		model.addAttribute("check", eventService.checkWeekAttend(login.getId()));
 		model.addAttribute("event", 0);
 
 	}
 
+	//출석체크 결과 AJAX
 	@RequestMapping("/check")
 	@ResponseBody
 	public int checkAttend(HttpSession session, String id, String today) {
@@ -219,7 +220,5 @@ public class EventController {
 		insertPoint(com);
 		
 		return com.getInc();
-		
 	}
-		
 }

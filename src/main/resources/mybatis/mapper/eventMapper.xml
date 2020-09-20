@@ -29,6 +29,7 @@
 		<result column="edate" property="edate"/>
 	</resultMap>
 	
+	<!-- 사용자 현재 포인트, 코인 조회 -->
 	<select id="checkPC" resultMap="pointcoin">
 		select nvl(point, 0) point, nvl(coin, 0) coin from point_coin where id = #{id}
 	</select>
@@ -43,7 +44,7 @@
 		insert into compensation values (#{id}, sysdate + (INTERVAL '9' HOUR), 2, #{event}, 0, 1)
 	</insert>
 
-	
+	<!-- 요일별 초성퀴즈 문제 -->
 	<select id="selectQuiz" parameterType="int" resultMap="quiz">
 		select code, answer, product_initial ini, describe from ( select rownum rnum, b.* from (
     		select i.code, answer, product_initial, i.describe from product_initial i, product p
@@ -51,25 +52,29 @@
 		) b order by rnum ) t where rnum = #{value}
 	</select>
 	
+	<!-- 이벤트 참여여부 -->
 	<select id="checkAtt" resultType="int">
 		select count(*) from compensation
 		where type = 1 and event = #{event} and id = #{id}
 		and to_char(dates, 'yy/mm/dd') = to_char(sysdate + (INTERVAL '9' HOUR), 'yy/mm/dd')
 	</select>
 	
+	<!-- 출석 정보 리스트 -->
 	<select id="selectAttend" parameterType="string" resultType="map">
 	 	select distinct to_char(dates, 'yyyy-mm-dd') dates from compensation
 		where type = 1 and event = 1 and id = #{id}
 		order by dates desc
 	</select>
 	
+	<!-- 한주간 출석 횟수 정보 -->
 	<select id="checkWeekAttend" parameterType="string" resultType="int">
 		select count(dates) from (select distinct to_char(dates, 'yy/mm/dd') dates from compensation
 		where event = 1 and type = 1 and id = #{value} and
-		to_char(dates, 'yy/mm/dd') between to_char(sysdate + (INTERVAL '9' HOUR) - to_char(sysdate + (INTERVAL '9' HOUR), 'D') +2, 'yy/mm/dd') 
-		and to_char(sysdate + (INTERVAL '9' HOUR) - to_char(sysdate + (INTERVAL '9' HOUR), 'D') + 7, 'yy/mm/dd'))
+		to_char(dates, 'yy/mm/dd') between to_char(sysdate + (INTERVAL '9' HOUR) - to_char(sysdate + (INTERVAL '9' HOUR), 'D') -5, 'yy/mm/dd') 
+		and to_char(sysdate + (INTERVAL '9' HOUR) - to_char(sysdate + (INTERVAL '9' HOUR), 'D') , 'yy/mm/dd'))
 	</select>
 	
+	<!-- 신기록 랭킹 정보 -->
 	<select id="selectRecord" resultMap="exerRecord">
 		select e.name, r.id, r.record, RANK() OVER (order by r.record desc ) as rk
 		from exercise e, record r where e.no = r.ex_no and 
@@ -97,6 +102,7 @@
 		order by r.dates
 	</select>
 	
+	<!-- 신기록 랭킹 기간 -->
 	<select id="selectDates" parameterType="int" resultMap="dates">
 		select
 		<if test="value lte 4">
