@@ -64,7 +64,7 @@ public class AuthInterceptor implements HandlerInterceptor{
 	public void loginauth(HttpServletRequest req, HttpServletResponse resp) {
 		
 		req.setAttribute("alertMsg", "이미 로그인 하셨습니다.");
-		req.setAttribute("url", req.getContextPath()+"/user/login");
+		req.setAttribute("url", req.getContextPath()+"/main");
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/common/result.jsp");
 		
 		try {
