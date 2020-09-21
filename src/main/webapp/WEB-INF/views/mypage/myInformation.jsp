@@ -438,7 +438,7 @@ table {
 </form>
 
 <!-- button -->
-   <div style="margin-left:1046px; display:inline;">
+   <div style="margin-left:1046px; display:inline; padding-bottom: 50px;">
         <div class="button raised green" style="width:5%; display:inline-block; text-align:center; cursor: pointer;" onclick="sendForm();">
                <span class="center" >저장</span>
         </div>
