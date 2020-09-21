@@ -97,7 +97,11 @@ public class MypageDao {
 	
 	public double selectDeCal(Map<String, Object> param) {
 		
-		return sqlSession.selectOne("MYPAGE.selectDeCal", param);
+		if(sqlSession.selectOne("MYPAGE.selectDeCal", param) != null) {
+			return sqlSession.selectOne("MYPAGE.selectDeCal", param);
+		}else {
+			return 0;
+		}
 	}
 	
 	

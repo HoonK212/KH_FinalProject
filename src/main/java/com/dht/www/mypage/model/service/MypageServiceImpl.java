@@ -106,6 +106,11 @@ public class MypageServiceImpl implements MypageService {
 		Map<String,Object> commandMap = new HashMap<>();
 		commandMap = mypageDao.selectExerciseGoal(id);
 		
+		if(commandMap == null) {
+			return null;
+		}
+		
+		
 		//운동을 문자 배열로 치환
 		String ex = (String) commandMap.get("exercises");
 		String[] exArr = ex.split(",");
@@ -127,8 +132,6 @@ public class MypageServiceImpl implements MypageService {
 		
 		//숫자로 된 요일을 날짜로 치환
 		List<String> domArr = transformToDOW(daysArr);
-		
-		System.out.println(domArr);
 		
 		Map<String,Object> result = new HashMap<>();
 		result.put("id", commandMap.get("id"));
@@ -306,6 +309,11 @@ public class MypageServiceImpl implements MypageService {
 		Map<String,Object> commandMap = new HashMap<>();
 		commandMap = mypageDao.selectExerciseGoal(id);
 		
+		if(commandMap == null) {
+			return null;
+		}
+		
+		
 		//운동을 문자 배열로 치환
 		String ex = (String) commandMap.get("exercises");
 		String[] exArr = ex.split(",");
@@ -357,8 +365,6 @@ public class MypageServiceImpl implements MypageService {
 				result.add(domArr.get(i));
 			}
 		}
-		
-		System.out.println("서비스 임플 ㄴㄹㄴㅇㄹㄴㅇㄹ : " + result);
 		
 		return result;
 	}
@@ -646,6 +652,12 @@ public class MypageServiceImpl implements MypageService {
 		Map<Object,Object> commandMap = new HashMap<>();
 		
 		List<Map<String,Object>> mrd = mypageDao.selectMyRecordDates(id);
+		
+		if(mrd == null) {
+			return null;
+		}
+		
+		
 		for( int i=0; i < mrd.size(); i++ ) {
 			
 			Map<String,Object> mp = new HashMap<>();

@@ -38,7 +38,6 @@ public class MypageController {
 	  Users user = (Users) session.getAttribute("logInInfo");
 	  
 	  Map<String,Object> commandMap =  mypageService.selectExerciseGoal(user.getId());
-	  System.out.println(commandMap);
 	  
 	  model.addAttribute("pic", pic);
 	  model.addAttribute("user", user);
@@ -89,12 +88,17 @@ public class MypageController {
 	 List<String> successDate = mypageService.selectSuccessDates(user.getId());
 	 double decal = mypageService.selectDeCal(user.getId());
 	 
+	 int mygoalCnt = 0;
+	 int successCnt = 0;
+	 double successPercent = 0;
 	 //목표 요일 갯수
-	 int mygoalCnt = ((List) mygoal.get("days")).size();
-	 //성공 요일 갯수
-	 int successCnt = successDate.size();
-	 //목표 성공률
-	 double successPercent = (int)( (double)successCnt/ (double)mygoalCnt * 100.0 );
+	 if(mygoal != null && successDate != null) {
+		 mygoalCnt = ((List) mygoal.get("days")).size();
+		 //성공 요일 갯수
+		 successCnt = successDate.size();
+		 //목표 성공률
+		 successPercent = (int)( (double)successCnt/ (double)mygoalCnt * 100.0 );
+	 }
 
 	 model.addAttribute("pic", pic);
 	 model.addAttribute("user", user);
