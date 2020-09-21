@@ -343,9 +343,9 @@ table {
 
 <!--테이블  -->
 <!-- TABLE -->
-<div style="padding-left:300px; padding-bottom:20px; padding-top:20px;">
+<div style="padding-left:400px; padding-bottom:20px; padding-top:20px;">
 <header class="container" >
-    <h1>내 회원정보</h1>
+    <h1 style="font-size:30px; font-weight:bold;">내 회원정보</h1>
     <ul class="breadcrumb">
       <li>마이페이지</li>
       <li>내 회원정보</li>
@@ -556,7 +556,7 @@ table {
            const str =  
              '<div id="pwDiv">'
               +'<input type="password" id="pw" placeholder="기존 비밀번호 입력">&nbsp;<input type="button" value="비밀번호 확인" onclick="checkPw();"><br>'
-              +'<span id ="inputPw"></span><br>'
+              +'<span id ="inputPw" style="color:red;"></span><br>'
               +'<input type="password" id="chInputPw1" placeholder="변경 할 비밀번호 입력" /><br><br>'
               +'<input type="password" id="chInputPw2" placeholder="변경 할 비밀번호 확인" /><br><br>'
               +'<input type="button" value="취소" onclick="cancelPw();">&nbsp;<input type="button" value="변경" onclick="changePw();" >'
@@ -582,7 +582,7 @@ table {
       //확인할 기존의 비밀번호의 
       var pw = document.querySelector('#pw').value;
       if(pw == ''){
-         alert('비밀번호를 확인해주세요')
+         alert('비밀번호를 입력 해주세요')
       }else{
          
             var xhr = new XMLHttpRequest();
@@ -706,8 +706,8 @@ table {
           //비밀번호 확인을 위한 태그가 생성이 된다 
            const str =  
              '<div id="nickDiv">'
-              +'<input type="text" id="nick" placeholder="변경할 닉네님을 확인해주세요">&nbsp;<input type="button" value="취소" onclick="cancelNick();">&nbsp; <input type="button" value="변경" onclick="checkNick();" class="nickC" ><br>'
-              +'<span id="inputNick"></span>'
+              +'<input type="text" id="nick" placeholder="변경할 닉네임 입력">&nbsp;<input type="button" value="취소" onclick="cancelNick();">&nbsp; <input type="button" value="변경" onclick="checkNick();" class="nickC" ><br>'
+              +'<span id="inputNick" style="color:red;"></span>'
               +'</div>';
              
            $("#nickAdd").append(str); 
@@ -799,9 +799,9 @@ table {
         const str =  
           '<div id="mailDiv">'
           //이메일 정규식 해야겠다
-           +'<input type="email" id="mail" placeholder="변경할 이메일을 작성해주세요"/>&nbsp;<input type="button" value="중복확인" onclick="checkMail();"><br>'
-           +'<span id="inMail"></span><br>' 
-           +'<input type="text" id="mailNumber" placeholder="인증번호를 넣어주세요"/><br><br>'
+           +'<input type="email" id="mail" placeholder="변경할 이메일 입력"/>&nbsp;<input type="button" value="중복확인" onclick="checkMail();"><br>'
+           +'<span id="inMail" style="color:red;"></span><br>' 
+           +'<input type="text" id="mailNumber" placeholder="인증번호 입력"/><br><br>'
            +'<input type="button" value="취소" onclick="cancelMail();" >&nbsp;<input type="button" value="변경" onclick="changeMail();">'
            +'</div>';
           
@@ -849,7 +849,7 @@ table {
                   
                }else{//이메일이 중복되지 않는 경우 
                      randomN = data;  
-                    alert(randomN);
+                     //alert(randomN);
                    //인증번호가 전송되었음을 알려준다 
                   const str = '메일로 인증번호가 전송되었습니다.';
                   $("#inMail").html(str);
@@ -1050,12 +1050,13 @@ table {
                 document.getElementById("sample4_roadAddress").value = roadAddr;
                 document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
                 
+                //이 부분을 지우면 잘 진행이 될까?
                 // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-                if(roadAddr !== ''){
+                /* if(roadAddr !== ''){
                     document.getElementById("sample4_extraAddress").value = extraRoadAddr;
                 } else {
                     document.getElementById("sample4_extraAddress").value = '';
-                }
+                } */
 
                 var guideTextBox = document.getElementById("guide");
                 // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
@@ -1095,7 +1096,7 @@ table {
        
        
        if(sample4_postcode == '' || sample4_roadAddress == '' || sample4_detailAddress == ''  ){
-          alert('우편번호, 도로명주소, 상세주소 정보를 기입해주세요')
+          alert('우편번호, 도로명주소, 상세주소 정보를 빠짐없이 기입해주세요')
        }else{
        
           //addrDiv 가 사라지는 코드 
@@ -1109,7 +1110,7 @@ table {
           //우편번호
           oPost.value = sample4_postcode;
           //상세주소 
-          oAddr.value = sample4_roadAddress + '' + sample4_detailAddress; 
+          oAddr.value = sample4_roadAddress + ' ' + ' ' + sample4_detailAddress; 
           
           //수정버튼을 누를 수 있도록 해주는 코드 
           aBtn = true;
@@ -1150,9 +1151,9 @@ table {
           //계좌 확인을 위한 태그가 생성이 된다 
            const str =  
              '<div id="accountDiv">'
-              +'<input type="text" id="bank" placeholder="변경할 은행을 입력하세요"/><br><br>'
-              +'<input type="text" id="account" placeholder="변경할 계좌를 입력하세요"/><br>'
-              +'<span id="inputAccount"></span><br>'
+              +'<input type="text" id="bank" placeholder="변경할 은행 입력"/><br><br>'
+              +'<input type="text" id="account" placeholder="변경할 계좌번호 입력"/><br>'
+              +'<span id="inputAccount" style="color:red;"></span><br>'
               +'<input type="button" value="취소" onclick="cancelAccount();">&nbsp;<input type="button" value="변경" onclick="checkAccount();">'
               +'</div>';
              

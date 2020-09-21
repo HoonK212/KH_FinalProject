@@ -585,6 +585,32 @@ public class MypageServiceImpl implements MypageService {
 	   public void deleteWritten(String no) {
 	        mypageDao.deleteWritten(no);
 	   }
+	   
+	   //게시글에 첨부된 파일 삭제하기 
+	   public void deleteWrittenfiles(String no, HttpSession session) {
+	      
+	      //게시글에 첨부된 파일 가져오기 
+	      List<Files> files = mypageDao.selectWrittenFileList(no);
+	      System.out.println("board - files:" + files);
+	      
+	      //게시글의 파일이 있는 경우에만 
+	      if(files != null) {
+	         
+	         //실제로 파일을 삭제하는 메소드 
+	           for(Files f : files) {
+	              
+	               String path = session.getServletContext().getRealPath("/resources/upload_board") + "/" + f.getRenamed() + "." + f.getExt();
+	                 
+	                 new FileUtil().deleteFile(path);
+	              
+	           }
+	           
+	           //파일을 db에서  삭제하는 메소드 
+	           mypageDao.deleteWrittenfiles(no);
+	      
+	      }
+	      
+	   }//end
 
 	   //댓글을 삭제하는 메소드
 	   public void deleteComment(String no) {

@@ -81,22 +81,27 @@ public class ShoppingDao {
 		return sqlSession.delete("Shopping.deleteList", map);
 	}
 
+	// 상품 목록 조회
 	public List<Map<String, Object>> selectProduct(Map map){
 		return sqlSession.selectList("Shopping.selectProduct", map);
 	}
 	
+	// 해당 계정의 포인트 조회
 	public int selectPoint(String id) {
 		return sqlSession.selectOne("Shopping.selectPoint", id);
 	}
 	
+	// 주문 내역 삽입
 	public int insertOrders(Orders order) {
 		return sqlSession.insert("Shopping.insertOrders", order);
 	}
 	
+	// 주문 내역 당 상품 삽입
 	public int insertOrderProduct(List<OrderProduct> orderProduct) {
 		
 		int no=0;
 		
+		// 한건의 주문내역에 여러개의 상품
 		for(int i=0; i<orderProduct.size(); i++) {
 			sqlSession.insert("Shopping.insertOrderProduct", orderProduct.get(i));
 			no+=1;
@@ -105,10 +110,12 @@ public class ShoppingDao {
 		return no;
 	}
 	
+	// 주문내역의 상품 삽입을 위한 주문내역 번호 조회
 	public int selectOrdersNo() {
 		return sqlSession.selectOne("Shopping.selectOrdersNo");
 	}
 	
+	// 주문 시 사용한 포인트 삽입
 	public void insertPoint(Map userPoint) {
 		sqlSession.insert("Shopping.insertPoint",userPoint);
 	}

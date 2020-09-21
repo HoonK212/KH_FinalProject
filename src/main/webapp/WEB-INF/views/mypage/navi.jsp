@@ -323,22 +323,30 @@
   </div>
 
   <ul class="categories">
+    <li id="Mainli1" ><i class="fa fa-home fa-fw"></i>
+    <a href="<%=request.getContextPath()%>/main">메인 페이지</a>
+      <!-- <ul class="side-nav-dropdown"> -->
+        <%-- <li><a href="<%=request.getContextPath()%>/mypage/myInformation">내 회원정보</a></li>
+        <li><a href="<%=request.getContextPath()%>/mypage/myPoint">포인트&코인 관리</a></li>
+        <li><a href="<%=request.getContextPath()%>/mypage/myWritten">내가 쓴 글 조회</a></li> --%>
+    <!--   </ul> -->
+    </li>
     <li id="Mainli1" ><i class="fa fa-home fa-fw"></i>회원정보
       <ul class="side-nav-dropdown">
-        <li><a href="<%=request.getContextPath()%>/mypage/myInformation">내 회원정보</a></li>
+        <li><a href="<%=request.getContextPath()%>/mypage/myInformation">나의 회원정보</a></li>
         <li><a href="<%=request.getContextPath()%>/mypage/myPoint">포인트&코인 관리</a></li>
-        <li><a href="<%=request.getContextPath()%>/mypage/myWritten">내가 쓴 글 조회</a></li>
+        <li><a href="<%=request.getContextPath()%>/mypage/myWritten">나의 작성글 조회</a></li>
       </ul>
     </li>
     <li id="Mainli2"><i class="fa fa-support fa-fw"></i>운동관리
       <ul class="side-nav-dropdown">
-        <li><a href="<%=request.getContextPath()%>/mypage/goalsetting">내 목표설정</a></li>
-        <li><a href="<%=request.getContextPath()%>/mypage/mymain">내 운동관리</a></li>
+        <li><a href="<%=request.getContextPath()%>/mypage/goalsetting">목표설정</a></li>
+        <li><a href="<%=request.getContextPath()%>/mypage/mymain">운동관리</a></li>
       </ul>
     </li>
     <li id="Mainli3"><i class="fa fa-envelope fa-fw"></i>구매내역
       <ul class="side-nav-dropdown">
-        <li><a href="<%=request.getContextPath()%>/mypage/orderlist">내 구매내역</a></li>
+        <li><a href="<%=request.getContextPath()%>/mypage/orderlist">구매내역</a></li>
       </ul>
     </li>
   </ul>

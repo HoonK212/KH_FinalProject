@@ -315,12 +315,12 @@ public class ShoppingController {
 		List name = new ArrayList<String>();
 		List company = new ArrayList<String>();
 
+		//상세페이지나 모달에서 주문할때 
+		// 상품 정보 조회해서 payment.jsp로 전달
 		if (amount > 0) {
 			map = shoppingService.sessionBasket(codes);
 			map.put("amount", amount);
 			list.add(map);
-			
-			System.out.println("테스트...."+list.get(0).get("name"));
 				
 				Map<String, Object> pro = new HashMap<String,Object>();
 				
@@ -337,17 +337,14 @@ public class ShoppingController {
 				
 				result.add(0, pro);
 			
-			
-			
+		//장바구니에서 주문할때 코드번호를 받아서
+		// 상품 정보 조회해서 payment.jsp로 전달
 		} else {
 			String[] array = codes.split(",");
 			map.put("userId", userId);
 			map.put("array", array);
 			
-			
-			
 			list = shoppingService.selectProuct(map);
-			System.out.println("테스트...."+list);
 			
 			for(int i=0; i<list.size(); i++) {
 				
@@ -367,9 +364,7 @@ public class ShoppingController {
 				result.add(i, pro);
 			}
 		}
-			System.out.println("리저트결과프로덕트"+result);
 			
-			//장바구니에서 정보 가져오기
 			model.addAttribute("product", result);
 			model.addAttribute("productname",name );
 			model.addAttribute("productcompany",company );
@@ -386,28 +381,31 @@ public class ShoppingController {
 		return "shopping/payment";
 	}
 
-	//결제 완료
+		//결제 API 완료 시 AJAX 통신으로 결과 데이터 저장
 	   @RequestMapping(value="/paymentCheck", method = RequestMethod.POST)
 	   @ResponseBody
 	   public void shoppingPaymentCheck(@RequestBody String uid, HttpSession session) {
-	      System.out.println("1");
+		   
+		  //GSON 객체 생성
 	      Gson gson = new GsonBuilder().create();
-	      System.out.println("2");
+	      
+	      //AJAX로 전달 된 JSON 데이터를 GSON 객체로 변환
 	      Map<String, String> another =gson.fromJson(uid, new TypeToken<Map<String, String>>(){}.getType());
-	      System.out.println("3");
-	      System.out.println(another);
-	      System.out.println(another.get("product"));
+	      
+	      // GSON 객체로 변환 된 객체인데 map 형태의 배열로 되어있는 product 값을 다시 한번 파싱
 	      List<Map<String,String>> result = gson.fromJson(another.get("product"), new TypeToken<List<Map<String,String>>>(){}.getType());
-	      System.out.println("4");
 	         Orders order = new Orders();
 	         
 	         Users user = (Users)session.getAttribute("logInInfo");
-	         System.out.println("사용자나와라"+user);
 	         //------------------------------------------------------------
 	         
 	         order.setId(user.getId());
 	         order.setmUid(another.get("imp_uid"));
 	         
+	         // 기본 배송지로 설정하면 세션에 저장되어있는 정보가 넘어오고
+	         // 신규 배송지로 설정하면 name 값으로 정보가 넘어온다
+	         
+	         // 신규배송지 설정이 아닐때
 	         if(another.get("name") != null ) {
 	            
 	            order.setToName(another.get("name"));
@@ -415,6 +413,7 @@ public class ShoppingController {
 	            order.setToAddr(another.get("addr"));
 	            order.setToPost(another.get("post"));
 	            
+		     // 신규배송지 설정일때        
 	         }else {
 	            
 	            order.setToName(user.getName());
@@ -426,7 +425,8 @@ public class ShoppingController {
 	         
 	         int ordersNo = shoppingService.selectOrdersNo();
 	         order.setNo(ordersNo);
-
+	         
+	         //주문 내역 저장
 	         shoppingService.insertOrders(order);
 	         
 	         Map userPoint = new HashMap();
@@ -442,6 +442,7 @@ public class ShoppingController {
 	         userPoint.put("id", user.getId());
 	         userPoint.put("point", point);
 	         
+	         // 사용 포인트 내역 저장
 	         shoppingService.insertPoint(userPoint);
 	         
 	         if(point != 0) {
@@ -449,6 +450,7 @@ public class ShoppingController {
 	         }
 	         
 	         
+	         // 주문 내역 당 품목별 주문상푸 저장
 	         StringBuilder sb = new StringBuilder();
 	         for(int i=0; i<result.size(); i++) {
 	            
@@ -465,23 +467,27 @@ public class ShoppingController {
 	         }
 	         shoppingService.insertOrderProduct(orderProductList);
 	         
+	         // 구입한 상품 장바구니 비우기
 	         Map<String, Object> delete = new HashMap<String, Object>();
 	         delete.put("userId", user.getId());
 	         delete.put("array", sb.toString().split(","));
 	         shoppingService.deleteList(delete);
 	   }
 
+	//AJAX 완료 맨 마지막 페이지 이동
 	@RequestMapping(value = "/paymentComplete", method = RequestMethod.GET)
 	public void shoppingPaymentComplete() {
 
 	}
 
-	// 배송지정보 ajax
+	// 배송지정보 선택 시 ajax 통신으로 결과 불러오기
 	@RequestMapping(value = "/delivery", method = RequestMethod.GET)
 	public String shoppingDelivery(@RequestParam int num) {
 
+		// 기본 개인정보 배송지 전달
 		if (num == 0) {
 			return "shopping/delivery_basic";
+		// 신규 배송지 입력 폼 전달
 		} else {
 			return "shopping/delivery_new";
 		}

@@ -142,7 +142,7 @@
 		</div>
 	  	<div class="flex max-w-sm mb-4">
 			<div style="  width: 50; height: 50; background-color: rgb(284, 130, 127);"></div> 
-			<span class="text-lg font-bold pb-4 ml-3 mt-3"> 목표 달성 요일</span>
+			<span class="text-lg font-bold pb-4 ml-3 mt-3"> 목표 설정 & 달성</span>
 		</div>	
  	</div>
  	</div>
@@ -157,7 +157,7 @@
 		      <div class="w-auto text-grey-darker items-center p-4">
 		          <span class="text-lg font-bold pb-4">
 		            <c:set var="now" value="<%=new java.util.Date()%>" />
-		            ${user.name }님의 <span style="color: red; font-weight: bold;"><fmt:formatDate value="${now}" pattern="MM" />월</span> 운동목표
+		            ${user.name }님의 <span style="color: red; font-weight: bold;"><fmt:formatDate value="${now}" pattern="MM" />월</span> 운동목표<c:if test="${empty mygoal }">를 정해주세요</c:if>
 		          </span>
 		      </div>
 		</div>
@@ -188,7 +188,7 @@
 	      </div>
 	      <div class="w-auto text-grey-darker items-center p-4">
 	          <span class="text-lg font-bold pb-4 ">
-			          목표운동	
+			          선택운동	
 	          	  <span style="color: red; font-weight: bold;">
 	              <c:forEach items="${mygoal.exercises }" var="ex">
 						${ex['name'] }
@@ -206,7 +206,7 @@
 		      </div>
 		      <div class="w-auto text-grey-darker items-center p-4">
 		          <span class="text-lg font-bold pb-4 ">
-		            현재까지 <span style="color: red; font-weight: bold;"> ${decal }칼로리 감량</span>
+		            현재까지 <span style="color: red; font-weight: bold;"> ${decal } 칼로리 감량</span>
 		          </span>
 		      </div>
 		</div>
@@ -218,8 +218,11 @@
 		          </div>
 		      </div>
 		      <div class="w-auto text-grey-darker items-center p-4">
-		          <span class="text-lg font-bold pb-4 text-white">
-					<a href="<%=request.getContextPath()%>/mypage/goalsetting">목표 설정 변경하기</a>
+		          <span class="text-lg font-bold pb-4 ">
+					<a href="<%=request.getContextPath()%>/mypage/goalsetting">
+					<c:if test="${not empty mygoal }">목표 설정 변경하기</c:if>
+					<c:if test="${empty mygoal }">목표 설정 하러하기</c:if>
+					</a>
 		          </span>
 		      </div>
 		</div>
@@ -264,7 +267,7 @@ var dataset = [
 		<c:forEach items='${myrecord}' var='record'>
 			<c:forEach items='${record.value}' var='val'>
 				{
-					title : '${val['name'] }',
+					title : '${val['name'] } 완료',
 					start : '${val['dates']}',
 					color : '#4fd1c5'
 				},

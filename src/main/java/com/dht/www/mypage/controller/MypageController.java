@@ -73,7 +73,7 @@ public class MypageController {
 		   int res2 = mypageService.updateGoal(goal);
 	   }
 	   
-	   return "redirect:goalsetting";
+	   return "redirect:mymain";
    }
    
 
@@ -331,6 +331,7 @@ public class MypageController {
       
       //수정된 파일의 정보를 가져온는 메소드 
       Files files = mypageService.selectUserFile(id);
+      System.out.println(files);
       
       //수정된 회원정보를 세션에 저장하는 메소드 
       session.setAttribute("logInInfo", users);
@@ -412,15 +413,21 @@ public class MypageController {
       return "mypage/myWritten";
    }
    
-  //게시글 삭제하는 메소드 
+   //게시글 삭제하는 메소드 
    @RequestMapping(value = "/deleteWritten", method = RequestMethod.POST)
    @ResponseBody
-   public String deleteWritten(@RequestParam(value = "valueArrTest[]") List<String> valueArr) {
+   public String deleteWritten(@RequestParam(value = "valueArrTest[]") List<String> valueArr, HttpSession session) {
       
       System.out.println("valueArr :" + valueArr);
+      
+      //세션으로 user 정보 가져오기 
+      Users user = (Users) session.getAttribute("logInInfo");
+      
 
       //list 값을 불러오는 메소드 
       for(String no : valueArr) {
+         //파일정보 삭제하기 
+         mypageService.deleteWrittenfiles(no, session);
          
          //no에 해당하는 게시글을 삭제하는 메소드 
          mypageService.deleteWritten(no);
