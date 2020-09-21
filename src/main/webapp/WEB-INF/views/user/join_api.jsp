@@ -385,9 +385,11 @@
                 var data = xhr.response; 
                 if( data != '' ){
                    document.querySelector('#nickcheckResult').textContent = data + '는 이미 존재하는 닉네임입니다.'
+                   document.querySelector('#result').style.color = 'red';
                    ajaxFlag_nickcheck = false;
                 }else{
                    document.querySelector('#nickcheckResult').textContent = '사용가능한 닉네임입니다.'
+                	   document.querySelector('#result').style.color = '#3182ce';
                    ajaxFlag_nickcheck = true;
                 }
              })
