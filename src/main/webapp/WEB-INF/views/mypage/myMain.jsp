@@ -365,11 +365,6 @@ var dataset = [
          value.querySelector('.fill').setAttribute('style', 'stroke-dashoffset: ' + ((100 - percent) / 100) * max);
          value.querySelector('.value').innerHTML = percent + '%';
       });
-   
-      
-     $("a").each() {
-    	 $("a").removeClass('fc-daygrid-day-number');
-     }
 </script>
 </body>
 </html>
