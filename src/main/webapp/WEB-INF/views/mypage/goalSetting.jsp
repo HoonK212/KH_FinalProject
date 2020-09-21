@@ -8,7 +8,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Daily Home Training</title>
+<link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/image/logo.png">
 
 
 <style type="text/css">
@@ -89,7 +90,7 @@ body {
   
   
   /* color: #fff;  */ 
-  padding: 50px;
+/*   padding: 50px; */
  /* width: 300px; */ 
   margin: 0 auto;
  /*  background-color: #374954; */
@@ -97,7 +98,7 @@ body {
 
 .dropdown {
   position: absolute;
-  top:44%;
+  top:50%;
   transform: translateY(-50%);
 }
 
@@ -190,7 +191,7 @@ body {
 
 .dropdown2 {
   position: absolute;
-  top:22%;
+  top:24%;
   transform: translateY(-50%);
 }
 
@@ -283,7 +284,7 @@ body {
 
 .dropdown3 {
   position: absolute;
-  top:67%;
+  top:80%;
   transform: translateY(-50%);
 }
 
@@ -715,10 +716,10 @@ body {
 
 </style>
 </head>
-<body style="padding-top:20;">
+<body>
 
 <!--header  -->
-<div style="padding-left:345px; padding-bottom:20px; padding-top:2px">
+<div style="padding-left:345px;">
 <header class="container">
     <h1 style="font-size:30px;">목표설정</h1>
     <ul class="breadcrumb" >
@@ -731,11 +732,10 @@ body {
 <!-- 사이드 네비 메뉴 -->
 <%@include file="/WEB-INF/views/mypage/navi.jsp" %>
 
-<form action="<%=request.getContextPath() %>/mypage/setgoal" method="post">
+<form action="<%=request.getContextPath() %>/mypage/setgoal" method="post" style="padding-left: 74px;">
 <!-- 이미지 -->
 
 <!--  <h2 style="margin-left:600;" >css Portfolio Gallery</h2>-->
-<input type="radio" id="select-all" name="button">
   <label for="select-all" class="label-all" style="margin-left:586;">
     All
   </label>
@@ -745,11 +745,11 @@ body {
   </label>
 <input type="radio" id="select-lightning" name="button"  class="image-input">
   <label for="select-lightning" class="label-lightning">
-    하체운동
+    상체운동
   </label>
 <input type="radio" id="select-desert" name="button"  class="image-input">
   <label for="select-desert" class="label-desert">
-    상체운동
+    하체운동
   </label>
   
 

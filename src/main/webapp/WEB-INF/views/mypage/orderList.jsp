@@ -26,7 +26,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Daily Home Training</title>
+<link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/image/logo.png">
 
 <style type="text/css">
 * {
@@ -195,7 +196,7 @@ header .count {
   border-bottom: 1px solid #ddd;
 }
 
-.row {
+.prod_row {
   position: relative;
   overflow: auto;
   width: 100%;
@@ -551,7 +552,7 @@ body {
       <li>마이페이지</li>
       <li>구매목록</li>
     </ul>
-    <span class="count" style="background-color:rgb(284, 130, 127); color: white; font-weight: bold;"> 총 ${totalamount }개 구매 </span>
+    <span class="count" style="background-color:rgb(284, 130, 127); color: white; font-weight: bold;"> 총 ${totalamount }EA 구매 </span>
   </header>
   <!-- End Header -->
   
@@ -564,19 +565,19 @@ body {
       <ul class="products">
       	
 	    <c:forEach items="${olist }" var="order">
-      	<li class="row" v-for="(product, index) in products" >
+      	<li class="prod_row" v-for="(product, index) in products" >
         
         <div class="col left">
           
           <div class="thumbnail" style="margin-right: 15">
-              <img src="<%=request.getContextPath()%>/resources/upload_product/${order.renamed }.${order.ext}" style="height:19%;"/>
+              <img src="<%=request.getContextPath()%>/resources/upload_product/${order.renamed }.${order.ext}" style="width: 210px; height: 140px;"/>
           </div>
           
           <div class="detail" >
 			<div class="o_no">주문번호 : ${order.o_no }</div>
             <div class="description">주문일자 : <fmt:formatDate value="${order.dates }" pattern="yyyy-MM-dd"/></div>
             <div class="name">${order.name }</div>
-            <div class="price">${order.price * order.amount }원</div>
+            <div class="price"><fmt:formatNumber pattern="#,###" value="${order.price * order.amount }" />원</div>
             
             <!-- ### 숨겨놓은 데이터 ### -->
             <!-- 상품코드  -->
@@ -767,12 +768,12 @@ body {
          <input type="text" id="productcode" name="code" class="form-control" readonly/>
       </div>
    </div>
-   <div calss="form-group">
+   <div class="form-group">
    <label for="productscore" class="col-sm-3 control-label">상품평점</label>
    
    <!-- 별점을 이용한 스코어 -->
    <input type="hidden" id="productscore" name="score" />
-   <div class="col-sm-9 star-box">
+   <div class="star-box col-sm-9" style="width:75%;">
 		<span class="star star_left"></span>
 		<span class="star star_right"></span>
 		<span class="star star_left"></span>
@@ -786,7 +787,7 @@ body {
    </div>
    </div>
    <div class="form-group"> 
-      <lable for="comments" class="col-sm-3 control-lable">후기를 작성하세요</lable>
+      <label for="comments" class="col-sm-3 control-label">후기내용</label>
 	  <div class="col-sm-9"> 
 	     <textarea name="review" class="form-control" rows="5" cols="40"></textarea>
 	  </div>
@@ -797,8 +798,8 @@ body {
     
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary">후기 작성</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button class="btn btn-primary">작성</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
       </div>
    </form>
     </div>

@@ -3,11 +3,13 @@
 <!DOCTYPE html>
 <html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Daily Home Training</title>
+<link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/image/logo.png">
 <style type="text/css">
 * {
   padding: 0;
@@ -151,13 +153,12 @@ header .count {
 </header>
 </div>
 
-<hr>
 <div class="section" style="height:70%;">
 <!-- point 전환  -->
-<div class="cal-wrapper" style="margin-left:110px;">
+<div style="margin-left:404px;">
       <div class="cal-inner">
             <div class="cal-content">
-                  <h1 class="cal-h1">현재 Point : <div id="calculation" class="col-md-6 larger-text" style="display:inline-block;">${point}</div>  Point </h1>
+                  <h1 class="cal-h1">현재 Point : <div id="calculation" class="col-md-6 larger-text" style="display:inline-block;"><fmt:formatNumber pattern="#,###" value="${point}" /></div>  Point </h1>
                   <p class="cal-p">-포인트는 50,000 point 이상일 경우에만 현금으로 전환이 가능합니다.</p>
                   <p class="cal-p">-10,000 point 미만은 현금으로 전환할 수 없습니다.</p>
                   <p class="cal-p">-포인트를 현금으로 전환시 전환 point의 90%가 현금으로 전환됩니다. 10%는 환급수수료입니다.</p>
@@ -179,8 +180,8 @@ header .count {
                   <br>
                   
                   <!-- 현재코인 보여주는 부분  -->
-                  <h1 class="cal-h1">현재 Coin :${coin} coin</h1>
-                  <p class="cal-p">-코인은 이벤트를 통해 획득할 수 있습니다.</p>
+                  <h1 class="cal-h1">현재 Coin : <fmt:formatNumber pattern="#,###" value="${coin}" /> coin</h1>
+                  <p class="cal-p">-코인은 운동을 통해 획득할 수 있습니다.</p>
                   <p class="cal-p">-코인은 현금 전환이 가능하지 않습니다.</p>
             </div>
       </div>
@@ -191,7 +192,6 @@ header .count {
 
 
 </div>
-<hr>
 
 <script>
 
