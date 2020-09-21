@@ -596,6 +596,7 @@ body {
 						</div> 
 					</c:when>
 					<c:otherwise>
+						<span style="color: #00BFFF;">후기작성 完</span>
 					</c:otherwise>
 				</c:choose>
 			</c:if>
@@ -789,7 +790,7 @@ body {
    <div class="form-group"> 
       <label for="comments" class="col-sm-3 control-label">후기내용</label>
 	  <div class="col-sm-9"> 
-	     <textarea name="review" class="form-control" rows="5" cols="40"></textarea>
+	     <textarea name="review" class="form-control" rows="5" cols="40" id="reviewtext"></textarea>
 	  </div>
    </div>
    	
@@ -798,7 +799,7 @@ body {
     
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary">작성</button>
+        <button class="btn btn-primary" id="btnReview">작성</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
       </div>
    </form>
@@ -846,7 +847,7 @@ body {
    <div class="form-group"> 
       <lable for="comments" class="col-sm-3 control-lable">반품 사유를 작성해주세요</lable>
 	  <div class="col-sm-9"> 
-	     <textarea name="reason" class="form-control" rows="5" cols="40"></textarea>
+	     <textarea name="reason" class="form-control" rows="5" cols="40" id="returnreason"></textarea>
 	  </div>
    </div>
    	
@@ -855,7 +856,7 @@ body {
     
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary">반품 신청</button>
+        <button class="btn btn-primary" id="btnReturn">반품 신청</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
    </form>
@@ -888,6 +889,24 @@ $(document).ready(function(){
         
         $('#submitreturn').val( $(this).parent('.col').prev('.col').children('.detail').children('.op_no').text() );
 	
+    });
+    
+    $('#btnReturn').click(function(){
+    	
+    	if($('#returnreason').val()==''){
+    		alert('반품 사유를 작성해 주세요');
+    		return false;
+    	}
+    	
+    });
+    
+    $('#btnReview').click(function(){
+    	
+    	if( $('#productscore').val()=='' || $('#reviewtext').val()=='' ){
+    		alert('평점과 리뷰내용은 필수입력입니다');
+    		return false;
+    	}
+    	
     });
 });
 
