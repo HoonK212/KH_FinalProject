@@ -115,7 +115,7 @@ public class MypageController {
    @RequestMapping(value = "/orderlist" , method = RequestMethod.GET)
    public String selectOrderList(
 		    @RequestParam(required=false, defaultValue="1") int cPage,
-			@RequestParam(required=false, defaultValue="3") int cntPerPage,
+			@RequestParam(required=false, defaultValue="5") int cntPerPage,
 			HttpSession session, 
 			Model model) {
 	   

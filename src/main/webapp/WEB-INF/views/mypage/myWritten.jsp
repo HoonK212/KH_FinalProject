@@ -88,7 +88,7 @@ table {
 }
 
 .table { 
-  width: 100%;
+  width: 977px;
   margin-bottom: 20px;
 }
 
@@ -196,7 +196,7 @@ table {
 </div>
 
 <div style="padding-left:400px; padding-bottom:10px; display:inline-block;"><span><a href="<%=request.getContextPath()%>/mypage/myWritten">게시글</a></span> | <span><a href="<%=request.getContextPath()%>/mypage/myComment">댓글</a></span></div>
-<div class="my-table" style="width:132%; padding-left:400px;">
+<div class="my-table" style="padding-left:400px;">
 <table class="table table-action" style="table-layout:fixed;">
   
   <thead>
@@ -213,12 +213,12 @@ table {
   <tbody>
   <c:forEach var="board" items="${board}">
     <tr>
-      <td style="text-align:center;"><label><input type="checkbox" name="chk" id="chk" value="${board.no}" ></label></td>
+      <td style="width:7%; text-align:center;"><label><input type="checkbox" name="chk" id="chk" value="${board.no}" ></label></td>
       <td style="width:7%; text-align:center;text-align:center;">${board.no}</td>
       <td style="width:40%;text-overflow:ellipsis; overflow:hidden; white-space: nowrap;">${board.title}</td>
       <td style="text-overflow:ellipsis; overflow:hidden; white-space: nowrap;">${board.content}</td>
-      <td class="t-status t-active"style="text-align:center;">${board.dates}</td>
-      <td class="t-status t-active"style="text-align:center;">${board.count}</td>
+      <td class="t-status t-active" style="text-align:center;">${board.dates}</td>
+      <td class="t-status t-active" style="text-align:center;">${board.count}</td>
     </tr>
   </c:forEach>
   </tbody>
