@@ -385,11 +385,11 @@
                 var data = xhr.response; 
                 if( data != '' ){
                    document.querySelector('#nickcheckResult').textContent = data + '는 이미 존재하는 닉네임입니다.'
-                   document.querySelector('#result').style.color = 'red';
+                   document.querySelector('#nickcheckResult').style.color = 'red';
                    ajaxFlag_nickcheck = false;
                 }else{
                    document.querySelector('#nickcheckResult').textContent = '사용가능한 닉네임입니다.'
-                	   document.querySelector('#result').style.color = '#3182ce';
+                	   document.querySelector('#nickcheckResult').style.color = '#3182ce';
                    ajaxFlag_nickcheck = true;
                 }
              })
@@ -410,9 +410,11 @@
                   var data = xhr.response; 
                   if( data != '' ){
                      document.querySelector('#mailcheckResult').textContent = ' ' + '이미 존재하는 이메일입니다.'
+                     document.querySelector('#mailcheckResult').style.color = 'red';
                      ajaxFlag_mailcheck = false;
                   }else{
                      document.querySelector('#mailcheckResult').textContent = ' ' + '사용가능한 이메일입니다.'
+                     document.querySelector('#mailcheckResult').style.color = '#3182ce';
                      ajaxFlag_mailcheck = true;
                   }
                })
@@ -482,8 +484,10 @@
                
                if(result.result){
                   document.getElementById('result').textContent = '성공했습니다';
+                  document.querySelector('#result').style.color = '#3182ce';
                }else{
                   document.getElementById('result').textContent = '다시 시도해주세요';
+                  document.querySelector('#result').style.color = 'red';
                }
             })      
       })
