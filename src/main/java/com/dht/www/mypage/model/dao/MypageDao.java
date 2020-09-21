@@ -23,32 +23,26 @@ public class MypageDao {
 	private SqlSessionTemplate sqlSession;
 
 	public int setGoal(Map<String, Object> goal) {
-
 		return sqlSession.insert("MYPAGE.setGoal", goal);
 	}
 
 	public int updateGoal(Map<String, Object> goal) {
-
 		return sqlSession.update("MYPAGE.updateGoal", goal);
 	}
 	
 	public List<Map<String,Object>> selectOrderList(Map<String, Object> mp){
-		
 		return sqlSession.selectList("MYPAGE.selectOrderList", mp);
 	}
 
 	public int selectOrderCnt(String id) {
-
 		return sqlSession.selectOne("MYPAGE.selectOrderCnt", id);
 	}
 
 	public int cancelOrder(String op_no) {
-		// TODO Auto-generated method stub
 		return sqlSession.update("MYPAGE.cancelOrder", op_no);
 	}
 
 	public int submitReturn(Map data) {
-		
 		return sqlSession.insert("MYPAGE.submitReturn", data);
 	}
 
@@ -66,36 +60,30 @@ public class MypageDao {
 	}
 
 	public Map<String, Object> selectExerciseGoal(String id) {
-		
 		return sqlSession.selectOne("MYPAGE.selectExerciseGoal", id);
 	}
 
 	//기록 날짜 조회
 	public List<Map<String,Object>> selectMyRecordDates(String id) {
-		
 		return sqlSession.selectList("MYPAGE.selectMyRecordDates", id);
 	}
 	
 	//날짜로 나의 기록 조회
 	public List<Map<String, Object>> selectMyRecordByDate(Map<String, Object> param) {
-		
 		return sqlSession.selectList("MYPAGE.selectMyRecordByDate", param);
 	}
 
 	// 운동 조회  
 	public List<Map<String, Object>> selectExercises() {
-		
 		return sqlSession.selectList("MYPAGE.selectExercise");
 	}
 	
 	// 운동 이름으로 운동 번호 조회
 	public int selectExerciseByName(String string) {
-		
 		return sqlSession.selectOne("MYPAGE.selectExerciseByName", string);
 	}
 	
 	public int selectSuccessDate(Map<String, Object> param) {
-	
 		return sqlSession.selectOne("MYPAGE.selectSuccessDate", param);
 	}
 	
@@ -196,7 +184,6 @@ public class MypageDao {
 	   		
 	   		//사용자 point 값 가져오기
 		   public int userPoint(String id) {
-		         //이게 가능해?
 		         if( sqlSession.selectOne("MYPAGE.userPoint", id) != null) {
 		            return sqlSession.selectOne("MYPAGE.userPoint", id);
 		         }else {
@@ -218,9 +205,6 @@ public class MypageDao {
 	      Map <String, Object> map =new  HashMap <String, Object> ();
 	      map.put("point", point);
 	      map.put("id", id);
-	      
-	      System.out.println("dao-point:" + point);
-	      System.out.println("dao-id:" + id);
 	      
 	      sqlSession.insert("MYPAGE.subPoint", map);
 	   }
@@ -278,10 +262,5 @@ public class MypageDao {
 	   public String selectUserPw(String id) {
 	      return sqlSession.selectOne("MYPAGE.selectUserPw", id);
 	   }
-
-
-
-
-
 
 }

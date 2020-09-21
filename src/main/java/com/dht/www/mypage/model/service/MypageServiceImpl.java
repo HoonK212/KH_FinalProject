@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -76,25 +75,21 @@ public class MypageServiceImpl implements MypageService {
 
 	@Override
 	public int cancelOrder(String op_no) {
-		
 		return mypageDao.cancelOrder(op_no);
 	}
 
 	@Override
 	public int submitReturn(Map data) {
-		
 		return mypageDao.submitReturn(data);
 	}
 
 	@Override
 	public void insertReview(Map data) {
-		
 		mypageDao.insertReview(data);
 	}
 
 	@Override
 	public int selectOrderAmountCnt(String id) {
-		
 		return mypageDao.selectOrderAmountCnt(id);
 	}
 
@@ -157,12 +152,10 @@ public class MypageServiceImpl implements MypageService {
 		int month = cal.get ( cal.MONTH ) + 1 ;
 		int date = cal.get ( cal.DATE ) ;
 		
-		System.out.println(year + month + date);
 		
 		//달의 첫째날
 		String firstDay = String.valueOf(year) + "-" + String.valueOf(month) + "-1";
 		
-		System.out.println(firstDay);
 		
 		//달의 첫째날로 달력 세팅
 		try {
@@ -202,9 +195,7 @@ public class MypageServiceImpl implements MypageService {
 					d += String.valueOf(plus);
 					try {
 						Date dt = sdf.parse(d);
-						System.out.println(dt);
 						String da = sdf.format(dt);
-						System.out.println(da);
 						list.add(da);
 					} catch (ParseException e) {
 						e.printStackTrace();
@@ -243,9 +234,7 @@ public class MypageServiceImpl implements MypageService {
 					d += String.valueOf(plus);
 					try {
 						Date dt = sdf.parse(d);
-						System.out.println(dt);
 						String da = sdf.format(dt);
-						System.out.println(da);
 						list.add(da);
 					} catch (ParseException e) {
 						e.printStackTrace();
@@ -284,9 +273,7 @@ public class MypageServiceImpl implements MypageService {
 					d += String.valueOf(plus);
 					try {
 						Date dt = sdf.parse(d);
-						System.out.println(dt);
 						String da = sdf.format(dt);
-						System.out.println(da);
 						list.add(da);
 					} catch (ParseException e) {
 						e.printStackTrace();
@@ -336,7 +323,6 @@ public class MypageServiceImpl implements MypageService {
 		//숫자로 된 요일을 날짜로 치환
 		List<String> domArr = transformToDOW(daysArr);
 		
-		System.out.println(domArr);
 		
 		//최종 반환 객체
 		List<String> result = new ArrayList<>();
@@ -386,8 +372,6 @@ public class MypageServiceImpl implements MypageService {
 		String start = String.valueOf(year) + "-" + String.valueOf(month) + "-1";
 		String end = String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.valueOf(lastday);
 		
-		System.out.println("요기 : " + start);
-		System.out.println("조기 : " + end);
 		
 		Map<String,Object> param = new HashMap<>();
 		
@@ -420,7 +404,6 @@ public class MypageServiceImpl implements MypageService {
 	   //패스워드를 암호화하는 메소드 
 	   public String codePassword(String pw) {
 
-	      System.out.println("pw:" + pw);
 	      //비밀번호 암호화 하는 코드 
 	      String password = passwordEncoder.encode(pw);
 	      
@@ -484,7 +467,6 @@ public class MypageServiceImpl implements MypageService {
 	            e.printStackTrace();
 	         }
 	         }else { 
-	            System.out.println("업로드를 하지 않은 경우  파일의 아무 변화 없음 ");
 	         }   
 	      
 	      
@@ -533,7 +515,6 @@ public class MypageServiceImpl implements MypageService {
 	      
 	      } catch(Exception e) {
 	         e.printStackTrace();
-	      //   throw new MailException("M_ERROR_01");
 	      }
 	      
 	   }
@@ -597,7 +578,6 @@ public class MypageServiceImpl implements MypageService {
 	      
 	      //게시글에 첨부된 파일 가져오기 
 	      List<Files> files = mypageDao.selectWrittenFileList(no);
-	      System.out.println("board - files:" + files);
 	      
 	      //게시글의 파일이 있는 경우에만 
 	      if(files != null) {
@@ -629,17 +609,13 @@ public class MypageServiceImpl implements MypageService {
 	      //회원정보에서 패스워드 가져오기 
 	      String password = mypageDao.selectUserPw(id);
 	      
-	      System.out.println("pw:" + pw);
-	      System.out.println("password:" + password);
 	      
 	      
 	      //사용자가 입력한 비밀번호와 DB에 암호화돼 저장된 비밀번호가 같은지 확인
 	      //암호화 되었는 비밀번호를 먼저 위치시켜야 한다 
 	      if(passwordEncoder.matches(pw,password)) { //비밀번호 일치
-	            System.out.println("일치");
 	            return "0";
 	      }else { // 비밀번호 불일치
-	            System.out.println("불일치");
 	            return "1";
 	      }
 	      
@@ -664,7 +640,6 @@ public class MypageServiceImpl implements MypageService {
 			
 			mp.put("dates", mrd.get(i).get("dates"));
 			
-			System.out.println(mrd.get(i).get("dates"));
 			
 			Map<String,Object> param = new HashMap<>();
 			param.put("id", id);
@@ -674,15 +649,9 @@ public class MypageServiceImpl implements MypageService {
 			commandMap.put(mp, lm);
 		}
 		
-		System.out.println(commandMap);
 		
 		return commandMap;
 	}
 
-
-
-
-	   
-	   
 
 }

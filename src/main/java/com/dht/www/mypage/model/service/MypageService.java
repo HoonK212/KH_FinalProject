@@ -1,6 +1,5 @@
 package com.dht.www.mypage.model.service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -77,10 +76,5 @@ public interface MypageService {
 	   public String checkPassword(String pw, String id);
 	   //게시글에 첨부된 파일 삭제하기 
 	   public void deleteWrittenfiles(String no, HttpSession session);
-
-	
-
-	
-	
 
 }

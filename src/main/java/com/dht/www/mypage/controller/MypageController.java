@@ -125,11 +125,9 @@ public class MypageController {
 
 	   //주문 조회
 	   Map<String, Object> result = mypageService.selectOrderList(cPage, cntPerPage, user.getId());
-	   System.out.println(result);
 	   
 	   //총 주문건수
 	   int totalAmount = mypageService.selectOrderAmountCnt(user.getId());
-	   System.out.println(totalAmount);
 	   
 	   model.addAttribute("olist", result.get("olist"));
 	   model.addAttribute("page", result.get("page"));
@@ -145,9 +143,6 @@ public class MypageController {
    public String insertReview(
 		   @RequestParam Map data) {
 	   
-	   System.out.println("리뷰작성");
-	   System.out.println(data);
-	   
 	   mypageService.insertReview(data);
 	   
 	   return "redirect:orderlist";
@@ -157,11 +152,7 @@ public class MypageController {
    @RequestMapping(value = "/cancelorder" , method = RequestMethod.GET)
    public String cancelOrder(String op_no) {
 	   
-	   System.out.println("구매취소");
-	   System.out.println(op_no);
-	   
 	   int res = mypageService.cancelOrder(op_no);
-	   System.out.println("구매취소 업데이트 결과 : " + res);
 	   return "redirect:orderlist";
    }
 
@@ -170,11 +161,7 @@ public class MypageController {
    public String submitReturn(
 		   @RequestParam Map data) {
 	   
-	   System.out.println("반품신청");
-	   System.out.println(data);
-	   
 	   int res = mypageService.submitReturn(data);
-	   System.out.println("반품신청 결과 : " + res);
 	   
 	   return "redirect:orderlist";
    }
@@ -186,7 +173,6 @@ public class MypageController {
    @ResponseBody
    public String chMail(@RequestParam("mail") String mail , HttpSession session, HttpServletRequest request) {
    
-      System.out.println("mail:" + mail );
       //기존의 이메일이 존재하는 지 확인 하는 메소드
       int res = mypageService.chMail(mail);
       if(res == 0) {//사용할 수 있는 이메일
@@ -199,12 +185,10 @@ public class MypageController {
       //이메일 을 보내는 메소드 
       mypageService.sendingEmail(randomN, mail, urlPath);
          
-      System.out.println("사용할 수 있는 이메일 ");
       
       return String.valueOf(randomN);
       
       }else {//사용할 수 없는 이메일
-      System.out.println("사용할 수 없는 이메일 ");
          
       return "0";
       }
@@ -222,7 +206,6 @@ public class MypageController {
       
       //비밀번호가 맞는지 확인하는 메소드 
       String chPw = mypageService.checkPassword(pw, user.getId());
-      System.out.println("chPw :" + chPw);
       
       if(chPw.equals("0")) {//비밀번호가 일치하는 경우
          return "0";
@@ -236,16 +219,12 @@ public class MypageController {
    @ResponseBody
    public String chNick(@RequestParam("nick") String nick , HttpSession session) {
       
-      System.out.println("nick:" + nick);
-      
       int res = mypageService.chNick(nick);
       
       if(res == 0) {//사용할 수 있는 닉네임
-         System.out.println("사용할 수 있는 닉네임");
-      return "0";
+    	  return "0";
       }else {//사용할 수 없는 닉네임
-         System.out.println("사용할 수 없는 닉네임");
-      return "1";
+    	  return "1";
       }
    
    }//end
@@ -255,14 +234,12 @@ public class MypageController {
    @ResponseBody
    public String chAccount(@RequestParam("account") long account , HttpSession session) {
       
-      System.out.println("account:" + account);
-      
       int res = mypageService.chAccount(account);
       
       if(res == 0) {//사용할 수 있는 계좌
-      return "0";
+    	  return "0";
       }else {//사용할 수 없는 계좌
-      return "1";
+    	  return "1";
       }
    
    }//end
@@ -292,11 +269,6 @@ public class MypageController {
    //회원정보를 수정하는 메소드 
    @RequestMapping(value = "/modifyMyInformation" , method = RequestMethod.POST)
    public String modifyMyInformation(@RequestParam List<MultipartFile> file, Users user ,Account account , HttpSession session) {
-      
-      
-      System.out.println("file :" + file);
-      System.out.println("user :" + user);
-      System.out.println("account :" + account);
       
       Users userInfo = (Users) session.getAttribute("logInInfo");
       
@@ -335,7 +307,6 @@ public class MypageController {
       
       //수정된 파일의 정보를 가져온는 메소드 
       Files files = mypageService.selectUserFile(id);
-      System.out.println(files);
       
       //수정된 회원정보를 세션에 저장하는 메소드 
       session.setAttribute("logInInfo", users);
@@ -344,10 +315,6 @@ public class MypageController {
       return "redirect:myInformation";
    }
 
-   
-   
-   
-   
    
    //마이 포인트
    @RequestMapping(value = "/myPoint" , method = RequestMethod.GET)
@@ -377,21 +344,17 @@ public class MypageController {
    @ResponseBody
    public String subPoint(@RequestParam("subPoint") String subPoint , HttpSession session, HttpServletRequest request) {
             
-            //세션 값에서 회원 정보가져오기
-            Users user = (Users)session.getAttribute("logInInfo");
-            
-            String id = user.getId();
-      
-            System.out.println("subPoint:"+ subPoint);
-      
-           
-            int point = Integer.parseInt(subPoint); 
-          System.out.println("현금화 시키는 point 값 :" + point);
-          
-          //포인트 차감하는 메소드 
-          mypageService.subPoint(point, id);
-          
-          return "0";
+		// 세션 값에서 회원 정보가져오기
+		Users user = (Users) session.getAttribute("logInInfo");
+
+		String id = user.getId();
+
+		int point = Integer.parseInt(subPoint);
+
+		// 포인트 차감하는 메소드
+		mypageService.subPoint(point, id);
+
+		return "0";
    }
       
    //페이징 처리를 해주어야 한다 
@@ -422,11 +385,8 @@ public class MypageController {
    @ResponseBody
    public String deleteWritten(@RequestParam(value = "valueArrTest[]") List<String> valueArr, HttpSession session) {
       
-      System.out.println("valueArr :" + valueArr);
-      
       //세션으로 user 정보 가져오기 
       Users user = (Users) session.getAttribute("logInInfo");
-      
 
       //list 값을 불러오는 메소드 
       for(String no : valueArr) {
@@ -472,8 +432,6 @@ public class MypageController {
    @ResponseBody
    public String deleteComment(@RequestParam(value = "valueArrTest[]") List<String> valueArr) {
       
-      System.out.println("valueArr :" + valueArr);
-
       //list 값을 불러오는 메소드 
       for(String no : valueArr) {
          
@@ -485,9 +443,6 @@ public class MypageController {
       return "success";
       
    }//end
-   
-   
-   
    
    
 }
