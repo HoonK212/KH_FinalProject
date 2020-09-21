@@ -5,6 +5,7 @@ import java.util.List;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -213,10 +214,12 @@ public class UserController {
 	@RequestMapping(value = "/findPwImpl", method = RequestMethod.POST)
 	public String findPwImpl(@RequestParam Map<String, Object> commandMap , HttpServletRequest request, Model model) {
 		
-		System.out.println(commandMap);
+		//임시비밀번호 생성
+		UUID uuid = UUID.randomUUID(); //랜덤 UID 생성
+		String randomPw = uuid.toString().split("-")[0];
 		
-		//회원인 경우 임시 비밀번호 생성
-		Users users = userService.getUsersPw(commandMap);
+		//회원인지 확인 & 임시비밀번호 암호화
+		Users users = userService.getUsersPw(commandMap, randomPw);
 		
 		//urlPath 주소
 		String urlPath = request.getServerName() + ":" + request.getServerPort()
@@ -225,18 +228,13 @@ public class UserController {
 		//루트 컨텍스트
 		String root = request.getContextPath();
 		
-		String randomPw = null;
-		
-		 if( users != null) { //회원정보가 있는 경우
-			  randomPw = users.getPw();
-		  }else {
+		 if( users == null) { //회원정보가 없으면 임시비밀번호 ""로 바꿈
 			  randomPw = "";
-		  }
+		 }
 		
 		//회원 메일로 아이디 발송
 		userService.mailSendingToFindPw(commandMap, urlPath, randomPw);
 		
-//		model.addAttribute("alertMsg", "메일을 발송하였습니다.");
 		model.addAttribute("url", root + "/user/login");
 		
 		return "common/result";

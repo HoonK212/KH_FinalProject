@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
 <!DOCTYPE html>
 <html>
-<!--<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">-->
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -719,10 +718,10 @@ body {
 <body style="padding-top:20;">
 
 <!--header  -->
-<div style="padding-left:270; padding-bottom:20; padding-top:14">
+<div style="padding-left:345px; padding-bottom:20px; padding-top:2px">
 <header class="container">
-    <h1 style="color:black;">목표설정</h1>
-    <ul class="breadcrumb" style="padding-top:14;">
+    <h1 style="font-size:30px;">목표설정</h1>
+    <ul class="breadcrumb" >
       <li>마이페이지</li>
       <li>목표설정</li>
     </ul>
@@ -772,25 +771,10 @@ body {
    <script type="text/javascript">
    
    $('#btnSubmit01').click(function(){
-   //   alert('나의 운동 목표가 설정되었습니다!');
-   //   location.href = '<%=request.getContextPath()%>/mypage/mymain';
-      
-      var result = confirm('나의 운동 목표가 설정되었습니다!'); 
-      if(result) { 
-    	  alert('s');
-    	  location.replace('<%=request.getContextPath()%>/mypage/mymain'); 
-      } 
-
+      alert('나의 운동 목표가 설정되었습니다!');
    });
    $('#btnSubmit02').click(function(){
-  //  alert('나의 운동 목표가 변경되었습니다!');
-  //  location.href = '<%=request.getContextPath()%>/mypage/mymain';
-      
-      var result = confirm('나의 운동 목표가 변경되었습니다!'); 
-      if(result) { 
-    	  alert('s');
-    	  location.replace('<%=request.getContextPath()%>/mypage/mymain'); 
-      } 
+      alert('나의 운동 목표가 변경되었습니다!');
    });
    </script>
    

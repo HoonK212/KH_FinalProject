@@ -185,9 +185,9 @@ table {
 
 
 <!-- HEADER -->
-<div style="padding-left:300px; padding-bottom:20px; padding-top:20px;">
+<div style="padding-left:400px; padding-bottom:20px; padding-top:20px;">
 <header class="container">
-    <h1>내가 쓴 글</h1>
+    <h1 style="font-size:30px; font-weight:bold;">내가 쓴 글</h1>
     <ul class="breadcrumb">
       <li>마이페이지</li>
       <li>게시글</li>
@@ -201,24 +201,24 @@ table {
   
   <thead>
     <tr>
-      <th class="t-small"><input type="checkbox" id="checkAll" onclick="checkAll();"></th>
-      <th class="t-small">번호</th>
-      <th class="t-medium">제목</th>
-      <th>내용</th>
-      <th class="t-medium">작성일</th>
-      <th class="t-medium">조회수</th>
+      <th class="t-small" style="text-align:center;" ><input type="checkbox" id="checkAll" onclick="checkAll();" ></th>
+      <th class="t-small" style="text-align:center;">번호</th>
+      <th class="t-medium" style="text-align:center;">제목</th>
+      <th style="text-align:center;">내용</th>
+      <th class="t-medium" style="text-align:center;">작성일</th>
+      <th class="t-medium" style="text-align:center;">조회수</th>
     </tr>
   </thead>
   
   <tbody>
   <c:forEach var="board" items="${board}">
     <tr>
-      <td><label><input type="checkbox" name="chk" id="chk" value="${board.no}"></label></td>
-      <td style="width:7%; text-align:center;">${board.no}</td>
+      <td style="text-align:center;"><label><input type="checkbox" name="chk" id="chk" value="${board.no}" ></label></td>
+      <td style="width:7%; text-align:center;text-align:center;">${board.no}</td>
       <td style="width:40%;text-overflow:ellipsis; overflow:hidden; white-space: nowrap;">${board.title}</td>
       <td style="text-overflow:ellipsis; overflow:hidden; white-space: nowrap;">${board.content}</td>
-      <td class="t-status t-active">${board.dates}</td>
-      <td class="t-status t-active">${board.count}</td>
+      <td class="t-status t-active"style="text-align:center;">${board.dates}</td>
+      <td class="t-status t-active"style="text-align:center;">${board.count}</td>
     </tr>
   </c:forEach>
   </tbody>
@@ -294,7 +294,7 @@ table {
                          </div>
                         <span class="text-xs xs:text-sm text-gray-900">
                                   Showing ${paging.blockStart } to ${paging.blockEnd } of ${paging.lastPage }
-                              </span>
+                        </span>
                      </div>
                       </div>
                    </div>   

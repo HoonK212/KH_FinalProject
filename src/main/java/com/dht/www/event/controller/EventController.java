@@ -60,14 +60,16 @@ public class EventController {
 		
 		com.setId(user.getId());
 		
+		//보유 코인 조회
 		coin = eventService.checkPC(com);
 		int num = Integer.parseInt( String.valueOf( coin.get("coin") ) );
 		
-		System.out.println("코인 나오니"+num);
+		// 코인 수, 이벤트 넘버 모델 전달
 		model.addAttribute("coin",num);
 		model.addAttribute("event", 1);
 	}
 	
+	//가위바위보 결과 AJAX 통신
 	@RequestMapping(value="/rockpaper", method=RequestMethod.POST)
 	@ResponseBody
 	public void eventRockPaperScissorsfinalCompensation(HttpSession session, 
@@ -80,9 +82,11 @@ public class EventController {
 		com.setInc(5);
 		com.setEvent(4);
 		
+		//코인 차감
 		insertCoin(com);
 		
 		if(result==1) {
+			//이겼을 때 포인트 삽입
 			insertPoint(com);
 		}
 	}

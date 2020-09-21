@@ -141,9 +141,9 @@ header .count {
 
 
 <!-- HEADER -->
-<div style="padding-left:300px; padding-bottom:20px; padding-top:20px;">
+<div style="padding-left:400px; padding-bottom:20px; padding-top:20px;">
 <header class="container" >
-    <h1>포인트</h1>
+    <h1 style="font-size:30px; font-weight:bold;">포인트</h1>
     <ul class="breadcrumb">
       <li>마이페이지</li>
       <li>포인트</li>
@@ -154,7 +154,7 @@ header .count {
 <hr>
 <div class="section" style="height:70%;">
 <!-- point 전환  -->
-<div class="cal-wrapper" style="margin-left:100px;">
+<div class="cal-wrapper" style="margin-left:110px;">
       <div class="cal-inner">
             <div class="cal-content">
                   <h1 class="cal-h1">현재 Point : <div id="calculation" class="col-md-6 larger-text" style="display:inline-block;">${point}</div>  Point </h1>
@@ -164,10 +164,10 @@ header .count {
                   <div class="margin-top">
                         <div class="pull-left text-large col-md-6 padding-left-0">
                               <form>
-                                    <input  type="number" value="${point}" id="width" readonly style="border:1px solid  #00ff00;">
+                                    <input  type="number" value="${point}" id="width" readonly style="border:2px solid #228B22;">
 <!--                                     <input id="width" type="number" maxlength="5" placeholder="Width" class="form-control pull-left"> -->
                                     <span class="pull-left larger-text">-&nbsp;</span>
-                                    <input id="height" type="number" maxlength="5" placeholder="전환할 point입력" class="form-control pull-left" style="border:1px solid  #00ff00;">
+                                    <input id="height" type="number" maxlength="5" placeholder="전환  point입력" class="form-control pull-left" style="border:2px solid #228B22;">
                                     <!-- point가 50000점이 넘어갈 때만 현금으로 전환하도록 하난다  -->
                                     <c:if test="${point >= 50000 }">
                                     <input id="btn" type="submit" value="전환하기" class="btn btn-primary">

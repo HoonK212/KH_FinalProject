@@ -28,8 +28,8 @@ public interface UserService {
 	//회원 메일로 아이디 발송
 	public void mailSendingToFindId(Map<String, Object> commandMap, String urlPath, String searchId);
 	
-	//회원인 경우 임시비밀번호 생성
-	public Users getUsersPw(Map<String, Object> commandMap);
+	//회원인 경우 임시비밀번호 암호화
+	public Users getUsersPw(Map<String, Object> commandMap, String randomPw);
 	
 	//회원 메일로 비밀번호 발송
 	public void mailSendingToFindPw(Map<String, Object> commandMap, String urlPath, String randomPw);

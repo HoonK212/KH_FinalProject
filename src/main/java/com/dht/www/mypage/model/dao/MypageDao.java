@@ -244,6 +244,15 @@ public class MypageDao {
 	       sqlSession.delete("MYPAGE.deleteWritten", no);
 	   }
 	   
+	   //게시글에 첨부된 파일 리스트 가져오기 
+	   public List<Files> selectWrittenFileList(String no) {
+	      return sqlSession.selectList("MYPAGE.selectWrittenFileList", no);
+	   }
+	   //게시글에 첨부된 파일 삭제하기 
+	   public void deleteWrittenfiles(String no) {
+	       sqlSession.delete("MYPAGE.deleteWrittenfiles", no);
+	   }
+	   
 	   //댓글을 삭제하는 메소드
 	   public void deleteComment(String no) {
 	      sqlSession.delete("MYPAGE.deleteComment", no);
