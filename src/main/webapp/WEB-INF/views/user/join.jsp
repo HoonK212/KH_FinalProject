@@ -162,7 +162,7 @@
 						<div class="mb-5">
 							<label for="password" class="font-bold mb-1 text-gray-800 block">비밀번호 설정</label>
 							<div class="text-gray-600 mt-2 mb-4">
-								아래 조건을 만족하는 비밀번호를 설정하십시오.
+								아래 조건을 만족하는 비밀번호를 권장합니다.
 								<ul class="list-disc text-sm ml-4 mt-2">
 									<li>숫자 포함</li>
 									<li>소문자 포함</li>
@@ -430,9 +430,11 @@
 	            var data = xhr.response; 
 	            if( data != '' ){
 	               document.querySelector('#idcheckResult').textContent = data + '는 이미 존재하는 아이디입니다.'
+	               document.querySelector('#idcheckResult').style.color = 'red';
 	               ajaxFlag_idcheck = false;
 	            }else{
 	               document.querySelector('#idcheckResult').textContent = '사용가능한 아이디입니다.'
+	            	   document.querySelector('#idcheckResult').style.color = '#3182ce';
 	               ajaxFlag_idcheck = true;
 	            }
 	         })
@@ -453,9 +455,11 @@
                 var data = xhr.response; 
                 if( data != '' ){
                    document.querySelector('#nickcheckResult').textContent = data + '는 이미 존재하는 닉네임입니다.'
+                   document.querySelector('#nickcheckResult').style.color = "red";
                    ajaxFlag_nickcheck = false;
                 }else{
                    document.querySelector('#nickcheckResult').textContent = '사용가능한 닉네임입니다.'
+                	   document.querySelector('#nickcheckResult').style.color = '#3182ce';
                    ajaxFlag_nickcheck = true;
                 }
              })
@@ -476,9 +480,11 @@
                   var data = xhr.response; 
                   if( data != '' ){
                      document.querySelector('#mailcheckResult').textContent = ' ' + '이미 존재하는 이메일입니다.'
+                     document.querySelector('#mailcheckResult').style.color = "red";
                      ajaxFlag_mailcheck = false;
                   }else{
                      document.querySelector('#mailcheckResult').textContent = ' ' + '사용가능한 이메일입니다.'
+                     document.querySelector('#mailcheckResult').style.color = '#3182ce';
                      ajaxFlag_mailcheck = true;
                   }
                })
@@ -584,8 +590,10 @@
                
                if(result.result){
                   document.getElementById('result').textContent = '인증 확인!';
+                  document.querySelector('#result').style.color = '#3182ce';
                }else{
                   document.getElementById('result').textContent = '다시 시도해주세요';
+                  document.querySelector('#result').style.color = 'red';
                }
             })      
       })
