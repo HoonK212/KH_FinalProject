@@ -334,7 +334,7 @@
     <li id="Mainli1" ><i class="fa fa-home fa-fw"></i>회원정보
       <ul class="side-nav-dropdown">
         <li><a href="<%=request.getContextPath()%>/mypage/myInformation">나의 회원정보</a></li>
-        <li><a href="<%=request.getContextPath()%>/mypage/myPoint">포인트&코인 관리</a></li>
+        <li><a href="<%=request.getContextPath()%>/mypage/myPoint">포인트 & 코인 관리</a></li>
         <li><a href="<%=request.getContextPath()%>/mypage/myWritten">나의 작성글 조회</a></li>
       </ul>
     </li>
