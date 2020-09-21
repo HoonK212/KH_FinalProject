@@ -352,12 +352,12 @@ public class UserServiceImpl implements UserService{
 		
 		String setfrom = "kh_finalproject@naver.com";
 		String tomail = users.getMail();
-		String title = "회원가입을 환영합니다.";
+		String title = "DHT 회원가입을 위한 인증메일입니다.";
 		String htmlBody = 
 				"<form "
 				         + "action='http://"+urlPath+"/user/joinimple'"
 				         +" method='post'>"
-				         + "<h3>회원가입을 환영합니다</h3>"
+				         + "<h3>회원가입완료를 하려면 아래 버튼을 눌러주세요.</h3>"
 				         + "<input type='hidden' value='" 
 				               + users.getId() 
 				               + "' name='id'>"
@@ -388,7 +388,7 @@ public class UserServiceImpl implements UserService{
 				               + "<input type='hidden' value='" 
 				               + users.getPost() 
 				               + "' name='post'>"
-				         + "<button type='submit'>전송하기</button></form>";
+				         + "<button type='submit'>인증완료</button></form>";
 		
 		
 		try {
