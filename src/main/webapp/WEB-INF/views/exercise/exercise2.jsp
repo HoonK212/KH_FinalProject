@@ -29,9 +29,6 @@ $(document).ready(function() {
 </script>
 
 
-
-
-
 <!-- section 시작 -->
 <section style="min-height:73vh;">
 

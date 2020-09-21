@@ -165,7 +165,7 @@ $(document).ready(function() {
 	</div>
 	<div class="jumping-jack fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster">
 		<div
-			class="border border-teal-500 shadow-lg modal-container bg-white w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
+			class="border border-blue-600 shadow-lg modal-container bg-white w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
 			<div class="modal-content py-4 text-left px-6">
 				<!--Title-->
 				<div class="flex justify-between items-center pb-3">
@@ -196,7 +196,7 @@ $(document).ready(function() {
 	</div>
 	<div class="burpee fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster">
 		<div
-			class="border border-teal-500 shadow-lg modal-container bg-white w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
+			class="border border-blue-600 shadow-lg modal-container bg-white w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
 			<div class="modal-content py-4 text-left px-6">
 				<!--Title-->
 				<div class="flex justify-between items-center pb-3">
@@ -226,7 +226,7 @@ $(document).ready(function() {
 	</div>
 	<div class="leg-raise fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster">
 		<div
-			class="border border-teal-500 shadow-lg modal-container bg-white w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
+			class="border border-blue-600 shadow-lg modal-container bg-white w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
 			<div class="modal-content py-4 text-left px-6">
 				<!--Title-->
 				<div class="flex justify-between items-center pb-3">
@@ -255,7 +255,7 @@ $(document).ready(function() {
 	</div>
 	<div class="crunch fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster">
 		<div
-			class="border border-teal-500 shadow-lg modal-container bg-white w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
+			class="border border-blue-600 shadow-lg modal-container bg-white w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
 			<div class="modal-content py-4 text-left px-6">
 				<!--Title-->
 				<div class="flex justify-between items-center pb-3">
@@ -284,7 +284,7 @@ $(document).ready(function() {
 	</div>
 	<div class="push-up fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster">
 		<div
-			class="border border-teal-500 shadow-lg modal-container bg-white w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
+			class="border border-blue-600 shadow-lg modal-container bg-white w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
 			<div class="modal-content py-4 text-left px-6">
 				<!--Title-->
 				<div class="flex justify-between items-center pb-3">
@@ -313,7 +313,7 @@ $(document).ready(function() {
 	</div>
 	<div class="knee-push-up fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster">
 		<div
-			class="border border-teal-500 shadow-lg modal-container bg-white w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
+			class="border border-blue-600 shadow-lg modal-container bg-white w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
 			<div class="modal-content py-4 text-left px-6">
 				<!--Title-->
 				<div class="flex justify-between items-center pb-3">
@@ -342,7 +342,7 @@ $(document).ready(function() {
 	</div>
 	<div class="sidelunge fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster">
 		<div
-			class="border border-teal-500 shadow-lg modal-container bg-white w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
+			class="border border-blue-600 shadow-lg modal-container bg-white w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
 			<div class="modal-content py-4 text-left px-6">
 				<!--Title-->
 				<div class="flex justify-between items-center pb-3">
@@ -372,7 +372,7 @@ $(document).ready(function() {
 	</div>
 	<div class="squat fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster">
 		<div
-			class="border border-teal-500 shadow-lg modal-container bg-white w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
+			class="border border-blue-600 shadow-lg modal-container bg-white w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
 			<div class="modal-content py-4 text-left px-6">
 				<!--Title-->
 				<div class="flex justify-between items-center pb-3">
@@ -400,7 +400,7 @@ $(document).ready(function() {
 	</div>
 	<div class="lunge fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster">
 		<div
-			class="border border-teal-500 shadow-lg modal-container bg-white w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
+			class="border border-blue-600 shadow-lg modal-container bg-white w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
 			<div class="modal-content py-4 text-left px-6">
 				<!--Title-->
 				<div class="flex justify-between items-center pb-3">
