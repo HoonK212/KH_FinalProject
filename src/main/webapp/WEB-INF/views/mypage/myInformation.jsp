@@ -1196,16 +1196,16 @@ table {
                   
                   //변경할 계좌, 은행을 기존의 태그의 값에다 넣기 
                   //변경할 계좌의 값
-                     //var account = document.querySelector('#account').value;
-                     //기존의 계좌 값
-                     var oAccount = document.querySelector('#oAccount');
-                  //기존의 은행 값
-                     var oBank = document.querySelector('#oBank').value;
-                  //변경할 은행 값
-                     //var bank = document.querySelector('#bank').value;
+                  //var account = document.querySelector('#account').value;
+                  //기존의 계좌 값
+                  var oAccount = document.querySelector('#oAccount');
+                 //기존의 은행 값
+                  var oBank = document.querySelector('#oBank');
+                 //변경할 은행 값
+                  //var bank = document.querySelector('#bank').value;
    
                   oAccount.value = document.querySelector('#account').value;
-                  oBank.value =document.querySelector('#bank').value ;
+                  oBank.value = document.querySelector('#bank').value ;
                   
                   //수정버튼을 누를 수 있도록 해주는 코드
                   atBtn= true;
@@ -1241,9 +1241,10 @@ table {
       
       
       //계좌 정보가 입력이 되었을 때 전송이 되도록 한다 
-      if( bank ==' ' || account ==' '){
+      if( bank == '' || account == ''){
          //계좌정보가 입력이 되지 않으면 form이 전송이 되지 못하도록 한다 
-         alert('계좌정보를 입력해주세요')
+         alert('계좌정보를 입력해주세요');
+         return false;
       }else{
          var form = document.querySelector('#form');
          form.submit();

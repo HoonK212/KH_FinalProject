@@ -180,8 +180,7 @@
    
    <!-- 계좌 정보를 insert 하는 뭐리 -->
    <insert id="insertAccount">
-      insert into account values(#{account},#{bank})
-      where id = #{id}
+     insert into account(account, bank , id) values(#{account},#{bank},#{id} )
    </insert>
    
    <!-- 계좌정보를 update 하는 쿼리  -->
