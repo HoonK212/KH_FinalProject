@@ -255,28 +255,24 @@ public class UserServiceImpl implements UserService{
 		
 	}
 
-	//회원인 경우 임시 비밀번호 생성
+	//회원인지 확인 한 후 비밀번호 암호화
 	@Override
-	public Users getUsersPw(Map<String, Object> commandMap) {
+	public Users getUsersPw(Map<String, Object> commandMap, String randomPw) {
 		
 		//회원인지 확인
 		Users res = userDao.getUsersPw(commandMap);
 		
-		if( res != null) {
-			//임시비밀번호 생성
-			UUID uuid = UUID.randomUUID(); //랜덤 UID 생성
-			String randomPw = uuid.toString().split("-")[0]; //8자리 uid
-			System.out.println("생성한 랜덤값 : " + randomPw);
+		if( res != null) { //회원인 경우 임시 비밀번호 암호화 
+			
+			//임시비밀번호 암호화
+			randomPw = passwordEncoder.encode(randomPw);
 			
 			//user 객체에 저장
 			res.setPw(randomPw);
 			
-			System.out.println("비밀번호 변경 후 : " + res);
-			
 			//DB에 업데이트
 			int result = userDao.updateUsersPw(res);
 			
-			System.out.println("업데이트 성공 여부 : " + result);
 		}
 		
 		return res;

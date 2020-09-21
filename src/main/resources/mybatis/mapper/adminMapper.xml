@@ -113,7 +113,8 @@
 	
 	<select id="selectProductListOfSearchType1" resultMap="productdata">
 		SELECT * FROM (SELECT ROWNUM RNUM, P.* FROM(
-		SELECT * FROM PRODUCT WHERE CODE LIKE '%' ||  #{search.data} || '%' )P order by substr(code, 2) desc
+		SELECT * FROM PRODUCT WHERE CODE LIKE '%' ||  #{search.data} || '%'
+		ORDER BY SUBSTR(CODE, 2) DESC )P 
 		)WHERE RNUM BETWEEN #{paging.start} and #{paging.end}
 	</select>
 	
@@ -124,7 +125,8 @@
 	
 	<select id="selectProductListOfSearchType2" resultMap="productdata">
 		SELECT * FROM (SELECT ROWNUM RNUM, P.* FROM(
-		SELECT * FROM PRODUCT WHERE NAME LIKE '%' ||  #{search.data} || '%' )P order by substr(code, 2) desc
+		SELECT * FROM PRODUCT WHERE NAME LIKE '%' ||  #{search.data} || '%' 
+		order by substr(code, 2) desc )P
 		)WHERE RNUM BETWEEN #{paging.start} and #{paging.end}
 	</select>
 	
@@ -527,6 +529,7 @@
 		WHERE OP.CODE = P.CODE
 		AND OP.ORDERS_NO = O.NO
 		AND OP.CODE LIKE '%' || #{data} || '%'
+		AND OP.STATUS NOT IN (4, 6)
 		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
 		ORDER BY O.CHARDATE DESC
 		)
@@ -544,6 +547,7 @@
 		WHERE OP.CODE = P.CODE
 		AND OP.ORDERS_NO = O.NO
 		AND OP.CODE LIKE '%' || #{search.data} || '%'
+		AND OP.STATUS NOT IN (4, 6)
 		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
 		ORDER BY O.CHARDATE DESC )A
 		) WHERE RNUM BETWEEN #{paging.start} AND #{paging.end}
@@ -561,6 +565,7 @@
 		AND OP.ORDERS_NO = O.NO
 		AND OP.CODE LIKE '%' || #{data} || '%'
 		AND O.CHARDATE BETWEEN TO_DATE(#{fromdate}, 'YY/MM/DD') AND TO_DATE(#{todate}, 'YY/MM/DD')+0.99999
+		AND OP.STATUS NOT IN (4, 6)
 		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
 		ORDER BY O.CHARDATE DESC
 		)
@@ -579,6 +584,7 @@
 		AND OP.ORDERS_NO = O.NO
 		AND OP.CODE LIKE '%' || #{search.data} || '%'
 		AND O.CHARDATE BETWEEN TO_DATE(#{search.fromdate}, 'YY/MM/DD') AND TO_DATE(#{search.todate}, 'YY/MM/DD')+0.99999
+		AND OP.STATUS NOT IN (4, 6)
 		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
 		ORDER BY O.CHARDATE DESC )A
 		) WHERE RNUM BETWEEN #{paging.start} AND #{paging.end}
@@ -595,6 +601,7 @@
 		WHERE P.NAME = P.CODE
 		AND OP.ORDERS_NO = O.NO
 		AND P.NAME LIKE '%' || #{data} || '%'
+		AND OP.STATUS NOT IN (4, 6)
 		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
 		ORDER BY O.CHARDATE DESC
 		)
@@ -612,6 +619,7 @@
 		WHERE OP.CODE = P.CODE
 		AND OP.ORDERS_NO = O.NO
 		AND P.NAME LIKE '%' || #{search.data} || '%'
+		AND OP.STATUS NOT IN (4, 6)
 		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
 		ORDER BY O.CHARDATE DESC )A
 		) WHERE RNUM BETWEEN #{paging.start} AND #{paging.end}
@@ -629,6 +637,7 @@
 		AND OP.ORDERS_NO = O.NO
 		AND P.NAME LIKE '%' || #{data} || '%'
 		AND O.CHARDATE BETWEEN TO_DATE(#{fromdate}, 'YY/MM/DD') AND TO_DATE(#{todate}, 'YY/MM/DD')+0.99999
+		AND OP.STATUS NOT IN (4, 6)
 		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
 		ORDER BY O.CHARDATE DESC
 		)
@@ -647,6 +656,7 @@
 		AND OP.ORDERS_NO = O.NO
 		AND P.NAME LIKE '%' || #{search.data} || '%'
 		AND O.CHARDATE BETWEEN TO_DATE(#{search.fromdate}, 'YY/MM/DD') AND TO_DATE(#{search.todate}, 'YY/MM/DD')+0.99999
+		AND OP.STATUS NOT IN (4, 6)
 		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
 		ORDER BY O.CHARDATE DESC )A
 		) WHERE RNUM BETWEEN #{paging.start} AND #{paging.end}
@@ -663,6 +673,7 @@
 		WHERE OP.CODE = P.CODE
 		AND OP.ORDERS_NO = O.NO
 		AND O.CHARDATE BETWEEN TO_DATE(#{fromdate}, 'YY/MM/DD') AND TO_DATE(#{todate}, 'YY/MM/DD')+0.99999
+		AND OP.STATUS NOT IN (4, 6)
 		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
 		ORDER BY O.CHARDATE DESC
 		)
@@ -680,6 +691,7 @@
 		WHERE OP.CODE = P.CODE
 		AND OP.ORDERS_NO = O.NO
 		AND O.CHARDATE BETWEEN TO_DATE(#{search.fromdate}, 'YY/MM/DD') AND TO_DATE(#{search.todate}, 'YY/MM/DD')+0.99999
+		AND OP.STATUS NOT IN (4, 6)
 		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
 		ORDER BY O.CHARDATE DESC )A
 		) WHERE RNUM BETWEEN #{paging.start} AND #{paging.end}
@@ -695,6 +707,7 @@
 		FROM ORDER_PRODUCT OP, PRODUCT P, (SELECT TO_CHAR(DATES, 'YY/MM/DD') CHARDATE, NO FROM ORDERS) O
 		WHERE OP.CODE = P.CODE
 		AND OP.ORDERS_NO = O.NO
+		AND OP.STATUS NOT IN (4, 6)
 		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
 		ORDER BY O.CHARDATE DESC
 		)
@@ -711,6 +724,7 @@
 		FROM ORDER_PRODUCT OP, PRODUCT P, (SELECT TO_CHAR(DATES, 'YY/MM/DD') CHARDATE, NO FROM ORDERS) O
 		WHERE OP.CODE = P.CODE
 		AND OP.ORDERS_NO = O.NO
+		AND OP.STATUS NOT IN (4, 6)
 		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
 		ORDER BY O.CHARDATE DESC)A
 		) WHERE RNUM BETWEEN #{start} AND #{end}
@@ -731,6 +745,7 @@
 		WHERE OP.CODE = P.CODE
 		AND OP.ORDERS_NO = O.NO
 		AND OP.CODE LIKE '%' || #{search.data} || '%'
+		AND OP.STATUS NOT IN (4, 6)
 		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
 	)
 	</select>
@@ -747,6 +762,7 @@
 		AND OP.ORDERS_NO = O.NO
 		AND OP.CODE LIKE '%' || #{search.data} || '%'
 		AND O.CHARDATE BETWEEN TO_DATE(#{search.fromdate}, 'YY/MM/DD') AND TO_DATE(#{search.todate}, 'YY/MM/DD')+0.99999
+		AND OP.STATUS NOT IN (4, 6)
 		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
 	)
 	</select>
@@ -762,6 +778,7 @@
 		WHERE OP.CODE = P.CODE
 		AND OP.ORDERS_NO = O.NO
 		AND P.NAME LIKE '%' || #{search.data} || '%'
+		AND OP.STATUS NOT IN (4, 6)
 		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
 	)
 	</select>
@@ -778,6 +795,7 @@
 		AND OP.ORDERS_NO = O.NO
 		AND P.NAME LIKE '%' || #{search.data} || '%'
 		AND O.CHARDATE BETWEEN TO_DATE(#{search.fromdate}, 'YY/MM/DD') AND TO_DATE(#{search.todate}, 'YY/MM/DD')+0.99999
+		AND OP.STATUS NOT IN (4, 6)
 		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
 	)
 	</select>
@@ -793,6 +811,7 @@
 		WHERE OP.CODE = P.CODE
 		AND OP.ORDERS_NO = O.NO
 		AND O.CHARDATE BETWEEN TO_DATE(#{search.fromdate}, 'YY/MM/DD') AND TO_DATE(#{search.todate}, 'YY/MM/DD')+0.99999
+		AND OP.STATUS NOT IN (4, 6)
 		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
 	)
 	</select>
@@ -807,6 +826,7 @@
 		FROM ORDER_PRODUCT OP, PRODUCT P, (SELECT TO_CHAR(DATES, 'YY/MM/DD') CHARDATE, NO FROM ORDERS) O
 		WHERE OP.CODE = P.CODE
 		AND OP.ORDERS_NO = O.NO
+		AND OP.STATUS NOT IN (4, 6)
 		GROUP BY OP.CODE, P.NAME , O.CHARDATE, P.PRICE
 	)
 	</select>

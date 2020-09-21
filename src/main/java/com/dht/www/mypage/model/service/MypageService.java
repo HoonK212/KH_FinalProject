@@ -75,6 +75,8 @@ public interface MypageService {
 	   public void deleteComment(String no);
 	   //패스워드가 맞는지 확인하는 메소드
 	   public String checkPassword(String pw, String id);
+	   //게시글에 첨부된 파일 삭제하기 
+	   public void deleteWrittenfiles(String no, HttpSession session);
 
 	
 

@@ -186,9 +186,9 @@ table {
  <%@include file="/WEB-INF/views/mypage/navi.jsp" %>
 
 <!-- HEADER -->
-<div style="padding-left:300px; padding-bottom:20px; padding-top:20px;">
+<div style="padding-left:400px; padding-bottom:20px; padding-top:20px;">
 <header class="container">
-    <h1>내가 쓴 글</h1>
+    <h1 style="font-size:30px;  font-weight:bold;">내가 쓴 글</h1>
     <ul class="breadcrumb">
       <li>마이페이지</li>
       <li>댓글</li>
@@ -205,9 +205,9 @@ table {
     <tr>
       <th class="t-ssmall" style="text-align:center;"><input type="checkbox" id="checkAll" onclick="checkAll();"></th>
       <th class="t-ssmall" style="text-align:center;">번호</th>
-      <th class="t-medium">내용</th>
-      <th class="t-small">작성일</th>
-      <th class="t-small">아이디</th>
+      <th class="t-medium" style="text-align:center;">내용</th>
+      <th class="t-small" style="text-align:center;">작성일</th>
+      <th class="t-small" style="text-align:center;">아이디</th>
     </tr>
   </thead>
   
@@ -217,8 +217,8 @@ table {
       <td style="text-align:center;"><label><input type="checkbox" name="chk" id="chk" value="${comment.no}"></label></td>
       <td style="width:10%; text-align:center;">${comment.no}</td>
       <td style="width:40%; text-overflow:ellipsis; overflow:hidden; white-space: nowrap;">${comment.content}</td>
-      <td>${comment.dates}</td>
-      <td class="t-status t-active">${comment.id}</td>
+      <td style="text-align:center;">${comment.dates}</td>
+      <td class="t-status t-active" style="text-align:center;">${comment.id}</td>
     </tr>
   </c:forEach>
   </tbody>
