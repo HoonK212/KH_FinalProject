@@ -8,7 +8,8 @@
 <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Daily Home Training</title>
+<link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/image/logo.png">
 <style type="text/css">
 * {
   padding: 0;
