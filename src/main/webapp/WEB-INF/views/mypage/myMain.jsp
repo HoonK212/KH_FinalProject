@@ -243,7 +243,7 @@
  <script type="text/javascript">
 
 window.onload = function(){
-	console.log(dataset);
+	
 }
 
 var dataset = [

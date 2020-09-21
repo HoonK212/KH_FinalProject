@@ -1036,15 +1036,7 @@ $('.mutliSelect li').on('click', function() {
 
       $('.mutliSelect2 li').on('click', function() {
       var idx = $(this).index();
-      console.log(idx);
         var title = $(this).closest('.mutliSelect2').find('li').eq(idx).text();
-/*           title = $(this).val() + ","; */
-//      console.log($(this).closest('.mutliSelect2').find('li'));
-//      console.log($(this).closest('.mutliSelect2').find('li').eq(idx));
-//      console.log($(this).closest('.mutliSelect2').find('li').eq(idx).text());
-//      console.log($(this).closest('.mutliSelect2').find('li').eq(idx).innerText());
-//      console.log($(this).closest('.mutliSelect2').find('li')[idx]);
-//      console.log($(this).closest('.mutliSelect2').find('li')[idx].text());
    
         if ($(this).children().is(':checked')) {
           var html = '<span title="' + title + '">' + title + '</span>';
@@ -1304,7 +1296,6 @@ $('.mutliSelect li').on('click', function() {
  
 
    $('#btnSubmit01').on('click', function(){
-      console.log('시작');
       if($('input[type="checkbox"][name="exercise"]:checked').size() == 0){
          alert('목표 운동을 선택해 주세요');
          return false;
@@ -1318,7 +1309,6 @@ $('.mutliSelect li').on('click', function() {
       alert('나의 운동 목표가 설정되었습니다!');	
    });
    $('#btnSubmit02').on('click', function(){
-      console.log('시작');
       if($('input[type="checkbox"][name="exercise"]:checked').size() == 0){
          alert('목표 운동을 선택해 주세요');
          return false;
