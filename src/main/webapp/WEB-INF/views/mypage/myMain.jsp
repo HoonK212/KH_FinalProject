@@ -283,15 +283,11 @@ var dataset = [
 		    var calendar = new FullCalendar.Calendar(calendarEl, {
 		      headerToolbar: {
 		        left: 'title',
-		    	right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth',
+		    	right: '',
 		        center: ''
 		    //  right: 'dayGridMonth'
 		      },    
 		      initialDate: '2020-09-12',
-		      navLinks: true, // can click day/week names to navigate views
-		      businessHours: true, // display business hours
-		      editable: true,
-		      selectable: true,
 		      events: dataset
 		    });
 
@@ -370,6 +366,10 @@ var dataset = [
          value.querySelector('.value').innerHTML = percent + '%';
       });
    
+      
+     $("a").each() {
+    	 $("a").removeClass('fc-daygrid-day-number');
+     }
 </script>
 </body>
 </html>
