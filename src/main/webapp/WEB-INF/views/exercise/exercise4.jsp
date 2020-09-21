@@ -61,12 +61,10 @@ function countUpdate(count, set, exer) {
 		
 		// count가 countMAX값 같을 때(1세트 운동 끝)
 		if($(".progress-bar-count")[0].ariaValueMax == count) {
-			console.log("count가 MAX 달성 " + count)
 			window.count = 0;
 			count=0;
 			totalTime=0;
 			runningTime=0;
-			console.log("count 0으로 대입 후  " + count)
 			
 			// 마지막 세트 끝나면 카운트는 증가x
 			if($(".progress-bar-set")[0].ariaValueMax != set+1){
@@ -82,7 +80,6 @@ function countUpdate(count, set, exer) {
 			
 			window.set++;
 			set++;
-			console.log('세이트: ' + set)
 			$('.progress-bar-set').animate( { width: set / $(".progress-bar-set")[0].ariaValueMax * 100 + "%" }, delay, 'swing');
 			
 			$(".progress-bar-set").attr("aria-valuenow", set).html(set + "세트")
@@ -97,14 +94,13 @@ function countUpdate(count, set, exer) {
 	    			window.set = 0;
 					set = 0;
 					
-					console.log("엑설엑설 : " + exerCnt);
 					setTimeout("alert('충분한 휴식을 취한 후 다음 운동을 진행하려면 확인 버튼을 누르세요.')", 2000);
 					setTimeout("exerChange(window.exerArrList[exerCnt]);", 2000);
 					
 					
 	    			
 				} else {
-					setTimeout("alert('선택한 운동이 끝났습니다.\n운동 보상 받기 버튼을 클릭해 보상을 받으세요!')", 2000);
+					setTimeout("alert('선택한 운동이 끝났습니다.\\n운동 보상 받기 버튼을 클릭해 보상을 받으세요!')", 2000);
 					$(".complete").css({'pointer-events':'all'});
 	    			$(".complete").css({'cursor':'pointer'});
 				}
@@ -112,7 +108,7 @@ function countUpdate(count, set, exer) {
     			
 			}
 		}
-		console.log("운동함 " + count)
+
 	}
 }
 
@@ -132,8 +128,6 @@ function leftCountUpdate(progressCnt,exArr) {
 
 // AJAX 통신 - 운동정보 변경
 function exerChange(exerName) {
-	console.log(" = = = = = = = = = = = = = = = = = = = = = = =")
-	console.log(exerName)
 	var xhr = new XMLHttpRequest();
 	
 	xhr.open('GET', '<%=request.getContextPath()%>/exercise/nextexer?exerName='+exerName);
@@ -145,7 +139,6 @@ function exerChange(exerName) {
 	xhr.addEventListener('load', function() {
 		
 		var data = xhr.response;
-		console.dir(data)
 		
 		document.querySelector('#right').innerHTML = data;
 		
@@ -158,15 +151,11 @@ function exerChange(exerName) {
 		// 다음 운동 실행
 		eval(exerArrList[exerCnt]+"();");
 		
-		console.log("새로로로로로로로로로로로")
-		console.dir(URL)
 	})
 	
 }
 
 function exerChangejs(exerName) {
-	console.log(" = = = = = = = = = = = = = = = = = = = = = = =")
-	console.log(exerName)
 	var xhr = new XMLHttpRequest();
 	
 	xhr.open('GET', '<%=request.getContextPath()%>/exercise/nextexerjs?exerName='+exerName);
@@ -184,7 +173,6 @@ function exerChangejs(exerName) {
 }
 
 $(".complete").click(function() {
-	console.log("클릭");
 	location.href = "<%=request.getContextPath()%>/exercise/exercisefinish";
 })
 </script>
@@ -443,7 +431,6 @@ var plank_predict = async function predict() {
     	
     	if( Math.floor( (totalTime+runningTime) / 1000 ) == count+1 ) {
     		
-    		console.log("운동함")
     		
     		count++;
 			progressCnt++;
@@ -479,51 +466,40 @@ var jumpingjack_predict = async function predict() {
     	
 		if(status == "jump1" && jumpingcnt==1){
 			jumpingcnt++;
-			console.log(jumpingcnt);
 		}
     	
 		if(jumpingcnt >= 4){
 			count++;
 			progressCnt++;
 			
-			console.log("카운터 증가" + count);
 			audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
 			audio.play();
-			console.log(count);
 
 			countUpdate(count, set, "jumpingjack");
 			leftCountUpdate(progressCnt, "jumpingjack");
 			window.jumpingcnt = 0;
-			console.log("0으로 선언후"+jumpingcnt);
 		}
     	
 		status = "stand";
-		console.log(status);
 	} else if(prediction[1].probability.toFixed(2) == 1.00) {
 		if(status == "stand" && jumpingcnt == 0){
 			jumpingcnt++;
-			console.log(jumpingcnt);
 		}
 		if(status == "stand" && jumpingcnt == 2){
 			jumpingcnt++;
-			console.log(jumpingcnt);
 		}
 		if(status == "jump2" && jumpingcnt == 4){
 			jumpingcnt++;
-			console.log(jumpingcnt);
 		}
 
 		status = "jump1";
-		console.log("그냥 점프1"+status);
 	}else if(prediction[2].probability.toFixed(2) == 1.00) {
 
 		if(status == "jump1" && jumpingcnt == 3){
 			jumpingcnt++;
-			console.log(jumpingcnt);
 		}
 
 		status = "jump2";
-		console.log("그냥 점프2"+status);
 	}
     	
 	for (let i = 0; i < maxPredictions; i++) {
@@ -547,38 +523,29 @@ var burpee_predict = async function predict() {
 			count++;
 			progressCnt++;
 			
-			console.log("카운터 증가" + count);
 			audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
 			audio.play();
-			console.log(count);
 
 			countUpdate(count, set, "burpee");
 			leftCountUpdate(progressCnt, "burpee");
 			window.burpeeCnt = 0;
-			console.log("0으로 선언후"+burpeeCnt);
 		}
     	
 		status = "stand";
-		console.log(status);
 	} else if(prediction[1].probability.toFixed(2) == 1.00) {
 		if(status == "stand" && burpeeCnt == 0 ){
 			burpeeCnt++;
-			console.log(burpeeCnt);
 		}
 		if(status == "burpee2" && burpeeCnt == 2 ){
 			burpeeCnt++;
-			console.log(burpeeCnt);
 		}
 
 		status = "burpee1";
-		console.log("여기가 기본"+status);
 	} else if(prediction[2].probability.toFixed(2) == 1.00) {
 		if(status == "burpee1" && burpeeCnt == 1 ){
 			burpeeCnt++;
-			console.log(burpeeCnt);
 		}
 		status = "burpee2";
-		console.log("여기가 기본"+status);
 	} 
     	
 	for (let i = 0; i < maxPredictions; i++) {
@@ -596,25 +563,20 @@ var legraise_predict = async function predict() {
 	prediction = await model.predict(posenetOutput);
 
 	if(prediction[0].probability.toFixed(2) == 1.00) {
-		console.log("레그다운들어옴"+status);
     		
 		status = "legdown";
-		console.log(status);
 	} else if(prediction[1].probability.toFixed(2) == 1.00) {
 		if(status == "legdown") { 
 			count++;
 			progressCnt++;
 
-			console.log("카운터 증가" + count);
 			var audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
 			audio.play();
-			console.log(count);
 
 			countUpdate(count, set, "legraise");
 			leftCountUpdate(progressCnt, "legraise");
 		}
 		status = "legup";
-		console.log("여기가 업"+status);
 	}
     
 	for (let i = 0; i < maxPredictions; i++) {
@@ -632,36 +594,35 @@ var crunch_predict = async function predict() {
 	prediction = await model.predict(posenetOutput);
 
 	if(prediction[0].probability.toFixed(2) == 1.00) {
-    	console.log("클래스1 들어옴"+status);
-    		
-		if(crunchCnt == 1){
-		 	if(status == "bent") { 
-				        		
-    		count++;
-    		progressCnt++;
-			
-    		console.log("카운터 증가" + count);
-    		var audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
-    		audio.play();
-    		console.log(count);
-
-    		countUpdate(count, set, "crunch");
-    		leftCountUpdate(progressCnt, "crunch");
-    		window.crunchCnt = 0;
-    		console.log("0으로 선언후"+crunchCnt);
-    		}
-    	}
     	
-		if(status == "bent" && crunchCnt == 0) { 
+		if(status == "bent" && crunchCnt == 1) { 
 			crunchCnt++;
-    		console.log("점프카운트 증가후"+crunchCnt);
 		}
-    	
+		
+		if(crunchCnt == 3) { 
+        		
+	    		count++;
+	    		progressCnt++;
+				
+	    		var audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
+	    		audio.play();
+
+	    		countUpdate(count, set, "crunch");
+	    		leftCountUpdate(progressCnt, "crunch");
+	    		window.crunchCnt = 0;
+	    	
+		}
+	
     	status = "up";
-		console.log(status);
     } else if(prediction[1].probability.toFixed(2) == 1.00) {
+    	if(status == "up" && crunchCnt == 0) { 
+			crunchCnt++;
+		}
+		if(status == "up" && crunchCnt == 2) { 
+			crunchCnt++;
+		}
+	
     	status = "bent";
-    	console.log("여기가 기본 class2"+status);
     }
     
     for (let i = 0; i < maxPredictions; i++) {
@@ -679,24 +640,19 @@ var pushup_predict = async function predict() {
     prediction = await model.predict(posenetOutput);
 
     if(prediction[0].probability.toFixed(2) == 1.00) {
-       console.log(status);
        if(status == "pushdown") {
 			count++;
 			progressCnt++;
-			console.log("카운터 증가" + count);
 			audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
 			audio.play();
-			console.log(count);
 			
 			countUpdate(count, set, "pushup");
 			leftCountUpdate(progressCnt, "pushup");
 	   }
    
 		status = "pushup";
-		console.log(status);
    } else if(prediction[1].probability.toFixed(2) == 1.00) {
 		status = "pushdown";
-		console.log(status);
    }                                    
       
    for (let i = 0; i < maxPredictions; i++) {
@@ -714,24 +670,19 @@ var kneepushup_predict = async function predict() {
     prediction = await model.predict(posenetOutput);
 
     if(prediction[0].probability.toFixed(2) == 1.00) {
-       console.log(status);
        if(status == "pushdown") {
 			count++;
 			progressCnt++;
-			console.log("카운터 증가" + count);
 			audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
 			audio.play();
-			console.log(count);
 			
 			countUpdate(count, set, "kneepushup");
 			leftCountUpdate(progressCnt, "kneepushup");
 	   }
    
 		status = "pushup";
-		console.log(status);
    } else if(prediction[1].probability.toFixed(2) == 1.00) {
 		status = "pushdown";
-		console.log(status);
    }                                    
       
    for (let i = 0; i < maxPredictions; i++) {
@@ -752,46 +703,36 @@ var sidelunge_predict = async function predict() {
     	
     	if(status == "left" && sideCnt==1){
     		sideCnt++;
-    		console.log(sideCnt);
     	}
     	
     	if(status == "right" && sideCnt==3){
     		sideCnt++;
-    		console.log(sideCnt);
     	}
     	
     	if(sideCnt == 4){
 			count++;
     		progressCnt++;
 			
-    		console.log("카운터 증가" + count);
     		var audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
     		audio.play();
-    		console.log(count);
 
     		countUpdate(count, set, "sidelunge");
     		leftCountUpdate(progressCnt, "sidelunge");
     		window.sideCnt = 0;
-    		console.log("0으로 선언후"+sideCnt);
     	}
     	
     	status = "stand";
-		console.log(status);
     } else if(prediction[1].probability.toFixed(2) == 1.00) {
 		if(status == "stand" && sideCnt == 0){
 			sideCnt++;
-			console.log(sideCnt);
 		}
 		
     	status = "left";
-    	console.log(status);
     } else if(prediction[2].probability.toFixed(2) == 1.00) {
 		if(status == "stand" && sideCnt == 2){
 			sideCnt++;
-			console.log(sideCnt);
 		}
     	status = "right";
-    	console.log(status);
     }
     
     for (let i = 0; i < maxPredictions; i++) {
@@ -815,10 +756,8 @@ var squat_predict = async function predict() {
 			count++;
     		progressCnt++;
 			
-    		console.log("카운터 증가" + count);
     		audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
     		audio.play();
-    		console.log(count);
     		
     		countUpdate(count, set, "squat");
     		leftCountUpdate(progressCnt, "squat");
@@ -826,16 +765,12 @@ var squat_predict = async function predict() {
     	}
     	
     	status = "stand";
-		console.log(status);
     } else if(prediction[1].probability.toFixed(2) == 1.00) {
 		status = "squat";
-		console.log(status);
 	} else if(prediction[2].probability.toFixed(2) == 1.00) {
     	status = "bent";
-    	console.log(status);
     } else if(prediction[3].probability.toFixed(2) == 1.00) {
     	
-    	console.log("wrong");
     } 
     	
     for (let i = 0; i < maxPredictions; i++) {
@@ -857,7 +792,6 @@ var lunge_predict = async function predict() {
 			count++;
 			progressCnt++;
 			
-			console.log("카운터 증가" + count);
 			audio = new Audio('<%=request.getContextPath() %>/resources/audio/' + count + '.mp3');
 			audio.play();
 			
@@ -865,15 +799,12 @@ var lunge_predict = async function predict() {
 			leftCountUpdate(progressCnt, "lunge");
 		}
 		status = "stand";
-		console.log(status);
 	} else if(prediction[1].probability.toFixed(2) == 1.00) {
 		status = "down";
-		console.log(status);
 	}
    
 	for (let i = 0; i < maxPredictions; i++) {
 		classPrediction = prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-// 		labelContainer.childNodes[i].innerHTML = classPrediction;
 	}
    
    drawPose(pose);
@@ -942,7 +873,7 @@ function sidelunge() {
 	URL = "<%=request.getContextPath() %>/resources/motionmodel/sidelunge/";
 	predict = sidelunge_predict;
 	init();
-	audio = new Audio('<%=request.getContextPath() %>/resources/audio/side.mp3');
+	audio = new Audio('<%=request.getContextPath() %>/resources/audio/face.mp3');
     audio.play();
 }
 
@@ -950,7 +881,7 @@ function squat(){
 	URL = "<%=request.getContextPath() %>/resources/motionmodel/squat/";
 	predict = squat_predict;
 	init();
-	audio = new Audio('<%=request.getContextPath() %>/resources/audio/face.mp3');
+	audio = new Audio('<%=request.getContextPath() %>/resources/audio/side.mp3');
     audio.play();
 }
 

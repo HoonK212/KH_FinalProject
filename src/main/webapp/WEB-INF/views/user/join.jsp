@@ -247,7 +247,7 @@
 								placeholder="example@mail.com">
 							<label
 								class="flex justify-start items-center rounded-lg bg-white pl-4 pr-6 py-3 shadow-sm bg-blue-500 hover:bg-blue-600" style="cursor: pointer;">
-<!-- 								<div class="select-none text-white font-extrabold" onclick="XmlMailCheck()">중복확인</div> -->
+								<div class="select-none text-white font-extrabold" onclick="XmlMailCheck()">중복확인</div>
 							</label>
 							</div>
 						</div>
