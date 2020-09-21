@@ -209,8 +209,12 @@ public class ExerciseController {
 
 		// 세션에 있는 운동등급 int형으로 파싱
 		int exerciseLevel = 0;
-		if(!session.getAttribute("level").equals("") && session.getAttribute("level") != null) {
-			exerciseLevel = Integer.parseInt((String) session.getAttribute("level"));
+		try {
+			if(!session.getAttribute("level").equals("") && session.getAttribute("level") != null) {
+				exerciseLevel = Integer.parseInt((String) session.getAttribute("level"));
+			}			
+		} catch (Exception e) {
+			exerciseLevel = exerciseService.selectExerciseMyGrade(user);
 		}
 		
 		Map<String, Object> rewardMap = new HashMap<>();
