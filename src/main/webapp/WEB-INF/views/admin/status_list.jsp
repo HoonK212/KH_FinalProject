@@ -86,7 +86,7 @@
 						</c:when>
 						
 						<c:when test="${st.status eq 4 }">
-						<td class="w-1/4 py-3 px-4 text-center hover:text-red-500"  onclick="getStatusModify(${status.count})">주문취소</td>
+						<td class="w-1/4 py-3 px-4 text-center hover:text-red-500 font-bold"  onclick="getStatusModify(${status.count})">주문취소</td>
 						</c:when>
 						
 						<c:when test="${st.status eq 5 }">
@@ -94,7 +94,7 @@
 						</c:when>
 						
 						<c:when test="${st.status eq 6 }">
-						<td class="w-1/4 py-3 px-4 text-center hover:text-red-500" onclick="getStatusModify(${status.count})" >반품완료</td>
+						<td class="w-1/4 py-3 px-4 text-center hover:text-red-500 font-bold" onclick="getStatusModify(${status.count})" >반품완료</td>
 						</c:when>
 						
 					</c:choose>
@@ -390,7 +390,7 @@ function getStatusModify(count){
 	}else if(status == '반품접수'){
 		$('.comment').html('현재상태: 반품접수<br>반품이 완료되면 반품완료로 변경해주세요.')
 		$('.select-none').text('반품완료');
-		$("input[name='status']").val(5);
+		$("input[name='status']").val(6);
 		$("input[name='op_no']").val(document.getElementsByTagName('tr')[count].childNodes[7].innerText);
 		//모달 창 열기
 	    document.getElementById('OrderStatus').showModal();  
