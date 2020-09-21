@@ -66,7 +66,6 @@ public class ExerciseServiceImpl implements ExerciseService {
 		// calcExerCnt 배열에 [조회한 운동 * level] 저장
 		for(int i=0; i<userExer.length; i++) {
 			calcExerCnt[i] = (int) Math.ceil(exerciseDao.selectExerciseCount(userExer[i]) * level);
-			System.out.println("calcExerCnt  : " + calcExerCnt[i]);
 		}
 		
 		return calcExerCnt;
@@ -98,7 +97,6 @@ public class ExerciseServiceImpl implements ExerciseService {
 		
 		// 포인트 지급
 		int point = (int) Math.ceil(exerciseLength * 10.0 * level);
-		System.out.println("point  : " + point);
 		
 		// 계산된 point map에 넣기
 		rewardMap.put("point", point);
@@ -119,12 +117,9 @@ public class ExerciseServiceImpl implements ExerciseService {
 		int exerciseLength = (int) rewardMap.get("exerciseLength");
 		
 		String userid = (String) rewardMap.get("userid");
-		System.out.println("userid   : " + userid);
 		
 		// 당일 지급받은 코인이 있는지 조회
 		int todayUserCoinCnt = exerciseDao.selectUserCoinCnt(userid);
-		
-		System.out.println("당일 지급받은 코인 횟수 : " + todayUserCoinCnt);
 		
 		// 0보다 크면 코인 보유개수 조회
 		if(todayUserCoinCnt > 0) {

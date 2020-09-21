@@ -8,7 +8,8 @@
 <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Daily Home Training</title>
+<link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/image/logo.png">
 <style type="text/css">
 * {
   padding: 0;
@@ -367,7 +368,7 @@ table {
   <tbody>
     <tr>
       <td style="width:20%;">
-      <input type="file" name="file" id="imageUpload" class="hide" multiple="multiple"/> 
+      <input type="file" name="file" id="imageUpload" class="hide" multiple="multiple" /> 
      <img src="<%=request.getContextPath()%>/resources/${pic.path}/${pic.renamed }.${pic.ext}" id="imagePreview" alt="Preview Image" style="width:200px; height:180px;"/>
       </td> 
       <td>
@@ -377,14 +378,14 @@ table {
     </tr>
     <tr>
       <td>아이디</td>
-      <td style="width:40%;"><input type='text' value="${user.id}" style="border:none;background-color:transparent;" ></td>
+      <td style="width:40%;"><input type='text' value="${user.id}" style="border:none;background-color:transparent;" readonly></td>
       <td></td>
     </tr>
     <tr>
       <td>비밀번호</td>
       <td>
       
-      <input type='password' value="${user.pw}" style="border:none;background-color:transparent;" id="oPw" name="pw">
+      <input type='password' value="${user.pw}" style="border:none;background-color:transparent;" id="oPw" name="pw" readonly>
       
       <div id="pwAdd"></div>
       </td>
@@ -393,7 +394,7 @@ table {
     <tr>
       <td>닉네임</td>
       <td>
-      <input type='text' value="${user.nick}" style="border:none;background-color:transparent;" id="oNick" name="nick">
+      <input type='text' value="${user.nick}" style="border:none;background-color:transparent;" id="oNick" name="nick" readonly>
       <div id="nickAdd"></div>
       </td>
       <td> <span class="button raised green center" style="width:57; height:35; line-height:35px; cursor: pointer;" onclick="attachNick()">수정</span></td>
@@ -401,7 +402,7 @@ table {
     <tr>
       <td>이메일</td>
       <td>
-      <input type='email' value="${user.mail}" style="border:none;background-color:transparent;" id="oMail" name="mail">
+      <input type='email' value="${user.mail}" style="border:none;background-color:transparent;" id="oMail" name="mail" readonly>
       <div id="mailAdd"></div>
       </td>
       <td> <span class="button raised green center" style="width:57; height:35; line-height:35px; cursor: pointer;" onclick="attachMail()">수정</span></td>
@@ -409,7 +410,7 @@ table {
     <tr>
       <td>전화번호</td>
       <td>
-      <input type='text' value="${user.tel}" style="border:none;background-color:transparent;" id="oTel" name="tel">
+      <input type='text' value="${user.tel}" style="border:none;background-color:transparent;" id="oTel" name="tel" readonly>
       <div id="telAdd"></div>
       </td>
       <td> <span class="button raised green center" style="width:57; height:35; line-height:35px; cursor: pointer;" onclick="attachTel()">수정</span></td>
@@ -417,8 +418,8 @@ table {
     <tr>
       <td>계좌</td>
       <td>
-      <input type='text' value="${account.bank}" style="border:none;background-color:transparent;" id="oBank" name="bank">
-      <input type='text' value="${account.account}" style="border:none;background-color:transparent;" id="oAccount" name="account">
+      <input type='text' value="${account.bank}" style="border:none;background-color:transparent;" id="oBank" name="bank" readonly>
+      <input type='text' value="${account.account}" style="border:none;background-color:transparent;" id="oAccount" name="account" readonly>
       <div id="accountAdd"></div>
       </td>
       <td><span class="button raised green center" style="width:57; height:35; line-height:35px; cursor: pointer;" onclick="attachAccount()">수정</span></td>
@@ -426,8 +427,8 @@ table {
     <tr>
       <td>주소</td>
       <td>
-      <input type='text' value="${user.post}" style="border:none;background-color:transparent;" id="oPost" name="post">
-      <input type='text' value="${user.addr}" style="border:none;background-color:transparent; width:100%;" id="oAddr" name="addr">
+      <input type='text' value="${user.post}" style="border:none;background-color:transparent;" id="oPost" name="post" readonly>
+      <input type='text' value="${user.addr}" style="border:none;background-color:transparent; width:100%;" id="oAddr" name="addr" readonly>
       <div id="addrAdd"></div>
       </td>
       <td><span class="button raised green center" style="width:57; height:35; line-height:35px; cursor: pointer;" onclick="attachAddr()">수정</span></td>
@@ -438,7 +439,7 @@ table {
 </form>
 
 <!-- button -->
-   <div style="margin-left:1046px; display:inline;">
+   <div style="margin-left:1046px; display:inline; padding-bottom: 50px;">
         <div class="button raised green" style="width:5%; display:inline-block; text-align:center; cursor: pointer;" onclick="sendForm();">
                <span class="center" >저장</span>
         </div>
