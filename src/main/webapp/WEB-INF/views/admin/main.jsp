@@ -8,16 +8,13 @@
 <!-- HEADER -->
 <%@include file="/WEB-INF/views/layout/admin_header.jsp" %>
 
-<!-- SIDEBAR -->
-<%@include file="/WEB-INF/views/layout/admin_sidebar.jsp" %>
-	
 <!-- SECTION  -->
 <div class="lay-item">
 	
 	<!-- CONTENT -->
 	<div class="section-container">
 		
-		<div class="flex rounded-lg shadow-lg w-full sm:w-3/4 lg:w-1/2 bg-white sm:mx-0" style="min-height: 675px; width: 80%; margin: 0 auto;">
+		<div class="flex rounded-lg shadow-lg w-full sm:w-3/4 lg:w-1/2 bg-white sm:mx-0" style="min-height: 560px; width: 80%; margin: 0 auto;">
             <div class="flex flex-col w-full md:w-1/2 p-4">
                 <div class="flex flex-col flex-1 justify-center mb-8">
                     <h1 class="text-3xl text-center font-extrabold text-gray-800">관리자 로그인</h1>
