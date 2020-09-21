@@ -49,18 +49,25 @@ public interface ShoppingService {
 	//장바구니 리스트 삭제
 	public int deleteList(Map<String,Object> map);
 	
+	// 상품 목록 조회
 	public List<Map<String, Object>> selectProuct(Basket basket);
+	
 	
 	public List<Map<String, Object>> selectProuct(Map map);
 	
+	// 해당 계정의 포인트 조회
 	public int selectPoint(String id);
 	
+	// 주문 내역 삽입
 	public int insertOrders(Orders order);
 	
+	// 주문 내역 당 상품 삽입
 	public int insertOrderProduct(List<OrderProduct> orderProduct);
 	
+	// 주문내역의 상품 삽입을 위한 주문내역 번호 조회
 	public int selectOrdersNo();
 	
+	// 주문 시 사용한 포인트 삽입
 	public void insertPoint(Map userPoint);
 
 	//상세페이지 - 리뷰 정보

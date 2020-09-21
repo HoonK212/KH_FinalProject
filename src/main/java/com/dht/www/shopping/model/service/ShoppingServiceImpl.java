@@ -100,36 +100,42 @@ public class ShoppingServiceImpl implements ShoppingService {
 		return shoppingDao.deleteList(map);
 	}
 
+	// 상품 목록 조회
 	@Override
 	public List<Map<String, Object>> selectProuct(Map map) {
 		return shoppingDao.selectProduct(map);
 	}
 
+	// 해당 계정의 포인트 조회
 	@Override
 	public int selectPoint(String id) {
 		return shoppingDao.selectPoint(id);
 	}
 
+	// 해당 계정의 포인트 조회
 	@Override
 	public List<Map<String, Object>> selectProuct(Basket basket) {
 		return null;
 	}
 
+	// 주문 내역 삽입
 	@Override
 	public int insertOrders(Orders order) {
 		return shoppingDao.insertOrders(order);
 	}
 	
+	// 주문 내역 당 상품 삽입
 	public int insertOrderProduct(List<OrderProduct> orderProduct) {
 		return shoppingDao.insertOrderProduct(orderProduct);
 	}
 	
+	// 주문내역의 상품 삽입을 위한 주문내역 번호 조회
 	@Override
-
 	public int selectOrdersNo() {
 		return shoppingDao.selectOrdersNo();
 	}
 
+	// 주문 시 사용한 포인트 삽입
 	@Override
 	public void insertPoint(Map userPoint) {
 		shoppingDao.insertPoint(userPoint);

@@ -244,7 +244,7 @@
                         <div class="mx-3">
 						<c:set var="totalPayment" value="${total  + 3000}"></c:set>
 						
-                        	<h3 id="totalLoc" class="text-sm text-gray-600">${totalPayment} 원</h3>
+                        	<h3 id="totalLoc" class="text-sm text-gray-600">${totalPayment-userPointLoc} 원</h3>
                             <br>
                             <h3 class="text-sm text-gray-600">3,000원</h3>
                             <h3 class="text-sm text-gray-600">${sale}원</h3>
@@ -278,13 +278,20 @@
         </div>
     	</main>
   
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+  
 <script type="text/javascript">  	
+var usepointval
+
    	$("#usePointCheck").click(function(){
    		
    		if($("#usePointCheck").is(":checked")){
    			$("#usePoint").val(${point})
    			$("#usePointLoc").text(${point}+" 포인트")
    			$("#totalLoc").text(${totalPayment}-$('#usePoint').val()+" 원")
+   			usepointval=$('#usePoint').val()
+   			console.log(usepointval)
    		}else{
    			$("#usePoint").val('')
    			$("#usePointLoc").text('')
@@ -297,6 +304,8 @@
    		if(($("#usePoint").val() >= 0) && ($("#usePoint").val() <= ${point})){
 	   		$("#usePointLoc").text($("#usePoint").val()+" 포인트")
 	   		$("#totalLoc").text(${totalPayment}-$('#usePoint').val()+" 원")
+	   		usepointval=$('#usePoint').val()
+   			console.log(usepointval)
    		}else if($("#usePoint").val() < 0){
    			alert("잘못된 입력 형식입니다.")
    			$("#usePoint").val('')
@@ -305,7 +314,98 @@
    			$("#usePoint").val('')
    		}
    	})
+
+
+
+$(document).ready(function() {
+	// iamport 변수 초기화
+	var IMP = window.IMP;
+	IMP.init('imp56588598');	// 가맹점 식별코드, 회원가입해서 직접 넣어야합니다
+
+});
+
+function requestPayment() {
+	
+	if($("#necessary").is(":checked")){
+		console.log("활성화하렴")
+		$("#pay").prop('disabled', false);
+	}else{
+		console.log("비활성화하렴")
+		alert("구매조건 확인 및 결제진행 동의 체크 사항은 필수입니다.")
+		return;
+	}
+	
+	
+	IMP.request_pay({
+	    pg : 'html5_inicis', //PG사 - 'kakao':카카오페이, 'html5_inicis':이니시스(웹표준결제), 'nice':나이스페이, 'jtnet':제이티넷, 'uplus':LG유플러스, 'danal':다날, 'payco':페이코, 'syrup':시럽페이, 'paypal':페이팔
+	    pay_method : 'card', //결제방식 - 'samsung':삼성페이, 'card':신용카드, 'trans':실시간계좌이체, 'vbank':가상계좌, 'phone':휴대폰소액결제
+	    merchant_uid : 'merchant_' + new Date().getTime(), //고유주문번호 - random, unique
+    	name : '주문명 : ' + '${productname[0]}', //주문명 - 선택항목, 결제정보 확인을 위한 입력, 16자 이내로 작성 
+	    amount : 10,//${totalPayment}-usepointval, //결제금액 - 필수항목
+	    buyer_email : '${logInInfo.mail}', //주문자Email - 선택항목
+	    buyer_name : '${logInInfo.name}', //주문자명 - 선택항목 
+	    buyer_tel : '${logInInfo.tel}', //주문자연락처 - 필수항목, 누락되면 PG사전송 시 오류 발생
+	   	buyer_addr : '${logInInfo.addr}', //주문자주소 - 선택항목
+	    buyer_postcode : '${logInInfo.post}', //주문자우편번호 - 선택항목 
+	    
+	   // m_redirect_url : 'https://www.yourdomain.com/payments/complete' //모바일결제후 이동페이지 - 선택항목, 모바일에서만 동작
+	    
+	}, function(rsp) { // callback - 결제 이후 호출됨, 이곳에서 DB에 저장하는 로직을 작성한다
+	    if ( rsp.success ) { // 결제 성공 로직
+	        var msg = '결제가 완료되었습니다. 저거니';
+	        msg += '고유ID : ' + rsp.imp_uid;
+	        msg += '상점 거래ID : ' + rsp.merchant_uid;
+	        msg += '결제 금액 : ' + rsp.paid_amount;
+	        msg += '카드 승인번호 : ' + rsp.apply_num;
+	        msg += '[rsp.success]';
+
+	        
+	        // 결제 완료 처리 로직
+			//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
+			jQuery.ajax({
+					url: "/shopping/paymentCheck", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
+					type: 'POST',
+					dataType: 'json',
+					contentType:'application/json',
+					data: JSON.stringify({
+						imp_uid : rsp.imp_uid,
+						name : $('#toName').val(),
+						tel : $('#toTel').val(),
+						post :$('#sample4_postcode').val(),
+						addr : $("#sample4_roadAddress").val()+" "+$("#sample4_detailAddress").val(),
+						product : '${product}',
+// 						info : '${logInInfo}',
+						point : $('#usePoint').val()
+						//기타 필요한 데이터가 있으면 추가 전달
+						})
+				}).done(function(data) {
+				//[2] 서버에서의 응답 처리
+					if ( data == 'success' ) {
+						var msg = '결제가 완료되었습니다. 이거니';
+						msg += '\n고유ID : ' + rsp.imp_uid;
+						msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+						msg += '\n결제 금액 : ' + rsp.paid_amount;
+						msg += '\n카드 승인번호 : ' + rsp.apply_num;
+				        msg += '\n[done]';
+	
+						alert(msg);
+	    			} else {
+	    			//[3] 아직 제대로 결제가 되지 않았습니다.
+	    			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
+	    			}
+	    		});
+			location.href="/shopping/paymentComplete";
+	        
+	    } else { // 결제 실패 로직
+	        var msg = '결제에 실패하였습니다.';
+	        msg += '에러내용 : ' + rsp.error_msg;
+	    }
+	});
+}
+
 </script>
+
+
 <script type="text/javascript">
 
 var xmlHttp = null;
@@ -392,99 +492,6 @@ function sample4_execDaumPostcode() {
         }
     }).open();
 }
-</script>
-
-<!-- iamport.payment.js -->
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-<script>
-$(document).ready(function() {
-	// iamport 변수 초기화
-	var IMP = window.IMP;
-	IMP.init('imp56588598');	// 가맹점 식별코드, 회원가입해서 직접 넣어야합니다
-
-});
-</script>
-
-<script>
-function requestPayment() {
-	
-	if($("#necessary").is(":checked")){
-		console.log("활성화하렴")
-		$("#pay").prop('disabled', false);
-	}else{
-		console.log("비활성화하렴")
-		alert("구매조건 확인 및 결제진행 동의 체크 사항은 필수입니다.")
-		return;
-	}
-	
-	
-	IMP.request_pay({
-	    pg : 'html5_inicis', //PG사 - 'kakao':카카오페이, 'html5_inicis':이니시스(웹표준결제), 'nice':나이스페이, 'jtnet':제이티넷, 'uplus':LG유플러스, 'danal':다날, 'payco':페이코, 'syrup':시럽페이, 'paypal':페이팔
-	    pay_method : 'card', //결제방식 - 'samsung':삼성페이, 'card':신용카드, 'trans':실시간계좌이체, 'vbank':가상계좌, 'phone':휴대폰소액결제
-	    merchant_uid : 'merchant_' + new Date().getTime(), //고유주문번호 - random, unique
-    	name : '주문명 : ' + '${product[0].name}', //주문명 - 선택항목, 결제정보 확인을 위한 입력, 16자 이내로 작성 
-	    amount : 10, //${totalPayment},	//결제금액 - 필수항목
-	    buyer_email : '${logInInfo.mail}', //주문자Email - 선택항목
-	    buyer_name : '${logInInfo.name}', //주문자명 - 선택항목 
-	    buyer_tel : '${logInInfo.tel}', //주문자연락처 - 필수항목, 누락되면 PG사전송 시 오류 발생
-	   	buyer_addr : '${logInInfo.addr}', //주문자주소 - 선택항목
-	    buyer_postcode : '${logInInfo.post}', //주문자우편번호 - 선택항목 
-	    
-	   // m_redirect_url : 'https://www.yourdomain.com/payments/complete' //모바일결제후 이동페이지 - 선택항목, 모바일에서만 동작
-	    
-	}, function(rsp) { // callback - 결제 이후 호출됨, 이곳에서 DB에 저장하는 로직을 작성한다
-	    if ( rsp.success ) { // 결제 성공 로직
-	        var msg = '결제가 완료되었습니다. 저거니';
-	        msg += '고유ID : ' + rsp.imp_uid;
-	        msg += '상점 거래ID : ' + rsp.merchant_uid;
-	        msg += '결제 금액 : ' + rsp.paid_amount;
-	        msg += '카드 승인번호 : ' + rsp.apply_num;
-	        msg += '[rsp.success]';
-
-	        
-	        // 결제 완료 처리 로직
-			//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
-			jQuery.ajax({
-					url: "/shopping/paymentCheck", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
-					type: 'POST',
-					dataType: 'json',
-					contentType:'application/json',
-					data: JSON.stringify({
-						imp_uid : rsp.imp_uid,
-						name : $('#toName').val(),
-						tel : $('#toTel').val(),
-						post :$('#sample4_postcode').val(),
-						addr : $("#sample4_roadAddress").val()+" "+$("#sample4_detailAddress").val(),
-						product : '${product}',
-// 						info : '${logInInfo}',
-						point : $('#usePoint').val()
-						//기타 필요한 데이터가 있으면 추가 전달
-						})
-				}).done(function(data) {
-				//[2] 서버에서의 응답 처리
-					if ( data == 'success' ) {
-						var msg = '결제가 완료되었습니다. 이거니';
-						msg += '\n고유ID : ' + rsp.imp_uid;
-						msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-						msg += '\n결제 금액 : ' + rsp.paid_amount;
-						msg += '\n카드 승인번호 : ' + rsp.apply_num;
-				        msg += '\n[done]';
-	
-						alert(msg);
-	    			} else {
-	    			//[3] 아직 제대로 결제가 되지 않았습니다.
-	    			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
-	    			}
-	    		});
-			location.href="/shopping/paymentComplete";
-	        
-	    } else { // 결제 실패 로직
-	        var msg = '결제에 실패하였습니다.';
-	        msg += '에러내용 : ' + rsp.error_msg;
-	    }
-	});
-}
-
 </script>
 
 <%@include file="../layout/shopping_footer.jsp" %>

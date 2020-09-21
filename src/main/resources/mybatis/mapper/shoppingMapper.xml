@@ -44,6 +44,7 @@
 		<result column="event" property="event"/>
 	</resultMap>
 	
+	<!-- 리뷰 -->
 	<resultMap type="map" id="detailReview">
 		<result column="nick" property="nick"/>
 		<result column="score" property="score"/>
@@ -152,6 +153,7 @@
 		and p.stock > 0 and p.code = #{value}
 	</select>
 	
+	<!-- 장바구 상품 조회 -->
 	<select id="selectProduct" resultMap="basketItem">
 		select p.name, p.code, p.company, b.amount, p.price, f.path, f.renamed, f.ext from product p, basket b, files f
         where b.code = p.code and f.ref = p.code and thumbnail = 1
@@ -162,6 +164,7 @@
 		and b.id = #{userId}
 	</select>
 	
+	<!-- 포인트 조회 -->
 	<select id="selectPoint" parameterType="String" resultType="int">
 		select NVL(point, 0) point from point_coin
 		where id = #{id}
@@ -229,19 +232,23 @@
 		</foreach>
 	</delete>
 	
+	<!-- 주문번호 조회 -->
 	<select id="selectOrdersNo" resultType="int">
 		select orders_seq.nextval from dual
 	</select>
 	
+	<!-- 주문 정보 삽입 -->
 	<insert id="insertOrders">
 		insert into orders
       values (#{no}, 1, sysdate+ (INTERVAL '9' HOUR), #{mUid}, #{id}, #{toName}, #{toTel}, #{toAddr}, #{toPost})
 	</insert>
 	
+	<!-- 주문의 상품정보 삽입 -->
 	<insert id="insertOrderProduct">
 		insert into order_product values (order_product_seq.nextval, #{amount}, #{point}, #{code}, #{ordersNo}, 1)
 	</insert>
 	
+	<!-- 주문 시 사용 포인트 삽입 -->
 	<insert id="insertPoint" parameterType="map">
 		insert into compensation values ( #{id}, sysdate+ (INTERVAL '9' HOUR), 1, null, 0, #{point} )
 	</insert>
