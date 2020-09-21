@@ -1,13 +1,13 @@
 package com.dht.www.mypage.model.vo;
 
 public class Account {
-   private long account;
+   private String account;
    private String bank; 
    private String id;
-   public long getAccount() {
+   public String getAccount() {
       return account;
    }
-   public void setAccount(long account) {
+   public void setAccount(String account) {
       this.account = account;
    }
    public String getBank() {

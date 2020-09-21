@@ -232,7 +232,7 @@ public class MypageController {
    //계좌 중복체크
    @RequestMapping(value = "/chAccount" , method = RequestMethod.POST)
    @ResponseBody
-   public String chAccount(@RequestParam("account") long account , HttpSession session) {
+   public String chAccount(@RequestParam("account") String account , HttpSession session) {
       
       int res = mypageService.chAccount(account);
       

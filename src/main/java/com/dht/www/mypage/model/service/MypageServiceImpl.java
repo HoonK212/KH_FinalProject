@@ -397,7 +397,7 @@ public class MypageServiceImpl implements MypageService {
 	   }
 
 	   //기존에 계좌가 존재하는 지 확인하는 메소드 
-	   public int chAccount(long account) {
+	   public int chAccount(String account) {
 	      return mypageDao.chAccount(account);
 	   }
 	   
@@ -410,24 +410,31 @@ public class MypageServiceImpl implements MypageService {
 	      return password ; 
 	   }
 
-	   //회원정보를 업데이트 하는 코드 
-	   public void updateUserInfo(Users user, String id, Account account) {
-	      
-	      //회원정보를 업데이트 하는 메소드 
-	      mypageDao.updateUserInfo(user, id);
-	      
-	      //계좌정보를 업데이트 하는 메소드 
-	      int res = mypageDao.checkAccount(id);
-	      
-	      if(res == 0) {
-	         //계좌 정보가 기존에 없는 경우  insert
-	         mypageDao.insertAccount(account, id);
-	      }else {
-	         //계좌정보가 기존이 엤는 경우 
-	         mypageDao.updateAccount(account, id);
-	      }
-	      
-	   }//end
+	      //회원정보를 업데이트 하는 코드 
+	      public void updateUserInfo(Users user, String id, Account account) {
+	         
+	         //회원정보를 업데이트 하는 메소드 
+	         mypageDao.updateUserInfo(user, id);
+	         
+	         System.out.println("account null 검사 : ");
+	         System.out.println(account.getAccount());
+	         
+	         //account가 null이 아닌경우 에만 수행
+	         if(!account.getAccount().equals("")) {
+	            
+	            //계좌정보를 업데이트 하는 메소드 
+	            int res = mypageDao.checkAccount(id);
+	            
+	            if(res == 0) {
+	               //계좌 정보가 기존에 없는 경우  insert
+	               mypageDao.insertAccount(account, id);
+	            }else {
+	               //계좌정보가 기존이 엤는 경우 
+	               mypageDao.updateAccount(account, id);
+	            }
+	         }
+	         
+	      }//end
 	   
 	   //회원 이미지를 insert 하는 메소드 
 	   public void insertUserProfile(List<MultipartFile> file, String id, String root, HttpSession session) {

@@ -43,7 +43,7 @@ public interface MypageService {
 	   //기존의 닉네임이 존재하는지 확인 하는 메소드 
 	   public int chNick(String nick);
 	   //계좌가 이미 존재하는 지 확인하는 메소드 
-	   public int chAccount(long account);
+	   public int chAccount(String account);
 	   //비밀번호를 암호화 하는 메소드 
 	   public String codePassword(String pw);
 	   //회원정보를 업데이트 하는 코드 
