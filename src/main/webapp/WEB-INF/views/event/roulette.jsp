@@ -98,7 +98,7 @@ function spin() {
 	if(doubleSpinCheck()) return;
 
 	if(parseInt(coin) < 1) {
-		alert("코인이 부족합니다");
+		alert("보유 코인이 부족합니다");
 		return false;
 		
 	} else {

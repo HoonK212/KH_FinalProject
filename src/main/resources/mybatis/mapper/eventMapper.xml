@@ -69,7 +69,7 @@
 	<!-- 한주간 출석 횟수 정보 -->
 	<select id="checkWeekAttend" parameterType="string" resultType="int">
 		select count(dates) from (select distinct to_char(dates, 'yy/mm/dd') dates from compensation
-		where event = 1 and type = 1 and id = #{value} and to_char(sysdate, 'D') = 1 and
+		where event = 1 and type = 1 and id = #{value} and to_char(sysdate + (INTERVAL '9' HOUR), 'D') = 1 and
 		to_char(dates, 'yy/mm/dd') between to_char(sysdate + (INTERVAL '9' HOUR) - to_char(sysdate + (INTERVAL '9' HOUR), 'D') -5, 'yy/mm/dd') 
 		and to_char(sysdate + (INTERVAL '9' HOUR) - to_char(sysdate + (INTERVAL '9' HOUR), 'D') , 'yy/mm/dd'))
 	</select>

@@ -102,7 +102,7 @@
     	
     	console.log(${coin})
     	if(${coin} < 0){
-    		alert("보유 COIN이 부족합니다.")
+    		alert("보유 코인이 부족합니다.")
     		return;
     	}
     	
