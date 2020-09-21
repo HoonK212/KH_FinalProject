@@ -170,18 +170,20 @@ public class AdminServiceImpl implements AdminService {
 				String param = (String)search.get("data");
 				
 				//수리여부&반품완료 데이터처리
-				if( param.equals("상품준비") ) {
+				if( param.contains("상품준비") ) {
 					search.put("data", 1);
-				}else if( param.equals("출고") ) {
+				}else if( param.contains("출고완료") ) {
 					search.put("data", 2);
-				}else if( param.equals("배송완료") ) {
+				}else if( param.contains("배송완료") ) {
 					search.put("data", 3);
-				}else if( param.equals("주문취소") ) {
+				}else if( param.contains("주문취소") ) {
 					search.put("data", 4);
-				}else if( param.equals("반품접수") ) {
+				}else if( param.contains("반품접수") ) {
 					search.put("data", 5);
-				}else {
+				}else if( param.contains("반품완료") ) {
 					search.put("data", 6);
+				}else{
+					search.put("data", 7);
 				};
 			
 				//페이징 객체
