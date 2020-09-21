@@ -99,7 +99,7 @@
 			and to_char(sysdate+ (INTERVAL '9' HOUR) - to_char(sysdate+ (INTERVAL '9' HOUR), 'D') + 11, 'yy/mm/dd')
 		</if>
 		
-		order by r.dates
+		order by rk, dates desc
 	</select>
 	
 	<!-- 신기록 랭킹 기간 -->
