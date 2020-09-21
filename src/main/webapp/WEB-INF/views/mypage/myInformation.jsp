@@ -1236,27 +1236,12 @@ table {
    
    //form을 전송하는 코드
    function sendForm(){
-      
-      var bank = document.querySelector('#oBank').value;
-      var account = document.querySelector('#oAccount').value;
-      
-      
-      //계좌 정보가 입력이 되었을 때 전송이 되도록 한다 
-      if( bank == '' || account == ''){
-         //계좌정보가 입력이 되지 않으면 form이 전송이 되지 못하도록 한다 
-         alert('계좌정보를 입력해주세요');
-         return false;
-      }else{
+     
          var form = document.querySelector('#form');
          form.submit();
-      }
+     
    }
-   
-   //취소 버튼
-   function back(){
-      history.go(-1);
-   }
-   
+  
    
    
    

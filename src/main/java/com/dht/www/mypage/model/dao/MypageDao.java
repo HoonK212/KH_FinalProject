@@ -123,7 +123,7 @@ public class MypageDao {
 	   }
 	   
 	   //계좌를 확인하는 메소드 
-	   public int chAccount(long account) {
+	   public int chAccount(String account) {
 	      return sqlSession.selectOne("MYPAGE.chAccount", account);
 	   }
 	   
