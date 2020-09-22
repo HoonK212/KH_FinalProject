@@ -132,12 +132,3 @@
 [forks-url]: https://github.com/HoonK212/KH_FinalProject/network/members
 [stars-shield]: https://img.shields.io/github/stars/HoonK212/KH_FinalProject.svg?style=flat-square
 [stars-url]: https://github.com/HoonK212/KH_FinalProject/stargazers
-
-[contributors-shield]: https://img.shields.io/github/contributors/COVID-19-WEB-App/COVID-19-Web-app.svg?style=flat-square
-[contributors-url]: https://github.comCOVID-19-WEB-App/COVID-19-Web-app/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/COVID-19-WEB-App/COVID-19-Web-app.svg?style=flat-square
-[forks-url]: https://github.com/COVID-19-WEB-App/COVID-19-Web-app/network/members
-[stars-shield]: https://img.shields.io/github/stars/COVID-19-WEB-App/COVID-19-Web-app.svg?style=flat-square
-[stars-url]: https://github.com/COVID-19-WEB-App/COVID-19-Web-app/stargazers
-[issues-shield]: https://img.shields.io/github/issues/COVID-19-WEB-App/COVID-19-Web-app.svg?style=flat-square
-[issues-url]: https://github.com/COVID-19-WEB-App/COVID-19-Web-app/issues
