@@ -3,7 +3,7 @@
 
 ![Contributors][contributors-shield]
 ![Forks][forks-shield]
-[![Stargazers][stars-shield]][stars-url]
+[![Stargazers][stars-shield]
 
 <!-- PROJECT LOGO -->
 <br />
