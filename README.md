@@ -1,10 +1,9 @@
 ## Teachablemachine을 활용한 홈트레이닝 웹 프로젝트:muscle:
 <!--KH정보교육원 | [NCS]UIUX엔지니어링 및 응용SW 엔지니어링 양성과정 | 파이널 프로젝트 - 데일리 홈 트레이닝-->
 
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
+![Contributors][contributors-shield]
+![Forks][forks-shield]
 [![Stargazers][stars-shield]][stars-url]
-
 
 <!-- PROJECT LOGO -->
 <br />
@@ -127,9 +126,18 @@
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=flat-square
+[contributors-shield]: https://img.shields.io/github/contributors/HoonK212/KH_FinalProject.svg?style=flat-square
 [contributors-url]: https://github.com/HoonK212/KH_FinalProject/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=flat-square
+[forks-shield]: https://img.shields.io/github/forks/HoonK212/KH_FinalProject.svg?style=flat-square
 [forks-url]: https://github.com/HoonK212/KH_FinalProject/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=flat-square
+[stars-shield]: https://img.shields.io/github/stars/HoonK212/KH_FinalProject.svg?style=flat-square
 [stars-url]: https://github.com/HoonK212/KH_FinalProject/stargazers
+
+[contributors-shield]: https://img.shields.io/github/contributors/COVID-19-WEB-App/COVID-19-Web-app.svg?style=flat-square
+[contributors-url]: https://github.comCOVID-19-WEB-App/COVID-19-Web-app/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/COVID-19-WEB-App/COVID-19-Web-app.svg?style=flat-square
+[forks-url]: https://github.com/COVID-19-WEB-App/COVID-19-Web-app/network/members
+[stars-shield]: https://img.shields.io/github/stars/COVID-19-WEB-App/COVID-19-Web-app.svg?style=flat-square
+[stars-url]: https://github.com/COVID-19-WEB-App/COVID-19-Web-app/stargazers
+[issues-shield]: https://img.shields.io/github/issues/COVID-19-WEB-App/COVID-19-Web-app.svg?style=flat-square
+[issues-url]: https://github.com/COVID-19-WEB-App/COVID-19-Web-app/issues
