@@ -2,7 +2,7 @@
 <!--KH정보교육원 | [NCS]UIUX엔지니어링 및 응용SW 엔지니어링 양성과정 | 파이널 프로젝트 - 데일리 홈 트레이닝-->
 
 ![Contributors][contributors-shield]
-![Forks][forks-shield]
+[![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 
 <!-- PROJECT LOGO -->
