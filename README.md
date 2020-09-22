@@ -1,8 +1,8 @@
 ## Teachablemachine을 활용한 홈트레이닝 웹 프로젝트:muscle:
 <!--KH정보교육원 | [NCS]UIUX엔지니어링 및 응용SW 엔지니어링 양성과정 | 파이널 프로젝트 - 데일리 홈 트레이닝-->
 
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
+[![Contributors][contributors-shield]][https://github.com/HoonK212/KH_FinalProject/graphs/contributors]
+[![Forks][forks-shield]][https://github.com/HoonK212/KH_FinalProject/network/members]
 [![Stargazers][stars-shield]][stars-url]
 
 
@@ -91,7 +91,7 @@
   * FullCalendar API를 활용한 사용자 운동 목표 및 달성 내용 출력
   * 운동 목표 설정 기능 : 운동 종류, 요일, 단계 설정
   * 회원정보 수정
-  * 포인트 현금 전환(비기능..)
+  * 포인트 현금 전환
   * 회원이 작성한 게시글/댓글 조회 및 삭제
   * 구매 내역 조회 및 반품 신청
   * 배송 완료된 상품에 대한 후기 작성
