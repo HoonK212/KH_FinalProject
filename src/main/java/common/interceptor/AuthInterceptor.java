@@ -48,7 +48,7 @@ public class AuthInterceptor implements HandlerInterceptor{
 	
 	public void auth(HttpServletRequest req, HttpServletResponse resp) {
 		
-		req.setAttribute("alertMsg", "비회원은 권한이 없습니다.");
+		req.setAttribute("alertMsg", "비회원은 권한이 없습니다. \\n(테스트 계정 : yeonho / 123)");
 		req.setAttribute("url", req.getContextPath()+"/user/login");
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/common/result.jsp");
 		
@@ -78,7 +78,7 @@ public class AuthInterceptor implements HandlerInterceptor{
 	
 	public void adminauth(HttpServletRequest req, HttpServletResponse resp) {
 		
-		req.setAttribute("alertMsg", "관리자 권한이 없습니다.");
+		req.setAttribute("alertMsg", "관리자 권한이 없습니다. \\n(테스트 계정 : ADMIN / 123)");
 		req.setAttribute("url", req.getContextPath()+"/adminlogin/main");
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/common/result.jsp");
 		
