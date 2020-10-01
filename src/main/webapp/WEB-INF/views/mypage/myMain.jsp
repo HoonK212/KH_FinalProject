@@ -285,9 +285,9 @@ var dataset = [
 		        left: 'title',
 		    	right: '',
 		        center: ''
-		    //  right: 'dayGridMonth'
+		    // 	right: 'dayGridMonth'
 		      },    
-		      initialDate: '2020-09-12',
+		   //   initialDate: '2020-09-12',
 		      events: dataset
 		    });
 
