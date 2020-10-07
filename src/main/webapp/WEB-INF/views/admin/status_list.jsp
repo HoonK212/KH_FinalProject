@@ -331,7 +331,7 @@ function getOrdersDetail(count) {
 	
 	var xhr = new XMLHttpRequest();
 	//파라미터로 보낼 상품 코드
-	var o_no = document.getElementsByTagName('tr')[count].childNodes[7].innerText;
+	var o_no = document.getElementsByTagName('tr')[count].childNodes[9].innerText;
 	var param = "o_no="+o_no;
 	
 	xhr.open('GET', '<%=request.getContextPath()%>/admin/ordersdetail?' + param);

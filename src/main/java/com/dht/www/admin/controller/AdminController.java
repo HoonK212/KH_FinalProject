@@ -126,7 +126,7 @@ public class AdminController {
 	
 	
 	
-	//반품 상세
+	//배송내역 조회
 	@RequestMapping(value = "/ordersdetail", method = RequestMethod.GET)
 	@ResponseBody
 	public Object selectOrdersDetail(@RequestParam String o_no, Model model) {
