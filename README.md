@@ -28,7 +28,7 @@
 [![Everything Is AWESOME](https://drive.google.com/file/d/1YEdA2kfopd7Xm5NoV_jGcTBd-vAESnGc/view?usp=sharing)](https://www.youtube.com/watch?v=Kwo-cz8rn2U&list=PLgbeHDZM_xxI_9jEiNFwYJ2vGZoCThY0G )
 -->
 
-## 운동 시연 (이미지 클릭)
+## 운동 시연
   <a href="https://www.youtube.com/watch?v=Kwo-cz8rn2U&list=PLgbeHDZM_xxI_9jEiNFwYJ2vGZoCThY0G">
 <img src="/src/main/webapp/resources/image/youtube.png" alt="Logo" width="600" height="360">
   </a>
