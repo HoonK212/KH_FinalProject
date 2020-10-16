@@ -12,7 +12,7 @@
 <img src="/src/main/webapp/resources/image/logo.png" alt="Logo" width="90" height="90">
   </a>
 
-  <h3 align="center">Daily Home Training</h3>
+  <h3 align="center"><a href="http://ec2-13-58-141-230.us-east-2.compute.amazonaws.com/main">Daily Home Training</a></h3>
 
 
 <p align="center">
