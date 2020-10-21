@@ -118,12 +118,6 @@
   |Development Tools|**Star UML, DRAW IO, ErdColud, Figma, Groom IDE, Eclipse, SQL Developer**|
   |Share Tools|**GitHub, Source Tree, Trello, Slack**|
 
----
-
-
-
-
-
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/HoonK212/KH_FinalProject.svg?style=flat-square
