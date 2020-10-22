@@ -115,7 +115,7 @@
   |Server / DBMS|**AWS (RedHat8) / OracleCloud(19c)**|
   |FrameWork / Platform|**Bootstrap, jQuery, Spring, Mybatis, Tailwind, AlpineJS**|
   |Development Languages|**JAVA, JSP, JavaScript, SQL, HTML, CSS**|
-  |Development Tools|**Star UML, DRAW IO, ErdColud, Figma, Groom IDE, Eclipse, SQL Developer**|
+  |Development Tools|**Star UML, DRAW IO, ErdCloud, Figma, Groom IDE, Eclipse, SQL Developer**|
   |Share Tools|**GitHub, Source Tree, Trello, Slack**|
 
 <!-- MARKDOWN LINKS & IMAGES -->
