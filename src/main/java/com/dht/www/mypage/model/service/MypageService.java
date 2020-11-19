@@ -29,11 +29,9 @@ public interface MypageService {
 
 	public Map<String, Object> selectExerciseGoal(String id);
 
-	public List<String> transformToDOW(String[] daysArr);
-	
 	public Map<Object, Object> selectMyRecord(String id);
 	
-	public List<String> selectSuccessDates(String id);
+	public List<Object> selectSuccessDates(Object userid, List<Object> goalDays, List<Map<String, Object>> goalExcersie);
 	
 	public double selectDeCal(String id);
 	

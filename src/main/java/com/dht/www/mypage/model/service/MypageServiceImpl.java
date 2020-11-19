@@ -1,10 +1,7 @@
 package com.dht.www.mypage.model.service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,251 +90,69 @@ public class MypageServiceImpl implements MypageService {
 		return mypageDao.selectOrderAmountCnt(id);
 	}
 
-	
-	// 목표 설정 가공해서 조회
+	// 설정 목표 조회
 	@Override
 	public Map<String, Object> selectExerciseGoal(String id) {
 		
 		Map<String,Object> commandMap = new HashMap<>();
+		
+		//설정한 목표 조회
 		commandMap = mypageDao.selectExerciseGoal(id);
 		
+		//목표 설정 안한 경우
 		if(commandMap == null) {
 			return null;
 		}
 		
-		
-		//운동을 문자 배열로 치환
-		String ex = (String) commandMap.get("exercises");
-		String[] exArr = ex.split(",");
-		
-		//운동에 번호 대입
-		//List<Map<String,Object>> exMap = mypageDao.selectExercises();
-		List<Map<String,Object>> lm = new ArrayList<>();
+		//목표 운동 데이터 가공
+		List<Map<String,Object>> exList = new ArrayList<>();
+		String[] exArr = ((String) commandMap.get("exercises")).split(",");
 		for(int i=0; i<exArr.length; i++) {
-			Map<String,Object> em = new HashMap<>();
+			
 			int exNo = mypageDao.selectExerciseByName(exArr[i]);
+			Map<String,Object> em = new HashMap<>();
 			em.put("no", exNo);
 			em.put("name", exArr[i]);
-			lm.add(em);
+			
+			exList.add(em);
 		}
 		
-		//요일을 문자 배열로 치환
-		String days = String.valueOf(commandMap.get("days"));
-		String[] daysArr = days.split("");
+		//목표 요일 데이터 가공
+		String[] daysArr = String.valueOf(commandMap.get("days")).split("");
+		List<Object> prcDaysArr = transformToDOW(daysArr);
 		
-		//숫자로 된 요일을 날짜로 치환
-		List<String> domArr = transformToDOW(daysArr);
+		//목표 성공 날짜
+		List<Object> successDates = selectSuccessDates(commandMap.get("id"), prcDaysArr, exList);
+		
+		//목표 성공률
+		int mygoalCnt = prcDaysArr.size();
+		int scdCnt = successDates.size();
+		int scdPercent = (int)( (double)scdCnt/ (double)mygoalCnt * 100.0 );
 		
 		Map<String,Object> result = new HashMap<>();
-		result.put("id", commandMap.get("id"));
-		result.put("days", domArr);
-		result.put("exercises", lm);
+		result.put("days", prcDaysArr);
+		result.put("exercises", exList);
 		result.put("grade", commandMap.get("grade"));
+		result.put("scd", successDates);
+		result.put("scdPercent", scdPercent);
 		
 		return result;
 	}
+		
+	public List<Object> selectSuccessDates(Object userid, 
+			List<Object> goalDays, List<Map<String, Object>> goalExcersie) {
 
-	@Override
-	public List<String> transformToDOW(String[] daysArr) {
+		List<Object> result = new ArrayList<>();
 		
-		List<String> list = new ArrayList<>();
+		for(int i = 0; i < goalDays.size(); i++) {
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
-		//달력 생성 - getInstance가 현재 날짜로 세팅시키나?
-		Calendar cal = Calendar.getInstance();
-		
-		//년,월,일
-		int year = cal.get( cal.YEAR );
-		int month = cal.get ( cal.MONTH ) + 1 ;
-		int date = cal.get ( cal.DATE ) ;
-		
-		
-		//달의 첫째날
-		String firstDay = String.valueOf(year) + "-" + String.valueOf(month) + "-1";
-		
-		
-		//달의 첫째날로 달력 세팅
-		try {
-			cal.setTime(sdf.parse(firstDay));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
-		//달의 첫째날의 요일을 숫자로 치환
-		int dayNo = cal.get(Calendar.DAY_OF_WEEK) ;
-
-		
-		//31일 달(1,3,5,7,8,10,12)
-		if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12 ) {
-			
-			for(int i = 0; i < daysArr.length;  i++ ) {
-				
-				//목표요일을 숫자로 변환
-				int day = Integer.parseInt(daysArr[i]);
-				//목표요일과 달의 첫째날의 차이
-				int gap = day - dayNo;
-				
-				int plus = 1;
-				
-				//차이가 0이상일때 일(date)에 차이만큼 더하기
-				if(gap >= 0) {
-					plus += gap;
-				} //라이가 음수일때 일(date)에 7을 더한 차이만큼 더하기
-				else {
-					plus += gap + 7;
-				}
-				
-				//31일 이하일때까지 날짜(date)에 7을 더하고 그 값을 날짜 문자열 형태에 더한 후 배열에 넣기
-				do {
-					
-					String d = String.valueOf(year) + "-" + String.valueOf(month) + "-";
-					d += String.valueOf(plus);
-					try {
-						Date dt = sdf.parse(d);
-						String da = sdf.format(dt);
-						list.add(da);
-					} catch (ParseException e) {
-						e.printStackTrace();
-					}
-
-					plus += 7;
-				
-				}while(plus <= 31);
-				
-			}
-		
-		//30일 달(4,6,9,11)	
-		}else if(month == 4 || month == 6 || month == 9 || month == 11) {
-			
-			for(int i = 0; i < daysArr.length;  i++ ) {
-				
-				//목표요일을 숫자로 변환
-				int day = Integer.parseInt(daysArr[i]);
-				//목표요일과 달의 첫째날의 차이
-				int gap = day - dayNo;
-				
-				int plus = 1;
-				
-				//차이가 0이상일때 일(date)에 차이만큼 더하기
-				if(gap >= 0) {
-					plus += gap;
-				} //라이가 음수일때 일(date)에 7을 더한 차이만큼 더하기
-				else {
-					plus += gap + 7;
-				}
-				
-				//30일 이하일때까지 날짜(date)에 7을 더하고 그 값을 날짜 문자열 형태에 더한 후 배열에 넣기
-				do {
-					
-					String d = String.valueOf(year) + "-" + String.valueOf(month) + "-";
-					d += String.valueOf(plus);
-					try {
-						Date dt = sdf.parse(d);
-						String da = sdf.format(dt);
-						list.add(da);
-					} catch (ParseException e) {
-						e.printStackTrace();
-					}
-
-					plus += 7;
-				
-				}while(plus <= 30);
-				
-			}
-		
-		//28일 달(2)	
-		}else {
-			
-			for(int i = 0; i < daysArr.length;  i++ ) {
-				
-				//목표요일을 숫자로 변환
-				int day = Integer.parseInt(daysArr[i]);
-				//목표요일과 달의 첫째날의 차이
-				int gap = day - dayNo;
-				
-				int plus = 1;
-				
-				//차이가 0이상일때 일(date)에 차이만큼 더하기
-				if(gap >= 0) {
-					plus += gap;
-				} //라이가 음수일때 일(date)에 7을 더한 차이만큼 더하기
-				else {
-					plus += gap + 7;
-				}
-				
-				//28일 이하일때까지 날짜(date)에 7을 더하고 그 값을 날짜 문자열 형태에 더한 후 배열에 넣기
-				do {
-					
-					String d = String.valueOf(year) + "-" + String.valueOf(month) + "-";
-					d += String.valueOf(plus);
-					try {
-						Date dt = sdf.parse(d);
-						String da = sdf.format(dt);
-						list.add(da);
-					} catch (ParseException e) {
-						e.printStackTrace();
-					}
-
-					plus += 7;
-				
-				}while(plus <= 28);
-				
-			}
-			
-		}
-		
-		return list;
-	}
-	
-	@Override
-	public List<String> selectSuccessDates(String id) {
-		
-		Map<String,Object> commandMap = new HashMap<>();
-		commandMap = mypageDao.selectExerciseGoal(id);
-		
-		if(commandMap == null) {
-			return null;
-		}
-		
-		
-		//운동을 문자 배열로 치환
-		String ex = (String) commandMap.get("exercises");
-		String[] exArr = ex.split(",");
-		
-		//운동에 번호 대입
-		//List<Map<String,Object>> exMap = mypageDao.selectExercises();
-		List<Map<String,Object>> lm = new ArrayList<>();
-		for(int i=0; i<exArr.length; i++) {
-			Map<String,Object> em = new HashMap<>();
-			int exNo = mypageDao.selectExerciseByName(exArr[i]);
-			em.put("no", exNo);
-			em.put("name", exArr[i]);
-			lm.add(em);
-		}
-		
-		//요일을 문자 배열로 치환
-		String days = String.valueOf(commandMap.get("days"));
-		String[] daysArr = days.split("");
-		
-		//숫자로 된 요일을 날짜로 치환
-		List<String> domArr = transformToDOW(daysArr);
-		
-		
-		//최종 반환 객체
-		List<String> result = new ArrayList<>();
-		
-		//각 날짜마다 조회
-		for(int i = 0; i < domArr.size(); i++) {
-			//기록 갯수
 			int successCnt = 0;
-			//각 목표 운동 마다 조회
-			for(int k = 0; k < lm.size(); k++) {
+			for(int k = 0; k < goalExcersie.size(); k++) {
 				
 				Map<String,Object> param = new HashMap<>();
-				param.put("ex_no", lm.get(k).get("no"));
-				param.put("dates", domArr.get(i));
-				param.put("id", id);
+				param.put("ex_no", goalExcersie.get(k).get("no"));
+				param.put("dates", goalDays.get(i));
+				param.put("id", userid);
 				
 				//각 날짜에 해당 운동의 기록이 있는지 조회
 				int cnt = mypageDao.selectSuccessDate(param);
@@ -347,40 +162,96 @@ public class MypageServiceImpl implements MypageService {
 				}
 			}
 			//각 목표 운동마다 조회한 후 기록갯수와 목표 운동갯수가 일치하면 해당 날짜 저장
-			if(successCnt == lm.size()) {
-				result.add(domArr.get(i));
+			if(successCnt == goalExcersie.size()) {
+				result.add(goalDays.get(i));
 			}
 		}
-		
 		return result;
 	}
-	
-	
+
 	@Override
 	public double selectDeCal(String id) {
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
-		//달력 생성 - getInstance가 현재 날짜로 세팅시키나?
-		Calendar cal = Calendar.getInstance();
-		
-		//년,월,일
-		int year = cal.get( cal.YEAR );
-		int month = cal.get ( cal.MONTH ) + 1 ;
-		int lastday = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-
-		String start = String.valueOf(year) + "-" + String.valueOf(month) + "-1";
-		String end = String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.valueOf(lastday);
-		
-		
+	
 		Map<String,Object> param = new HashMap<>();
-		
+	
 		param.put("id", id);
-		param.put("start", start);
-		param.put("end", end);
-		
+		param.put("start", firstDate);
+		param.put("end", today);
+	
 		return mypageDao.selectDeCal(param);
 	}
+
+	@Override
+	public Map<Object, Object> selectMyRecord(String id) {
+	
+		Map<Object,Object> commandMap = new HashMap<>();
+	
+		List<Map<String,Object>> mrd = mypageDao.selectMyRecordDates(id);
+	
+		if(mrd == null) {
+			return null;
+		}
+
+		for( int i=0; i < mrd.size(); i++ ) {
+		
+			Map<String,Object> mp = new HashMap<>();
+		
+			mp.put("dates", mrd.get(i).get("dates"));
+		
+			Map<String,Object> param = new HashMap<>();
+			param.put("id", id);
+			param.put("date", String.valueOf(mrd.get(i).get("dates")));
+			List<Map<String,Object>> lm = mypageDao.selectMyRecordByDate(param);
+		
+			commandMap.put(mp, lm);
+		}
+		
+		System.out.println(commandMap);
+		
+		return commandMap;
+	}
+
+	static LocalDate today = LocalDate.now();
+	static LocalDate firstDate = LocalDate.of(today.getYear(), today.getMonth(), 1);
+	static int firstDayOfWeek = firstDate.getDayOfWeek().getValue();
+	static int lastday;
+	static int month = today.getMonthValue();
+	static{
+		if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12 ) { 
+			lastday = 31; 
+		}else if(month == 4 || month == 6 || month == 9 || month == 11) { 
+			lastday = 30; 
+		}else if(!today.isLeapYear()) { 
+			lastday = 28; 
+		}else { 
+			lastday = 29; 
+		}
+	}
+
+	public static List<Object> transformToDOW(String[] daysArr) {
+	
+		List<Object> list = new ArrayList<>();
+		
+		int goalDay;
+		for(int i = 0; i < daysArr.length;  i++ ) {
+			int gap = Integer.parseInt(daysArr[i]) - firstDayOfWeek;
+			if(gap >= 0) {
+				goalDay = 1 + gap;
+			}else {
+				goalDay = 1 + gap + 7;
+			}
+			do {
+				list.add( LocalDate.of(today.getYear(), today.getMonth(), goalDay) );
+				goalDay += 7;
+			}while(goalDay <= lastday);
+		};
+		return list;
+	}
+
+
+	
+	
+	
 	
 	//------------ 세민 ------------
 	
@@ -627,38 +498,6 @@ public class MypageServiceImpl implements MypageService {
 	      }
 	      
 	   }
-
-	@Override
-	public Map<Object, Object> selectMyRecord(String id) {
-		
-		//최종 반환할 Map 생성 
-		Map<Object,Object> commandMap = new HashMap<>();
-		
-		List<Map<String,Object>> mrd = mypageDao.selectMyRecordDates(id);
-		
-		if(mrd == null) {
-			return null;
-		}
-		
-		
-		for( int i=0; i < mrd.size(); i++ ) {
-			
-			Map<String,Object> mp = new HashMap<>();
-			
-			mp.put("dates", mrd.get(i).get("dates"));
-			
-			
-			Map<String,Object> param = new HashMap<>();
-			param.put("id", id);
-			param.put("date", String.valueOf(mrd.get(i).get("dates")));
-			List<Map<String,Object>> lm = mypageDao.selectMyRecordByDate(param);
-			
-			commandMap.put(mp, lm);
-		}
-		
-		
-		return commandMap;
-	}
 
 
 }

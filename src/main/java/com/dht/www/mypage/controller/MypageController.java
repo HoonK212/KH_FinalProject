@@ -79,33 +79,29 @@ public class MypageController {
    // 마이페이지 메인으로 이동
    @RequestMapping(value = "/mymain", method = RequestMethod.GET)
    public String myMain(HttpSession session, Model model) {
-	   
+	 
+	 //회원정보 세션 저장  
 	 Files pic = (Files) session.getAttribute("logInPic");
 	 Users user = (Users) session.getAttribute("logInInfo");
 	 
+	 //목표운동 조회
 	 Map<String,Object> mygoal =  mypageService.selectExerciseGoal(user.getId());
+	 //운동기록 조회
 	 Map<Object,Object> myrecord = mypageService.selectMyRecord(user.getId());
-	 List<String> successDate = mypageService.selectSuccessDates(user.getId());
+	 //감량 칼로리 조회
 	 double decal = mypageService.selectDeCal(user.getId());
-	 
-	 int mygoalCnt = 0;
-	 int successCnt = 0;
-	 double successPercent = 0;
-	 //목표 요일 갯수
-	 if(mygoal != null && successDate != null) {
-		 mygoalCnt = ((List) mygoal.get("days")).size();
-		 //성공 요일 갯수
-		 successCnt = successDate.size();
-		 //목표 성공률
-		 successPercent = (int)( (double)successCnt/ (double)mygoalCnt * 100.0 );
-	 }
 
 	 model.addAttribute("pic", pic);
 	 model.addAttribute("user", user);
 	 model.addAttribute("mygoal", mygoal);
 	 model.addAttribute("myrecord", myrecord);
-	 model.addAttribute("successDate", successDate);
-	 model.addAttribute("successPercent", successPercent);
+	 if(mygoal != null) {
+		 model.addAttribute("successDate", mygoal.get("scd"));
+		 model.addAttribute("successPercent", mygoal.get("scdPercent"));
+	 }else {
+		 model.addAttribute("successDate", null);
+		 model.addAttribute("successPercent", 0);
+	 }
 	 model.addAttribute("decal", decal);
 	   
       return "mypage/myMain";
