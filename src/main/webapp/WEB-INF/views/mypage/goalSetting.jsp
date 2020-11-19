@@ -865,19 +865,19 @@ body {
         <div class="mutliSelect">
             <ul id="fonttt">
                 <li>
-                    <input type="checkbox" name="days" value="1" />일</li>
+                    <input type="checkbox" name="days" value="7" />일</li>
                 <li>
-                    <input type="checkbox" name="days" value="2" />월</li>
+                    <input type="checkbox" name="days" value="1" />월</li>
                 <li>
-                    <input type="checkbox" name="days" value="3" />화</li>
+                    <input type="checkbox" name="days" value="2" />화</li>
                 <li>
-                    <input type="checkbox" name="days" value="4" />수</li>
+                    <input type="checkbox" name="days" value="3" />수</li>
                 <li>
-                    <input type="checkbox" name="days" value="5" />목</li>
+                    <input type="checkbox" name="days" value="4" />목</li>
                 <li>
-                    <input type="checkbox" name="days" value="6" />금</li>
+                    <input type="checkbox" name="days" value="5" />금</li>
                 <li>
-                    <input type="checkbox" name="days" value="7" />토</li>
+                    <input type="checkbox" name="days" value="6" />토</li>
             </ul>
         </div>
     </dd>
